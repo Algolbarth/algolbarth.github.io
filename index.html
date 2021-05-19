@@ -1,0 +1,67 @@
+<!--
+@Author: Ayoub KARINE
+@Company: ISEN Yncréa Ouest
+@Email: ayoub.karine@isen-ouest.yncrea.fr
+@Created Date: 21-Apr-2021 - 12:13:30
+@Last Modified: 21-Apr-2021 - 20:00:52
+-->
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8">
+    <title> index </title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+  </head>
+  <body>
+    <br>
+    <div class="container">
+      <div class="row">
+        <h1>Geolocation API</h1>
+        <div class="col-3">
+          <button type="button" class="btn btn-primary" id="latitude" onclick="afficher_latitude()">Afficher la latitude de ma position</button>
+        </div>
+        <div class="col-3">
+          <button type="button" class="btn btn-primary" id="longitude" onclick="afficher_longitude()">Afficher la longitude de ma position</button> <br>
+        </div>
+      </div>
+      <br>
+      <div class="row">
+        <div class="col-3">
+          <h5><span class="badge bg-secondary" id="lat">?</span></h5>
+        </div>
+        <div class="col-3">
+          <h5><span class="badge bg-secondary" id="long">?</span></h5>
+        </div>
+      </div>
+      <div class="row">
+        <h1>Web History API</h1>
+        <div class="col-3">
+          <input type="text" class="form-control" placeholder="Entrez le nombre de page" aria-label="Username" aria-describedby="basic-addon1" id="nbpages">
+        </div>
+        <div class="col-3">
+          <button type="button" class="btn btn-primary" id="reculer" onclick="reculer_historique()">Reculer</button>
+        </div>
+      </div> <br>
+      <div class="row">
+        <h1>Clipboard API</h1>
+        <div class="col-3">
+          <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" id="textecopie">
+        </div>
+        <div class="col-3">
+          <button type="button" class="btn btn-primary" id="copier" onclick="copier()">Copier</button>
+        </div>
+      </div>
+      <br>
+      <div class="row">
+        <div class="col-3">
+          <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" id="textecolle">
+        </div>
+        <div class="col-3">
+          <button type="button" class="btn btn-primary" id="coller" onclick="coller()">Coller</button>
+        </div>
+      </div>
+      <br>
+    </div>
+    <script src="apinavigateur.js"></script>
+  </body>
+</html>
