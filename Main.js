@@ -36,6 +36,14 @@ function menu () {
             saut(1);
         }
     }
+    if (piece.monstres.length > 0) {
+        afficher("Monstres :");
+        saut(1);
+        for (let n=0;n<piece.monstres.length;n++) {
+            fonction(obtenir_monstre(piece.monstres[n]).nom,"nouveau_combat(" + n + ")");
+            saut(1);
+        }
+    }
     actualiser();
 }
 
@@ -57,7 +65,7 @@ function parler (pnj_id,dialogue_id) {
 
 function achat (objet_id,pnj_id,dialogue_id) {
     let objet = obtenir_objet(objet_id);
-    afficher(objet.nom + " : " + objet.description);
+    afficher(objet.nom + " : <i>" + objet.description + "</i>");
     if (objet_verifier(objet_id)) {
         afficher(" (Vous en avez " + Jeu.inventaire[objet_trouver(objet_id)].nombre + ")")
     }
@@ -87,7 +95,7 @@ function objet_ajouter (objet_id,nombre) {
         Jeu.inventaire[objet_trouver(objet_id)].nombre += nombre;
     }
     else {
-        Jeu.inventaire.push(obtenir_objet(objet_id));
+        Jeu.inventaire.push(obtenir_objet(objet_id,nombre));
     }
 }
 
@@ -121,7 +129,7 @@ function inventaire () {
     saut(2);
     if (Jeu.inventaire.length > 0) {
         for (let n=0;n<Jeu.inventaire.length;n++) {
-            afficher(Jeu.inventaire[n].nombre + " x " + Jeu.inventaire[n].nom + " : " + Jeu.inventaire[n].description);
+            afficher(Jeu.inventaire[n].nombre + " x " + Jeu.inventaire[n].nom + " : <i>" + Jeu.inventaire[n].description + "</i>");
             if (Jeu.inventaire[n].be_use == true) {
                 afficher(", ");
                 fonction("Utiliser","Jeu.inventaire[" + n + "].use(" + n + ",1)");
@@ -182,7 +190,10 @@ function ajouter_personnage () {
             attaque : 50,
             defense : 25,
             vitesse : 50,
+            atb : 0,
         },
+        sorts : [],
+        ennemi : false,
     }
     for (let n=0;n<Jeu.equipement.length;n++) {
         let vide = {
@@ -191,6 +202,25 @@ function ajouter_personnage () {
         }
         personnage.equipement.push(vide);
     }
+    let sort = {
+        nom : "Attaque",
+        use : function () {
+            n = 0;
+            while (!Jeu.combat.liste[n].ennemi) {
+                n++;
+            }
+            let degats = personnage.statistiques.attaque - Jeu.combat.liste[n].statistiques.defense;
+            if (degats <= 0) {
+                degats = 1;
+            }
+            Jeu.combat.liste[n].statistiques.vie -= degats;
+            Jeu.combat.resultat = personnage.nom + " attaque et inflige " + degats + " dégats";
+            if (Jeu.combat.liste[n].statistiques.vie <= 0) {
+                Jeu.combat.liste[n].mort = true;
+            }
+        }
+    }
+    personnage.sorts.push(sort);
     Jeu.equipe.push(personnage);
 }
 
@@ -231,4 +261,147 @@ function soin (montant,joueur_id) {
     if (Jeu.equipe[joueur_id].statistiques.vie > Jeu.equipe[joueur_id].statistiques.vie_max) {
         Jeu.equipe[joueur_id].statistiques.vie = Jeu.equipe[joueur_id].statistiques.vie_max;
     }
+}
+
+function nouveau_combat (monstre_id) {
+    Jeu.combat.liste.push(obtenir_monstre(Jeu.zones[Jeu.emplacement.zone].batiments[Jeu.emplacement.batiment].pieces[Jeu.emplacement.piece].monstres[monstre_id]));
+    for (let n=0;n<Jeu.equipe.length;n++) {
+        Jeu.combat.liste.push(Jeu.equipe[n]);
+    }
+    continuer_combat();
+}
+
+function continuer_combat () {
+    if (defaite()) {
+        mort();
+    }
+    else if (victoire()) {
+        fin_combat();
+    } 
+    else {
+        for (let n=0;n<Jeu.combat.liste.length;n++) {
+            Jeu.combat.liste[n].statistiques.atb += Jeu.combat.liste[n].statistiques.vitesse;
+        }
+        for (let n=0;n<Jeu.combat.liste.length;n++) {
+            let i = n;
+            while (i > 0 && Jeu.combat.liste[i].statistiques.atb > Jeu.combat.liste[i-1].statistiques.atb) {
+                let transition = Jeu.combat.liste[i];
+                Jeu.combat.liste[i] = Jeu.combat.liste[i-1];
+                Jeu.combat.liste[i-1] = transition;
+            }
+        }
+        if (Jeu.combat.liste[0].statistiques.atb >= 100) {
+            Jeu.combat.liste[0].statistiques.atb -= 100;
+            if (Jeu.combat.liste[0].ennemi) {
+                Jeu.combat.liste[0].tour();
+                resultat_combat();
+            }
+            else {
+                choix_combat();
+            }
+        }
+        else {
+            continuer_combat();
+        }
+    }
+}
+
+function resultat_combat () {
+    initialiser();
+    afficher_combat();
+    saut(1);
+    afficher(Jeu.combat.resultat);
+    saut(2);
+    fonction("Suivant","continuer_combat()");
+    actualiser();
+}
+
+function afficher_combat () {
+    afficher("Adversaires :");
+    saut(1);
+    for (let n=0;n<Jeu.combat.liste.length;n++) {
+        if (Jeu.combat.liste[n].ennemi) {
+            afficher(Jeu.combat.liste[n].nom);
+            if (Jeu.combat.liste[n].mort) {
+                afficher(" <i>mort</i>");
+            }
+            saut(1);
+        }
+    }
+    saut(1);
+    afficher("Alliés :");
+    saut(1);
+    for (let n=0;n<Jeu.combat.liste.length;n++) {
+        if (!Jeu.combat.liste[n].ennemi) {
+            afficher(Jeu.combat.liste[n].nom + " : " + Jeu.combat.liste[n].statistiques.vie + " / " + Jeu.combat.liste[n].statistiques.vie_max);
+            saut(1);
+        }
+    }
+}
+
+function choix_combat () {
+    initialiser();
+    afficher_combat();
+    saut(1);
+    for (let n=0;n<Jeu.combat.liste[0].sorts.length;n++) {
+        fonction(Jeu.combat.liste[0].sorts[n].nom,"Jeu.combat.liste[0].sorts[" + n + "].use();resultat_combat()");
+    }
+    saut(1);
+    fonction("Passer son tour","continuer_combat()");
+    actualiser();
+}
+
+function fin_combat () {
+    initialiser();
+    for (let n=0;n<Jeu.combat.liste.length;n++) {
+        if (Jeu.combat.liste[n].ennemi) {
+            afficher(Jeu.combat.liste[n].nom);
+            if (Jeu.combat.liste[n].or > 0) {
+                afficher(" + " + Jeu.combat.liste[n].or + " Or");
+                Jeu.or += Jeu.combat.liste[n].or;
+            }
+            for (let i=0;i<Jeu.combat.liste[n].loots.length;i++) {
+                if (Jeu.combat.liste[n].loots[i].taux > Math.random()*100) {
+                    afficher(" + 1 " + obtenir_objet(Jeu.combat.liste[n].loots[i].id).nom);
+                    objet_ajouter(10,1);
+                }
+            }
+            saut(1);
+        }
+    }
+    saut(1);
+    Jeu.combat = {
+        liste : [],
+        resultat : "",
+    }
+    fonction("Terminé","menu()");
+    actualiser();
+}
+
+function victoire () {
+    for (let n=0;n<Jeu.combat.liste.length;n++) {
+        if (Jeu.combat.liste[n].ennemi && !Jeu.combat.liste[n].mort) {
+            return false;
+        }
+    }
+    return true;
+}
+
+function defaite () {
+    for (let n=0;n<Jeu.combat.liste.length;n++) {
+        if (!Jeu.combat.liste[n].ennemi && !Jeu.combat.liste[n].mort) {
+            return false;
+        }
+    }
+    return true;
+}
+
+function mort () {
+    initialiser();
+    Jeu.emplacement = Jeu.spawn;
+    for (let n=0;n<Jeu.equipe.length;n++) {
+        Jeu.equipe[n].statistiques.vie = Jeu.equipe[n].statistiques.vie_max;
+    }
+    fonction("Revivre","menu();");
+    actualiser();
 }

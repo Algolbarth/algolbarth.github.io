@@ -1,0 +1,16 @@
+html
+{
+    height:99%;
+    width:100%;
+    overflow:hidden;
+	word-wrap:break-word;
+}
+
+body
+{
+    height:99%;
+    width:100%;
+    overflow:auto;
+    padding-right:15px;
+    font-size:120%;
+}
