@@ -1,0 +1,170 @@
+html
+{
+    height:99%;
+    width:100%;
+    overflow:hidden;
+}
+
+body
+{
+    height:99%;
+    width:100%;
+    background:rgb(15, 15, 15);
+    color:rgb(235, 229, 229);
+    cursor: url("Picture/Select.cur"), default;
+    overflow:auto;
+    padding-right:15px;
+    font-size:110%;
+}
+
+a
+{
+    color:rgb(153, 131, 4);
+    text-decoration:none;
+    cursor: url("Picture/Hand.cur"), pointer;
+}
+
+a:hover
+{
+    color:rgb(116, 4, 4);
+}
+
+th
+{
+    border:solid;
+    border-width:1px;
+    border-color:grey;
+    background:grey;
+}
+
+td
+{
+    border:solid;
+    border-width:1px;
+    border-color:grey;
+}
+
+input
+{
+    background:rgb(15, 15, 15);
+    color:rgb(235, 229, 229);
+    font-size:100%;
+    border:solid;
+    border-width:3px;
+    border-color:rgb(15, 15, 15) rgb(15, 15, 15) rgb(153, 131, 4) rgb(15, 15, 15);
+}
+
+.Map
+{
+    width:90%;
+}
+
+.Minimap
+{
+    width:50%;
+}
+
+.map
+{
+    border:none;
+    width:3%;
+    background:rgb(131, 103, 44);
+    text-align:center;
+}
+
+.undefined_map
+{
+    border:none;
+    width:3%;
+    background:rgb(99, 81, 42);
+    text-align:center;
+}
+
+.border_map
+{
+    border:solid;
+    border-color:rgb(53, 53, 53);
+    width:3%;
+    background:rgb(99, 81, 42);
+    text-align:center;
+}
+
+.minimap
+{
+    border:none;
+    width:7%;
+    background:rgb(131, 103, 44);
+    text-align:center;
+}
+
+.undefined_minimap
+{
+    border:none;
+    width:7%;
+    background:rgb(99, 81, 42);
+    text-align:center;
+}
+
+.border_minimap
+{
+    border:solid;
+    border-color:rgb(53, 53, 53);
+    width:7%;
+    background:rgb(99, 81, 42);
+    text-align:center;
+}
+
+.icon
+{
+    width:2%;
+    height:2%;
+}
+
+.flex
+{
+    display:flex;
+}
+
+.progress
+{
+    display:flex;
+    background:grey;
+    width:10%;
+    border:solid;
+    border-color:rgb(15, 15, 15);
+}
+
+.xp
+{
+    background:cyan;
+}
+
+.life
+{
+    background:green;
+}
+
+.stamina
+{
+    background:orange;
+}
+
+.mana
+{
+    background:blue;
+}
+
+.concentration
+{
+    background:green;
+}
+
+.action
+{
+    background:red;
+}
+
+.stockage
+{
+    background:yellow;
+}
