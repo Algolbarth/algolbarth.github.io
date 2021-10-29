@@ -119,7 +119,12 @@ function liste_personnage (pnj_id,dialogue_id) {
 	for (let n=0;n<Jeu.equipe.length;n++) {
 		fonction(Jeu.equipe[n].nom,"voir_personnage(" + pnj_id + "," + dialogue_id + "," + '"equipe"' + "," + n + ")");
 		afficher(" ");
-		fonction("Déposer","deposer_personnage(" + pnj_id + "," + dialogue_id + "," + n + ")");
+        if (Jeu.equipe[n].mort) {
+            afficher("<i>mort</i>");
+        }
+        else if (verifier_equipe_vivant(n)) {
+            fonction("Déposer","deposer_personnage(" + pnj_id + "," + dialogue_id + "," + n + ")");
+        }
 		saut(1);
 	}
 	saut(1);
@@ -208,6 +213,15 @@ function voir_personnage (pnj_id,dialogue_id,stockage,joueur_id) {
         saut(1);
     }
 	actualiser();
+}
+
+function verifier_equipe_vivant (joueur_slot) {
+    for (let n=0;n<Jeu.equipe.length;n++) {
+        if (n != joueur_slot && !Jeu.equipe[n].mort) {
+            return true;
+        }
+    }
+    return false;
 }
 
 function verifier_sort (sort_id,personnage) {

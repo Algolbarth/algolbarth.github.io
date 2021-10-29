@@ -183,10 +183,10 @@ function defaite () {
 
 function mort (slot) {
     Jeu.combat.liste[slot].mort = true;
-    Jeu.combat.liste[slot].vie = 0;
-    Jeu.combat.liste[slot].mana = 0;
-    Jeu.combat.liste[slot].atb = 0;
-    Jeu.combat.liste[slot].action = 0;
+    Jeu.combat.liste[slot].statistiques.vie = 0;
+    Jeu.combat.liste[slot].statistiques.mana = 0;
+    Jeu.combat.liste[slot].statistiques.atb = 0;
+    Jeu.combat.liste[slot].statistiques.action = 0;
 
 }
 
