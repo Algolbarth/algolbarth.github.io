@@ -1,5 +1,70 @@
 function nouvelle_partie () {
-    Jeu.or += 100;
+    Jeu = {
+        emplacement : {
+            zone : 0,
+            batiment : 0,
+            piece : 0,
+        },
+        spawn : {
+            zone : 0,
+            batiment : 3,
+            piece : 1,
+        },
+        zones : [],
+        inventaire : [],
+        or : 100,
+        equipe : [],
+        reserve : [],
+        banque : {
+            or : 0,
+            inventaire : [],
+        },
+        equipement : [
+            "Main principale",
+            "Main secondaire",
+            "Tête",
+            "Buste",
+            "Mains",
+            "Jambes",
+            "Pieds",
+            "Accessoire",
+        ],
+        statistiques : [
+            "vie_max",
+            "mana_max",
+            "attaque_mel",
+            "defense_mel",
+            "attaque_dis",
+            "defense_dis",
+            "attaque_mag",
+            "defense_mag",
+            "force",
+            "agilite",
+            "intelligence",
+            "vitesse",
+            "action_max",
+        ],
+        statistiques_nom : [
+            "Vie",
+            "Mana",
+            "Attaque en mêlée",
+            "Défense en mêlée",
+            "Attaque à distance",
+            "Défense à distance",
+            "Attaque magique",
+            "Défense magique",
+            "Force",
+            "Agilité",
+            "Intelligence",
+            "Vitesse",
+            "Action",
+        ],
+        combat : {
+            liste : [],
+            resultat : "",
+        }
+    }
+    initialiser_zones();
     premier_personnage();
 }
 
@@ -15,6 +80,9 @@ function premier_personnage_creer () {
     let nom = document.getElementById("nom").value;
     if (nom != "") {
         Jeu.equipe.push(obtenir_personnage(nom));
+        Jeu.equipe.push(obtenir_personnage("Jean"));
+        Jeu.equipe.push(obtenir_personnage("Philippe"));
+        Jeu.equipe.push(obtenir_personnage("Karine"));
         menu();
     }
 }

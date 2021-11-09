@@ -32,9 +32,23 @@ function personnage_voir (joueur_slot) {
     saut(1);
     afficher("Mana : " + joueur.statistiques.mana + " / " + joueur.statistiques.mana_max);
     saut(1);
-    afficher("Attaque : " + joueur.statistiques.attaque);
+    afficher("Attaque en mêlée : " + joueur.statistiques.attaque_mel);
     saut(1);
-    afficher("Défense : " + joueur.statistiques.defense);
+    afficher("Défense en mêlée : " + joueur.statistiques.defense_mel);
+    saut(1);
+    afficher("Attaque à distance : " + joueur.statistiques.attaque_dis);
+    saut(1);
+    afficher("Défense à distance : " + joueur.statistiques.defense_dis);
+    saut(1);
+    afficher("Attaque magique : " + joueur.statistiques.attaque_mag);
+    saut(1);
+    afficher("Défense magique : " + joueur.statistiques.defense_mag);
+    saut(1);
+    afficher("Force : " + joueur.statistiques.force);
+    saut(1);
+    afficher("Agilité : " + joueur.statistiques.agilite);
+    saut(1);
+    afficher("Intelligence : " + joueur.statistiques.intelligence);
     saut(1);
     afficher("Vitesse : " + joueur.statistiques.vitesse);
     saut(1);
@@ -70,7 +84,10 @@ function voir_equipement (joueur_slot,equipement_slot) {
     if (objet.equip) {
         afficher(" (" + Jeu.equipement[objet.equip_slot] + ")");
     }
-    afficher(" : " + objet.effet + " <i>");
+    saut(1);
+    objet.effet();
+    saut(2);
+    afficher("<i>");
     objet.description();
     afficher("</i>");
     actualiser();
@@ -87,9 +104,16 @@ function obtenir_personnage (nom) {
             vie_max : 100,
             mana : 100,
             mana_max : 100,
-            attaque : 25,
-            defense : 10,
+            attaque_mel : 10,
+            defense_mel : 10,
+            attaque_dis : 10,
+            defense_dis : 10,
+            attaque_mag : 10,
+            defense_mag : 10,
             vitesse : 50,
+            force : 15,
+            agilite : 15,
+            intelligence : 15,
             atb : 0,
             action : 6,
             action_max : 6,
@@ -107,6 +131,7 @@ function obtenir_personnage (nom) {
     personnage.sorts.push(obtenir_sort(1,personnage));
     personnage.sorts.push(obtenir_sort(2,personnage));
     personnage.sorts.push(obtenir_sort(3,personnage));
+    personnage.sorts.push(obtenir_sort(4,personnage));
 	return personnage;
 }
 
@@ -178,8 +203,8 @@ function deposer_personnage (pnj_id,dialogue_id,joueur_id) {
 	}
 }
 
-function voir_personnage (pnj_id,dialogue_id,stockage,joueur_id) {
-	let joueur = Jeu[stockage][joueur_id];
+function voir_personnage (pnj_id,dialogue_id,stockage,joueur_slot) {
+	let joueur = Jeu[stockage][joueur_slot];
 	initialiser();
 	fonction("Retour","liste_personnage(" + pnj_id + "," + dialogue_id + ")");
 	saut(2);
@@ -194,9 +219,23 @@ function voir_personnage (pnj_id,dialogue_id,stockage,joueur_id) {
     saut(1);
     afficher("Mana : " + joueur.statistiques.mana + " / " + joueur.statistiques.mana_max);
     saut(1);
-    afficher("Attaque : " + joueur.statistiques.attaque);
+    afficher("Attaque en mêlée: " + joueur.statistiques.attaque_mel);
     saut(1);
-    afficher("Défense : " + joueur.statistiques.defense);
+    afficher("Défense en mêlée : " + joueur.statistiques.defense_mel);
+    saut(1);
+    afficher("Attaque à distance : " + joueur.statistiques.attaque_dis);
+    saut(1);
+    afficher("Défense à distance : " + joueur.statistiques.defense_dis);
+    saut(1);
+    afficher("Attaque magique : " + joueur.statistiques.attaque_mag);
+    saut(1);
+    afficher("Défense magique : " + joueur.statistiques.defense_mag);
+    saut(1);
+    afficher("Force : " + joueur.statistiques.force);
+    saut(1);
+    afficher("Agilité : " + joueur.statistiques.agilite);
+    saut(1);
+    afficher("Intelligence : " + joueur.statistiques.intelligence);
     saut(1);
     afficher("Vitesse : " + joueur.statistiques.vitesse);
     saut(1);
