@@ -80,9 +80,6 @@ function premier_personnage_creer () {
     let nom = document.getElementById("nom").value;
     if (nom != "") {
         Jeu.equipe.push(obtenir_personnage(nom));
-        Jeu.equipe.push(obtenir_personnage("Jean"));
-        Jeu.equipe.push(obtenir_personnage("Philippe"));
-        Jeu.equipe.push(obtenir_personnage("Karine"));
         menu();
     }
 }
