@@ -169,22 +169,7 @@ function initialiser_zones () {
                         saut(2);
                         afficher("Vous avez " + Jeu.or + " or");
                         saut(2);
-                        achat(1,pnj_id,dialogue_id);
-                        achat(2,pnj_id,dialogue_id);
-                        achat(16,pnj_id,dialogue_id);
-                        achat(17,pnj_id,dialogue_id);
-                        achat(3,pnj_id,dialogue_id);
-                        achat(4,pnj_id,dialogue_id);
-                        achat(5,pnj_id,dialogue_id);
-                        achat(6,pnj_id,dialogue_id);
-                        achat(7,pnj_id,dialogue_id);
-                        achat(8,pnj_id,dialogue_id);
-                        achat(9,pnj_id,dialogue_id);
-                        achat(11,pnj_id,dialogue_id);
-                        achat(12,pnj_id,dialogue_id);
-                        achat(13,pnj_id,dialogue_id);
-                        achat(14,pnj_id,dialogue_id);
-                        achat(15,pnj_id,dialogue_id);
+                        liste_achat([1,2,16,17,3,4,18,23,5,19,24,6,20,25,7,21,26,8,22,27,9,11,12,13,14,15],pnj_id,dialogue_id);
                         saut(1);
                         fonction("Merci","parler(0,0)");
                     }

@@ -72,6 +72,12 @@ function objet_voir (objet_slot) {
     actualiser();
 }
 
+function liste_achat (liste,pnj_id,dialogue_id) {
+    for (let n=0;n<liste.length;n++) {
+        achat(liste[n],pnj_id,dialogue_id);
+    }
+}
+
 function achat (objet_id,pnj_id,dialogue_id) {
     let objet = obtenir_objet(objet_id);
     fonction("<b>" + objet.nom + "</b>","voir_achat(" + objet_id + "," + pnj_id + "," + dialogue_id +")");
@@ -470,6 +476,136 @@ function obtenir_objet (objet_id,nombre) {
             }
             objet.equip = true;
             objet.statistiques.attaque_mag = 10;
+            objet.statistiques.intelligence = 5;
+            objet.effet = function () {
+                objet_stat(objet);
+            }
+            break;
+        case 18:
+            objet.nom = "Casque en cuir";
+            objet.description = function () {
+                afficher("Un simple casque.");
+            }
+            objet.equip = true;
+            objet.equip_slot = 2;
+            objet.statistiques.vie_max = 20;
+            objet.statistiques.agilite = 5;
+            objet.effet = function () {
+                objet_stat(objet);
+            }
+            break;
+        case 19:
+            objet.nom = "Veste en cuir";
+            objet.description = function () {
+                afficher("Une simple veste.");
+            }
+            objet.equip = true;
+            objet.equip_slot = 3;
+            objet.statistiques.vie_max = 20;
+            objet.statistiques.agilite = 5;
+            objet.effet = function () {
+                objet_stat(objet);
+            }
+            break;
+        case 20:
+            objet.nom = "Gants en cuir";
+            objet.description = function () {
+                afficher("De simples gants.");
+            }
+            objet.equip = true;
+            objet.equip_slot = 4;
+            objet.statistiques.vie_max = 20;
+            objet.statistiques.agilite = 5;
+            objet.effet = function () {
+                objet_stat(objet);
+            }
+            break;
+        case 21:
+            objet.nom = "Pantalon en cuir";
+            objet.description = function () {
+                afficher("Un simple pantalon.");
+            }
+            objet.equip = true;
+            objet.equip_slot = 5;
+            objet.statistiques.vie_max = 20;
+            objet.statistiques.agilite = 5;
+            objet.effet = function () {
+                objet_stat(objet);
+            }
+            break;
+        case 22:
+            objet.nom = "Bottes de cuir";
+            objet.description = function () {
+                afficher("De simples bottes.");
+            }
+            objet.equip = true;
+            objet.equip_slot = 6;
+            objet.statistiques.vie_max = 20;
+            objet.statistiques.agilite = 5;
+            objet.effet = function () {
+                objet_stat(objet);
+            }
+            break;
+        case 23:
+            objet.nom = "Chapeau en tissu";
+            objet.description = function () {
+                afficher("Un simple chapeau.");
+            }
+            objet.equip = true;
+            objet.equip_slot = 2;
+            objet.statistiques.vie_max = 20;
+            objet.statistiques.intelligence = 5;
+            objet.effet = function () {
+                objet_stat(objet);
+            }
+            break;
+        case 24:
+            objet.nom = "Robe en tissu";
+            objet.description = function () {
+                afficher("Une simple robe.");
+            }
+            objet.equip = true;
+            objet.equip_slot = 3;
+            objet.statistiques.vie_max = 20;
+            objet.statistiques.intelligence = 5;
+            objet.effet = function () {
+                objet_stat(objet);
+            }
+            break;
+        case 25:
+            objet.nom = "Gants en tissu";
+            objet.description = function () {
+                afficher("De simples gants.");
+            }
+            objet.equip = true;
+            objet.equip_slot = 4;
+            objet.statistiques.vie_max = 20;
+            objet.statistiques.intelligence = 5;
+            objet.effet = function () {
+                objet_stat(objet);
+            }
+            break;
+        case 26:
+            objet.nom = "Jupe en tissu";
+            objet.description = function () {
+                afficher("Une simple jupe.");
+            }
+            objet.equip = true;
+            objet.equip_slot = 5;
+            objet.statistiques.vie_max = 20;
+            objet.statistiques.intelligence = 5;
+            objet.effet = function () {
+                objet_stat(objet);
+            }
+            break;
+        case 27:
+            objet.nom = "Socquets";
+            objet.description = function () {
+                afficher("De simples socquets.");
+            }
+            objet.equip = true;
+            objet.equip_slot = 6;
+            objet.statistiques.vie_max = 20;
             objet.statistiques.intelligence = 5;
             objet.effet = function () {
                 objet_stat(objet);
