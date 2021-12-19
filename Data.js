@@ -87,7 +87,7 @@ function obtenir_situation (situation_id) {
             situation.choix.push(choix);
             break;
         case 5:
-            situation.texte = "Bartho veut tester votre bravoure et vous dévoile sa puissante musculature.";
+            situation.texte = "Nook se transforme en super Nook et veut tester votre bravoure, vous dévoilant sa puissante musculature.";
             choix = {
                 nom : "Relever le défi",
                 texte : "Vous luttez bravement mais sa force is over nine thousand." + write_score(-1,0,1,0),

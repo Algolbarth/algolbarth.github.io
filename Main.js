@@ -2,6 +2,7 @@ function demarrage () {
     Compte = {
         situation_nombre : 16,
         carte_nombre : 50,
+        version : "0.0.1",
         jeu : {},
         nom : "",
         connexion : false,
@@ -30,8 +31,9 @@ function ecran_titre () {
 function menu () {
     initialiser();
     afficher("<center>");
-    afficher("<div class='titre'>Dimension the Game</div>");
-    saut(1);
+    afficher("<div class='titre'>Dimensions the Game</div>");
+    afficher(Compte.version);
+    saut(2);
     fonction("<div class='bouton'>Jouer</div>","nouvelle_partie()");
     saut(2);
     fonction("<div class='bouton'>Règles</div>","rules()");
@@ -383,11 +385,11 @@ function rules () {
     afficher("<center>");
     fonction("<div class='bouton'>Retour</div>","menu()");
     saut(2);
-    afficher("Comment jouer à Dimension the Game ?");
+    afficher("Comment jouer à Dimensions the Game ?");
     saut(2);
-    afficher("Dimension a beau être ouvert à tout le monde, ce n'est pas un endroit facile à vivre... Seuls les plus valeureux arriveront à survivre dans ce serveur hostile, étrange mais si sympathique !");
+    afficher("Dimensions a beau être ouvert à tout le monde, ce n'est pas un endroit facile à vivre... Seuls les plus valeureux arriveront à survivre dans ce serveur hostile, étrange mais si sympathique !");
     saut(1);
-    afficher("Dans ce jeu, vous incarnez un nouveau membre de dimension.");
+    afficher("Dans ce jeu, vous incarnez un nouveau membre de dimensions.");
     saut(1);
     afficher("Votre but ? Restez le plus longtemps possible sur le serveur.");
     saut(1);
@@ -395,17 +397,17 @@ function rules () {
     saut(1);
     afficher("Chacun de ses attributs est représenté par un score sur 10. Si une seule de ces ressources tombe à 0, vous devrez quitter le serveur, épuisé par tant d'aventures.");
     saut(1);
-    afficher("Au fur et à mesure des jours qui passent sur Dimension, vous rencontrerez des situations différentes et il vous faudra réagir à chacune d'entre elles.");
+    afficher("Au fur et à mesure des jours qui passent sur Dimensions, vous rencontrerez des situations différentes et il vous faudra réagir à chacune d'entre elles.");
     saut(1);
     afficher("À chaque situation c'est à vous de faire vos choix, qui influeront sur vos ressources (oui vous pouvez aussi regagner des points on n'est pas des bêtes).");
     saut(1);
-    afficher("Combien de jours tiendrez-vous face aux autres membres de Dimension et son terrifiant conseil des 4 ?");
+    afficher("Combien de jours tiendrez-vous face aux autres membres de Dimensions et son terrifiant conseil des 4 ?");
     saut(2);
     afficher("Si le jeu vous plaît, vous pouvez créer un compte pour garder votre progression.");
     saut(1);
-    afficher("À chaque partie finie, vous gagnerez des cailloux <img src='Images/caillou.png' style='width:1%;' /> qui vous permettront <strike>de flex</strike> d'acheter des cartes à collectionner sur Dimension.");
+    afficher("À chaque partie finie, vous gagnerez des cailloux <img src='Images/caillou.png' style='width:1%;' /> qui vous permettront <strike>de flex</strike> d'acheter des cartes à collectionner sur Dimensions.");
     saut(1);
-    afficher("ATTENTION : Pour sauvegarder votre partie, allez dans l'onglet qui porte le nom de votre compte, puis récupérer le <b>code de sauvegarde</b>. Ce code vous permettra de récupérer votre compte dans l'état, ne le perdez pas.");
+    afficher("ATTENTION : Pour sauvegarder votre partie, allez dans l'onglet qui porte le nom de votre compte, puis récupérer le code de sauvegarde. Ce code vous permettra de récupérer votre compte dans l'état, ne le perdez pas.");
     afficher("</center>");
     actualiser();
 }
