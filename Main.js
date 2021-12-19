@@ -30,8 +30,8 @@ function ecran_titre () {
 function menu () {
     initialiser();
     afficher("<center>");
-    afficher("Dimension the Game");
-    saut(2);
+    afficher("<div class='titre'>Dimension the Game</div>");
+    saut(1);
     fonction("<div class='bouton'>Jouer</div>","nouvelle_partie()");
     saut(2);
     fonction("<div class='bouton'>Règles</div>","rules()");
@@ -459,6 +459,8 @@ function collection () {
     initialiser();
     afficher("<center>");
     fonction("<div class='bouton'>Retour</div>","menu()");
+    saut(2);
+    afficher(Compte.carte_obtenu + " / " + Compte.carte_nombre + " obtenues");
     saut(2);
     for (let n=0;n<Compte.cartes.length;n++) {
         if (Compte.cartes[n] > 0) {
