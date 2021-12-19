@@ -280,7 +280,7 @@ function obtenir_situation (situation_id) {
             situation.choix.push(choix);
             break;
         case 15:
-            let random_intel = -parseInt(Math.random()*3 + 1);
+            random_intel = -parseInt(Math.random()*3 + 1);
             situation.texte = "Le célèbre empereur des blaireaux dévoile sa véritable identité en se trompant de mp (ça arrive même aux empereurs). De ce message alien vous déduisez logiquement...";
             choix = {
                 nom : "...que Polaris est un complot visant à cacher l'existence des aliens",

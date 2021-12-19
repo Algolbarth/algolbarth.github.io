@@ -404,6 +404,8 @@ function rules () {
     afficher("Si le jeu vous plaît, vous pouvez créer un compte pour garder votre progression.");
     saut(1);
     afficher("À chaque partie finie, vous gagnerez des cailloux <img src='Images/caillou.png' style='width:1%;' /> qui vous permettront <strike>de flex</strike> d'acheter des cartes à collectionner sur Dimension.");
+    saut(1);
+    afficher("ATTENTION : Pour sauvegarder votre partie, allez dans l'onglet qui porte le nom de votre compte, puis récupérer le <b>code de sauvegarde</b>. Ce code vous permettra de récupérer votre compte dans l'état, ne le perdez pas.");
     afficher("</center>");
     actualiser();
 }
