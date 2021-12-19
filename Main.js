@@ -242,7 +242,11 @@ function jeu_resultat (choix_slot) {
 function jeu_suivant () {
     if (jeu_test()) {
         Compte.jeu.score++;
-        Compte.jeu.situation = obtenir_situation(parseInt(Math.random()*Compte.situation_nombre + 1));
+        let situation_id = parseInt(Math.random()*Compte.situation_nombre + 1);
+        while (situation_id == Compte.situation.id) {
+            situation_id = parseInt(Math.random()*Compte.situation_nombre + 1);
+        }
+        Compte.jeu.situation = obtenir_situation(situation_id);
         jeu_choix();
     }
     else {
