@@ -303,17 +303,17 @@ function obtenir_situation (situation_id) {
             situation.texte = "Vous croisez un homme habillé comme un pédophile et pourtant ce n'est pas Pinv mais ce cher Okhoon.";
             choix = {
                 nom : "T'as du crack frère ?",
-                texte : "Quel dommage, Nook n'aura à vous proposer que des pokmons shinys. Adieu la soirée Chapi-Chapo." + write_score(0,0,-1,1),
+                texte : "Quel dommage, Nook n'aura à vous proposer que des pokemons shinys. Adieu la soirée Chapi-Chapo avec tous vos amis." + write_score(0,0,1,-1),
                 action : function () {
-                    change_score(0,0,0,1);
+                    change_score(0,0,1,-1);
                 }
             }
             situation.choix.push(choix);
             choix = {
                 nom : "Le dénoncer au flic le plus proche",
-                texte : "Il s'enfuis en courant et se jure de vous retrouver, il voulait juste aller voir une 134ème fois Spider-Man et n'avait rien à ne se reprocher." + write_score(0,0,-1,0),
+                texte : "Il s'enfuis en courant et se jure de vous retrouver, il voulait juste aller voir une 134ème fois Spider-Man et n'avait rien à ne se reprocher." + write_score(0,0,-1,1),
                 action : function () {
-                    change_score(0,0,0,0);
+                    change_score(0,0,-1,1);
                 }
             }
             situation.choix.push(choix);

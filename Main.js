@@ -140,6 +140,13 @@ function charger_save () {
         }
         Compte.carte_achat = parseInt(carte_achat);
         step++;
+        let carte_obtenu = "";
+        while (save[step] != "_") {
+            carte_obtenu += save[step];
+            step++;
+        }
+        Compte.carte_obtenu = parseInt(carte_obtenu);
+        step++;
         let argent = "";
         while (save[step] != "_") {
             argent += save[step];
@@ -153,6 +160,23 @@ function charger_save () {
             step++;
         }
         Compte.argent_win = parseInt(argent_win);
+        for (let n=0;n<Compte.carte_obtenu;n++) {
+            step++;
+            let carte_id = "";
+            while (save[step] != "_") {
+                carte_id += save[step];
+                step++;
+            }
+            carte_id = parseInt(carte_id);
+            step++;
+            let carte_nombre = "";
+            while (save[step] != "_") {
+                carte_nombre += save[step];
+                step++;
+            }
+            carte_nombre = parseInt(carte_nombre);
+            Compte.cartes[carte_id] = carte_nombre;
+        }
         Compte.connexion = true;
         menu();
     }
@@ -163,6 +187,9 @@ function deconnexion () {
     Compte.best_score = 0;
     Compte.argent = 0;
     Compte.nom = "";
+    for (let n=0;n<Compte.carte_nombre;n++) {
+        Compte.cartes[n] = 0;
+    }
     menu();
 }
 
@@ -435,6 +462,11 @@ function collection () {
         if (Compte.cartes[n] > 0) {
             afficher("<img src='Images/Cartes/" + (n+1) + ".png' class='carte' />");
             saut(1);
+            afficher(Compte.cartes[n] + " exemplaire");
+            if (Compte.cartes[n] > 1) {
+                afficher("s");
+            }
+            saut(1);
         }
     }
     afficher("</center>");
@@ -462,7 +494,12 @@ function compte () {
     saut(2);
     afficher("Code de sauvegarde");
     saut(1);
-    let save_code = Compte.nom + "_" + Compte.best_score + "_" + Compte.nombre_partie + "_" + Compte.carte_achat + "_" + Compte.argent + "_" + Compte.argent_win + "_";
+    let save_code = Compte.nom + "_" + Compte.best_score + "_" + Compte.nombre_partie + "_" + Compte.carte_achat + "_" + Compte.carte_obtenu + "_" + Compte.argent + "_" + Compte.argent_win + "_";
+    for (let n=0;n<Compte.carte_nombre;n++) {
+        if (Compte.cartes[n] > 0) {
+            save_code += n + "_" + Compte.cartes[n] + "_";
+        }
+    }
     save_code = CryptoJS.AES.encrypt(save_code,"dimension");
     afficher(save_code);
     afficher("</center>");
