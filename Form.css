@@ -1,21 +1,100 @@
-html
-{
+html {
     height:99%;
     width:100%;
     overflow:hidden;
 	word-wrap:break-word;
 }
 
-body
-{
+body {
     height:99%;
     width:100%;
     overflow:auto;
     padding-right:15px;
     font-size:120%;
+    color:white;
+    background:rgb(0, 0, 34);
 }
 
-input
-{
+a {
+    text-decoration:none;
+    color:rgb(255, 255, 255);
+}
+
+input {
 	font-size:100%;
+}
+
+.flex {
+    display:flex;
+}
+
+.progress {
+    display:flex;
+    background:grey;
+    width:10%;
+    border:solid;
+    border-color:rgb(15, 15, 15);
+    border-width:2px;
+}
+
+.bar {
+    background:rgb(21, 255, 0);
+}
+
+.result {
+    width:50em;
+    height:10em;
+    border:solid;
+    border-color:white;
+    border-radius:5px;
+    display:table-cell;
+    vertical-align:middle;
+}
+
+.bouton {
+    width:25em;
+    height:3em;
+    border:solid;
+    border-color:white;
+    border-radius:5px;
+    display:table-cell;
+    text-align:center;
+    vertical-align:middle;
+}
+
+.bouton:hover {
+    width:27em;
+    background:rgb(0, 0, 224);
+    border-color:grey;
+}
+
+.ecran_titre {
+    font-family:sans-serif;
+    color:red;
+    text-shadow: white 2px 2px, white -2px 2px, white -2px -2px, white 2px -2px;
+    font-size:400%;
+    position:absolute;
+    right:50%;
+    top:50%;
+    transform:translate(50%,-50%);
+}
+
+.ecran_titre:hover {
+    font-size:500%;
+}
+
+.image {
+    max-height:15em;
+}
+
+.carte {
+    width:15em;
+}
+
+.new_carte {
+    width:20em;
+}
+
+.new_carte:hover {
+    width:23em;
 }
