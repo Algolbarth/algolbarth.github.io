@@ -388,7 +388,7 @@ function shop () {
     saut(2);
     afficher("Vous avez " + Compte.argent + " <img src='Images/caillou.png' style='width:1%;' />");
     saut(2);
-    afficher("<img src='Images/Cartes/Cache.png' class='carte' />");
+    afficher("<img src='Images/Cartes/cache.png' class='carte' />");
     saut(2);
     fonction("<div class='bouton'>Acheter une carte 100 <img src='Images/caillou.png' style='width:1em;' /></div>","acheter()");
     afficher("</center>");
