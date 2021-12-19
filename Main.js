@@ -6,7 +6,7 @@ function demarrage () {
         nom : "",
         connexion : false,
         best_score : 0,
-        argent : 10000,
+        argent : 0,
         cartes : [],
         nombre_partie : 0,
         carte_achat : 0,
