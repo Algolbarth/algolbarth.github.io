@@ -98,3 +98,8 @@ input {
 .new_carte:hover {
     width:23em;
 }
+
+.titre {
+    font-family:Magneto;
+    font-size:5em;
+}
