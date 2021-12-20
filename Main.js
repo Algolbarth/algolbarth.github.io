@@ -243,7 +243,7 @@ function jeu_suivant () {
     if (jeu_test()) {
         Compte.jeu.score++;
         let situation_id = parseInt(Math.random()*Compte.situation_nombre + 1);
-        while (situation_id == Compte.situation.id) {
+        while (situation_id == Compte.jeu.situation.id) {
             situation_id = parseInt(Math.random()*Compte.situation_nombre + 1);
         }
         Compte.jeu.situation = obtenir_situation(situation_id);
@@ -344,40 +344,40 @@ function write_score (sante,intel,reput,social) {
     if (sante != 0) {
         text += "<br/>";
         if (sante > 0) {
-            text += "+" + sante;
+            text += "<span style='color:green;'>+" + sante;
         }
         else {
-            text += sante;
+            text += "<span style='color:red;'>" + sante;
         }
-        text += " Santé";
+        text += " Santé</span>";
     }
     if (intel != 0) {
         text += "<br/>";
         if (intel > 0) {
-            text += "+" + intel;
+            text += "<span style='color:green;'>+" + intel;
         }
         else {
-            text += intel;
+            text += "<span style='color:red;'>" + intel;
         }
         text += " Intelligence";
     }
     if (reput != 0) {
         text += "<br/>";
         if (reput > 0) {
-            text += "+" + reput;
+            text += "<span style='color:green;'>+" + reput;
         }
         else {
-            text += reput;
+            text += "<span style='color:red;'>" + reput;
         }
         text += " Réputation";
     }
     if (social != 0) {
         text += "<br/>";
         if (social > 0) {
-            text += "+" + social;
+            text += "<span style='color:green;'>+" + social;
         }
         else {
-            text += social;
+            text += "<span style='color:red;'>" + social;
         }
         text += " Vie sociale";
     }
