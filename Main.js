@@ -349,7 +349,7 @@ function write_score (sante,intel,reput,social) {
         else {
             text += "<span style='color:red;'>" + sante;
         }
-        text += " Santé</span>";
+        text += " <img src='Images/sante.svg' style='width:1em;' /> Santé</span>";
     }
     if (intel != 0) {
         text += "<br/>";
@@ -359,7 +359,7 @@ function write_score (sante,intel,reput,social) {
         else {
             text += "<span style='color:red;'>" + intel;
         }
-        text += " Intelligence";
+        text += " <img src='Images/intel.svg' style='width:1em;' /> Intelligence";
     }
     if (reput != 0) {
         text += "<br/>";
@@ -369,7 +369,7 @@ function write_score (sante,intel,reput,social) {
         else {
             text += "<span style='color:red;'>" + reput;
         }
-        text += " Réputation";
+        text += " <img src='Images/reput.svg' style='width:1em;' /> Réputation";
     }
     if (social != 0) {
         text += "<br/>";
@@ -379,7 +379,7 @@ function write_score (sante,intel,reput,social) {
         else {
             text += "<span style='color:red;'>" + social;
         }
-        text += " Vie sociale";
+        text += " <img src='Images/social.svg' style='width:1em;' /> Vie sociale";
     }
     return text;
 }
