@@ -52,11 +52,6 @@ function ajouter_sites () {
     ajouter_site("Where in Warcraft ?","https://www.kruithne.net/where-in-warcraft/");
     ajouter_site("Summoners War : Sky Arena","https://sw.com2us.com/fr/skyarena");
     ajouter_site("Summoners War Wiki","https://summonerswarskyarena.info/");
-    ajouter_site("Benetton","https://fr.benetton.com/");
-    ajouter_site("Pimkie","https://www.pimkie.fr/");
-    ajouter_site("Camaieu","https://www.camaieu.fr/");
-    ajouter_site("Cache cache","https://www.cache-cache.fr/");
-    ajouter_site("DeFacto","https://ma.defactofashion.com/");
 
     ajouter_site("JsRPG","JsRPG/Index.html",true);
     ajouter_site("Dimension the Game","Dimension/Index.html",true);
