@@ -1,0 +1,29 @@
+html
+{
+    height:99%;
+    width:100%;
+    overflow:hidden;
+	word-wrap:break-word;
+}
+
+body
+{
+    height:99%;
+    width:100%;
+    overflow:auto;
+    padding-right:15px;
+    background:rgb(0, 102, 63);
+    color:rgb(255, 255, 255);
+    font-size:110%;
+}
+
+a
+{
+    text-decoration:none;
+    color:rgb(255, 255, 255);
+}
+
+img
+{
+    width:1.2%;
+}
