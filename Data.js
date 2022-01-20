@@ -58,7 +58,6 @@ function ajouter_sites () {
     ajouter_site("Cache cache","https://www.cache-cache.fr/");
     ajouter_site("DeFacto","https://ma.defactofashion.com/");
 
-    ajouter_site("Site","Site/Index.html",true);
     ajouter_site("JsRPG","JsRPG/Index.html",true);
-    ajouter_site("Jsquad","Jsquad/Index.html",true);
+    ajouter_site("Dimension the Game","Dimension/Index.html",true);
 }
