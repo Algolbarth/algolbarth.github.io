@@ -53,6 +53,6 @@ function ajouter_sites () {
     ajouter_site("Summoners War : Sky Arena","https://sw.com2us.com/fr/skyarena");
     ajouter_site("Summoners War Wiki","https://summonerswarskyarena.info/");
 
-    ajouter_site("JsRPG","JsRPG/Index.html",true);
-    ajouter_site("Dimension the Game","Dimension/Index.html",true);
+    ajouter_site("JsRPG","JsRPG/index.html",true);
+    ajouter_site("Dimension the Game","Dimension/index.html",true);
 }
