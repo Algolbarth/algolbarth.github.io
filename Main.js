@@ -12,7 +12,7 @@ function menu () {
     saut(2);
     fonction("Web","web()");
     saut(1);
-    fonction("Local","local()");
+    fonction("Jeux","local()");
     actualiser();
 }
 
