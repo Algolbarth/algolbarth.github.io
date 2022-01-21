@@ -54,5 +54,5 @@ function ajouter_sites () {
     ajouter_site("Summoners War Wiki","https://summonerswarskyarena.info/");
 
     ajouter_site("JsRPG","JsRPG/",true);
-    ajouter_site("Dimension the Game","Dimension/index.html",true);
+    ajouter_site("Dimension the Game","Dimension/",true);
 }
