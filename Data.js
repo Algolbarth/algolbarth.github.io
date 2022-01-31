@@ -52,6 +52,7 @@ function ajouter_sites () {
     ajouter_site("Where in Warcraft ?","https://www.kruithne.net/where-in-warcraft/");
     ajouter_site("Summoners War : Sky Arena","https://sw.com2us.com/fr/skyarena");
     ajouter_site("Summoners War Wiki","https://summonerswarskyarena.info/");
+    ajouter_site("Youtube convertisseur en MP3","https://mp3y.download/fr/faster-mp3-convert");
 
     ajouter_site("JsRPG","JsRPG/",true);
     ajouter_site("Dimension the Game","Dimension/",true);
