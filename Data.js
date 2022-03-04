@@ -69,9 +69,8 @@ function ajouter_sites () {
     ajouter_site("Leboncoin","https://www.leboncoin.fr/",[4]);
     ajouter_site("Qwant","https://www.qwant.com/?l=fr",[9]);
 
-    ajouter_site("Site","Site/Index.html",[0]);
+    ajouter_site("Dimension The Game","Dimension/Index.html",[0]);
     ajouter_site("JsRPG","JsRPG/Index.html",[0]);
-    ajouter_site("JsTA","JsTA/Index.html",[0]);
 
     ajouter_dossier("Local");//0
     ajouter_dossier("Favoris");//1
