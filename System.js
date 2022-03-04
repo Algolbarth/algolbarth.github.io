@@ -18,7 +18,7 @@ function afficher (texte) {
     Affichage += texte;
 }
 
-function saut (nombre) {
+function saut (nombre=1) {
     for (let n=0;n<nombre;n++) {
         Affichage += "<br/>";
     }
