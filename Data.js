@@ -75,7 +75,6 @@ function ajouter_sites () {
     ajouter_site("Sedecordle","https://sedecordle.com/",[6]);
     ajouter_site("Dordle","https://zaratustra.itch.io/dordle",[6]);
 
-    ajouter_site("Site","Site/index.html",[0]);
     ajouter_site("JsRPG","JsRPG/index.html",[0]);
     ajouter_site("JsTA","JsTA/index.html",[0]);
     ajouter_site("SW","SW/index.html",[0]);
