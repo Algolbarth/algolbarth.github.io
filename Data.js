@@ -70,9 +70,7 @@ function ajouter_sites () {
     ajouter_site("Qwant","https://www.qwant.com/?l=fr",[9]);
     ajouter_site("SWAFARM","https://swarfarm.com/",[3,10]);
 
-    ajouter_site("Site","Site/index.html",[0]);
     ajouter_site("JsRPG","JsRPG/index.html",[0]);
-    ajouter_site("JsTA","JsTA/index.html",[0]);
     ajouter_site("SW","SW/index.html",[0]);
     ajouter_site("Dimension","Dimension/index.html",[0]);
 
