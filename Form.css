@@ -1,29 +1,33 @@
-html
-{
+html {
     height:99%;
     width:100%;
     overflow:hidden;
 	word-wrap:break-word;
 }
 
-body
-{
+body {
     height:99%;
     width:100%;
     overflow:auto;
     padding-right:15px;
-    background:rgb(0, 102, 63);
+    background:rgb(67, 68, 68);
     color:rgb(255, 255, 255);
     font-size:110%;
 }
 
-a
-{
+a {
     text-decoration:none;
     color:rgb(255, 255, 255);
 }
 
-img
-{
+a:hover {
+    color:rgb(255, 0, 0);
+}
+
+.icone {
     width:1.2%;
+}
+
+.title {
+    width:60%;
 }
