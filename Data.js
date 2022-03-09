@@ -55,7 +55,7 @@ function ajouter_sites () {
     ajouter_site("Benetton","https://fr.benetton.com/",[5]);
     ajouter_site("Pimkie","https://www.pimkie.fr/",[5]);
     ajouter_site("Camaieu","https://www.camaieu.fr/",[5]);
-    ajouter_site("Cache cache","https://www.cache-cache.fr/",[5]);
+    ajouter_site("Cache Cache","https://www.cache-cache.fr/",[5]);
     ajouter_site("DeFacto <i>France</i>","https://ma.defactofashion.com/",[5]);
     ajouter_site("DeFacto <i>Turquie</i>","https://www.defacto.com.tr/kadin/",[5]);
     ajouter_site("Youtube convertisseur en MP3","https://mp3y.download/fr/faster-mp3-convert",[8]);
@@ -69,8 +69,15 @@ function ajouter_sites () {
     ajouter_site("Leboncoin","https://www.leboncoin.fr/",[4]);
     ajouter_site("Qwant","https://www.qwant.com/?l=fr",[9]);
     ajouter_site("SWAFARM","https://swarfarm.com/",[3,10]);
+    ajouter_site("Summoners War Optimizer","https://tool.swop.one/",[3,10]);
+    ajouter_site("Mots Avec","https://motsavec.fr/",[6]);
+    ajouter_site("Chessle","https://jackli.gg/chessle/",[6]);
+    ajouter_site("Sedecordle","https://sedecordle.com/",[6]);
+    ajouter_site("Dordle","https://zaratustra.itch.io/dordle",[6]);
 
+    ajouter_site("Site","Site/index.html",[0]);
     ajouter_site("JsRPG","JsRPG/index.html",[0]);
+    ajouter_site("JsTA","JsTA/index.html",[0]);
     ajouter_site("SW","SW/index.html",[0]);
     ajouter_site("Dimension","Dimension/index.html",[0]);
 
