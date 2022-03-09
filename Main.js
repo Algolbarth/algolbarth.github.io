@@ -11,7 +11,7 @@ function menu () {
     initialiser();
     afficher("<center><img src='Images/title.png' class='title' /></center>");
     saut();
-    fonction("<img src='Images/file.svg' class='icone' /> Web","web()");
+    fonction("<img src='Images/file.svg' class='icone' /> Tout","liste_sites()");
     saut();
     for (let n=0;n<Dossiers.length;n++) {
         fonction("<img src='Images/file.svg' class='icone' /> " + Dossiers[n].nom,"voir_dossier(" + n + "," + '"menu()"' + ")");
@@ -20,7 +20,7 @@ function menu () {
     actualiser();
 }
 
-function web () {
+function liste_sites () {
     initialiser();
     fonction("Retour","menu()");
     saut(2);
@@ -43,10 +43,12 @@ function ajouter_site (nom,url,dossiers=[],description="") {
     Sites.push(site);
 }
 
-function ajouter_dossier (nom) {
+function ajouter_dossier (nom,dossiers=[]) {
     let dossier = {
         nom : nom,
-        liste : [],
+        sites : [],
+        sous_dossiers : [],
+        dossiers : dossiers,
     }
     Dossiers.push(dossier);
 }
@@ -67,7 +69,12 @@ function trier_sites () {
 function trier_dossiers () {
     for (let n=0;n<Sites.length;n++) {
         for (let i=0;i<Sites[n].dossiers.length;i++) {
-            Dossiers[Sites[n].dossiers[i]].liste.push(n);
+            Dossiers[Sites[n].dossiers[i]].sites.push(n);
+        }
+    }
+    for (let n=0;n<Dossiers.length;n++) {
+        for (let i=0;i<Dossiers[n].dossiers.length;i++) {
+            Dossiers[Dossiers[n].dossiers[i]].sous_dossiers.push(n);
         }
     }
 }
@@ -90,10 +97,14 @@ function voir_dossier (n,retour) {
     saut(2);
     afficher(Dossiers[n].nom);
     saut(2);
-    for (let i=0;i<Dossiers[n].liste.length;i++) {
-        fonction("<img src='Images/eye.svg' class='icone' />","voir_site(" + Dossiers[n].liste[i] + "," + '"menu()"' + ")");
+    for (let i=0;i<Dossiers[n].sous_dossiers.length;i++) {
+        fonction("<img src='Images/file.svg' class='icone' /> " + Dossiers[Dossiers[n].sous_dossiers[i]].nom,"voir_dossier(" + Dossiers[n].sous_dossiers[i] + "," + '"menu()"' + ")");
+        saut();
+    }
+    for (let i=0;i<Dossiers[n].sites.length;i++) {
+        fonction("<img src='Images/eye.svg' class='icone' />","voir_site(" + Dossiers[n].sites[i] + "," + '"menu()"' + ")");
         afficher(" ");
-        lien("<img src='Images/page.svg' class='icone' /> " + Sites[Dossiers[n].liste[i]].nom,Sites[Dossiers[n].liste[i]].url);
+        lien("<img src='Images/page.svg' class='icone' /> " + Sites[Dossiers[n].sites[i]].nom,Sites[Dossiers[n].sites[i]].url);
         saut();
     }
     actualiser();

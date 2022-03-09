@@ -50,8 +50,8 @@ function ajouter_sites () {
     ajouter_site("Bandori Party","https://bandori.party/",[3]);
     ajouter_site("Wowhead","https://fr.wowhead.com/",[3]);
     ajouter_site("Where in Warcraft ?","https://www.kruithne.net/where-in-warcraft/",[3]);
-    ajouter_site("Summoners War : Sky Arena","https://sw.com2us.com/fr/skyarena",[3]);
-    ajouter_site("Summoners War Wiki","https://summonerswarskyarena.info/",[3]);
+    ajouter_site("Summoners War : Sky Arena","https://sw.com2us.com/fr/skyarena",[3,10]);
+    ajouter_site("Summoners War Wiki","https://summonerswarskyarena.info/",[3,10]);
     ajouter_site("Benetton","https://fr.benetton.com/",[5]);
     ajouter_site("Pimkie","https://www.pimkie.fr/",[5]);
     ajouter_site("Camaieu","https://www.camaieu.fr/",[5]);
@@ -68,9 +68,13 @@ function ajouter_sites () {
     ajouter_site("Vinted","https://www.vinted.fr/",[5]);
     ajouter_site("Leboncoin","https://www.leboncoin.fr/",[4]);
     ajouter_site("Qwant","https://www.qwant.com/?l=fr",[9]);
+    ajouter_site("SWAFARM","https://swarfarm.com/",[3,10]);
 
-    ajouter_site("Dimension The Game","Dimension/index.html",[0]);
+    ajouter_site("Site","Site/index.html",[0]);
     ajouter_site("JsRPG","JsRPG/index.html",[0]);
+    ajouter_site("JsTA","JsTA/index.html",[0]);
+    ajouter_site("SW","SW/index.html",[0]);
+    ajouter_site("Dimension","Dimension/index.html",[0]);
 
     ajouter_dossier("Local");//0
     ajouter_dossier("Favoris");//1
@@ -82,4 +86,5 @@ function ajouter_sites () {
     ajouter_dossier("Informatique");//7
     ajouter_dossier("Vidéos");//8
     ajouter_dossier("Recherche");//9
+    ajouter_dossier("SW",[3]);//10
 }
