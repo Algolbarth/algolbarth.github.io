@@ -9,13 +9,13 @@ function demarrage () {
 
 function menu () {
     initialiser();
-    afficher("Navigator");
-    saut(2);
-    fonction("Web","web()");
-    saut(1);
+    afficher("<center><img src='Images/title.png' class='title' /></center>");
+    saut();
+    fonction("<img src='Images/file.svg' class='icone' /> Web","web()");
+    saut();
     for (let n=0;n<Dossiers.length;n++) {
-        fonction(Dossiers[n].nom,"voir_dossier(" + n + "," + '"menu()"' + ")");
-        saut(1);
+        fonction("<img src='Images/file.svg' class='icone' /> " + Dossiers[n].nom,"voir_dossier(" + n + "," + '"menu()"' + ")");
+        saut();
     }
     actualiser();
 }
@@ -25,10 +25,10 @@ function web () {
     fonction("Retour","menu()");
     saut(2);
     for (let n=0;n<Sites.length;n++) {
-        fonction("<img src='Images/eye.svg' />","voir_site(" + n + "," + '"web()"' + ")");
+        fonction("<img src='Images/eye.svg' class='icone' />","voir_site(" + n + "," + '"web()"' + ")");
         afficher(" ");
-        lien(Sites[n].nom,Sites[n].url);
-        saut(1);
+        lien("<img src='Images/page.svg' class='icone' /> " + Sites[n].nom,Sites[n].url);
+        saut();
     }
     actualiser();
 }
@@ -77,9 +77,9 @@ function voir_site (n,retour) {
     fonction("Retour",retour);
     saut(2);
     afficher(Sites[n].nom);
-    saut(1);
+    saut();
     lien("<u>" + Sites[n].url + "</u>",Sites[n].url);
-    saut(1);
+    saut();
     afficher(Sites[n].description);
     actualiser();
 }
@@ -91,10 +91,10 @@ function voir_dossier (n,retour) {
     afficher(Dossiers[n].nom);
     saut(2);
     for (let i=0;i<Dossiers[n].liste.length;i++) {
-        fonction("<img src='Images/eye.svg' />","voir_site(" + Dossiers[n].liste[i] + "," + '"menu()"' + ")");
+        fonction("<img src='Images/eye.svg' class='icone' />","voir_site(" + Dossiers[n].liste[i] + "," + '"menu()"' + ")");
         afficher(" ");
-        lien(Sites[Dossiers[n].liste[i]].nom,Sites[Dossiers[n].liste[i]].url);
-        saut(1);
+        lien("<img src='Images/page.svg' class='icone' /> " + Sites[Dossiers[n].liste[i]].nom,Sites[Dossiers[n].liste[i]].url);
+        saut();
     }
     actualiser();
 }
