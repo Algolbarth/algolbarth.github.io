@@ -2,6 +2,7 @@ function obtenir_carte (carte_id) {
     let carte = {
         id : carte_id,
         verrouillage : false,
+        etage_mort : 0,
         nom : "",
         type : "Créature",
         familles : [],
@@ -20,6 +21,7 @@ function obtenir_carte (carte_id) {
         mobile : false,
         sorcellerie : 0,
         portee : false,
+        eternite : false,
         texte : "Aucun",
         effet_pose : function (main_slot) {
             Jeu.terrain.push(Jeu.main[main_slot]);
@@ -836,6 +838,20 @@ function obtenir_carte (carte_id) {
                         break;
                 }
             }
+            break;
+        case 40:
+            carte.nom = "Revenant éternel";
+            carte.type = "Créature";
+            carte.familles.push("Mort-vivant","Revenant");
+            carte.cout[0] = 2;
+            carte.cout[9] = 2;
+            carte.vente[0] = 1;
+            carte.vente[9] = 1;
+            carte.attaque = 2;
+            carte.vie_max = carte.vie = 2;
+            carte.action_max = 1;
+            carte.equipement_max = 1;
+            carte.eternite = true;
             break;
     }
     return carte;

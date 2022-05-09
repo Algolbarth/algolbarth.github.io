@@ -63,7 +63,7 @@ function nouvelle_partie () {
     Jeu.main = [];
     Jeu.terrain_adverse = [];
     Jeu.defausse = [];
-    Jeu.main.push(obtenir_carte(39));
+    Jeu.main.push(obtenir_carte(31));
     Jeu.terrain.push(obtenir_carte(1));
     boutique_actualiser();
     adversaire_generer();
@@ -354,6 +354,13 @@ function carte_voir (zone,slot) {
             }
             texte += "<br/>";
         }
+        if (statistique(carte,"eternite") > 0) {
+            texte += "Eternité";
+            if (Jeu.texte_talent) {
+                texte += " : Ne disparais pas de votre défausse.";
+            }
+            texte += "<br/>";
+        }
         texte += "<u>Attaque :</u> " + statistique(carte,"attaque") + "<br/>";
     }
     if (carte.type == "Créature" || carte.type == "Bâtiment") {
@@ -499,6 +506,20 @@ function etage_suivant () {
     for (let n=0;n<Jeu.ressources.length;n++) {
         Jeu.ressources[n].courant = Jeu.ressources[n].max;
     }
+    for (let n=0;n<Jeu.defausse.length;n++) {
+        Jeu.defausse[n].etage_mort++;
+        if (Jeu.defausse[n].etage_mort > 1 && !Jeu.defausse[n].eternite) {
+            Jeu.defausse.splice(n,1);
+            n--;
+        }
+    }
+    for (let n=0;n<Jeu.defausse_adverse.length;n++) {
+        Jeu.defausse_adverse[n].etage_mort++;
+        if (Jeu.defausse_adverse[n].etage_mort > 1 && !Jeu.defausse_adverse[n].eternite) {
+            Jeu.defausse_adverse.splice(n,1);
+            n--;
+        }
+    }
     boutique_actualiser();
     adversaire_generer();
     menu();
@@ -506,7 +527,6 @@ function etage_suivant () {
 
 function adversaire_generer () {
     Jeu.terrain_adverse = [];
-    Jeu.terrain_adverse.push(obtenir_carte(1));
     for (let n=0;n<Jeu.etage;n++) {
         Jeu.terrain_adverse.push(obtenir_carte(5));
     }
