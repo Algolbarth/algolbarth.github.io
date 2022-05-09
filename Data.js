@@ -85,9 +85,7 @@ function ajouter_sites () {
     ajouter_site("Minecraft <i>Site officiel</i>","https://www.minecraft.net/fr-fr",[3]);
     ajouter_site("Minecraft.fr","https://minecraft.fr/",[3]);
 
-    ajouter_site("Site","Site/index.html",[0]);
     ajouter_site("JsRPG","JsRPG/index.html",[0]);
-    ajouter_site("JsTA","JsTA/index.html",[0]);
     ajouter_site("Dimension","Dimension/index.html",[0]);
     ajouter_site("Rogue","Rogue/index.html",[0]);
 
