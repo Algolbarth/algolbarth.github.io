@@ -24,7 +24,7 @@ function demarrage () {
         defausse : [],
         terrain_adverse : [],
         defausse_adverse : [],
-        NOMBRE_CARTE : 39,
+        NOMBRE_CARTE : 41,
         combat : {
             etat : false,
             auto : true,
@@ -608,15 +608,8 @@ function degats (zone,slot,montant) {
 }
 
 function mort (zone,slot) {
-    Jeu[zone][slot].effet_mort(zone);
     Jeu[zone][slot].vie = 0;
-    if (zone == "terrain_adverse") {
-        Jeu.defausse_adverse.push(Jeu[zone][slot]);
-    }
-    else {
-        Jeu.defausse.push(Jeu[zone][slot]);
-    }
-    Jeu[zone].splice(slot,1);
+    Jeu[zone][slot].effet_mort(zone,slot);
 }
 
 function sorcellerie () {

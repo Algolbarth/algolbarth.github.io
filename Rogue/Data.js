@@ -29,7 +29,15 @@ function obtenir_carte (carte_id) {
             menu();
         },
         effet_attaque : function () {},
-        effet_mort : function () {},
+        effet_mort : function (zone,slot) {
+            if (zone == "terrain_adverse") {
+                Jeu.defausse_adverse.push(Jeu[zone][slot]);
+            }
+            else {
+                Jeu.defausse.push(Jeu[zone][slot]);
+            }
+            Jeu[zone].splice(slot,1);
+        },
         effet_debut_tour : function () {},
         effet_degat : function () {},
         equipements : [],
@@ -123,6 +131,7 @@ function obtenir_carte (carte_id) {
                         break;
                     case 2:
                         soin("terrain",cible,3);
+                        Jeu.defausse.push(Jeu.main[main_slot]);
                         Jeu.main.splice(main_slot,1);
                         menu();
                         break;
@@ -378,8 +387,8 @@ function obtenir_carte (carte_id) {
                         saut();
                         afficher("Choisissez une créature adverse : ");
                         saut(2);
-                        for (let n=0;n<Jeu.adversaire.length;n++) {
-                            afficher_carte("adversaire",n);
+                        for (let n=0;n<Jeu.terrain_adverse.length;n++) {
+                            afficher_carte("terrain_adverse",n);
                             afficher(" ");
                             fonction("Cibler","Jeu.main[" + main_slot + "].effet_pose(" + main_slot + ",2," + n + ")");
                             saut();
@@ -390,7 +399,8 @@ function obtenir_carte (carte_id) {
                         actualiser();
                         break;
                     case 2:
-                        degats("adversaire",cible,3);
+                        degats("terrain_adverse",cible,3);
+                        Jeu.defausse.push(Jeu.main[main_slot]);
                         Jeu.main.splice(main_slot,1);
                         menu();
                         break;
@@ -404,9 +414,10 @@ function obtenir_carte (carte_id) {
             carte.vente[0] = 1;
             carte.texte = "Inflige 1 dégât à toutes les Créatures et Bâtiments adverses.";
             carte.effet_pose = function (main_slot) {
-                for (let n=Jeu.adversaire.length-1;n>=0;n--) {
-                    degats("adversaire",n,1);
+                for (let n=Jeu.terrain_adverse.length-1;n>=0;n--) {
+                    degats("terrain_adverse",n,1);
                 }
+                Jeu.defausse.push(Jeu.main[main_slot]);
                 Jeu.main.splice(main_slot,1);
                 menu();
             }
@@ -557,10 +568,10 @@ function obtenir_carte (carte_id) {
                         saut();
                         afficher(carte.texte);
                         saut();
-                        afficher("Choisissez une créature adverse : ");
+                        afficher("Choisissez une créature ou un bâtiment adverse : ");
                         saut(2);
-                        for (let n=0;n<Jeu.adversaire.length;n++) {
-                            afficher_carte("adversaire",n);
+                        for (let n=0;n<Jeu.terrain_adverse.length;n++) {
+                            afficher_carte("terrain_adverse",n);
                             afficher(" ");
                             fonction("Cibler","Jeu.main[" + main_slot + "].effet_pose(" + main_slot + ",2," + n + ")");
                             saut();
@@ -572,11 +583,12 @@ function obtenir_carte (carte_id) {
                         break;
                     case 2:
                         if (sorcellerie() >= 2) {
-                            degats("adversaire",cible,5);
+                            degats("terrain_adverse",cible,5);
                         }
                         else {
-                            degats("adversaire",cible,3);
+                            degats("terrain_adverse",cible,3);
                         }
+                        Jeu.defausse.push(Jeu.main[main_slot]);
                         Jeu.main.splice(main_slot,1);
                         menu();
                         break;
@@ -595,6 +607,7 @@ function obtenir_carte (carte_id) {
                     carte = obtenir_carte(parseInt(Math.random()*Jeu.NOMBRE_CARTE + 1));
                 }
                 Jeu.boutique.push(carte);
+                Jeu.defausse.push(Jeu.main[main_slot]);
                 Jeu.main.splice(main_slot,1);
                 menu();
             }
@@ -649,6 +662,7 @@ function obtenir_carte (carte_id) {
             carte.texte = "Actualise la boutique.";
             carte.effet_pose = function (main_slot) {
                 boutique_actualiser();
+                Jeu.defausse.push(Jeu.main[main_slot]);
                 Jeu.main.splice(main_slot,1);
                 menu();
             }
@@ -748,7 +762,7 @@ function obtenir_carte (carte_id) {
                         break;
                     case 2:
                         Jeu.boutique[cible].cout[0] -= 2;
-                        if (Jeu.boutique[cible].cout[0]) {
+                        if (Jeu.boutique[cible].cout[0] < 0) {
                             Jeu.boutique[cible].cout[0] = 0;
                         }
                         Jeu.terrain.push(Jeu.main[main_slot]);
@@ -802,7 +816,7 @@ function obtenir_carte (carte_id) {
             carte.type = "Action";
             carte.cout[0] = 3;
             carte.vente[0] = 1;
-            carte.texte = "Renvoie une Créature située votre défausse dans votre main.";
+            carte.texte = "Renvoie une carte située votre défausse dans votre main.";
             carte.effet_pose = function (main_slot,step,cible) {
                 switch (step) {
                     case 1:
@@ -814,15 +828,13 @@ function obtenir_carte (carte_id) {
                         saut();
                         afficher(carte.texte);
                         saut();
-                        afficher("Choisissez une créature : ");
+                        afficher("Choisissez une carte : ");
                         saut(2);
                         for (let n=0;n<Jeu.defausse.length;n++) {
-                            if (Jeu.defausse[n].type == "Créature") {
                                 afficher_carte("defausse",n);
                                 afficher(" ");
                                 fonction("Cibler","Jeu.main[" + main_slot + "].effet_pose(" + main_slot + ",2," + n + ")");
                                 saut();
-                            }
                         }
                         div_fin();
                         div("carte");
@@ -833,6 +845,7 @@ function obtenir_carte (carte_id) {
                         Jeu.defausse[cible].vie = Jeu.defausse[cible].vie_max;
                         Jeu.main.push(Jeu.defausse[cible]);
                         Jeu.defausse.splice(cible,1);
+                        Jeu.defausse.push(Jeu.main[main_slot]);
                         Jeu.main.splice(main_slot,1);
                         menu();
                         break;
@@ -852,6 +865,28 @@ function obtenir_carte (carte_id) {
             carte.action_max = 1;
             carte.equipement_max = 1;
             carte.eternite = true;
+            break;
+        case 41:
+            carte.nom = "Phoenix";
+            carte.type = "Créature";
+            carte.familles.push("Phoenix");
+            carte.cout[0] = 5;
+            carte.cout[1] = 2;
+            carte.cout[5] = 2;
+            carte.vente[0] = 2;
+            carte.vente[1] = 1;
+            carte.vente[5] = 1;
+            carte.attaque = 3;
+            carte.vie_max = carte.vie = 3;
+            carte.action_max = 1;
+            carte.equipement_max = 1;
+            carte.effet_mort = function (zone,slot) {
+                if (zone == "terrain") {
+                    Jeu.terrain[slot].vie = Jeu.terrain[slot].vie_max;
+                    Jeu.main.push(Jeu.terrain[slot]);
+                    Jeu.terrain.splice(slot,1);
+                }
+            }
             break;
     }
     return carte;
