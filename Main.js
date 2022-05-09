@@ -13,7 +13,7 @@ function menu () {
     saut();
     fonction("<img src='Images/file.svg' class='icone' /> Tout","liste_sites()");
     saut();
-    for (let n=0;n<Dossiers.length;n++) {
+    for (let n=0;n<10;n++) {
         fonction("<img src='Images/file.svg' class='icone' /> " + Dossiers[n].nom,"voir_dossier(" + n + "," + '"menu()"' + ")");
         saut();
     }

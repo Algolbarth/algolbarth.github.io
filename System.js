@@ -32,6 +32,6 @@ function div_fin () {
     Affichage += "</div>";
 }
 
-function actualiser_id (id,value) {
-    document.getElementById(id).innerHTML = value;
+function actualiser_div (div,value) {
+    document.getElementById(div).innerHTML = value;
 }

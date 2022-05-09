@@ -31,16 +31,16 @@ function ajouter_sites () {
     ajouter_site("WolframAlpha","https://www.wolframalpha.com/",[6]);
     ajouter_site("OpenClassRoom","https://openclassrooms.com/fr/courses",[7]);
     ajouter_site("Emurom","https://emurom.net",[3]);
-    ajouter_site("Pokepédia","https://www.pokepedia.fr/",[3]);
-    ajouter_site("Smogon University","https://www.smogon.com/",[3]);
-    ajouter_site("Pokestrat","https://pokestrat.io/",[3]);
-    ajouter_site("Pokemon Showdown <i>Site officiel</i>","https://pokemonshowdown.com",[3]);
-    ajouter_site("Pokemon Showdown <i>Jouer</i>","https://play.pokemonshowdown.com",[3]);
+    ajouter_site("Pokepédia","https://www.pokepedia.fr/",[3,11]);
+    ajouter_site("Smogon University","https://www.smogon.com/",[3,11]);
+    ajouter_site("Pokestrat","https://pokestrat.io/",[3,11]);
+    ajouter_site("Pokemon Showdown <i>Site officiel</i>","https://pokemonshowdown.com",[3,11]);
+    ajouter_site("Pokemon Showdown <i>Jouer</i>","https://play.pokemonshowdown.com",[3,11]);
     ajouter_site("Riot Games","https://www.riotgames.com/fr",[3]);
-    ajouter_site("League of Legends","https://na.leagueoflegends.com/fr-fr/",[3]);
-    ajouter_site("OP.GG","https://euw.op.gg/",[3]);
-    ajouter_site("OP.GG <i>champions</i>","https://www.op.gg/champion/statistics",[3]);
-    ajouter_site("Porofessor","https://porofessor.gg/fr",[3]);
+    ajouter_site("League of Legends","https://na.leagueoflegends.com/fr-fr/",[3,12]);
+    ajouter_site("OP.GG","https://euw.op.gg/",[3,12]);
+    ajouter_site("OP.GG <i>champions</i>","https://www.op.gg/champion/statistics",[3,12]);
+    ajouter_site("Porofessor","https://porofessor.gg/fr",[3,12]);
     ajouter_site("Minecraft Wiki","https://minecraft.fandom.com/fr/wiki/Minecraft_Wiki",[3]);
     ajouter_site("Terraria Wiki","https://terraria.fandom.com/fr/wiki/Terraria_Wiki",[3]);
     ajouter_site("Dragon Quest Fan","https://www.dragonquest-fan.com/",[3]);
@@ -74,11 +74,22 @@ function ajouter_sites () {
     ajouter_site("Chessle","https://jackli.gg/chessle/",[6]);
     ajouter_site("Sedecordle","https://sedecordle.com/",[6]);
     ajouter_site("Dordle","https://zaratustra.itch.io/dordle",[6]);
+    ajouter_site("Devdocs","https://devdocs.io/",[7]);
+    ajouter_site("Devdocs <i>hors-ligne</i>","https://devdocs.io/offline",[7]);
+    ajouter_site("Stack overflow","https://stackoverflow.com/",[7]);
+    ajouter_site("Heartstone","https://playhearthstone.com/fr-fr",[3]);
+    ajouter_site("Summoners War : Lost Centuria","https://summonerswar.com/fr/lostcenturia",[3,10]);
+    ajouter_site("Steam","https://store.steampowered.com/?l=french",[3,4]);
+    ajouter_site("Canvas","https://canvas.instructure.com/login/canvas");
+    ajouter_site("JeuxVidéos.com","https://www.jeuxvideo.com/",[2,3]);
+    ajouter_site("Minecraft <i>Site officiel</i>","https://www.minecraft.net/fr-fr",[3]);
+    ajouter_site("Minecraft.fr","https://minecraft.fr/",[3]);
 
+    ajouter_site("Site","Site/index.html",[0]);
     ajouter_site("JsRPG","JsRPG/index.html",[0]);
     ajouter_site("JsTA","JsTA/index.html",[0]);
-    ajouter_site("SW","SW/index.html",[0]);
     ajouter_site("Dimension","Dimension/index.html",[0]);
+    ajouter_site("Rogue","Rogue/index.html",[0]);
 
     ajouter_dossier("Local");//0
     ajouter_dossier("Favoris");//1
@@ -91,4 +102,6 @@ function ajouter_sites () {
     ajouter_dossier("Vidéos");//8
     ajouter_dossier("Recherche");//9
     ajouter_dossier("SW",[3]);//10
+    ajouter_dossier("Pokemon",[3]);//11
+    ajouter_dossier("League of Legends",[3]);//12
 }
