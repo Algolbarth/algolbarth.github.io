@@ -6,12 +6,12 @@ function actualiser () {
     document.getElementById("interface").innerHTML = Affichage;
 }
 
-function fonction (nom,link) {
-    Affichage += "<a href='javascript:" + link + "'>" + nom + "</a>";
+function fonction (nom,link,classes="") {
+    Affichage += "<a href='javascript:" + link + "' class='" + classes + "'>" + nom + "</a>";
 }
 
-function lien (nom,link) {
-    Affichage += "<a href='" + link + "'>" + nom + "</a>";
+function lien (nom,link,classes="") {
+    Affichage += "<a href='" + link + "' class='" + classes + "'>" + nom + "</a>";
 }
 
 function afficher (texte) {
@@ -32,6 +32,15 @@ function div_fin () {
     Affichage += "</div>";
 }
 
-function actualiser_div (div,value) {
+function div_actualiser (div,value) {
     document.getElementById(div).innerHTML = value;
+}
+
+function dupliquer_objet (a) {
+    let b = {};
+    for (i in a)
+    {
+        b[i]=a[i];
+    }
+    return b;
 }
