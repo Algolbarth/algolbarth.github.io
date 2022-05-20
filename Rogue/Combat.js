@@ -30,9 +30,9 @@ function combat_continuer () {
         combat_victoire();
     }
     else {
-        if (!combat_verifier_rapide()) {
+        if (!combat_verifier_rapidite()) {
             swap();
-            if (!combat_verifier_rapide()) {
+            if (!combat_verifier_rapidite()) {
                 swap();
                 if (!combat_verifier_attaque()) {
                     swap();
@@ -75,9 +75,9 @@ function combat_verifier_attaque () {
     return false;
 }
 
-function combat_verifier_rapide () {
+function combat_verifier_rapidite () {
     for (let n=0;n<Jeu[Jeu.combat.attaquant].length;n++) {
-        if (Jeu[Jeu.combat.attaquant][n].action > 0 && statistique(Jeu[Jeu.combat.attaquant][n],"rapide")) {
+        if (Jeu[Jeu.combat.attaquant][n].action > 0 && statistique(Jeu[Jeu.combat.attaquant][n],"rapidite")) {
             Jeu.combat.slot = n;
             return true;
         }
@@ -90,25 +90,9 @@ function attaque () {
     attaquant.action--;
     attaquant.effet_attaque(Jeu.combat.attaquant);
     if (attaquant.type == "Créature") {
-        let defenseur_slot = 0;
-        if (attaquant.portee) {
-            defenseur_slot = Jeu[Jeu.combat.defenseur].length - 1;
-            for (let n=Jeu[Jeu.combat.defenseur].length - 1;n>=0;n--) {
-                if (statistique(Jeu[Jeu.combat.defenseur][n],"protection")) {
-                    defenseur_slot = n;
-                    break;
-                }
-            }
-        }
-        else {
-            for (let n=0;n<Jeu[Jeu.combat.defenseur].length;n++) {
-                if (statistique(Jeu[Jeu.combat.defenseur][n],"protection")) {
-                    defenseur_slot = n;
-                    break;
-                }
-            }
-        }
+        let defenseur_slot = trouver_defenseur();
         let defenseur = Jeu[Jeu.combat.defenseur][defenseur_slot];
+        let defenseur_save = dupliquer_objet(defenseur);
         let defense = statistique(defenseur,"defense") - statistique(attaquant,"percee");
         if (defense < 0) {
             defense = 0;
@@ -117,14 +101,45 @@ function attaque () {
         if (degats_montant < 0) {
             degats_montant = 0;
         }
-        degats(Jeu.combat.defenseur,defenseur_slot,degats_montant);
-        if (degats_montant > defenseur.vie) {
+        let is_mort = degats(defenseur,degats_montant);
+        if (!is_mort) {
+            if (attaquant.mortel) {
+                mort(Jeu.combat.defenseur,defenseur_slot);
+            }
+        }
+        if (is_mort) {
+            attaquant.effet_tuer(defenseur_save);
+        }
+        if (degats_montant > defenseur_save.vie) {
             degats_montant = degats_montant + defenseur.vie;
         }
         if (statistique(attaquant,"vol_de_vie")) {
-            soin(Jeu.combat.attaquant,Jeu.combat.slot,degats_montant);
+            soin(attaquant,degats_montant);
         }
     }
+}
+
+function trouver_defenseur () {
+    let attaquant = Jeu[Jeu.combat.attaquant][Jeu.combat.slot];
+    let defenseur_slot = 0;
+    if (attaquant.portee) {
+        defenseur_slot = Jeu[Jeu.combat.defenseur].length - 1;
+        for (let n=Jeu[Jeu.combat.defenseur].length - 1;n>=0;n--) {
+            if (statistique(Jeu[Jeu.combat.defenseur][n],"protection")) {
+                defenseur_slot = n;
+                break;
+            }
+        }
+    }
+    else {
+        for (let n=0;n<Jeu[Jeu.combat.defenseur].length;n++) {
+            if (statistique(Jeu[Jeu.combat.defenseur][n],"protection")) {
+                defenseur_slot = n;
+                break;
+            }
+        }
+    }
+    return defenseur_slot;
 }
 
 function combat_afficher () {
