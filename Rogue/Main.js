@@ -64,7 +64,6 @@ function nouvelle_partie () {
     Jeu.terrain_adverse = [];
     Jeu.defausse = [];
     ajouter(obtenir_carte(31),"main");
-    ajouter(obtenir_carte(7),"main");
     ajouter(obtenir_carte(1),"terrain");
     boutique_actualiser();
     adversaire_generer();
