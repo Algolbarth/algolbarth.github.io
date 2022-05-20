@@ -148,7 +148,7 @@ function menu () {
             afficher_carte("main",n);
             afficher(" ");
             if (Jeu.raccourci_pose) {
-                fonction("Poser","Jeu.main[" + n + "].effet_pose(" + n + ",1)");
+                fonction("Poser","poser(" + n + ")");
             }
             afficher(" ");
             if (Jeu.raccourci_vente) {
@@ -257,6 +257,7 @@ function afficher_carte (zone,slot) {
 function carte_voir (zone,slot) {
     let texte = "";
     let carte = Jeu[zone][slot];
+    texte += carte.zone + " - " + carte.slot + "<br/>";
     texte += "<u>Nom :</u> " + carte.nom + "<br/>";
     texte += "<u>Cout :</u> ";
     let premier_cout = true;
@@ -670,4 +671,8 @@ function enlever (carte) {
     for (let n=carte.slot;n<Jeu[carte.zone].length;n++) {
         Jeu[carte.zone][n].slot--;
     }
+}
+
+function poser (slot) {
+    Jeu.main[slot].effet_pose(1);
 }

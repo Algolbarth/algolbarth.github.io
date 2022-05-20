@@ -65,7 +65,7 @@ function obtenir_carte (carte_id) {
             carte.vente[0] = 1;
             carte.vie_max = 2;
             carte.texte = "Donne 2 vie maximale à la Créature équipée.";
-            carte.effet_pose = function (main_slot,step,cible) {
+            carte.effet_pose = function (step,cible) {
                 switch (step) {
                     case 1:
                         initialiser();
@@ -82,7 +82,7 @@ function obtenir_carte (carte_id) {
                             if (Jeu.terrain[n].type == "Créature" && Jeu.terrain[n].equipements.length < Jeu.terrain[n].equipement_max) {
                                 afficher_carte("terrain",n);
                                 afficher(" ");
-                                fonction("Cibler","Jeu.main[" + main_slot + "].effet_pose(" + main_slot + ",2," + n + ")");
+                                fonction("Cibler","Jeu.main[" + carte.slot + "].effet_pose(2," + n + ")");
                                 saut();
                             }
                         }
@@ -92,7 +92,7 @@ function obtenir_carte (carte_id) {
                         actualiser();
                         break;
                     case 2:
-                        Jeu.terrain[cible].equipements.push(Jeu.main[main_slot]);
+                        Jeu.terrain[cible].equipements.push(carte);
                         enlever(carte);
                         menu();
                         break;
@@ -106,7 +106,7 @@ function obtenir_carte (carte_id) {
             carte.cout[0] = 3;
             carte.vente[0] = 1;
             carte.texte = "Soigne 3 à une Créature sur le terrain.";
-            carte.effet_pose = function (main_slot,step,cible) {
+            carte.effet_pose = function (step,cible) {
                 switch (step) {
                     case 1:
                         initialiser();
@@ -123,7 +123,7 @@ function obtenir_carte (carte_id) {
                             if (Jeu.terrain[n].type == "Créature") {
                                 afficher_carte("terrain",n);
                                 afficher(" ");
-                                fonction("Cibler","Jeu.main[" + main_slot + "].effet_pose(" + main_slot + ",2," + n + ")");
+                                fonction("Cibler","Jeu.main[" + carte.slot + "].effet_pose(2," + n + ")");
                                 saut();
                             }
                         }
@@ -149,7 +149,7 @@ function obtenir_carte (carte_id) {
             carte.vente[0] = 1;
             carte.attaque = 2;
             carte.texte = "Donne 2 attaque à la Créature équipée.";
-            carte.effet_pose = function (main_slot,step,cible) {
+            carte.effet_pose = function (step,cible) {
                 switch (step) {
                     case 1:
                         initialiser();
@@ -166,7 +166,7 @@ function obtenir_carte (carte_id) {
                             if (Jeu.terrain[n].type == "Créature" && Jeu.terrain[n].equipements.length < Jeu.terrain[n].equipement_max) {
                                 afficher_carte("terrain",n);
                                 afficher(" ");
-                                fonction("Cibler","Jeu.main[" + main_slot + "].effet_pose(" + main_slot + ",2," + n + ")");
+                                fonction("Cibler","Jeu.main[" + carte.slot + "].effet_pose(2," + n + ")");
                                 saut();
                             }
                         }
@@ -176,7 +176,7 @@ function obtenir_carte (carte_id) {
                         actualiser();
                         break;
                     case 2:
-                        Jeu.terrain[cible].equipements.push(Jeu.main[main_slot]);
+                        Jeu.terrain[cible].equipements.push(carte);
                         enlever(carte);
                         menu();
                         break;
@@ -268,7 +268,7 @@ function obtenir_carte (carte_id) {
             carte.action_max = 1;
             carte.equipement_max = 1;
             carte.texte = "Quand arrive sur le terrain : Soigne 3 à une Créature sur le terrain.";
-            carte.effet_pose = function (main_slot,step,cible) {
+            carte.effet_pose = function (step,cible) {
                 switch (step) {
                     case 1:
                         initialiser();
@@ -285,7 +285,7 @@ function obtenir_carte (carte_id) {
                             if (Jeu.terrain[n].type == "Créature") {
                                 afficher_carte("terrain",n);
                                 afficher(" ");
-                                fonction("Cibler","Jeu.main[" + main_slot + "].effet_pose(" + main_slot + ",2," + n + ")");
+                                fonction("Cibler","Jeu.main[" + carte.slot + "].effet_pose(2," + n + ")");
                                 saut();
                             }
                         }
@@ -353,10 +353,10 @@ function obtenir_carte (carte_id) {
             carte.action_max = 1;
             carte.equipement_max = 1;
             carte.texte = "Quand attaque : Crée un Squelette sur le terrain.";
-            carte.effet_attaque = function (zone) {
+            carte.effet_attaque = function () {
                 let nouvelle_carte = obtenir_carte(13);
                 nouvelle_carte.vente = [0,0,0,0,0,0,0,0,0,0,0,0,0];
-                ajouter(nouvelle_carte,zone);
+                ajouter(nouvelle_carte,carte.zone);
             }
             break;
         case 15:
@@ -376,7 +376,7 @@ function obtenir_carte (carte_id) {
             carte.cout[0] = 3;
             carte.vente[0] = 1;
             carte.texte = "Inflige 3 dégâts à une Créature ou un Bâtiment adverse.";
-            carte.effet_pose = function (main_slot,step,cible) {
+            carte.effet_pose = function (step,cible) {
                 switch (step) {
                     case 1:
                         initialiser();
@@ -392,7 +392,7 @@ function obtenir_carte (carte_id) {
                         for (let n=0;n<Jeu.terrain_adverse.length;n++) {
                             afficher_carte("terrain_adverse",n);
                             afficher(" ");
-                            fonction("Cibler","Jeu.main[" + main_slot + "].effet_pose(" + main_slot + ",2," + n + ")");
+                            fonction("Cibler","Jeu.main[" + carte.slot + "].effet_pose(2," + n + ")");
                             saut();
                         }
                         div_fin();
@@ -531,10 +531,10 @@ function obtenir_carte (carte_id) {
             carte.action_max = 1;
             carte.mobile = true;
             carte.texte = "Quand attaque : Crée un Pirate sur le terrain.";
-            carte.effet_attaque = function (zone) {
+            carte.effet_attaque = function () {
                 let nouvelle_carte = obtenir_carte(26);
                 nouvelle_carte.vente = [0,0,0,0,0,0,0,0,0,0,0,0,0];
-                ajouter(nouvelle_carte,zone);
+                ajouter(nouvelle_carte,carte.zone);
             }
             break;
         case 26:
@@ -569,7 +569,7 @@ function obtenir_carte (carte_id) {
             carte.cout[1] = 1;
             carte.vente[0] = 1;
             carte.texte = "Inflige 3 dégâts à une Créature adverse. Sorcellerie (2) : Inflige 5 dégâts à une Créature adverse.";
-            carte.effet_pose = function (main_slot,step,cible) {
+            carte.effet_pose = function (step,cible) {
                 switch (step) {
                     case 1:
                         initialiser();
@@ -585,7 +585,7 @@ function obtenir_carte (carte_id) {
                         for (let n=0;n<Jeu.terrain_adverse.length;n++) {
                             afficher_carte("terrain_adverse",n);
                             afficher(" ");
-                            fonction("Cibler","Jeu.main[" + main_slot + "].effet_pose(" + main_slot + ",2," + n + ")");
+                            fonction("Cibler","Jeu.main[" + carte.slot + "].effet_pose(2," + n + ")");
                             saut();
                         }
                         div_fin();
@@ -627,7 +627,7 @@ function obtenir_carte (carte_id) {
             carte.vente[0] = 1;
             carte.rapidite = true;
             carte.texte = "Applique Rapidité à la Créature équipée.";
-            carte.effet_pose = function (main_slot,step,cible) {
+            carte.effet_pose = function (step,cible) {
                 switch (step) {
                     case 1:
                         initialiser();
@@ -644,7 +644,7 @@ function obtenir_carte (carte_id) {
                             if (Jeu.terrain[n].type == "Créature" && Jeu.terrain[n].equipements.length < Jeu.terrain[n].equipement_max) {
                                 afficher_carte("terrain",n);
                                 afficher(" ");
-                                fonction("Cibler","Jeu.main[" + main_slot + "].effet_pose(" + main_slot + ",2," + n + ")");
+                                fonction("Cibler","Jeu.main[" + carte.slot + "].effet_pose(2," + n + ")");
                                 saut();
                             }
                         }
@@ -654,7 +654,7 @@ function obtenir_carte (carte_id) {
                         actualiser();
                         break;
                     case 2:
-                        Jeu.terrain[cible].equipements.push(Jeu.main[main_slot]);
+                        Jeu.terrain[cible].equipements.push(carte);
                         enlever(carte);
                         menu();
                         break;
@@ -686,10 +686,10 @@ function obtenir_carte (carte_id) {
             carte.vie_max = carte.vie = 2;
             carte.mobile = false;
             carte.texte = "Au début du tour : Crée un Robot sur le terrain.";
-            carte.effet_debut_tour = function (zone) {
+            carte.effet_debut_tour = function () {
                 let nouvelle_carte = obtenir_carte(33);
                 nouvelle_carte.vente = [0,0,0,0,0,0,0,0,0,0,0,0,0];
-                ajouter(nouvelle_carte,zone);
+                ajouter(nouvelle_carte,carte.zone);
             }
             break;
         case 33:
@@ -744,7 +744,7 @@ function obtenir_carte (carte_id) {
             carte.action_max = 1;
             carte.equipement_max = 1;
             carte.texte = "Quand arrive sur le terrain : Diminue le cout d'une carte de la boutique de 2 Or.";
-            carte.effet_pose = function (main_slot,step,cible) {
+            carte.effet_pose = function (step,cible) {
                 switch (step) {
                     case 1:
                         initialiser();
@@ -760,7 +760,7 @@ function obtenir_carte (carte_id) {
                         for (let n=0;n<Jeu.boutique.length;n++) {
                             afficher_carte("boutique",n);
                             afficher(" ");
-                            fonction("Cibler","Jeu.main[" + main_slot + "].effet_pose(" + main_slot + ",2," + n + ")");
+                            fonction("Cibler","Jeu.main[" + carte.slot + "].effet_pose(2," + n + ")");
                             saut();
                         }
                         div_fin();
@@ -823,7 +823,7 @@ function obtenir_carte (carte_id) {
             carte.cout[0] = 3;
             carte.vente[0] = 1;
             carte.texte = "Renvoie une carte située dans votre défausse dans votre main.";
-            carte.effet_pose = function (main_slot,step,cible) {
+            carte.effet_pose = function (step,cible) {
                 switch (step) {
                     case 1:
                         initialiser();
@@ -839,7 +839,7 @@ function obtenir_carte (carte_id) {
                         for (let n=0;n<Jeu.defausse.length;n++) {
                                 afficher_carte("defausse",n);
                                 afficher(" ");
-                                fonction("Cibler","Jeu.main[" + main_slot + "].effet_pose(" + main_slot + ",2," + n + ")");
+                                fonction("Cibler","Jeu.main[" + carte.slot + "].effet_pose(2," + n + ")");
                                 saut();
                         }
                         div_fin();
