@@ -90,9 +90,7 @@ function ajouter_sites () {
     ajouter_site("Gems of War Database","https://gowdb.com/fr-FR/",[3]);
     ajouter_site("Doctissimo","https://www.doctissimo.fr/",[6]);
 
-    ajouter_site("Site","Site/index.html",[0]);
     ajouter_site("JsRPG","JsRPG/index.html",[0]);
-    ajouter_site("JsTA","JsTA/index.html",[0]);
     ajouter_site("Dimension","Dimension/index.html",[0]);
     ajouter_site("Rogue","Rogue/index.html",[0]);
 
