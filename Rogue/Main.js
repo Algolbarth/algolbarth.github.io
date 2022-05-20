@@ -257,7 +257,6 @@ function afficher_carte (zone,slot) {
 function carte_voir (zone,slot) {
     let texte = "";
     let carte = Jeu[zone][slot];
-    texte += carte.zone + " - " + carte.slot + "<br/>";
     texte += "<u>Nom :</u> " + carte.nom + "<br/>";
     texte += "<u>Cout :</u> ";
     let premier_cout = true;
