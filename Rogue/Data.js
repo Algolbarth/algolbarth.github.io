@@ -215,10 +215,9 @@ function obtenir_carte (carte_id) {
             carte.effet_pose = function () {
                 let nouvelle_carte = boutique_generer();
                 while (!nouvelle_carte.familles.includes("Equipement")) {
-                    tick++;
                     nouvelle_carte = boutique_generer();
                 }
-                Jeu.boutique.push(nouvelle_carte);
+                ajouter(nouvelle_carte,"boutique");
                 deplacer(carte,"terrain");
                 menu();
             }
@@ -416,9 +415,9 @@ function obtenir_carte (carte_id) {
             carte.cout[0] = 3;
             carte.vente[0] = 1;
             carte.texte = "Inflige 1 dégât à toutes les Créatures et Bâtiments adverses.";
-            carte.effet_pose = function (main_slot) {
+            carte.effet_pose = function () {
                 for (let n=Jeu.terrain_adverse.length-1;n>=0;n--) {
-                    let carte_cible = Jeu.terrain_adverse[cible];
+                    let carte_cible = Jeu.terrain_adverse[n];
                     degats(carte_cible,1);
                 }
                 deplacer(carte,"defausse");
@@ -488,10 +487,10 @@ function obtenir_carte (carte_id) {
             carte.action_max = 1;
             carte.equipement_max = 1;
             carte.texte = "Quand meurt : Crée un Automate sur le terrain.";
-            carte.effet_mort = function (zone) {
+            carte.effet_mort = function () {
                 let nouvelle_carte = obtenir_carte(23);
                 nouvelle_carte.vente = [0,0,0,0,0,0,0,0,0,0,0,0,0];
-                ajouter(nouvelle_carte,zone);
+                ajouter(nouvelle_carte,carte.zone);
                 if (carte.zone == "terrain_adverse") {
                     deplacer(carte,"defausse_adverse");
                 }
@@ -887,7 +886,7 @@ function obtenir_carte (carte_id) {
             carte.equipement_max = 1;
             carte.texte = "Quand meurt : Se soigne complétement et revient dans votre main.";
             carte.effet_mort = function () {
-                if (zone == "terrain") {
+                if (carte.zone == "terrain") {
                     carte.vie = carte.vie_max;
                     deplacer(carte,"main");
                 }

@@ -64,6 +64,7 @@ function nouvelle_partie () {
     Jeu.terrain_adverse = [];
     Jeu.defausse = [];
     ajouter(obtenir_carte(31),"main");
+    ajouter(obtenir_carte(7),"main");
     ajouter(obtenir_carte(1),"terrain");
     boutique_actualiser();
     adversaire_generer();
@@ -257,6 +258,7 @@ function afficher_carte (zone,slot) {
 function carte_voir (zone,slot) {
     let texte = "";
     let carte = Jeu[zone][slot];
+    texte += carte.zone + " - " + carte.slot + "<br/>";
     texte += "<u>Nom :</u> " + carte.nom + "<br/>";
     texte += "<u>Cout :</u> ";
     let premier_cout = true;
@@ -448,7 +450,7 @@ function boutique_actualiser () {
             nombre_actualisation--;
         }
         else {
-            Jeu.boutique.splice(n,1);
+            enlever(Jeu.boutique[n]);
             n--;
         }
     }
@@ -512,7 +514,7 @@ function vendre (zone,slot) {
     for (let n=0;n<Jeu.ressources.length;n++) {
         Jeu.ressources[n].courant += Jeu[zone][slot].vente[n];
     }
-    Jeu[zone].splice(slot,1);
+    enlever(Jeu[zone][slot]);
     menu();
 }
 
@@ -526,14 +528,14 @@ function etage_suivant () {
     for (let n=0;n<Jeu.defausse.length;n++) {
         Jeu.defausse[n].etage_mort++;
         if (Jeu.defausse[n].etage_mort > 1 && !Jeu.defausse[n].eternite) {
-            Jeu.defausse.splice(n,1);
+            enlever(Jeu.defausse[n]);
             n--;
         }
     }
     for (let n=0;n<Jeu.defausse_adverse.length;n++) {
         Jeu.defausse_adverse[n].etage_mort++;
         if (Jeu.defausse_adverse[n].etage_mort > 1 && !Jeu.defausse_adverse[n].eternite) {
-            Jeu.defausse_adverse.splice(n,1);
+            enlever(Jeu.defausse_adverse[n]);
             n--;
         }
     }
@@ -564,6 +566,7 @@ function adversaire_voir () {
     }
     else {
         afficher("<i>Le terrain adverse est vide</i>");
+        saut();
     }
     saut();
     afficher("<u>Défausse adverse :</u>");
@@ -596,6 +599,8 @@ function monter (zone,slot) {
     let trans = Jeu[zone][slot-1];
     Jeu[zone][slot] = trans;
     Jeu[zone][slot-1] = carte;
+    carte.slot--;
+    trans.slot++;
     menu();
 }
 
@@ -604,6 +609,8 @@ function descendre (zone,slot) {
     let trans = Jeu[zone][slot+1];
     Jeu[zone][slot] = trans;
     Jeu[zone][slot+1] = carte;
+    carte.slot++;
+    trans.slot--;
     menu();
 }
 
