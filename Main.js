@@ -30,6 +30,8 @@ function liste_sites () {
         lien("<img src='Images/page.svg' class='icone' /> " + Sites[n].nom,Sites[n].url);
         saut();
     }
+    div("site");
+    div_fin();
     actualiser();
 }
 
@@ -79,16 +81,12 @@ function trier_dossiers () {
     }
 }
 
-function voir_site (n,retour) {
-    initialiser();
-    fonction("Retour",retour);
-    saut(2);
-    afficher(Sites[n].nom);
-    saut();
-    lien("<u>" + Sites[n].url + "</u>",Sites[n].url);
-    saut();
-    afficher(Sites[n].description);
-    actualiser();
+function voir_site (n) {
+    let texte = "";
+    texte += Sites[n].nom + "<br/>";
+    texte += "<a href='" + Sites[n].url + "'>" + Sites[n].url + "</a> <br/>";
+    texte += Sites[n].description;
+    div_actualiser("site",texte);
 }
 
 function voir_dossier (n,retour) {
@@ -107,5 +105,7 @@ function voir_dossier (n,retour) {
         lien("<img src='Images/page.svg' class='icone' /> " + Sites[Dossiers[n].sites[i]].nom,Sites[Dossiers[n].sites[i]].url);
         saut();
     }
+    div("site");
+    div_fin();
     actualiser();
 }

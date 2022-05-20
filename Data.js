@@ -84,8 +84,15 @@ function ajouter_sites () {
     ajouter_site("JeuxVidéos.com","https://www.jeuxvideo.com/",[2,3]);
     ajouter_site("Minecraft <i>Site officiel</i>","https://www.minecraft.net/fr-fr",[3]);
     ajouter_site("Minecraft.fr","https://minecraft.fr/",[3]);
+    ajouter_site("Orsay","https://www.orsay.com/de-de/",[5]);
+    ajouter_site("H&M","https://www2.hm.com/fr_fr/index.html",[5]);
+    ajouter_site("Kiabi","https://www.kiabi.com/",[5]);
+    ajouter_site("Gems of War Database","https://gowdb.com/fr-FR/",[3]);
+    ajouter_site("Doctissimo","https://www.doctissimo.fr/",[6]);
 
+    ajouter_site("Site","Site/index.html",[0]);
     ajouter_site("JsRPG","JsRPG/index.html",[0]);
+    ajouter_site("JsTA","JsTA/index.html",[0]);
     ajouter_site("Dimension","Dimension/index.html",[0]);
     ajouter_site("Rogue","Rogue/index.html",[0]);
 

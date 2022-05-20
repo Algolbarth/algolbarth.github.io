@@ -31,3 +31,11 @@ a:hover {
 .title {
     width:60%;
 }
+
+#site {
+    width:49%;
+    height:50vw;
+    position:absolute;
+    left:50%;
+    top:0px;
+}
