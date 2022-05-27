@@ -1,38 +1,18 @@
-html {
-    height:99%;
-    width:100%;
-    overflow:hidden;
-	word-wrap:break-word;
-}
-
 body {
-    height:99%;
-    width:100%;
-    overflow:auto;
-    padding-right:15px;
-    background:rgb(67, 68, 68);
-    color:rgb(255, 255, 255);
-    font-size:110%;
+    font-size:150%;
 }
 
 a {
     text-decoration:none;
-    color:rgb(255, 255, 255);
 }
 
-a:hover {
-    color:rgb(255, 0, 0);
+#main {
+    width:49%;
+    height:50vw;
+    position:absolute;
 }
 
-.icone {
-    width:1.2%;
-}
-
-.title {
-    width:60%;
-}
-
-#site {
+#carte {
     width:49%;
     height:50vw;
     position:absolute;
