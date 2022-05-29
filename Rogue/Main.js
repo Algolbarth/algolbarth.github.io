@@ -24,7 +24,7 @@ function demarrage () {
         defausse : [],
         terrain_adverse : [],
         defausse_adverse : [],
-        NOMBRE_CARTE : 53,
+        NOMBRE_CARTE : 58,
         combat : {
             etat : false,
             auto : true,
@@ -299,6 +299,20 @@ function carte_voir (zone,slot) {
     if (statistique(carte,"protection")) {
         texte += "Protection : Les attaquent ennnemies le visent en priorité. <br/>";
     }
+    if (statistique(carte,"brulure") > 0) {
+        texte += "Brûlure " + statistique(carte,"brulure");
+        if (Jeu.texte_talent) {
+            texte += " : Au début du prochain tour, subit " + statistique(carte,"brulure") + " dégât(s).";
+        }
+        texte += "<br/>";
+    }
+    if (statistique(carte,"sorcellerie") > 0) {
+        texte += "Sorcellerie " + statistique(carte,"sorcellerie");
+        if (Jeu.texte_talent) {
+            texte += " : Débloque des effets supplémentaires de certaines cartes.";
+        }
+        texte += " <i>(votre sorcellerie totale est de " + sorcellerie() + ")</i> <br/>";
+    }
     if (carte.type == "Bâtiment") {
         if (carte.mobile) {
             texte += "Mobile";
@@ -312,7 +326,7 @@ function carte_voir (zone,slot) {
         if (statistique(carte,"rapidite")) {
             texte += "Rapidité";
             if (Jeu.texte_talent) {
-                texte += " : Attaque avant les autres créatures.";
+                texte += " : Attaque avant les autres Créatures.";
             }
             texte += "<br/>";
         }
@@ -326,7 +340,7 @@ function carte_voir (zone,slot) {
         if (statistique(carte,"vol_de_vie")) {
             texte += "Vol de vie";
             if (Jeu.texte_talent) {
-                texte += " : Quand attaque une créature, se soigne de la même quantité que les dégâts infligés.";
+                texte += " : Quand attaque une Créature, se soigne de la même quantité que les dégâts infligés.";
             }
             texte += "<br/>";
         }
@@ -343,13 +357,6 @@ function carte_voir (zone,slot) {
                 texte += " : Ignore " + statistique(carte,"percee") + " défense quand attaque.";
             }
             texte += "<br/>";
-        }
-        if (statistique(carte,"sorcellerie") > 0) {
-            texte += "Sorcellerie " + statistique(carte,"sorcellerie");
-            if (Jeu.texte_talent) {
-                texte += " : Débloque des effets supplémentaires de certaines cartes.";
-            }
-            texte += " <i>(votre sorcellerie totale est de " + sorcellerie() + ")</i> <br/>";
         }
         if (statistique(carte,"portee") > 0) {
             texte += "Portée";
@@ -393,10 +400,10 @@ function carte_voir (zone,slot) {
             }
             texte += "<br/>";
         }
-        if (statistique(carte,"brulure") > 0) {
-            texte += "Brûlure " + statistique(carte,"brulure");
+        if (statistique(carte,"maladie") > 0) {
+            texte += "Maladie " + statistique(carte,"maladie");
             if (Jeu.texte_talent) {
-                texte += " : Au début du prochain tour, subit " + statistique(carte,"brulure") + " dégât(s).";
+                texte += " : Débloque des effets supplémentaires de certaines cartes.";
             }
             texte += "<br/>";
         }
