@@ -10,8 +10,8 @@ function combat_nouveau () {
         if (statistique(Jeu.terrain[n],"regeneration") > 0 && Jeu.terrain[n].vie < Jeu.terrain[n].vie_max) {
             soin(Jeu.terrain[n],statistique(Jeu.terrain[n],"regeneration"));
         }
-        if (statistique(Jeu.terrain[n],"brulure") > 0) {
-            degats(Jeu.terrain[n],statistique(Jeu.terrain[n],"brulure"));
+        if (Jeu.terrain[n].brulure > 0) {
+            degats(Jeu.terrain[n],Jeu.terrain[n].brulure);
             Jeu.terrain[n].brulure--;
         }
     }
@@ -21,8 +21,8 @@ function combat_nouveau () {
         if (statistique(Jeu.terrain_adverse[n],"regeneration") > 0 && Jeu.terrain_adverse[n].vie < Jeu.terrain_adverse[n].vie_max) {
             soin(Jeu.terrain_adverse[n],statistique(Jeu.terrain_adverse[n],"regeneration"));
         }
-        if (statistique(Jeu.terrain_adverse[n],"brulure") > 0) {
-            degats(Jeu.terrain_adverse[n],statistique(Jeu.terrain_adverse[n],"brulure"));
+        if (Jeu.terrain_adverse[n].brulure > 0) {
+            degats(Jeu.terrain_adverse[n],Jeu.terrain_adverse[n].brulure);
             Jeu.terrain_adverse[n].brulure--;
         }
     }
@@ -60,8 +60,8 @@ function combat_continuer () {
                             if (statistique(Jeu.terrain[n],"regeneration") > 0 && Jeu.terrain[n].vie < Jeu.terrain[n].vie_max) {
                                 soin(Jeu.terrain[n],statistique(Jeu.terrain[n],"regeneration"));
                             }
-                            if (statistique(Jeu.terrain[n],"brulure") > 0) {
-                                degats(Jeu.terrain[n],statistique(Jeu.terrain[n],"brulure"));
+                            if (Jeu.terrain[n].brulure > 0) {
+                                degats(Jeu.terrain[n],Jeu.terrain[n].brulure);
                                 Jeu.terrain[n].brulure--;
                             }
                         }
@@ -71,8 +71,8 @@ function combat_continuer () {
                             if (statistique(Jeu.terrain_adverse[n],"regeneration") > 0 && Jeu.terrain_adverse[n].vie < Jeu.terrain_adverse[n].vie_max) {
                                 soin(Jeu.terrain_adverse[n],statistique(Jeu.terrain_adverse[n],"regeneration"));
                             }
-                            if (statistique(Jeu.terrain_adverse[n],"brulure") > 0) {
-                                degats(Jeu.terrain_adverse[n],statistique(Jeu.terrain_adverse[n],"brulure"));
+                            if (Jeu.terrain_adverse[n].brulure > 0) {
+                                degats(Jeu.terrain_adverse[n],Jeu.terrain_adverse[n].brulure);
                                 Jeu.terrain_adverse[n].brulure--;
                             }
                         }
@@ -124,7 +124,7 @@ function attaque () {
         attaquant.equipements[n].effet_attaque(defenseur);
     }
     if (attaquant.type == "Créature") {
-        if (statistique(attaquant,"poison") > 0) {
+        if (attaquant.poison > 0) {
             degats(attaquant,1);
             attaquant.poison;
         }
@@ -259,7 +259,7 @@ function combat_defaite () {
         saut();
         afficher("Il vous reste " + Jeu.vie + " vie");
         saut(2);
-        fonction("Etage suivant","etage_suivant()");
+        fonction("Continuer","etage_fin()");
     }
     else {
         afficher("Vous n'avez plus de vie");

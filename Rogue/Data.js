@@ -31,6 +31,9 @@ function obtenir_carte (carte_id) {
         poison : 0,
         brulure : 0,
         maladie : 0,
+        resistance : 0,
+        ephemere : false,
+        temporaire : false,
         texte : "Aucun",
         effet_pose : function () {
             deplacer(carte,"terrain");
@@ -40,11 +43,16 @@ function obtenir_carte (carte_id) {
         effet_allie_pose : function () {},
         effet_attaque : function () {},
         effet_mort : function () {
-            if (carte.zone == "terrain_adverse") {
-                deplacer(carte,"defausse_adverse");
+            if (statistique(carte,"ephemere")) {
+                enlever(carte);
             }
             else {
-                deplacer(carte,"defausse");
+                if (carte.zone == "terrain_adverse") {
+                    deplacer(carte,"defausse_adverse");
+                }
+                else {
+                    deplacer(carte,"defausse");
+                }
             }
         },
         effet_carte_mort : function () {},
@@ -525,11 +533,16 @@ function obtenir_carte (carte_id) {
                 let nouvelle_carte = obtenir_carte(23);
                 nouvelle_carte.vente = [0,0,0,0,0,0,0,0,0,0,0,0,0];
                 ajouter(nouvelle_carte,carte.zone);
-                if (carte.zone == "terrain_adverse") {
-                    deplacer(carte,"defausse_adverse");
+                if (statistique(carte,"ephemere")) {
+                    enlever(carte);
                 }
                 else {
-                    deplacer(carte,"defausse");
+                    if (carte.zone == "terrain_adverse") {
+                        deplacer(carte,"defausse_adverse");
+                    }
+                    else {
+                        deplacer(carte,"defausse");
+                    }
                 }
             }
             break;
@@ -942,8 +955,15 @@ function obtenir_carte (carte_id) {
             carte.texte = "Quand meurt : Se soigne complétement et revient dans votre main.";
             carte.effet_mort = function () {
                 if (carte.zone == "terrain") {
-                    carte.vie = carte.vie_max;
-                    deplacer(carte,"main");
+                    if (statistique(carte,"ephemere")) {
+                        enlever(carte);
+                    }
+                    else {
+                        if (carte.zone == "terrain") {
+                            carte.vie = carte.vie_max;
+                            deplacer(carte,"main");
+                        }
+                    }
                 }
             }
             break;
@@ -1001,7 +1021,7 @@ function obtenir_carte (carte_id) {
             carte.vie_max = carte.vie = 2;
             carte.action_max = 1;
             carte.equipement_max = 1;
-            carte.texte = "Quand une Créature arrive sur le terrain : Se donne 1 attaque et 1 vie.";
+            carte.texte = "Quand une Créature est posée depuis votre main : Se donne 1 attaque et 1 vie.";
             carte.effet_allie_pose = function (allie) {
                 if (allie.type == "Créature") {
                     carte.attaque++;
@@ -1014,12 +1034,12 @@ function obtenir_carte (carte_id) {
             carte.nom = "Liche mangeuse d'âme";
             carte.type = "Créature";
             carte.familles.push("Liche");
-            carte.cout[0] = 7;
-            carte.cout[8] = 4;
-            carte.cout[9] = 4;
+            carte.cout[0] = 6;
+            carte.cout[8] = 3;
+            carte.cout[9] = 3;
             carte.vente[0] = 3;
-            carte.vente[8] = 2;
-            carte.vente[9] = 2;
+            carte.vente[8] = 1;
+            carte.vente[9] = 1;
             carte.attaque = 5;
             carte.vie_max = carte.vie = 5;
             carte.action_max = 1;
@@ -1059,7 +1079,9 @@ function obtenir_carte (carte_id) {
             carte.equipement_max = 1;
             carte.texte = "Quand attaque : applique Poison 1 à la Créature attaquée.";
             carte.effet_attaque = function (defenseur) {
-                defenseur.poison++;
+                if (defenseur.type == "Créature") {
+                    defenseur.poison++;
+                }
             }
             break;
         case 49:
@@ -1106,7 +1128,9 @@ function obtenir_carte (carte_id) {
                 }
             }
             carte.effet_attaque = function (defenseur) {
-                defenseur.poison++;
+                if (defenseur.type == "Créature") {
+                    defenseur.poison++;
+                }
             }
             break;
         case 50:
@@ -1270,7 +1294,7 @@ function obtenir_carte (carte_id) {
                     case 1:
                         let verifier_debuff = false;
                         for (let n=0;n<Jeu.terrain.length;n++) {
-                            if (Jeu.terrain[n].poison > 0 || Jeu.terrain[n].brulure > 0) {
+                            if (Jeu.terrain[n].poison > 0 || Jeu.terrain[n].brulure > 0 || Jeu.terrain[n].maladie > 0) {
                                 verifier_debuff = true;
                             }
                         }
@@ -1286,7 +1310,7 @@ function obtenir_carte (carte_id) {
                             afficher("Choisissez une Créature : ");
                             saut(2);
                             for (let n=0;n<Jeu.terrain.length;n++) {
-                                if (Jeu.terrain[n].type == "Créature" && (Jeu.terrain[n].poison > 0 || Jeu.terrain[n].brulure > 0)) {
+                                if (Jeu.terrain[n].type == "Créature" && (Jeu.terrain[n].poison > 0 || Jeu.terrain[n].brulure > 0 || Jeu.terrain[n].maladie > 0)) {
                                     afficher_carte("terrain",n);
                                     afficher(" ");
                                     fonction("Cibler","Jeu.main[" + carte.slot + "].effet_pose(2," + n + ")");
@@ -1303,6 +1327,7 @@ function obtenir_carte (carte_id) {
                         let carte_cible = Jeu.terrain[cible];
                         carte_cible.poison = 0;
                         carte_cible.brulure = 0;
+                        carte_cible.maladie = 0;
                         deplacer(carte,"defausse");
                         effet_pose(carte);
                         menu();
@@ -1442,6 +1467,45 @@ function obtenir_carte (carte_id) {
                         break;
                 }
             }
+            break;
+        case 59:
+            carte.nom = "Slime";
+            carte.type = "Créature";
+            carte.familles.push("Slime");
+            carte.cout[0] = 2;
+            carte.cout[2] = 2;
+            carte.vente[0] = 1;
+            carte.vente[2] = 1;
+            carte.attaque = 1;
+            carte.vie_max = carte.vie = 1;
+            carte.action_max = 1;
+            carte.equipement_max = 1;
+            carte.resistance = 1;
+            break;
+        case 60:
+            carte.nom = "Fantôme";
+            carte.type = "Créature";
+            carte.familles.push("Fantôme");
+            carte.cout[0] = 1;
+            carte.cout[9] = 1;
+            carte.vente[0] = 1;
+            carte.attaque = 2;
+            carte.vie_max = carte.vie = 2;
+            carte.action_max = 1;
+            carte.equipement_max = 1;
+            carte.ephemere = true;
+            break;
+        case 61:
+            carte.nom = "Mercenaire";
+            carte.type = "Créature";
+            carte.familles.push("Humain");
+            carte.cout[0] = 3;
+            carte.vente[0] = 1;
+            carte.attaque = 3;
+            carte.vie_max = carte.vie = 3;
+            carte.action_max = 1;
+            carte.equipement_max = 1;
+            carte.temporaire = true;
             break;
     }
     return carte;

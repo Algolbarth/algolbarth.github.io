@@ -24,7 +24,7 @@ function demarrage () {
         defausse : [],
         terrain_adverse : [],
         defausse_adverse : [],
-        NOMBRE_CARTE : 58,
+        NOMBRE_CARTE : 61,
         combat : {
             etat : false,
             auto : true,
@@ -297,12 +297,12 @@ function carte_voir (zone,slot) {
     texte += "<br/>";
     texte += "<u>Effet :</u> " + carte.texte + "<br/>";
     if (statistique(carte,"protection")) {
-        texte += "Protection : Les attaquent ennnemies le visent en priorité. <br/>";
+        texte += "Protection : Les attaquent ennnemies visent cette carte en priorité. <br/>";
     }
     if (statistique(carte,"brulure") > 0) {
         texte += "Brûlure " + statistique(carte,"brulure");
         if (Jeu.texte_talent) {
-            texte += " : Au début du prochain tour, subit " + statistique(carte,"brulure") + " dégât(s).";
+            texte += " : Au début du prochain tour, cette carte subit " + statistique(carte,"brulure") + " dégât(s).";
         }
         texte += "<br/>";
     }
@@ -312,6 +312,13 @@ function carte_voir (zone,slot) {
             texte += " : Débloque des effets supplémentaires de certaines cartes.";
         }
         texte += " <i>(votre sorcellerie totale est de " + sorcellerie() + ")</i> <br/>";
+    }
+    if (statistique(carte,"resistance") > 0) {
+        texte += "Résistance " + statistique(carte,"resistance");
+        if (Jeu.texte_talent) {
+            texte += " : A chaque fois que cette carte subit des dégats, en subis " + statistique(carte,"resistance") + " de moins.";
+        }
+        texte += "<br/>";
     }
     if (carte.type == "Bâtiment") {
         if (carte.mobile) {
@@ -340,7 +347,7 @@ function carte_voir (zone,slot) {
         if (statistique(carte,"vol_de_vie")) {
             texte += "Vol de vie";
             if (Jeu.texte_talent) {
-                texte += " : Quand attaque une Créature, se soigne de la même quantité que les dégâts infligés.";
+                texte += " : Quand attaque une Créature, se soigne d'autant que les dégâts infligés.";
             }
             texte += "<br/>";
         }
@@ -393,17 +400,31 @@ function carte_voir (zone,slot) {
             }
             texte += "<br/>";
         }
-        if (statistique(carte,"poison") > 0) {
-            texte += "Poison " + statistique(carte,"poison");
+        if (carte.poison > 0) {
+            texte += "Poison " + carte.poison;
             if (Jeu.texte_talent) {
-                texte += " : Au début de chaque tour pendant " + statistique(carte,"poison") + " tour(s), subit 1 dégât.";
+                texte += " : Au début de chaque tour pendant " + carte.poison + " tour(s), subit 1 dégât.";
             }
             texte += "<br/>";
         }
-        if (statistique(carte,"maladie") > 0) {
-            texte += "Maladie " + statistique(carte,"maladie");
+        if (carte.maladie > 0) {
+            texte += "Maladie " + carte.maladie;
             if (Jeu.texte_talent) {
                 texte += " : Débloque des effets supplémentaires de certaines cartes.";
+            }
+            texte += "<br/>";
+        }
+        if (statistique(carte,"ephemere")) {
+            texte += "Ephémère ";
+            if (Jeu.texte_talent) {
+                texte += " : Quand meurt, est bannis.";
+            }
+            texte += "<br/>";
+        }
+        if (carte.temporaire > 0) {
+            texte += "Temporaire ";
+            if (Jeu.texte_talent) {
+                texte += " : Est bannis à l'étage suivant.";
             }
             texte += "<br/>";
         }
@@ -554,27 +575,43 @@ function vendre (zone,slot) {
 
 function etage_suivant () {
     Jeu.etage++;
+    adversaire_generer();
+    etage_fin();
+}
+
+function etage_fin () {
     Jeu.ressources[0].max++;
     Jeu.ressource_sup = 1;
     for (let n=0;n<Jeu.ressources.length;n++) {
         Jeu.ressources[n].courant = Jeu.ressources[n].max;
     }
+    for (let n=0;n<Jeu.terrain.length;n++) {
+        if (Jeu.terrain[n].temporaire) {
+            enlever(Jeu.terrain[n]);
+            n--;
+        }
+    }
+    for (let n=0;n<Jeu.main.length;n++) {
+        if (Jeu.main[n].temporaire) {
+            enlever(Jeu.main[n]);
+            n--;
+        }
+    }
     for (let n=0;n<Jeu.defausse.length;n++) {
         Jeu.defausse[n].etage_mort++;
-        if (Jeu.defausse[n].etage_mort > 1 && !Jeu.defausse[n].eternite) {
+        if ((Jeu.defausse[n].etage_mort > 1 && !Jeu.defausse[n].eternite) || Jeu.defausse[n].temporaire) {
             enlever(Jeu.defausse[n]);
             n--;
         }
     }
     for (let n=0;n<Jeu.defausse_adverse.length;n++) {
         Jeu.defausse_adverse[n].etage_mort++;
-        if (Jeu.defausse_adverse[n].etage_mort > 1 && !Jeu.defausse_adverse[n].eternite) {
+        if ((Jeu.defausse_adverse[n].etage_mort > 1 && !Jeu.defausse_adverse[n].eternite) || Jeu.defausse_adverse[n].temporaire) {
             enlever(Jeu.defausse_adverse[n]);
             n--;
         }
     }
     boutique_actualiser();
-    adversaire_generer();
     menu();
 }
 
@@ -657,6 +694,12 @@ function soin (carte,montant) {
 }
 
 function degats (carte,montant) {
+    if (carte.resistance > 0) {
+        montant -= carte.resistance;
+        if (carte.vie_sup < 0) {
+            carte.vie_sup = 0;
+        }
+    }
     if (carte.vie_sup > 0) {
         let trans = montant;
         montant -= carte.vie_sup;
