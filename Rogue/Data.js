@@ -60,6 +60,7 @@ function obtenir_carte (carte_id) {
         effet_degat : function () {},
         effet_tuer : function () {},
         effet_soin : function () {},
+        effet_equiper : function () {},
         equipements : [],
         equipement_max : 0,
     }
@@ -112,6 +113,7 @@ function obtenir_carte (carte_id) {
                         break;
                     case 2:
                         Jeu.terrain[cible].equipements.push(carte);
+                        Jeu.terrain[cible].effet_equiper(carte);
                         enlever(carte);
                         effet_pose(carte);
                         menu();
@@ -202,6 +204,7 @@ function obtenir_carte (carte_id) {
                         break;
                     case 2:
                         Jeu.terrain[cible].equipements.push(carte);
+                        Jeu.terrain[cible].effet_equiper(carte);
                         enlever(carte);
                         effet_pose(carte);
                         menu();
@@ -708,6 +711,7 @@ function obtenir_carte (carte_id) {
                         break;
                     case 2:
                         Jeu.terrain[cible].equipements.push(carte);
+                        Jeu.terrain[cible].effet_equiper(carte);
                         enlever(carte);
                         effet_pose(carte);
                         menu();
@@ -1121,6 +1125,7 @@ function obtenir_carte (carte_id) {
                         break;
                     case 2:
                         Jeu.terrain[cible].equipements.push(carte);
+                        Jeu.terrain[cible].effet_equiper(carte);
                         enlever(carte);
                         effet_pose(carte);
                         menu();
@@ -1429,6 +1434,7 @@ function obtenir_carte (carte_id) {
                         break;
                     case 3:
                         Jeu.terrain[cible].equipements.push(carte);
+                        Jeu.terrain[cible].effet_equiper(carte);
                         enlever(carte);
                         effet_pose(carte);
                         menu();
@@ -1506,6 +1512,23 @@ function obtenir_carte (carte_id) {
             carte.action_max = 1;
             carte.equipement_max = 1;
             carte.temporaire = true;
+            break;
+        case 62:
+            carte.nom = "Gladiateur";
+            carte.type = "Créature";
+            carte.familles.push("Humain");
+            carte.cout[0] = 4;
+            carte.vente[0] = 2;
+            carte.attaque = 2;
+            carte.vie_max = carte.vie = 2;
+            carte.action_max = 1;
+            carte.equipement_max = 1;
+            carte.texte = "";
+            carte.effet_equiper = function (equipement) {
+                if (equipement.familles.includes("Arme")) {
+                    carte.attaque++;
+                }
+            }
             break;
     }
     return carte;
