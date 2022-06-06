@@ -34,6 +34,7 @@ function obtenir_carte (carte_id) {
         resistance : 0,
         ephemere : false,
         temporaire : false,
+        decompte : 0,
         texte : "Aucun",
         effet_pose : function () {
             deplacer(carte,"terrain");
@@ -60,7 +61,9 @@ function obtenir_carte (carte_id) {
         effet_degat : function () {},
         effet_tuer : function () {},
         effet_soin : function () {},
+        effet_soin_allie : function () {},
         effet_equiper : function () {},
+        effet_decompte : function () {},
         equipements : [],
         equipement_max : 0,
     }
@@ -391,7 +394,7 @@ function obtenir_carte (carte_id) {
             carte.vie_max = carte.vie = 2;
             carte.action_max = 1;
             carte.equipement_max = 1;
-            carte.texte = "Quand attaque : Crée un Squelette sur votre terrain.";
+            carte.texte = "Quand attaque : Crée Squelette sur votre terrain.";
             carte.effet_attaque = function () {
                 let nouvelle_carte = obtenir_carte(13);
                 nouvelle_carte.vente = [0,0,0,0,0,0,0,0,0,0,0,0,0];
@@ -531,7 +534,7 @@ function obtenir_carte (carte_id) {
             carte.vie_max = carte.vie = 2;
             carte.action_max = 1;
             carte.equipement_max = 1;
-            carte.texte = "Quand meurt : Crée un Automate sur votre terrain.";
+            carte.texte = "Quand meurt : Crée Automate sur votre terrain.";
             carte.effet_mort = function () {
                 let nouvelle_carte = obtenir_carte(23);
                 nouvelle_carte.vente = [0,0,0,0,0,0,0,0,0,0,0,0,0];
@@ -580,7 +583,7 @@ function obtenir_carte (carte_id) {
             carte.vie_max = carte.vie = 2;
             carte.action_max = 1;
             carte.mobile = true;
-            carte.texte = "Quand attaque : Crée un Pirate sur votre terrain.";
+            carte.texte = "Quand attaque : Crée Pirate sur votre terrain.";
             carte.effet_attaque = function () {
                 let nouvelle_carte = obtenir_carte(26);
                 nouvelle_carte.vente = [0,0,0,0,0,0,0,0,0,0,0,0,0];
@@ -744,7 +747,7 @@ function obtenir_carte (carte_id) {
             carte.vente[7] = 1;
             carte.vie_max = carte.vie = 2;
             carte.mobile = false;
-            carte.texte = "Au début du tour : Crée un Robot sur votre terrain.";
+            carte.texte = "Au début du tour : Crée Robot sur votre terrain.";
             carte.effet_debut_tour = function () {
                 let nouvelle_carte = obtenir_carte(33);
                 nouvelle_carte.vente = [0,0,0,0,0,0,0,0,0,0,0,0,0];
@@ -1037,7 +1040,7 @@ function obtenir_carte (carte_id) {
         case 46:
             carte.nom = "Liche mangeuse d'âme";
             carte.type = "Créature";
-            carte.familles.push("Liche");
+            carte.familles.push("Mort-vivant","Liche");
             carte.cout[0] = 6;
             carte.cout[8] = 3;
             carte.cout[9] = 3;
@@ -1216,7 +1219,7 @@ function obtenir_carte (carte_id) {
             carte.cout[10] = 2;
             carte.vente[0] = 1;
             carte.vente[10] = 1;
-            carte.attaque = 2;
+            carte.attaque = 1;
             carte.vie_max = carte.vie = 3;
             carte.action_max = 1;
             carte.equipement_max = 1;
@@ -1523,11 +1526,117 @@ function obtenir_carte (carte_id) {
             carte.vie_max = carte.vie = 2;
             carte.action_max = 1;
             carte.equipement_max = 1;
-            carte.texte = "";
+            carte.texte = "Quand est équipé d'un Objet Arme : Se donne 1 attaque.";
             carte.effet_equiper = function (equipement) {
                 if (equipement.familles.includes("Arme")) {
                     carte.attaque++;
                 }
+            }
+            break;
+        case 63:
+            carte.nom = "Oeuf de dragon";
+            carte.type = "Bâtiment";
+            carte.familles.push("Dragon");
+            carte.cout[0] = 3;
+            carte.cout[1] = 1;
+            carte.cout[5] = 1;
+            carte.vente[0] = 2;
+            carte.vie_max = carte.vie = 1;
+            carte.decompte = 1;
+            carte.texte = "Quand le décompte est écoulé : Se détruit et crée Dragon sur votre terrain.";
+            carte.effet_decompte = function () {
+                let nouvelle_carte = obtenir_carte(9);
+                nouvelle_carte.vente = [0,0,0,0,0,0,0,0,0,0,0,0,0];
+                ajouter(nouvelle_carte,carte.zone);
+                carte.vie = 0;
+                deplacer(carte,"defausse");
+            }
+            break;
+        case 64:
+            carte.nom = "Assassin";
+            carte.type = "Créature";
+            carte.familles.push("Humain");
+            carte.cout[0] = 5;
+            carte.vente[0] = 2;
+            carte.attaque = 2;
+            carte.vie_max = carte.vie = 2;
+            carte.action_max = 1;
+            carte.equipement_max = 1;
+            carte.texte = "Quand posé : Inflige 2 dégats à l'adversaire.";
+            carte.effet_pose = function () {
+                deplacer(carte,"terrain");
+                effet_pose(carte);
+                degats_adverse(2);
+                if (Jeu.vie_adverse > 0) {
+                    menu();
+                }
+                else {
+                    combat_victoire();
+                }
+            }
+            break;
+        case 65:
+            carte.nom = "Ange";
+            carte.type = "Créature";
+            carte.familles.push("Ange");
+            carte.cout[0] = 5;
+            carte.cout[1] = 2;
+            carte.cout[10] = 2;
+            carte.vente[0] = 2;
+            carte.vente[1] = 1;
+            carte.vente[10] = 1;
+            carte.attaque = 4;
+            carte.vie_max = carte.vie = 4;
+            carte.action_max = 1;
+            carte.equipement_max = 1;
+            carte.texte = "Quand posé : Soigne 2 au joueur.";
+            carte.effet_pose = function () {
+                Jeu.vie += 2;
+                deplacer(carte,"terrain");
+                effet_pose(carte);
+                menu();
+            }
+            break;
+        case 66:
+            carte.nom = "Evêque";
+            carte.type = "Créature";
+            carte.familles.push("Humain","Eglise");
+            carte.cout[0] = 4;
+            carte.cout[10] = 3;
+            carte.vente[0] = 2;
+            carte.vente[10] = 1;
+            carte.attaque = 1;
+            carte.vie_max = carte.vie = 4;
+            carte.action_max = 1;
+            carte.equipement_max = 1;
+            carte.texte = "Quand une Créature sur votre terrain est soignée : Se soigne de 1.";
+            carte.effet_soin_allie = function (allie) {
+                if (allie.slot != carte.slot) {
+                    soin(carte,1);
+                }
+            }
+            break;
+        case 67:
+            carte.nom = "Griffon";
+            carte.type = "Créature";
+            carte.familles.push("Griffon");
+            carte.cout[0] = 5;
+            carte.cout[5] = 4;
+            carte.vente[0] = 2;
+            carte.vente[5] = 2;
+            carte.attaque = 4;
+            carte.vie_max = carte.vie = 4;
+            carte.action_max = 1;
+            carte.equipement_max = 1;
+            carte.texte = "Quand posé : diminue le cout d'amélioration de votre boutique de 2.";
+            carte.effet_pose = function () {
+                Jeu.boutique_amelioration -= 2;
+                if (Jeu.boutique_amelioration < 0) {
+                    Jeu.boutique_amelioration = 0;
+                }
+                deplacer(carte,"terrain");
+                effet_pose(carte);
+                menu();
             }
             break;
     }

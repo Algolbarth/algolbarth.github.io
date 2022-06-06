@@ -22,9 +22,10 @@ function demarrage () {
         main : [],
         boutique : [],
         defausse : [],
+        vie_adverse : 10,
         terrain_adverse : [],
         defausse_adverse : [],
-        NOMBRE_CARTE : 62,
+        NOMBRE_CARTE : 67,
         combat : {
             etat : false,
             auto : true,
@@ -34,6 +35,7 @@ function demarrage () {
             defenseur : "",
         },
         boutique_niveau : 1,
+        boutique_amelioration : 9,
         afficher_stat : true,
         raccourci_achat : true,
         afficher_cout : false,
@@ -61,9 +63,14 @@ function nouvelle_partie () {
     Jeu.etage = 1;
     Jeu.terrain = [];
     Jeu.main = [];
-    Jeu.terrain_adverse = [];
     Jeu.defausse = [];
+    Jeu.vie_adverse = 10;
+    Jeu.terrain_adverse = [];
+    Jeu.defausse_adverse = [];
+    Jeu.boutique_niveau = 1;
+    Jeu.boutique_amelioration = 9;
     ajouter(obtenir_carte(31),"main");
+    ajouter(obtenir_carte(67),"main");
     ajouter(obtenir_carte(1),"terrain");
     boutique_actualiser();
     adversaire_generer();
@@ -96,11 +103,7 @@ function menu () {
     if (Jeu.boutique_niveau < 10) {
         afficher(" - ");
         fonction("Améliorer","boutique_ameliorer()");
-        let cout = Jeu.boutique_niveau*10 - Jeu.etage;
-        if (cout < 0) {
-            cout = 0;
-        }
-        afficher(" (" + cout + " Or)");
+        afficher(" (" + Jeu.boutique_amelioration + " Or)");
     }
     afficher(" - ");
     fonction("Verrouiller","boutique_verrouiller()");
@@ -320,6 +323,13 @@ function carte_voir (zone,slot) {
         }
         texte += "<br/>";
     }
+    if (carte.decompte > 0) {
+        texte += "Compte à rebours " + carte.decompte;
+        if (Jeu.texte_talent) {
+            texte += " : Diminue à chaque étage quand est posé sur le terrain.";
+        }
+        texte += "<br/>";
+    }
     if (carte.type == "Bâtiment") {
         if (carte.mobile) {
             texte += "Mobile";
@@ -424,7 +434,7 @@ function carte_voir (zone,slot) {
         if (carte.temporaire > 0) {
             texte += "Temporaire ";
             if (Jeu.texte_talent) {
-                texte += " : Est bannis à l'étage suivant.";
+                texte += " : Est bannis à la fin de la phase de combat.";
             }
             texte += "<br/>";
         }
@@ -523,13 +533,10 @@ function boutique_generer () {
 }
 
 function boutique_ameliorer () {
-    let cout = Jeu.boutique_niveau*10 - Jeu.etage;
-    if (cout < 0) {
-        cout = 0;
-    }
-    if (Jeu.ressources[0].courant >= cout) {
-        Jeu.ressources[0].courant -= cout;
+    if (Jeu.ressources[0].courant >= Jeu.boutique_amelioration) {
+        Jeu.ressources[0].courant -= Jeu.boutique_amelioration;
         Jeu.boutique_niveau++;
+        Jeu.boutique_amelioration = Jeu.boutique_niveau*10 - Jeu.etage;
         menu();
     }
 }
@@ -575,6 +582,10 @@ function vendre (zone,slot) {
 
 function etage_suivant () {
     Jeu.etage++;
+    Jeu.vie_adverse = 10;
+    if (Jeu.boutique_amelioration > 0) {
+        Jeu.boutique_amelioration--;
+    }
     adversaire_generer();
     etage_fin();
 }
@@ -589,6 +600,12 @@ function etage_fin () {
         if (Jeu.terrain[n].temporaire) {
             enlever(Jeu.terrain[n]);
             n--;
+        }
+        else if (Jeu.terrain[n].decompte > 0) {
+            Jeu.terrain[n].decompte--;
+            if (Jeu.terrain[n].decompte == 0) {
+                Jeu.terrain[n].effet_decompte();
+            }
         }
     }
     for (let n=0;n<Jeu.main.length;n++) {
@@ -626,6 +643,8 @@ function adversaire_voir () {
     initialiser();
     div("main");
     fonction("Retour","menu()");
+    saut(2);
+    afficher("Vie adverse : " + Jeu.vie_adverse);
     saut(2);
     afficher("<u>Terrain adverse :</u>");
     saut();
@@ -691,6 +710,9 @@ function soin (carte,montant) {
         carte.vie = statistique(carte,"vie_max");
     }
     carte.effet_soin(montant);
+    for (let n=0;n<Jeu[carte.zone].length;n++) {
+        Jeu[carte.zone][n].effet_soin_allie(carte);
+    }
 }
 
 function degats (carte,montant) {
@@ -748,6 +770,10 @@ function statistique (carte,nom) {
 
 function degats_joueur (montant) {
     Jeu.vie -= montant;
+}
+
+function degats_adverse (montant) {
+    Jeu.vie_adverse -= montant;
 }
 
 function deplacer (carte,zone) {
