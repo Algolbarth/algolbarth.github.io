@@ -35,13 +35,15 @@ function obtenir_carte (carte_id) {
         ephemere : false,
         temporaire : false,
         decompte : 0,
+        camouflage : false,
+        gel : 0,
         texte : "Aucun",
         effet_pose : function () {
             deplacer(carte,"terrain");
             effet_pose(carte);
             menu();
         },
-        effet_allie_pose : function () {},
+        effet_pose_allie : function () {},
         effet_attaque : function () {},
         effet_mort : function () {
             if (statistique(carte,"ephemere")) {
@@ -56,8 +58,8 @@ function obtenir_carte (carte_id) {
                 }
             }
         },
-        effet_carte_mort : function () {},
-        effet_debut_tour : function () {},
+        effet_mort_carte : function () {},
+        effet_tour_debut : function () {},
         effet_degat : function () {},
         effet_tuer : function () {},
         effet_soin : function () {},
@@ -747,8 +749,8 @@ function obtenir_carte (carte_id) {
             carte.vente[7] = 1;
             carte.vie_max = carte.vie = 2;
             carte.mobile = false;
-            carte.texte = "Au début du tour : Crée Robot sur votre terrain.";
-            carte.effet_debut_tour = function () {
+            carte.texte = "Au début d'un tour de combat : Crée Robot sur votre terrain.";
+            carte.effet_tour_debut = function () {
                 let nouvelle_carte = obtenir_carte(33);
                 nouvelle_carte.vente = [0,0,0,0,0,0,0,0,0,0,0,0,0];
                 ajouter(nouvelle_carte,carte.zone);
@@ -1029,7 +1031,7 @@ function obtenir_carte (carte_id) {
             carte.action_max = 1;
             carte.equipement_max = 1;
             carte.texte = "Quand une Créature est posée depuis votre main : Se donne 1 attaque et 1 vie.";
-            carte.effet_allie_pose = function (allie) {
+            carte.effet_pose_allie = function (allie) {
                 if (allie.type == "Créature") {
                     carte.attaque++;
                     carte.vie++;
@@ -1052,7 +1054,7 @@ function obtenir_carte (carte_id) {
             carte.action_max = 1;
             carte.equipement_max = 1;
             carte.texte = "Quand une Créature meurt : Se donne 1 vie.";
-            carte.effet_carte_mort = function (carte_mort) {
+            carte.effet_mort_carte = function (carte_mort) {
                 if (carte_mort.type == "Créature") {
                     carte.vie++;
                     carte.vie_max++;
@@ -1204,7 +1206,7 @@ function obtenir_carte (carte_id) {
             carte.vie_max = carte.vie = 4;
             carte.action_max = 1;
             carte.equipement_max = 1;
-            carte.texte = "Quand attaque : Applique Brûlure 1 à la Créature attaquée.";
+            carte.texte = "Quand attaque : Applique Brûlure 1 à la Créature ou au Bâtiment attaquée.";
             carte.effet_attaque = function (defenseur) {
                 if (defenseur.brulure < 1) {
                     defenseur.brulure = 1;
@@ -1542,8 +1544,10 @@ function obtenir_carte (carte_id) {
             carte.cout[5] = 1;
             carte.vente[0] = 2;
             carte.vie_max = carte.vie = 1;
-            carte.decompte = 1;
             carte.texte = "Quand le décompte est écoulé : Se détruit et crée Dragon sur votre terrain.";
+            carte.effet_pose = function () {
+                carte.decompte = 1;
+            }
             carte.effet_decompte = function () {
                 let nouvelle_carte = obtenir_carte(9);
                 nouvelle_carte.vente = [0,0,0,0,0,0,0,0,0,0,0,0,0];
@@ -1637,6 +1641,39 @@ function obtenir_carte (carte_id) {
                 deplacer(carte,"terrain");
                 effet_pose(carte);
                 menu();
+            }
+            break;
+        case 68:
+            carte.nom = "Tigre";
+            carte.type = "Créature";
+            carte.familles.push("Bête","Félin");
+            carte.cout[0] = 3;
+            carte.cout[3] = 3;
+            carte.vente[0] = 2;
+            carte.vente[3] = 1;
+            carte.attaque = 3;
+            carte.vie_max = carte.vie = 3;
+            carte.action_max = 1;
+            carte.equipement_max = 1;
+            carte.camouflage = true;
+            break;
+        case 69:
+            carte.nom = "Troll";
+            carte.type = "Créature";
+            carte.familles.push("Troll");
+            carte.cout[0] = 5;
+            carte.cout[12] = 4;
+            carte.vente[0] = 2;
+            carte.vente[12] = 2;
+            carte.attaque = 4;
+            carte.vie_max = carte.vie = 5;
+            carte.action_max = 1;
+            carte.equipement_max = 1;
+            carte.texte = "Quand attaque : Applique Gel 1 à la Créature ou au Bâtiment attaqué.";
+            carte.effet_attaque = function (defenseur) {
+                if (defenseur.gel < 1) {
+                    defenseur.gel = 1;
+                }
             }
             break;
     }

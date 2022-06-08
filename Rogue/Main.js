@@ -15,27 +15,11 @@ function demarrage () {
             {nom : "Ombre"},//11
             {nom : "Glace"}//12
         ],
-        ressource_sup : 1,
-        vie : 30,
-        etage : 1,
-        terrain : [],
-        main : [],
-        boutique : [],
-        defausse : [],
-        vie_adverse : 10,
-        terrain_adverse : [],
-        defausse_adverse : [],
-        NOMBRE_CARTE : 67,
+        NOMBRE_CARTE : 69,
         combat : {
-            etat : false,
             auto : true,
             vitesse : 1000,
-            tour : 1,
-            attaquant : "",
-            defenseur : "",
         },
-        boutique_niveau : 1,
-        boutique_amelioration : 9,
         afficher_stat : true,
         raccourci_achat : true,
         afficher_cout : false,
@@ -61,6 +45,7 @@ function nouvelle_partie () {
     Jeu.ressource_sup = 1;
     Jeu.vie = 30;
     Jeu.etage = 1;
+    Jeu.boutique = [];
     Jeu.terrain = [];
     Jeu.main = [];
     Jeu.defausse = [];
@@ -69,8 +54,8 @@ function nouvelle_partie () {
     Jeu.defausse_adverse = [];
     Jeu.boutique_niveau = 1;
     Jeu.boutique_amelioration = 9;
+    Jeu.combat.etat = false;
     ajouter(obtenir_carte(31),"main");
-    ajouter(obtenir_carte(67),"main");
     ajouter(obtenir_carte(1),"terrain");
     boutique_actualiser();
     adversaire_generer();
@@ -300,12 +285,12 @@ function carte_voir (zone,slot) {
     texte += "<br/>";
     texte += "<u>Effet :</u> " + carte.texte + "<br/>";
     if (statistique(carte,"protection")) {
-        texte += "Protection : Les attaquent ennnemies visent cette carte en priorité. <br/>";
+        texte += "Protection : Les attaquent ennnemies ciblent cette carte en priorité. <br/>";
     }
     if (statistique(carte,"brulure") > 0) {
         texte += "Brûlure " + statistique(carte,"brulure");
         if (Jeu.texte_talent) {
-            texte += " : Au début du prochain tour, cette carte subit " + statistique(carte,"brulure") + " dégât(s).";
+            texte += " : Au début du prochain tour de combat, cette carte subit " + statistique(carte,"brulure") + " dégât(s).";
         }
         texte += "<br/>";
     }
@@ -326,7 +311,14 @@ function carte_voir (zone,slot) {
     if (carte.decompte > 0) {
         texte += "Compte à rebours " + carte.decompte;
         if (Jeu.texte_talent) {
-            texte += " : Diminue à chaque étage quand est posé sur le terrain.";
+            texte += " : Diminue à la fin de la phase de combat de 1.";
+        }
+        texte += "<br/>";
+    }
+    if (carte.gel > 0) {
+        texte += "Gel " + carte.gel;
+        if (Jeu.texte_talent) {
+            texte += " : Annule les " + carte.gel + " prochaines attaques.";
         }
         texte += "<br/>";
     }
@@ -364,7 +356,7 @@ function carte_voir (zone,slot) {
         if (statistique(carte,"action_max") > 1) {
             texte += statistique(carte,"action_max") + " attaques";
             if (Jeu.texte_talent) {
-                texte += " : Peut attaquer " + statistique(carte,"action_max") + " fois par tour.";
+                texte += " : Peut attaquer " + statistique(carte,"action_max") + " fois par tour de combat.";
             }
             texte += "<br/>";
         }
@@ -406,7 +398,7 @@ function carte_voir (zone,slot) {
         if (statistique(carte,"regeneration") > 0) {
             texte += "Régénération " + statistique(carte,"regeneration");
             if (Jeu.texte_talent) {
-                texte += " : Au début de chaque tour, se soigne de " + statistique(carte,"regeneration") + ".";
+                texte += " : Au début de chaque tour de combat, se soigne de " + statistique(carte,"regeneration") + ".";
             }
             texte += "<br/>";
         }
@@ -435,6 +427,13 @@ function carte_voir (zone,slot) {
             texte += "Temporaire ";
             if (Jeu.texte_talent) {
                 texte += " : Est bannis à la fin de la phase de combat.";
+            }
+            texte += "<br/>";
+        }
+        if (carte.camouflage) {
+            texte += "Camouflage ";
+            if (Jeu.texte_talent) {
+                texte += " : Ne peut pas être ciblé par une attaque ennemie. S'enlève quand attaque.";
             }
             texte += "<br/>";
         }
@@ -745,10 +744,10 @@ function mort (carte) {
     carte.vie = 0;
     carte.effet_mort();
     for (let n=0;n<Jeu.terrain.length;n++) {
-        Jeu.terrain[n].effet_carte_mort(carte);
+        Jeu.terrain[n].effet_mort_carte(carte);
     }
     for (let n=0;n<Jeu.terrain_adverse.length;n++) {
-        Jeu.terrain_adverse[n].effet_carte_mort(carte);
+        Jeu.terrain_adverse[n].effet_mort_carte(carte);
     }
 }
 
@@ -800,7 +799,7 @@ function poser (slot) {
 
 function effet_pose (carte) {
     for (let n=0;n<Jeu[carte.zone].length-1;n++) {
-        Jeu.terrain[n].effet_allie_pose(carte);
+        Jeu.terrain[n].effet_pose_allie(carte);
     }
 }
 
