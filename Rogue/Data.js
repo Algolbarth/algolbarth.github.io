@@ -1676,6 +1676,25 @@ function obtenir_carte (carte_id) {
                 }
             }
             break;
+        case 70:
+            carte.nom = "Troll";
+            carte.type = "Créature";
+            carte.familles.push("Troll");
+            carte.cout[0] = 5;
+            carte.cout[12] = 4;
+            carte.vente[0] = 2;
+            carte.vente[12] = 2;
+            carte.attaque = 4;
+            carte.vie_max = carte.vie = 5;
+            carte.action_max = 1;
+            carte.equipement_max = 1;
+            carte.texte = "Quand attaque : Applique Gel 1 à la Créature ou au Bâtiment attaqué.";
+            carte.effet_attaque = function (defenseur) {
+                if (defenseur.gel < 1) {
+                    defenseur.gel = 1;
+                }
+            }
+            break;
     }
     return carte;
 }
