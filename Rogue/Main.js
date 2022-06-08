@@ -56,7 +56,6 @@ function nouvelle_partie () {
     Jeu.boutique_amelioration = 9;
     Jeu.combat.etat = false;
     ajouter(obtenir_carte(31),"main");
-    ajouter(obtenir_carte(49),"main");
     ajouter(obtenir_carte(1),"terrain");
     boutique_actualiser();
     adversaire_generer();
