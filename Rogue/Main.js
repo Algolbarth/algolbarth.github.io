@@ -56,6 +56,7 @@ function nouvelle_partie () {
     Jeu.boutique_amelioration = 9;
     Jeu.combat.etat = false;
     ajouter(obtenir_carte(31),"main");
+    ajouter(obtenir_carte(49),"main");
     ajouter(obtenir_carte(1),"terrain");
     boutique_actualiser();
     adversaire_generer();
@@ -284,103 +285,105 @@ function carte_voir (zone,slot) {
     }
     texte += "<br/>";
     texte += "<u>Effet :</u> " + carte.texte + "<br/>";
-    if (statistique(carte,"protection")) {
-        texte += "Protection";
-        if (Jeu.texte_talent) {
-            texte += " : Les attaquent ennnemies ciblent cette carte en priorité.";
+    if (["Créature","Bâtiment"].includes(carte.type)) {
+        if (statistique(carte,"protection")) {
+            texte += "Protection";
+            if (Jeu.texte_talent) {
+                texte += " : Les attaquent ennnemies ciblent cette carte en priorité.";
+            }
+            texte += "<br/>";
         }
-        texte += "<br/>";
-    }
-    if (statistique(carte,"rapidite")) {
-        texte += "Rapidité";
-        if (Jeu.texte_talent) {
-            texte += " : Joue avant les autres Créatures lors d'un tour de combat.";
+        if (statistique(carte,"rapidite")) {
+            texte += "Rapidité";
+            if (Jeu.texte_talent) {
+                texte += " : Joue avant les autres Créatures lors d'un tour de combat.";
+            }
+            texte += "<br/>";
         }
-        texte += "<br/>";
-    }
-    if (statistique(carte,"action_max") > 1) {
-        texte += statistique(carte,"action_max") + " attaques";
-        if (Jeu.texte_talent) {
-            texte += " : Peut jouer " + statistique(carte,"action_max") + " fois par tour de combat.";
+        if (statistique(carte,"action_max") > 1) {
+            texte += statistique(carte,"action_max") + " attaques";
+            if (Jeu.texte_talent) {
+                texte += " : Peut jouer " + statistique(carte,"action_max") + " fois par tour de combat.";
+            }
+            texte += "<br/>";
         }
-        texte += "<br/>";
-    }
-    if (carte.brulure > 0) {
-        texte += "Brûlure " + carte.brulure;
-        if (Jeu.texte_talent) {
-            texte += " : Au début du prochain tour de combat, cette carte subit " + carte.brulure + " dégât(s).";
+        if (carte.brulure > 0) {
+            texte += "Brûlure " + carte.brulure;
+            if (Jeu.texte_talent) {
+                texte += " : Au début du prochain tour de combat, cette carte subit " + carte.brulure + " dégât(s).";
+            }
+            texte += "<br/>";
         }
-        texte += "<br/>";
-    }
-    if (statistique(carte,"sorcellerie") > 0) {
-        texte += "Sorcellerie " + statistique(carte,"sorcellerie");
-        if (Jeu.texte_talent) {
-            texte += " : Débloque des effets supplémentaires de certaines cartes.";
+        if (statistique(carte,"sorcellerie") > 0) {
+            texte += "Sorcellerie " + statistique(carte,"sorcellerie");
+            if (Jeu.texte_talent) {
+                texte += " : Débloque des effets supplémentaires de certaines cartes.";
+            }
+            texte += " <i>(votre sorcellerie totale est de " + sorcellerie() + ")</i> <br/>";
         }
-        texte += " <i>(votre sorcellerie totale est de " + sorcellerie() + ")</i> <br/>";
-    }
-    if (statistique(carte,"resistance") > 0) {
-        texte += "Résistance " + statistique(carte,"resistance");
-        if (Jeu.texte_talent) {
-            texte += " : A chaque fois que cette carte subit des dégats, en subis " + statistique(carte,"resistance") + " de moins.";
+        if (statistique(carte,"resistance") > 0) {
+            texte += "Résistance " + statistique(carte,"resistance");
+            if (Jeu.texte_talent) {
+                texte += " : A chaque fois que cette carte subit des dégats, en subis " + statistique(carte,"resistance") + " de moins.";
+            }
+            texte += "<br/>";
         }
-        texte += "<br/>";
-    }
-    if (statistique(carte,"eternite") > 0) {
-        texte += "Eternité";
-        if (Jeu.texte_talent) {
-            texte += " : Ne disparais pas de votre défausse.";
+        if (statistique(carte,"eternite") > 0) {
+            texte += "Eternité";
+            if (Jeu.texte_talent) {
+                texte += " : Ne disparais pas de votre défausse.";
+            }
+            texte += "<br/>";
         }
-        texte += "<br/>";
-    }
-    if (statistique(carte,"epine") > 0) {
-        texte += "Epine " + statistique(carte,"epine");
-        if (Jeu.texte_talent) {
-            texte += " : Quand est attaquée par une créature, lui inflige " + statistique(carte,"epine") + " dégâts.";
+        if (statistique(carte,"epine") > 0) {
+            texte += "Epine " + statistique(carte,"epine");
+            if (Jeu.texte_talent) {
+                texte += " : Quand est attaquée par une Créature, lui inflige " + statistique(carte,"epine") + " dégâts.";
+            }
+            texte += "<br/>";
         }
-        texte += "<br/>";
-    }
-    if (statistique(carte,"regeneration") > 0) {
-        texte += "Régénération " + statistique(carte,"regeneration");
-        if (Jeu.texte_talent) {
-            texte += " : Au début de chaque tour de combat, se soigne de " + statistique(carte,"regeneration") + ".";
+        if (statistique(carte,"regeneration") > 0) {
+            texte += "Régénération " + statistique(carte,"regeneration");
+            if (Jeu.texte_talent) {
+                texte += " : Au début de chaque tour de combat, se soigne de " + statistique(carte,"regeneration") + ".";
+            }
+            texte += "<br/>";
         }
-        texte += "<br/>";
-    }
-    if (carte.decompte > 0) {
-        texte += "Compte à rebours " + carte.decompte;
-        if (Jeu.texte_talent) {
-            texte += " : Diminue de 1 à la fin de la phase de combat.";
+        if (carte.decompte > 0) {
+            texte += "Compte à rebours " + carte.decompte;
+            if (Jeu.texte_talent) {
+                texte += " : Diminue de 1 à la fin de la phase de combat.";
+            }
+            texte += "<br/>";
         }
-        texte += "<br/>";
-    }
-    if (carte.gel > 0) {
-        texte += "Gel " + carte.gel;
-        if (Jeu.texte_talent) {
-            texte += " : Annule les " + carte.gel + " prochaines attaques.";
+        if (carte.gel > 0) {
+            texte += "Gel " + carte.gel;
+            if (Jeu.texte_talent) {
+                texte += " : Annule les " + carte.gel + " prochaines attaques.";
+            }
+            texte += "<br/>";
         }
-        texte += "<br/>";
-    }
-    if (carte.temporaire > 0) {
-        texte += "Temporaire ";
-        if (Jeu.texte_talent) {
-            texte += " : Est banni à la fin de la prochaine phase de combat.";
+        if (carte.temporaire > 0) {
+            texte += "Temporaire ";
+            if (Jeu.texte_talent) {
+                texte += " : Est banni à la fin de la prochaine phase de combat.";
+            }
+            texte += "<br/>";
         }
-        texte += "<br/>";
-    }
-    if (carte.camouflage) {
-        texte += "Camouflage ";
-        if (Jeu.texte_talent) {
-            texte += " : Ne peut pas être ciblé par une attaque ennemie. S'enlève quand joue.";
+        if (carte.camouflage) {
+            texte += "Camouflage ";
+            if (Jeu.texte_talent) {
+                texte += " : Ne peut pas être ciblé par une attaque ennemie. S'enlève quand joue.";
+            }
+            texte += "<br/>";
         }
-        texte += "<br/>";
-    }
-    if (statistique(carte,"ephemere")) {
-        texte += "Ephémère ";
-        if (Jeu.texte_talent) {
-            texte += " : Quand meurt ou est détruit, est banni.";
+        if (statistique(carte,"ephemere")) {
+            texte += "Ephémère ";
+            if (Jeu.texte_talent) {
+                texte += " : Quand meurt ou est détruit, est banni. (les effets qui se déclenche à la mort de la Créature se déclenche quand même, mais elle ne va pas à la défausse)";
+            }
+            texte += "<br/>";
         }
-        texte += "<br/>";
     }
     if (carte.type == "Bâtiment") {
         if (carte.mobile) {
@@ -423,7 +426,7 @@ function carte_voir (zone,slot) {
         if (statistique(carte,"mortel")) {
             texte += "Mortel";
             if (Jeu.texte_talent) {
-                texte += " : Quand attaque une créature, l'envoie à la défausse.";
+                texte += " : Quand attaque une Créature, l'envoie à la défausse.";
             }
             texte += "<br/>";
         }
