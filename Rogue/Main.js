@@ -38,25 +38,45 @@ function ecran_titre () {
 }
 
 function nouvelle_partie () {
-    for (let n=0;n<Jeu.ressources.length;n++) {
-        Jeu.ressources[n].courant = Jeu.ressources[n].max = 0;
+    Jeu.joueur = {
+        vie : 30,
+        vie_max : 30,
+        ressources : [],
+        boutique : [],
+        main : [],
+        terrain : [],
+        defausse : [],
     }
-    Jeu.ressources[0].courant = Jeu.ressources[0].max = 3;
-    Jeu.ressource_sup = 1;
-    Jeu.vie = 30;
+    Jeu.adverse = {
+        vie : 10,
+        vie_max : 10,
+        ressources : [],
+        main : [],
+        terrain : [],
+        defausse : [],
+    }
+    for (let n=0;n<Jeu.ressources.length;n++) {
+        let ressource = {
+            courant : 0,
+            max : 0,
+        }
+        Jeu.joueur.ressources.push(ressource);
+    }
+    Jeu.joueur.ressources[0].courant = Jeu.joueur.ressources[0].max = 3;
+    for (let n=0;n<Jeu.ressources.length;n++) {
+        let ressource = {
+            courant : 0,
+            max : 0,
+        }
+        Jeu.adverse.ressources.push(ressource);
+    }
     Jeu.etage = 1;
-    Jeu.boutique = [];
-    Jeu.terrain = [];
-    Jeu.main = [];
-    Jeu.defausse = [];
-    Jeu.vie_adverse = 10;
-    Jeu.terrain_adverse = [];
-    Jeu.defausse_adverse = [];
     Jeu.boutique_niveau = 1;
     Jeu.boutique_amelioration = 9;
+    Jeu.ressource_sup = 1;
     Jeu.combat.etat = false;
-    ajouter(obtenir_carte(31),"main");
-    ajouter(obtenir_carte(1),"terrain");
+    ajouter(obtenir_carte(31),"joueur","main");
+    ajouter(obtenir_carte(1),"joueur","terrain");
     boutique_actualiser();
     adversaire_generer();
     menu();
@@ -69,11 +89,11 @@ function menu () {
     saut(2);
     afficher("Etage : " + Jeu.etage);
     saut();
-    afficher("Vie restante : " + Jeu.vie);
+    afficher("Vie restante : " + Jeu.joueur.vie + " / " + Jeu.joueur.vie_max);
     saut();
     for (let n=0;n<Jeu.ressources.length;n++) {
-        if (Jeu.ressources[n].max > 0 || Jeu.ressources[n].courant > 0) {
-            afficher(Jeu.ressources[n].nom + " : " + Jeu.ressources[n].courant + " / " + Jeu.ressources[n].max);
+        if (Jeu.joueur.ressources[n].max > 0 || Jeu.joueur.ressources[n].courant > 0) {
+            afficher(Jeu.ressources[n].nom + " : " + Jeu.joueur.ressources[n].courant + " / " + Jeu.joueur.ressources[n].max);
             saut();
         }
     }
@@ -93,9 +113,9 @@ function menu () {
     afficher(" - ");
     fonction("Verrouiller","boutique_verrouiller()");
     saut();
-    if (Jeu.boutique.length > 0) {
-        for (let n=0;n<Jeu.boutique.length;n++) {
-            afficher_carte("boutique",n);
+    if (Jeu.joueur.boutique.length > 0) {
+        for (let n=0;n<Jeu.joueur.boutique.length;n++) {
+            afficher_carte("joueur","boutique",n);
             afficher(" ");
             if (Jeu.raccourci_achat) {
                 fonction("Acheter","acheter(" + n + ")");
@@ -103,13 +123,13 @@ function menu () {
             if (Jeu.afficher_cout) {
                 let premier_cout = true;
                 afficher(" ");
-                for (let i=0;i<Jeu.boutique[n].cout.length;i++) {
-                    if (Jeu.boutique[n].cout[i] > 0) {
+                for (let i=0;i<Jeu.joueur.boutique[n].cout.length;i++) {
+                    if (Jeu.joueur.boutique[n].cout[i] > 0) {
                         if (!premier_cout) {
                             afficher(", ");
                         }
                         premier_cout = false;
-                        afficher(Jeu.boutique[n].cout[i] + " " + Jeu.ressources[i].nom);
+                        afficher(Jeu.joueur.boutique[n].cout[i] + " " + Jeu.ressources[i].nom);
                     }
                 }
             }
@@ -123,17 +143,17 @@ function menu () {
     saut();
     afficher("<u>Main :</u>");
     saut();
-    if (Jeu.main.length > 0) {
-        for (let n=0;n<Jeu.main.length;n++) {
+    if (Jeu.joueur.main.length > 0) {
+        for (let n=0;n<Jeu.joueur.main.length;n++) {
             if (n > 0) {
                 fonction("&#8679","monter(" + '"main",' + n + ")");
                 afficher(" ");
             }
-            if (n < Jeu.main.length-1) {
+            if (n < Jeu.joueur.main.length-1) {
                 fonction("&#8681","descendre(" + '"main",' + n + ")");
                 afficher(" ");
             }
-            afficher_carte("main",n);
+            afficher_carte("joueur","main",n);
             afficher(" ");
             if (Jeu.raccourci_pose) {
                 fonction("Poser","poser(" + n + ")");
@@ -145,13 +165,13 @@ function menu () {
             if (Jeu.afficher_vente) {
                 let premiere_vente = true;
                 afficher(" ");
-                for (let i=0;i<Jeu.main[n].vente.length;i++) {
-                    if (Jeu.main[n].vente[i] > 0) {
+                for (let i=0;i<Jeu.joueur.main[n].vente.length;i++) {
+                    if (Jeu.joueur.main[n].vente[i] > 0) {
                         if (!premiere_vente) {
                             afficher(", ");
                         }
                         premiere_vente = false;
-                        afficher(Jeu.main[n].vente[i] + " " + Jeu.ressources[i].nom);
+                        afficher(Jeu.joueur.main[n].vente[i] + " " + Jeu.ressources[i].nom);
                     }
                 }
             }
@@ -165,19 +185,19 @@ function menu () {
     saut();
     afficher("<u>Terrain :</u>");
     saut();
-    if (Jeu.terrain.length > 0) {
-        for (let n=0;n<Jeu.terrain.length;n++) {
-            if (Jeu.terrain[n].type != "Bâtiment" || statistique(Jeu.terrain[n],"mobile")) {
+    if (Jeu.joueur.terrain.length > 0) {
+        for (let n=0;n<Jeu.joueur.terrain.length;n++) {
+            if (Jeu.joueur.terrain[n].type != "Bâtiment" || statistique(Jeu.joueur.terrain[n],"mobile")) {
                 if (n > 0) {
                     fonction("&#8679","monter(" + '"terrain",' + n + ")");
                     afficher(" ");
                 }
-                if (n < Jeu.terrain.length-1) {
+                if (n < Jeu.joueur.terrain.length-1) {
                     fonction("&#8681","descendre(" + '"terrain",' + n + ")");
                     afficher(" ");
                 }
             }
-            afficher_carte("terrain",n);
+            afficher_carte("joueur","terrain",n);
             afficher(" ");
             if (Jeu.raccourci_vente) {
                 fonction("Vendre","vendre(" + '"terrain",' + n + ")");
@@ -185,13 +205,13 @@ function menu () {
             if (Jeu.afficher_vente) {
                 let premiere_vente = true;
                 afficher(" ");
-                for (let i=0;i<Jeu.terrain[n].vente.length;i++) {
-                    if (Jeu.terrain[n].vente[i] > 0) {
+                for (let i=0;i<Jeu.joueur.terrain[n].vente.length;i++) {
+                    if (Jeu.joueur.terrain[n].vente[i] > 0) {
                         if (!premiere_vente) {
                             afficher(", ");
                         }
                         premiere_vente = false;
-                        afficher(Jeu.terrain[n].vente[i] + " " + Jeu.ressources[i].nom);
+                        afficher(Jeu.joueur.terrain[n].vente[i] + " " + Jeu.ressources[i].nom);
                     }
                 }
             }
@@ -205,9 +225,9 @@ function menu () {
     saut();
     afficher("<u>Défausse :</u>");
     saut();
-    if (Jeu.defausse.length > 0) {
-        for (let n=0;n<Jeu.defausse.length;n++) {
-            afficher_carte("defausse",n);
+    if (Jeu.joueur.defausse.length > 0) {
+        for (let n=0;n<Jeu.joueur.defausse.length;n++) {
+            afficher_carte("joueur","defausse",n);
             saut();
         }
     }
@@ -225,12 +245,12 @@ function menu () {
     actualiser();
 }
 
-function afficher_carte (zone,slot) {
-    let carte = Jeu[zone][slot];
+function afficher_carte (camp,zone,slot) {
+    let carte = Jeu[camp][zone][slot];
     if (carte.verrouillage) {
         afficher("[");
     }
-    fonction(carte.nom,"carte_voir(" + '"' + zone + '"' + "," + slot + ")");
+    fonction(carte.nom,"carte_voir(" + '"' + camp + '","' + zone + '",' + slot + ")");
     if (carte.verrouillage) {
         afficher("]");
     }
@@ -246,9 +266,9 @@ function afficher_carte (zone,slot) {
     }
 }
 
-function carte_voir (zone,slot) {
+function carte_voir (camp,zone,slot) {
     let texte = "";
-    let carte = Jeu[zone][slot];
+    let carte = Jeu[camp][zone][slot];
     texte += "<u>Nom :</u> " + carte.nom + "<br/>";
     texte += "<u>Cout :</u> ";
     let premier_cout = true;
@@ -461,7 +481,7 @@ function carte_voir (zone,slot) {
             texte += "<a href='javascript:vendre(" + '"' + zone + '",' + slot + ")'>Vendre</a> <br/>";
         }
         if (zone == "main") {
-            texte += "<a href='javascript:Jeu.main[" + slot + "].effet_pose(" + slot + ",1)'>Poser</a> <br/>";
+            texte += "<a href='javascript:Jeu.joueur.main[" + slot + "].effet_pose(" + slot + ",1)'>Poser</a> <br/>";
         }
     }
     if (carte.type == "Créature") {
@@ -484,7 +504,7 @@ function ressource_choisir () {
     saut(2);
     for (let n=1;n<Jeu.ressources.length;n++) {
         fonction(Jeu.ressources[n].nom,"ressource_ajouter(" + n + ")");
-        afficher(" : " + Jeu.ressources[n].courant + " / " + Jeu.ressources[n].max);
+        afficher(" : " + Jeu.joueur.ressources[n].courant + " / " + Jeu.joueur.ressources[n].max);
         saut();
     }
     actualiser();
@@ -492,8 +512,8 @@ function ressource_choisir () {
 
 function ressource_ajouter (ressource_slot) {
     Jeu.ressource_sup--;
-    Jeu.ressources[ressource_slot].courant++;
-    Jeu.ressources[ressource_slot].max++;
+    Jeu.joueur.ressources[ressource_slot].courant++;
+    Jeu.joueur.ressources[ressource_slot].max++;
     menu();
 }
 
@@ -506,8 +526,8 @@ function cout_total (carte) {
 }
 
 function boutique_rafraichir () {
-    if (Jeu.ressources[0].courant >= 2) {
-        Jeu.ressources[0].courant -= 2;
+    if (Jeu.joueur.ressources[0].courant >= 2) {
+        Jeu.joueur.ressources[0].courant -= 2;
         boutique_actualiser();
         menu();
     }
@@ -515,17 +535,17 @@ function boutique_rafraichir () {
 
 function boutique_actualiser () {
     let nombre_actualisation = 2+Jeu.boutique_niveau;
-    for (let n=0;n<Jeu.boutique.length;n++) {
-        if (Jeu.boutique[n].verrouillage) {
+    for (let n=0;n<Jeu.joueur.boutique.length;n++) {
+        if (Jeu.joueur.boutique[n].verrouillage) {
             nombre_actualisation--;
         }
         else {
-            enlever(Jeu.boutique[n]);
+            enlever(Jeu.joueur.boutique[n]);
             n--;
         }
     }
     for (let n=0;n<nombre_actualisation;n++) {
-        ajouter(boutique_generer(),"boutique");
+        ajouter(boutique_generer(),"joueur","boutique");
     }
 }
 
@@ -538,8 +558,8 @@ function boutique_generer () {
 }
 
 function boutique_ameliorer () {
-    if (Jeu.ressources[0].courant >= Jeu.boutique_amelioration) {
-        Jeu.ressources[0].courant -= Jeu.boutique_amelioration;
+    if (Jeu.joueur.ressources[0].courant >= Jeu.boutique_amelioration) {
+        Jeu.joueur.ressources[0].courant -= Jeu.boutique_amelioration;
         Jeu.boutique_niveau++;
         Jeu.boutique_amelioration = Jeu.boutique_niveau*10 - Jeu.etage;
         menu();
@@ -548,14 +568,14 @@ function boutique_ameliorer () {
 
 function boutique_verrouiller () {
     let verrou = false;
-    for (let n=0;n<Jeu.boutique.length;n++) {
-        if (!Jeu.boutique[n].verrouillage) {
+    for (let n=0;n<Jeu.joueur.boutique.length;n++) {
+        if (!Jeu.joueur.boutique[n].verrouillage) {
             verrou = true;
             break;
         }
     }
-    for (let n=0;n<Jeu.boutique.length;n++) {
-        Jeu.boutique[n].verrouillage = verrou;
+    for (let n=0;n<Jeu.joueur.boutique.length;n++) {
+        Jeu.joueur.boutique[n].verrouillage = verrou;
     }
     menu();
 }
@@ -563,23 +583,23 @@ function boutique_verrouiller () {
 function acheter (boutique_slot) {
     let achat = true;
     for (let n=0;n<Jeu.ressources.length;n++) {
-        if (Jeu.ressources[n].courant < Jeu.boutique[boutique_slot].cout[n]) {
+        if (Jeu.joueur.ressources[n].courant < Jeu.joueur.boutique[boutique_slot].cout[n]) {
             achat = false;
         }
     }
     if (achat) {
         for (let n=0;n<Jeu.ressources.length;n++) {
-            Jeu.ressources[n].courant -= Jeu.boutique[boutique_slot].cout[n];
+            Jeu.joueur.ressources[n].courant -= Jeu.joueur.boutique[boutique_slot].cout[n];
         }
-        Jeu.boutique[boutique_slot].verrouillage = false;
-        deplacer(Jeu.boutique[boutique_slot],"main");
+        Jeu.joueur.boutique[boutique_slot].verrouillage = false;
+        deplacer(Jeu.joueur.boutique[boutique_slot],"joueur","main");
         menu();
     }
 }
 
 function vendre (zone,slot) {
     for (let n=0;n<Jeu.ressources.length;n++) {
-        Jeu.ressources[n].courant += Jeu[zone][slot].vente[n];
+        Jeu.joueur.ressources[n].courant += Jeu[zone][slot].vente[n];
     }
     enlever(Jeu[zone][slot]);
     menu();
@@ -587,7 +607,7 @@ function vendre (zone,slot) {
 
 function etage_suivant () {
     Jeu.etage++;
-    Jeu.vie_adverse = 10;
+    Jeu.adverse.vie = 10;
     if (Jeu.boutique_amelioration > 0) {
         Jeu.boutique_amelioration--;
     }
@@ -596,40 +616,40 @@ function etage_suivant () {
 }
 
 function etage_fin () {
-    Jeu.ressources[0].max++;
+    Jeu.joueur.ressources[0].max++;
     Jeu.ressource_sup = 1;
     for (let n=0;n<Jeu.ressources.length;n++) {
-        Jeu.ressources[n].courant = Jeu.ressources[n].max;
+        Jeu.joueur.ressources[n].courant = Jeu.joueur.ressources[n].max;
     }
-    for (let n=0;n<Jeu.terrain.length;n++) {
-        if (Jeu.terrain[n].temporaire) {
-            enlever(Jeu.terrain[n]);
+    for (let n=0;n<Jeu.joueur.terrain.length;n++) {
+        if (Jeu.joueur.terrain[n].temporaire) {
+            enlever(Jeu.joueur.terrain[n]);
             n--;
         }
-        else if (Jeu.terrain[n].decompte > 0) {
-            Jeu.terrain[n].decompte--;
-            if (Jeu.terrain[n].decompte == 0) {
-                Jeu.terrain[n].effet_decompte();
+        else if (Jeu.joueur.terrain[n].decompte > 0) {
+            Jeu.joueur.terrain[n].decompte--;
+            if (Jeu.joueur.terrain[n].decompte == 0) {
+                Jeu.joueur.terrain[n].effet_decompte();
             }
         }
     }
-    for (let n=0;n<Jeu.main.length;n++) {
-        if (Jeu.main[n].temporaire) {
-            enlever(Jeu.main[n]);
+    for (let n=0;n<Jeu.joueur.main.length;n++) {
+        if (Jeu.joueur.main[n].temporaire) {
+            enlever(Jeu.joueur.main[n]);
             n--;
         }
     }
-    for (let n=0;n<Jeu.defausse.length;n++) {
-        Jeu.defausse[n].etage_mort++;
-        if ((Jeu.defausse[n].etage_mort > 1 && !Jeu.defausse[n].eternite) || Jeu.defausse[n].temporaire) {
-            enlever(Jeu.defausse[n]);
+    for (let n=0;n<Jeu.joueur.defausse.length;n++) {
+        Jeu.joueur.defausse[n].etage_mort++;
+        if ((Jeu.joueur.defausse[n].etage_mort > 1 && !Jeu.joueur.defausse[n].eternite) || Jeu.joueur.defausse[n].temporaire) {
+            enlever(Jeu.joueur.defausse[n]);
             n--;
         }
     }
-    for (let n=0;n<Jeu.defausse_adverse.length;n++) {
-        Jeu.defausse_adverse[n].etage_mort++;
-        if ((Jeu.defausse_adverse[n].etage_mort > 1 && !Jeu.defausse_adverse[n].eternite) || Jeu.defausse_adverse[n].temporaire) {
-            enlever(Jeu.defausse_adverse[n]);
+    for (let n=0;n<Jeu.adverse.defausse.length;n++) {
+        Jeu.adverse.defausse[n].etage_mort++;
+        if ((Jeu.adverse.defausse[n].etage_mort > 1 && !Jeu.adverse.defausse[n].eternite) || Jeu.adverse.defausse[n].temporaire) {
+            enlever(Jeu.adverse.defausse[n]);
             n--;
         }
     }
@@ -638,9 +658,9 @@ function etage_fin () {
 }
 
 function adversaire_generer () {
-    Jeu.terrain_adverse = [];
+    Jeu.adverse.terrain = [];
     for (let n=0;n<Jeu.etage;n++) {
-        ajouter(obtenir_carte(5),"terrain_adverse");
+        ajouter(obtenir_carte(5),"adverse","terrain");
     }
 }
 
@@ -649,13 +669,13 @@ function adversaire_voir () {
     div("main");
     fonction("Retour","menu()");
     saut(2);
-    afficher("Vie adverse : " + Jeu.vie_adverse);
+    afficher("Vie adverse : " + Jeu.adverse.vie + " / " + Jeu.adverse.vie_max);
     saut(2);
     afficher("<u>Terrain adverse :</u>");
     saut();
-    if (Jeu.terrain_adverse.length > 0) {
-        for (let n=0;n<Jeu.terrain_adverse.length;n++) {
-            afficher_carte("terrain_adverse",n);
+    if (Jeu.adverse.terrain.length > 0) {
+        for (let n=0;n<Jeu.adverse.terrain.length;n++) {
+            afficher_carte("adverse","terrain",n);
             saut();
         }
     }
@@ -666,9 +686,9 @@ function adversaire_voir () {
     saut();
     afficher("<u>Défausse adverse :</u>");
     saut();
-    if (Jeu.defausse_adverse.length > 0) {
-        for (let n=0;n<Jeu.defausse_adverse.length;n++) {
-            afficher_carte("defausse_adverse",n);
+    if (Jeu.adverse.defausse.length > 0) {
+        for (let n=0;n<Jeu.adverse.defausse.length;n++) {
+            afficher_carte("adverse","defausse",n);
             saut();
         }
     }
@@ -749,18 +769,18 @@ function degats (carte,montant) {
 function mort (carte) {
     carte.vie = 0;
     carte.effet_mort();
-    for (let n=0;n<Jeu.terrain.length;n++) {
-        Jeu.terrain[n].effet_mort_carte(carte);
+    for (let n=0;n<Jeu.joueur.terrain.length;n++) {
+        Jeu.joueur.terrain[n].effet_mort_carte(carte);
     }
-    for (let n=0;n<Jeu.terrain_adverse.length;n++) {
-        Jeu.terrain_adverse[n].effet_mort_carte(carte);
+    for (let n=0;n<Jeu.adverse.terrain.length;n++) {
+        Jeu.adverse.terrain[n].effet_mort_carte(carte);
     }
 }
 
 function sorcellerie () {
     let montant = 0;
-    for (let n=0;n<Jeu.terrain.length;n++) {
-        montant += statistique(Jeu.terrain[n],"sorcellerie");
+    for (let n=0;n<Jeu.joueur.terrain.length;n++) {
+        montant += statistique(Jeu.joueur.terrain[n],"sorcellerie");
     }
     return montant;
 }
@@ -774,44 +794,45 @@ function statistique (carte,nom) {
 }
 
 function degats_joueur (montant) {
-    Jeu.vie -= montant;
+    Jeu.joueur.vie -= montant;
 }
 
 function degats_adverse (montant) {
-    Jeu.vie_adverse -= montant;
+    Jeu.adverse.vie -= montant;
 }
 
-function deplacer (carte,zone) {
+function deplacer (carte,camp,zone) {
     enlever(carte);
-    ajouter(carte,zone);
+    ajouter(carte,camp,zone);
 }
 
-function ajouter (carte,zone) {
-    Jeu[zone].push(carte);
+function ajouter (carte,camp,zone) {
+    Jeu[camp][zone].push(carte);
     carte.zone = zone;
-    carte.slot = Jeu[zone].length - 1;
+    carte.camp = camp;
+    carte.slot = Jeu[camp][zone].length - 1;
 }
 
 function enlever (carte) {
-    Jeu[carte.zone].splice(carte.slot,1);
-    for (let n=carte.slot;n<Jeu[carte.zone].length;n++) {
-        Jeu[carte.zone][n].slot--;
+    Jeu[carte.camp][carte.zone].splice(carte.slot,1);
+    for (let n=carte.slot;n<Jeu[carte.camp][carte.zone].length;n++) {
+        Jeu[carte.camp][carte.zone][n].slot--;
     }
 }
 
 function poser (slot) {
-    Jeu.main[slot].effet_pose(1);
+    Jeu.joueur.main[slot].effet_pose(1);
 }
 
 function effet_pose (carte) {
     for (let n=0;n<Jeu[carte.zone].length-1;n++) {
-        Jeu.terrain[n].effet_pose_allie(carte);
+        Jeu.joueur.terrain[n].effet_pose_allie(carte);
     }
 }
 
 function verifier_soin () {
-    for (let n=0;n<Jeu.terrain.length;n++) {
-        if (Jeu.terrain[n].vie < Jeu.terrain[n].vie_max) {
+    for (let n=0;n<Jeu.joueur.terrain.length;n++) {
+        if (Jeu.joueur.terrain[n].vie < Jeu.joueur.terrain[n].vie_max) {
             return true;
         }
     }
@@ -819,8 +840,8 @@ function verifier_soin () {
 }
 
 function verifier_equipement () {
-    for (let n=0;n<Jeu.terrain.length;n++) {
-        if (Jeu.terrain[n].type == "Créature" && Jeu.terrain[n].equipements.length < Jeu.terrain[n].equipement_max) {
+    for (let n=0;n<Jeu.joueur.terrain.length;n++) {
+        if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].equipements.length < Jeu.joueur.terrain[n].equipement_max) {
             return true;
         }
     }

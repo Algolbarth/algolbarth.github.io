@@ -1,29 +1,29 @@
 function combat_nouveau () {
     Jeu.combat.tour = 1;
-    Jeu.combat.attaquant = "terrain";
-    Jeu.combat.defenseur = "terrain_adverse";
+    Jeu.combat.attaquant = "joueur";
+    Jeu.combat.defenseur = "adverse";
     Jeu.combat.slot = -1;
     Jeu.combat.etat = true;
-    for (let n=0;n<Jeu.terrain.length;n++) {
-        Jeu.terrain[n].action = statistique(Jeu.terrain[n],"action_max");
-        Jeu.terrain[n].effet_tour_debut("terrain");
-        if (statistique(Jeu.terrain[n],"regeneration") > 0 && Jeu.terrain[n].vie < Jeu.terrain[n].vie_max) {
-            soin(Jeu.terrain[n],statistique(Jeu.terrain[n],"regeneration"));
+    for (let n=0;n<Jeu.joueur.terrain.length;n++) {
+        Jeu.joueur.terrain[n].action = statistique(Jeu.joueur.terrain[n],"action_max");
+        Jeu.joueur.terrain[n].effet_tour_debut("terrain");
+        if (statistique(Jeu.joueur.terrain[n],"regeneration") > 0 && Jeu.joueur.terrain[n].vie < Jeu.joueur.terrain[n].vie_max) {
+            soin(Jeu.joueur.terrain[n],statistique(Jeu.joueur.terrain[n],"regeneration"));
         }
-        if (Jeu.terrain[n].brulure > 0) {
-            degats(Jeu.terrain[n],Jeu.terrain[n].brulure);
-            Jeu.terrain[n].brulure--;
+        if (Jeu.joueur.terrain[n].brulure > 0) {
+            degats(Jeu.joueur.terrain[n],Jeu.joueur.terrain[n].brulure);
+            Jeu.joueur.terrain[n].brulure--;
         }
     }
-    for (let n=0;n<Jeu.terrain_adverse.length;n++) {
-        Jeu.terrain_adverse[n].action = statistique(Jeu.terrain_adverse[n],"action_max");
-        Jeu.terrain_adverse[n].effet_tour_debut("terrain_adverse");
-        if (statistique(Jeu.terrain_adverse[n],"regeneration") > 0 && Jeu.terrain_adverse[n].vie < Jeu.terrain_adverse[n].vie_max) {
-            soin(Jeu.terrain_adverse[n],statistique(Jeu.terrain_adverse[n],"regeneration"));
+    for (let n=0;n<Jeu.adverse.terrain.length;n++) {
+        Jeu.adverse.terrain[n].action = statistique(Jeu.adverse.terrain[n],"action_max");
+        Jeu.adverse.terrain[n].effet_tour_debut("terrain_adverse");
+        if (statistique(Jeu.adverse.terrain[n],"regeneration") > 0 && Jeu.adverse.terrain[n].vie < Jeu.adverse.terrain[n].vie_max) {
+            soin(Jeu.adverse.terrain[n],statistique(Jeu.adverse.terrain[n],"regeneration"));
         }
-        if (Jeu.terrain_adverse[n].brulure > 0) {
-            degats(Jeu.terrain_adverse[n],Jeu.terrain_adverse[n].brulure);
-            Jeu.terrain_adverse[n].brulure--;
+        if (Jeu.adverse.terrain[n].brulure > 0) {
+            degats(Jeu.adverse.terrain[n],Jeu.adverse.terrain[n].brulure);
+            Jeu.adverse.terrain[n].brulure--;
         }
     }
     if (Jeu.combat.auto) {
@@ -33,12 +33,12 @@ function combat_nouveau () {
 }
 
 function combat_continuer () {
-    if (Jeu.terrain_adverse.length == 0) {
+    if (Jeu.adverse.terrain.length == 0) {
         clearInterval(Jeu.combat.affichage);
         Jeu.combat.etat = false;
         combat_victoire();
     }
-    else if (Jeu.terrain.length == 0) {
+    else if (Jeu.joueur.terrain.length == 0) {
         clearInterval(Jeu.combat.affichage);
         Jeu.combat.etat = false;
         combat_defaite();
@@ -54,26 +54,26 @@ function combat_continuer () {
                         Jeu.combat.tour++;
                         Jeu.combat.attaquant = "terrain";
                         Jeu.combat.defenseur = "terrain_adverse";
-                        for (let n=0;n<Jeu.terrain.length;n++) {
-                            Jeu.terrain[n].action = Jeu.terrain[n].action_max;
-                            Jeu.terrain[n].effet_tour_debut("terrain");
-                            if (statistique(Jeu.terrain[n],"regeneration") > 0 && Jeu.terrain[n].vie < Jeu.terrain[n].vie_max) {
-                                soin(Jeu.terrain[n],statistique(Jeu.terrain[n],"regeneration"));
+                        for (let n=0;n<Jeu.joueur.terrain.length;n++) {
+                            Jeu.joueur.terrain[n].action = Jeu.joueur.terrain[n].action_max;
+                            Jeu.joueur.terrain[n].effet_tour_debut("terrain");
+                            if (statistique(Jeu.joueur.terrain[n],"regeneration") > 0 && Jeu.joueur.terrain[n].vie < Jeu.joueur.terrain[n].vie_max) {
+                                soin(Jeu.joueur.terrain[n],statistique(Jeu.joueur.terrain[n],"regeneration"));
                             }
-                            if (Jeu.terrain[n].brulure > 0) {
-                                degats(Jeu.terrain[n],Jeu.terrain[n].brulure);
-                                Jeu.terrain[n].brulure--;
+                            if (Jeu.joueur.terrain[n].brulure > 0) {
+                                degats(Jeu.joueur.terrain[n],Jeu.joueur.terrain[n].brulure);
+                                Jeu.joueur.terrain[n].brulure--;
                             }
                         }
-                        for (let n=0;n<Jeu.terrain_adverse.length;n++) {
-                            Jeu.terrain_adverse[n].action = Jeu.terrain_adverse[n].action_max;
-                            Jeu.terrain_adverse[n].effet_tour_debut("terrain_adverse");
-                            if (statistique(Jeu.terrain_adverse[n],"regeneration") > 0 && Jeu.terrain_adverse[n].vie < Jeu.terrain_adverse[n].vie_max) {
-                                soin(Jeu.terrain_adverse[n],statistique(Jeu.terrain_adverse[n],"regeneration"));
+                        for (let n=0;n<Jeu.adverse.terrain.length;n++) {
+                            Jeu.adverse.terrain[n].action = Jeu.adverse.terrain[n].action_max;
+                            Jeu.adverse.terrain[n].effet_tour_debut("terrain_adverse");
+                            if (statistique(Jeu.adverse.terrain[n],"regeneration") > 0 && Jeu.adverse.terrain[n].vie < Jeu.adverse.terrain[n].vie_max) {
+                                soin(Jeu.adverse.terrain[n],statistique(Jeu.adverse.terrain[n],"regeneration"));
                             }
-                            if (Jeu.terrain_adverse[n].brulure > 0) {
-                                degats(Jeu.terrain_adverse[n],Jeu.terrain_adverse[n].brulure);
-                                Jeu.terrain_adverse[n].brulure--;
+                            if (Jeu.adverse.terrain[n].brulure > 0) {
+                                degats(Jeu.adverse.terrain[n],Jeu.adverse.terrain[n].brulure);
+                                Jeu.adverse.terrain[n].brulure--;
                             }
                         }
                         combat_verifier_attaque();
@@ -94,8 +94,8 @@ function swap () {
 }
 
 function combat_verifier_attaque () {
-    for (let n=0;n<Jeu[Jeu.combat.attaquant].length;n++) {
-        if (Jeu[Jeu.combat.attaquant][n].action > 0) {
+    for (let n=0;n<Jeu[Jeu.combat.attaquant].terrain.length;n++) {
+        if (Jeu[Jeu.combat.attaquant].terrain[n].action > 0) {
             Jeu.combat.slot = n;
             return true;
         }
@@ -104,8 +104,8 @@ function combat_verifier_attaque () {
 }
 
 function combat_verifier_rapidite () {
-    for (let n=0;n<Jeu[Jeu.combat.attaquant].length;n++) {
-        if (Jeu[Jeu.combat.attaquant][n].action > 0 && statistique(Jeu[Jeu.combat.attaquant][n],"rapidite")) {
+    for (let n=0;n<Jeu[Jeu.combat.attaquant].terrain.length;n++) {
+        if (Jeu[Jeu.combat.attaquant].terrain[n].action > 0 && statistique(Jeu[Jeu.combat.attaquant].terrain[n],"rapidite")) {
             Jeu.combat.slot = n;
             return true;
         }
@@ -114,7 +114,7 @@ function combat_verifier_rapidite () {
 }
 
 function attaque () {
-    let attaquant = Jeu[Jeu.combat.attaquant][Jeu.combat.slot];
+    let attaquant = Jeu[Jeu.combat.attaquant].terrain[Jeu.combat.slot];
     attaquant.action--;
     if (attaquant.gel > 0) {
         attaquant.gel--;
@@ -122,7 +122,7 @@ function attaque () {
     else {
         let defenseur_slot = trouver_defenseur();
         if (defenseur_slot !== false) {
-            let defenseur = Jeu[Jeu.combat.defenseur][defenseur_slot];
+            let defenseur = Jeu[Jeu.combat.defenseur].terrain[defenseur_slot];
             let defenseur_save = dupliquer_objet(defenseur);
             attaquant.effet_attaque(defenseur);
             for (let n=0;n<attaquant.equipements.length;n++) {
@@ -168,17 +168,17 @@ function attaque () {
 }
 
 function trouver_defenseur () {
-    let attaquant = Jeu[Jeu.combat.attaquant][Jeu.combat.slot];
+    let attaquant = Jeu[Jeu.combat.attaquant].terrain[Jeu.combat.slot];
     let defenseur_slot = 0;
     if (attaquant.portee) {
-        defenseur_slot = Jeu[Jeu.combat.defenseur].length - 1;
-        while (Jeu[Jeu.combat.defenseur][defenseur_slot].camouflage && defenseur_slot > 0) {
+        defenseur_slot = Jeu[Jeu.combat.defenseur].terrain.length - 1;
+        while (Jeu[Jeu.combat.defenseur].terrain[defenseur_slot].camouflage && defenseur_slot > 0) {
             defenseur_slot--;
         }
         if (Jeu[Jeu.combat.defenseur][defenseur_slot].camouflage) {
             return false;
         }
-        for (let n=Jeu[Jeu.combat.defenseur].length - 1;n>=0;n--) {
+        for (let n=Jeu[Jeu.combat.defenseur].terrain.length - 1;n>=0;n--) {
             if (statistique(Jeu[Jeu.combat.defenseur][n],"protection") && Jeu[Jeu.combat.defenseur][n].camouflage == false) {
                 defenseur_slot = n;
                 break;
@@ -186,14 +186,14 @@ function trouver_defenseur () {
         }
     }
     else {
-        while (Jeu[Jeu.combat.defenseur][defenseur_slot].camouflage && defenseur_slot < Jeu[Jeu.combat.defenseur].length - 1) {
+        while (Jeu[Jeu.combat.defenseur].terrain[defenseur_slot].camouflage && defenseur_slot < Jeu[Jeu.combat.defenseur].terrain.length - 1) {
             defenseur_slot++;
         }
-        if (Jeu[Jeu.combat.defenseur][defenseur_slot].camouflage) {
+        if (Jeu[Jeu.combat.defenseur].terrain[defenseur_slot].camouflage) {
             return false;
         }
-        for (let n=0;n<Jeu[Jeu.combat.defenseur].length;n++) {
-            if (statistique(Jeu[Jeu.combat.defenseur][n],"protection") && Jeu[Jeu.combat.defenseur][n].camouflage == false) {
+        for (let n=0;n<Jeu[Jeu.combat.defenseur].terrain.length;n++) {
+            if (statistique(Jeu[Jeu.combat.defenseur].terrain[n],"protection") && Jeu[Jeu.combat.defenseur].terrain[n].camouflage == false) {
                 defenseur_slot = n;
                 break;
             }
@@ -216,12 +216,12 @@ function combat_afficher () {
     saut(2);
     afficher("<u>Adversaire :</u>");
     saut();
-    if (Jeu.terrain_adverse.length > 0) {
-        for (let n=0;n<Jeu.terrain_adverse.length;n++) {
-            if (Jeu.combat.slot == n && Jeu.combat.attaquant == "terrain_adverse") {
+    if (Jeu.adverse.terrain.length > 0) {
+        for (let n=0;n<Jeu.adverse.terrain.length;n++) {
+            if (Jeu.combat.slot == n && Jeu.combat.attaquant == "adverse") {
                 afficher("<b>");
             }
-            afficher_carte("terrain_adverse",n);
+            afficher_carte("adverse","terrain",n);
             afficher("</b>");
             saut();
         }
@@ -233,12 +233,12 @@ function combat_afficher () {
     saut();
     afficher("<u>Terrain :</u>");
     saut();
-    if (Jeu.terrain.length > 0) {
-        for (let n=0;n<Jeu.terrain.length;n++) {
-            if (Jeu.combat.slot == n && Jeu.combat.attaquant == "terrain") {
+    if (Jeu.joueur.terrain.length > 0) {
+        for (let n=0;n<Jeu.joueur.terrain.length;n++) {
+            if (Jeu.combat.slot == n && Jeu.combat.attaquant == "joueur") {
                 afficher("<b>");
             }
-            afficher_carte("terrain",n);
+            afficher_carte("joueur","terrain",n);
             afficher("</b>");
             saut();
         }
@@ -293,8 +293,8 @@ function combat_defaite () {
 
 function combat_defaite_degats () {
     let degats_montant = 0;
-    for (let n=0;n<Jeu.terrain_adverse.length;n++) {
-        degats_montant += statistique(Jeu.terrain_adverse[n],"attaque");
+    for (let n=0;n<Jeu.adverse.terrain.length;n++) {
+        degats_montant += statistique(Jeu.adverse.terrain[n],"attaque");
     }
     degats_joueur(degats_montant);
     return degats_montant;
