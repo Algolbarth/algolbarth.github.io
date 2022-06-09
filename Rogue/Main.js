@@ -76,6 +76,7 @@ function nouvelle_partie () {
     Jeu.ressource_sup = 1;
     Jeu.combat.etat = false;
     ajouter(obtenir_carte(31),"joueur","main");
+    ajouter(obtenir_carte(36),"joueur","main");
     ajouter(obtenir_carte(1),"joueur","terrain");
     boutique_actualiser();
     adversaire_generer();
@@ -146,11 +147,11 @@ function menu () {
     if (Jeu.joueur.main.length > 0) {
         for (let n=0;n<Jeu.joueur.main.length;n++) {
             if (n > 0) {
-                fonction("&#8679","monter(" + '"main",' + n + ")");
+                fonction("&#8679","monter(" + '"joueur","main",' + n + ")");
                 afficher(" ");
             }
             if (n < Jeu.joueur.main.length-1) {
-                fonction("&#8681","descendre(" + '"main",' + n + ")");
+                fonction("&#8681","descendre(" + '"joueur","main",' + n + ")");
                 afficher(" ");
             }
             afficher_carte("joueur","main",n);
@@ -189,11 +190,11 @@ function menu () {
         for (let n=0;n<Jeu.joueur.terrain.length;n++) {
             if (Jeu.joueur.terrain[n].type != "Bâtiment" || statistique(Jeu.joueur.terrain[n],"mobile")) {
                 if (n > 0) {
-                    fonction("&#8679","monter(" + '"terrain",' + n + ")");
+                    fonction("&#8679","monter(" + '"joueur","terrain",' + n + ")");
                     afficher(" ");
                 }
                 if (n < Jeu.joueur.terrain.length-1) {
-                    fonction("&#8681","descendre(" + '"terrain",' + n + ")");
+                    fonction("&#8681","descendre(" + '"joueur","terrain",' + n + ")");
                     afficher(" ");
                 }
             }
@@ -717,21 +718,21 @@ function game_over () {
     actualiser();
 }
 
-function monter (zone,slot) {
-    let carte = Jeu[zone][slot];
-    let trans = Jeu[zone][slot-1];
-    Jeu[zone][slot] = trans;
-    Jeu[zone][slot-1] = carte;
+function monter (camp,zone,slot) {
+    let carte = Jeu[camp][zone][slot];
+    let trans = Jeu[camp][zone][slot-1];
+    Jeu[camp][zone][slot] = trans;
+    Jeu[camp][zone][slot-1] = carte;
     carte.slot--;
     trans.slot++;
     menu();
 }
 
-function descendre (zone,slot) {
-    let carte = Jeu[zone][slot];
-    let trans = Jeu[zone][slot+1];
-    Jeu[zone][slot] = trans;
-    Jeu[zone][slot+1] = carte;
+function descendre (camp,zone,slot) {
+    let carte = Jeu[camp][zone][slot];
+    let trans = Jeu[camp][zone][slot+1];
+    Jeu[camp][zone][slot] = trans;
+    Jeu[camp][zone][slot+1] = carte;
     carte.slot++;
     trans.slot--;
     menu();

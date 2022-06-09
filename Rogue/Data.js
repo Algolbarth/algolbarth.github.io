@@ -804,7 +804,7 @@ function obtenir_carte (carte_id) {
                     case 1:
                         let verifier_boutique_or = false;
                         for (let n=0;n<Jeu.joueur.boutique.length;n++) {
-                            if (Jeu.joueur.boutique[n].ressources[0] > 0) {
+                            if (Jeu.joueur.boutique[n].cout[0] > 0) {
                                 verifier_boutique_or = true;
                             }
                         }
@@ -1603,6 +1603,9 @@ function obtenir_carte (carte_id) {
             carte.texte = "Quand le décompte est écoulé : Se détruit et crée Dragon sur votre terrain.";
             carte.effet_pose = function () {
                 carte.decompte = 1;
+                deplacer(carte,"joueur","terrain");
+                effet_pose(carte);
+                menu();
             }
             carte.effet_decompte = function () {
                 let nouvelle_carte = obtenir_carte(9);
