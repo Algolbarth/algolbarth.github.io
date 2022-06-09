@@ -663,7 +663,7 @@ function obtenir_carte (carte_id) {
             carte.vente[0] = 1;
             carte.texte = "Crée une carte aléatoire dans votre boutique.";
             carte.effet_pose = function () {
-                Jeu.joueur.boutique.push(boutique_generer());
+                ajouter(boutique_generer(),"joueur","boutique");
                 deplacer(carte,"joueur","defausse");
                 effet_pose(carte);
                 menu();
@@ -1097,8 +1097,7 @@ function obtenir_carte (carte_id) {
             carte.familles.push("Equipement","Arme");
             carte.cout[0] = 2;
             carte.vente[0] = 1;
-            carte.attaque = 1;
-            carte.texte = "Donne 1 attaque et applique l'effet suivant à la Créature équipée : Quand attaque : applique Poison 1 à la Créature attaquée.<br/>ou<br/>Applique Poison 1 à une Créature.";
+            carte.texte = "Applique l'effet suivant à la Créature équipée : Quand attaque : applique Poison 1 à la Créature attaquée.<br/>ou<br/>Applique Poison 1 à une Créature.";
             carte.effet_pose = function (step,cible) {
                 switch (step) {
                     case 1:
@@ -1112,7 +1111,7 @@ function obtenir_carte (carte_id) {
                             saut();
                             afficher("Choisissez un effet : ");
                             saut(2);
-                            fonction("Donne 1 attaque et applique l'effet suivant à la Créature équipée : Quand attaque : applique Poison 1 à la Créature attaquée","Jeu.joueur.main[" + carte.slot + "].effet_pose(2)");
+                            fonction("Applique l'effet suivant à la Créature équipée : Quand attaque : applique Poison 1 à la Créature attaquée","Jeu.joueur.main[" + carte.slot + "].effet_pose(2)");
                             saut();
                             afficher("ou");
                             saut();
@@ -1130,7 +1129,7 @@ function obtenir_carte (carte_id) {
                             saut(2);
                             afficher(carte.nom);
                             saut();
-                            afficher("Donne 1 attaque et applique l'effet suivant à la Créature équipée : Quand attaque : applique Poison 1 à la Créature attaquée.");
+                            afficher("Applique l'effet suivant à la Créature équipée : Quand attaque : applique Poison 1 à la Créature attaquée.");
                             saut();
                             afficher("Choisissez une Créature : ");
                             saut(2);

@@ -76,6 +76,7 @@ function nouvelle_partie () {
     Jeu.ressource_sup = 1;
     Jeu.combat.etat = false;
     ajouter(obtenir_carte(31),"joueur","main");
+    ajouter(obtenir_carte(29),"joueur","main");
     ajouter(obtenir_carte(1),"joueur","terrain");
     boutique_actualiser();
     adversaire_generer();
