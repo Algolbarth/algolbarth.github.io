@@ -100,7 +100,7 @@ function obtenir_carte (carte_id) {
                             saut(2);
                             for (let n=0;n<Jeu.joueur.terrain.length;n++) {
                                 if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].equipements.length < Jeu.joueur.terrain[n].equipement_max) {
-                                    afficher_carte("terrain",n);
+                                    afficher_carte("joueur","terrain",n);
                                     afficher(" ");
                                     fonction("Cibler","Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
                                     saut();
@@ -145,7 +145,7 @@ function obtenir_carte (carte_id) {
                             saut(2);
                             for (let n=0;n<Jeu.joueur.terrain.length;n++) {
                                 if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].vie < Jeu.joueur.terrain[n].vie_max) {
-                                    afficher_carte("terrain",n);
+                                    afficher_carte("joueur","terrain",n);
                                     afficher(" ");
                                     fonction("Cibler","Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
                                     saut();
@@ -191,7 +191,7 @@ function obtenir_carte (carte_id) {
                             saut(2);
                             for (let n=0;n<Jeu.joueur.terrain.length;n++) {
                                 if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].equipements.length < Jeu.joueur.terrain[n].equipement_max) {
-                                    afficher_carte("terrain",n);
+                                    afficher_carte("joueur","terrain",n);
                                     afficher(" ");
                                     fonction("Cibler","Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
                                     saut();
@@ -316,7 +316,7 @@ function obtenir_carte (carte_id) {
                             saut(2);
                             for (let n=0;n<Jeu.joueur.terrain.length;n++) {
                                 if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].vie < Jeu.joueur.terrain[n].vie_max) {
-                                    afficher_carte("terrain",n);
+                                    afficher_carte("joueur","terrain",n);
                                     afficher(" ");
                                     fonction("Cibler","Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
                                     saut();
@@ -431,7 +431,7 @@ function obtenir_carte (carte_id) {
                             afficher("Choisissez une Créature ou un Bâtiment adverse : ");
                             saut(2);
                             for (let n=0;n<Jeu.adverse.terrain.length;n++) {
-                                afficher_carte("terrain_adverse",n);
+                                afficher_carte("adverse","terrain",n);
                                 afficher(" ");
                                 fonction("Cibler","Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
                                 saut();
@@ -630,7 +630,7 @@ function obtenir_carte (carte_id) {
                             afficher("Choisissez une Créature ou un Bâtiment adverse : ");
                             saut(2);
                             for (let n=0;n<Jeu.adverse.terrain.length;n++) {
-                                afficher_carte("terrain_adverse",n);
+                                afficher_carte("adverse","terrain",n);
                                 afficher(" ");
                                 fonction("Cibler","Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
                                 saut();
@@ -693,7 +693,7 @@ function obtenir_carte (carte_id) {
                             saut(2);
                             for (let n=0;n<Jeu.joueur.terrain.length;n++) {
                                 if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].equipements.length < Jeu.joueur.terrain[n].equipement_max) {
-                                    afficher_carte("terrain",n);
+                                    afficher_carte("joueur","terrain",n);
                                     afficher(" ");
                                     fonction("Cibler","Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
                                     saut();
@@ -820,7 +820,7 @@ function obtenir_carte (carte_id) {
                             afficher("Choisissez une carte : ");
                             saut(2);
                             for (let n=0;n<Jeu.joueur.boutique.length;n++) {
-                                afficher_carte("boutique",n);
+                                afficher_carte("joueur","boutique",n);
                                 afficher(" ");
                                 fonction("Cibler","Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
                                 saut();
@@ -914,7 +914,7 @@ function obtenir_carte (carte_id) {
                             afficher("Choisissez une carte : ");
                             saut(2);
                             for (let n=0;n<Jeu.joueur.defausse.length;n++) {
-                                    afficher_carte("defausse",n);
+                                    afficher_carte("joueur","defausse",n);
                                     afficher(" ");
                                     fonction("Cibler","Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
                                     saut();
@@ -1114,6 +1114,8 @@ function obtenir_carte (carte_id) {
                             saut(2);
                             fonction("Donne 1 attaque et applique l'effet suivant à la Créature équipée : Quand attaque : applique Poison 1 à la Créature attaquée","Jeu.joueur.main[" + carte.slot + "].effet_pose(2)");
                             saut();
+                            afficher("ou");
+                            saut();
                             fonction("Applique Poison 1 à une Créature","Jeu.joueur.main[" + carte.slot + "].effet_pose(4)");                   
                             div_fin();
                             div("carte");
@@ -1134,7 +1136,7 @@ function obtenir_carte (carte_id) {
                             saut(2);
                             for (let n=0;n<Jeu.joueur.terrain.length;n++) {
                                 if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].equipements.length < Jeu.joueur.terrain[n].equipement_max) {
-                                    afficher_carte("terrain",n);
+                                    afficher_carte("joueur","terrain",n);
                                     afficher(" ");
                                     fonction("Cibler","Jeu.joueur.main[" + carte.slot + "].effet_pose(3," + n + ")");
                                     saut();
@@ -1167,7 +1169,7 @@ function obtenir_carte (carte_id) {
                             saut(2);
                             for (let n=0;n<Jeu.adverse.terrain.length;n++) {
                                 if (Jeu.adverse.terrain[n].type == "Créature") {
-                                    afficher_carte("terrain_adverse",n);
+                                    afficher_carte("adverse","terrain",n);
                                     afficher(" ");
                                     fonction("Cibler","Jeu.joueur.main[" + carte.slot + "].effet_pose(5," + n + ")");
                                     saut();
@@ -1222,7 +1224,7 @@ function obtenir_carte (carte_id) {
                             saut(2);
                             for (let n=0;n<Jeu.joueur.terrain.length;n++) {
                                 if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].poison > 0) {
-                                    afficher_carte("terrain",n);
+                                    afficher_carte("joueur","terrain",n);
                                     afficher(" ");
                                     fonction("Cibler","Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
                                     saut();
@@ -1324,7 +1326,7 @@ function obtenir_carte (carte_id) {
                             afficher("Choisissez une carte : ");
                             saut(2);
                             for (let n=0;n<Jeu.joueur.boutique.length;n++) {
-                                afficher_carte("boutique",n);
+                                afficher_carte("joueur","boutique",n);
                                 afficher(" ");
                                 fonction("Cibler","Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
                                 saut();
@@ -1373,7 +1375,7 @@ function obtenir_carte (carte_id) {
                             saut(2);
                             for (let n=0;n<Jeu.joueur.terrain.length;n++) {
                                 if (Jeu.joueur.terrain[n].type == "Créature" && (Jeu.joueur.terrain[n].poison > 0 || Jeu.joueur.terrain[n].brulure > 0 || Jeu.joueur.terrain[n].maladie > 0)) {
-                                    afficher_carte("terrain",n);
+                                    afficher_carte("joueur","terrain",n);
                                     afficher(" ");
                                     fonction("Cibler","Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
                                     saut();
@@ -1457,6 +1459,8 @@ function obtenir_carte (carte_id) {
                             saut(2);
                             fonction("Donne 1 attaque à la Créature équipée","Jeu.joueur.main[" + carte.slot + "].effet_pose(2)");
                             saut();
+                            afficher("ou");
+                            saut();
                             fonction("Inflige 1 dégat à une Créature","Jeu.joueur.main[" + carte.slot + "].effet_pose(4)");                   
                             div_fin();
                             div("carte");
@@ -1477,7 +1481,7 @@ function obtenir_carte (carte_id) {
                             saut(2);
                             for (let n=0;n<Jeu.joueur.terrain.length;n++) {
                                 if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].equipements.length < Jeu.joueur.terrain[n].equipement_max) {
-                                    afficher_carte("terrain",n);
+                                    afficher_carte("joueur","terrain",n);
                                     afficher(" ");
                                     fonction("Cibler","Jeu.joueur.main[" + carte.slot + "].effet_pose(3," + n + ")");
                                     saut();
@@ -1510,7 +1514,7 @@ function obtenir_carte (carte_id) {
                             saut(2);
                             for (let n=0;n<Jeu.adverse.terrain.length;n++) {
                                 if (Jeu.adverse.terrain[n].type == "Créature") {
-                                    afficher_carte("terrain_adverse",n);
+                                    afficher_carte("adverse","terrain",n);
                                     afficher(" ");
                                     fonction("Cibler","Jeu.joueur.main[" + carte.slot + "].effet_pose(5," + n + ")");
                                     saut();
