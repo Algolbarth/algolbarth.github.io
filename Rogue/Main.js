@@ -70,12 +70,13 @@ function nouvelle_partie () {
         }
         Jeu.adverse.ressources.push(ressource);
     }
-    Jeu.etage = 1;
+    Jeu.etage = 100;
     Jeu.boutique_niveau = 1;
     Jeu.boutique_amelioration = 9;
     Jeu.ressource_sup = 1;
     Jeu.combat.etat = false;
     ajouter(obtenir_carte(31),"joueur","main");
+    ajouter(obtenir_carte(17),"joueur","main");
     ajouter(obtenir_carte(1),"joueur","terrain");
     boutique_actualiser();
     adversaire_generer();
@@ -599,7 +600,7 @@ function acheter (boutique_slot) {
 
 function vendre (zone,slot) {
     for (let n=0;n<Jeu.ressources.length;n++) {
-        Jeu.joueur.ressources[n].courant += Jeu[zone][slot].vente[n];
+        Jeu[camp].ressources[n].courant += Jeu[zone][slot].vente[n];
     }
     enlever(Jeu[zone][slot]);
     menu();
@@ -607,12 +608,17 @@ function vendre (zone,slot) {
 
 function etage_suivant () {
     Jeu.etage++;
-    Jeu.adverse.vie = 10;
-    if (Jeu.boutique_amelioration > 0) {
-        Jeu.boutique_amelioration--;
+    if (Jeu.etage <= 100) {
+        Jeu.adverse.vie = 10;
+        if (Jeu.boutique_amelioration > 0) {
+            Jeu.boutique_amelioration--;
+        }
+        adversaire_generer();
+        etage_fin();
     }
-    adversaire_generer();
-    etage_fin();
+    else {
+        victoire();        
+    }
 }
 
 function etage_fin () {
@@ -825,7 +831,7 @@ function poser (slot) {
 }
 
 function effet_pose (carte) {
-    for (let n=0;n<Jeu[carte.zone].length-1;n++) {
+    for (let n=0;n<Jeu[carte.camp][carte.zone].length-1;n++) {
         Jeu.joueur.terrain[n].effet_pose_allie(carte);
     }
 }
@@ -846,4 +852,12 @@ function verifier_equipement () {
         }
     }
     return false;
+}
+
+function victoire () {
+    initialiser();
+    afficher("Victoire");
+    saut(2);
+    fonction("Ecran titre","ecran_titre()");
+    actualiser();
 }

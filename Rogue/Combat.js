@@ -214,7 +214,9 @@ function combat_afficher () {
         fonction("Action suivante","combat_continuer()");
     }
     saut(2);
-    afficher("<u>Adversaire :</u>");
+    afficher("Vie adverse : " + Jeu.adverse.vie + " / " + Jeu.adverse.vie_max);
+    saut(2);
+    afficher("<u>Terrain adverse :</u>");
     saut();
     if (Jeu.adverse.terrain.length > 0) {
         for (let n=0;n<Jeu.adverse.terrain.length;n++) {
@@ -245,7 +247,10 @@ function combat_afficher () {
     }
     else {
         afficher("<i>Votre terrain est vide</i>");
+        saut();
     }
+    saut();
+    afficher("Vie : " + Jeu.joueur.vie + " / " + Jeu.joueur.vie_max);
     div_fin();
     div("carte");
     div_fin();
