@@ -76,7 +76,7 @@ function nouvelle_partie () {
     Jeu.ressource_sup = 1;
     Jeu.combat.etat = false;
     ajouter(obtenir_carte(31),"joueur","main");
-    ajouter(obtenir_carte(6),"joueur","terrain");
+    ajouter(obtenir_carte(1),"joueur","terrain");
     boutique_actualiser();
     adversaire_generer();
     menu();
@@ -664,7 +664,7 @@ function etage_fin () {
 
 function adversaire_generer () {
     Jeu.adverse.terrain = [];
-    ajouter(obtenir_carte(54),"adverse","main");
+    ajouter(obtenir_carte(5),"adverse","main");
     let verifier = true;
     while (Jeu.adverse.main.length > 0 && verifier) {
         verifier = false;
@@ -847,7 +847,7 @@ function poser (slot) {
 }
 
 function effet_pose (carte) {
-    for (let n=0;n<Jeu[carte.camp][carte.zone].length-1;n++) {
+    for (let n=0;n<Jeu[carte.camp].terrain.length;n++) {
         Jeu[carte.camp].terrain[n].effet_pose_carte(carte);
     }
 }

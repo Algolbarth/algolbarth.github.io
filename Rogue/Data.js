@@ -117,7 +117,7 @@ function obtenir_carte (carte_id) {
                         case 2:
                             Jeu.joueur.terrain[cible].equipements.push(carte);
                             Jeu.joueur.terrain[cible].effet_equiper(carte);
-                            soin(Jeu.joueur.terrain[cible],2);
+                            Jeu.joueur.terrain[cible].vie += 2;
                             effet_pose(carte);
                             enlever(carte);
                             menu();
@@ -132,7 +132,7 @@ function obtenir_carte (carte_id) {
                         }
                         Jeu.adverse.terrain[n].equipements.push(carte);
                         Jeu.adverse.terrain[n].effet_equiper(carte);
-                        soin(Jeu.adverse.terrain[n],2);
+                        Jeu.adverse.terrain[n].vie += 2;
                         effet_pose(carte);
                         enlever(carte);
                         return true;
@@ -712,7 +712,7 @@ function obtenir_carte (carte_id) {
             carte.cout[0] = 2;
             carte.cout[1] = 1;
             carte.vente[0] = 1;
-            carte.texte = "Inflige 3 dégâts à une Créature ou un Bâtiment adverse. Sorcellerie (2) : Inflige 5 dégâts à une Créature ou un Bâtiment adverse.";
+            carte.texte = "Inflige 3 dégâts à une Créature ou un Bâtiment adverse.<br/>Sorcellerie (2) : Inflige 5 dégâts à une Créature ou un Bâtiment adverse.";
             carte.effet_pose = function (step,cible) {
                 if (carte.camp == "joueur") {
                     switch (step) {
@@ -807,7 +807,7 @@ function obtenir_carte (carte_id) {
                 if (carte.camp == "joueur") {
                     switch (step) {
                         case 1:
-                            if (verifier_equipement()) {
+                            if (verifier_equipement(carte.camp)) {
                                 initialiser();
                                 div("main");
                                 fonction("Annuler","menu()");
@@ -1299,7 +1299,7 @@ function obtenir_carte (carte_id) {
                                 actualiser();
                             break;
                         case 2:
-                            if (verifier_equipement()) {
+                            if (verifier_equipement(carte.camp)) {
                                 initialiser();
                                 div("main");
                                 fonction("Retour","Jeu.joueur.main[" + carte.slot + "].effet_pose(1)");
@@ -1729,7 +1729,7 @@ function obtenir_carte (carte_id) {
                                 actualiser();
                             break;
                         case 2:
-                            if (verifier_equipement()) {
+                            if (verifier_equipement(carte.camp)) {
                                 initialiser();
                                 div("main");
                                 fonction("Retour","Jeu.joueur.main[" + carte.slot + "].effet_pose(1)");
@@ -1988,7 +1988,7 @@ function obtenir_carte (carte_id) {
             carte.vie_max = carte.vie = 4;
             carte.action_max = 1;
             carte.equipement_max = 1;
-            carte.texte = "Quand posé : diminue le cout d'amélioration de votre boutique de 2.";
+            carte.texte = "Quand posé : diminue le cout d'amélioration de votre boutique de 2 Or.";
             carte.effet_pose = function () {
                 if (carte.camp == "joueur") {
                     Jeu.boutique_amelioration -= 2;

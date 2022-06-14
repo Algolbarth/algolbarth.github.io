@@ -13,9 +13,9 @@ a {
 }
 
 #carte {
-    width:49%;
-    height:50vw;
-    position:absolute;
+    position:fixed;
     left:50%;
     top:0px;
+    width:49%;
+    height:50vw;
 }
