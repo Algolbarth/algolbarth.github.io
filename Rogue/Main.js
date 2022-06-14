@@ -76,7 +76,7 @@ function nouvelle_partie () {
     Jeu.ressource_sup = 1;
     Jeu.combat.etat = false;
     ajouter(obtenir_carte(31),"joueur","main");
-    ajouter(obtenir_carte(1),"joueur","terrain");
+    ajouter(obtenir_carte(6),"joueur","terrain");
     boutique_actualiser();
     adversaire_generer();
     menu();
@@ -338,7 +338,7 @@ function carte_voir (camp,zone,slot) {
             if (Jeu.texte_talent) {
                 texte += " : Débloque des effets supplémentaires de certaines cartes.";
             }
-            texte += " <i>(votre sorcellerie totale est de " + sorcellerie() + ")</i> <br/>";
+            texte += " <i>(votre sorcellerie totale est de " + sorcellerie(carte.camp) + ")</i> <br/>";
         }
         if (statistique(carte,"resistance") > 0) {
             texte += "Résistance " + statistique(carte,"resistance");
@@ -473,7 +473,7 @@ function carte_voir (camp,zone,slot) {
         }
         texte += "<br/>";
     }
-    if (!Jeu.combat.etat) {
+    if (!Jeu.combat.etat && carte.camp == "joueur") {
         if (zone == "boutique") {
             texte += "<a href='javascript:acheter(" + slot + ")'>Acheter</a> <br/>";
         }
@@ -599,9 +599,9 @@ function acheter (boutique_slot) {
 
 function vendre (zone,slot) {
     for (let n=0;n<Jeu.ressources.length;n++) {
-        Jeu[camp].ressources[n].courant += Jeu[zone][slot].vente[n];
+        Jeu.joueur.ressources[n].courant += Jeu.joueur[zone][slot].vente[n];
     }
-    enlever(Jeu[zone][slot]);
+    enlever(Jeu.joueur[zone][slot]);
     menu();
 }
 
@@ -664,11 +664,16 @@ function etage_fin () {
 
 function adversaire_generer () {
     Jeu.adverse.terrain = [];
-    for (let n=0;n<Jeu.etage;n++) {
-        ajouter(obtenir_carte(5),"adverse","main");
-    }
-    while (Jeu.adverse.main.length > 0) {
-        Jeu.adverse.main[0].effet_pose();    
+    ajouter(obtenir_carte(54),"adverse","main");
+    let verifier = true;
+    while (Jeu.adverse.main.length > 0 && verifier) {
+        verifier = false;
+        for (let n=0;n<Jeu.adverse.main.length;n++) {
+            if (Jeu.adverse.main[n].effet_pose()) {
+                verifier = true;
+                n--;
+            }   
+        }
     }
 }
 
@@ -679,6 +684,19 @@ function adversaire_voir () {
     saut(2);
     afficher("Vie adverse : " + Jeu.adverse.vie + " / " + Jeu.adverse.vie_max);
     saut(2);
+    afficher("<u>Main adverse :</u>");
+    saut();
+    if (Jeu.adverse.main.length > 0) {
+        for (let n=0;n<Jeu.adverse.main.length;n++) {
+            afficher_carte("adverse","main",n);
+            saut();
+        }
+    }
+    else {
+        afficher("<i>Le terrain adverse est vide</i>");
+        saut();
+    }
+    saut();
     afficher("<u>Terrain adverse :</u>");
     saut();
     if (Jeu.adverse.terrain.length > 0) {
@@ -743,8 +761,8 @@ function soin (carte,montant) {
         carte.vie = statistique(carte,"vie_max");
     }
     carte.effet_soin(montant);
-    for (let n=0;n<Jeu[carte.zone].length;n++) {
-        Jeu[carte.zone][n].effet_soin_allie(carte);
+    for (let n=0;n<Jeu[carte.camp][carte.zone].length;n++) {
+        Jeu[carte.camp][carte.zone][n].effet_soin_carte(carte);
     }
 }
 
@@ -785,10 +803,10 @@ function mort (carte) {
     }
 }
 
-function sorcellerie () {
+function sorcellerie (camp) {
     let montant = 0;
-    for (let n=0;n<Jeu.joueur.terrain.length;n++) {
-        montant += statistique(Jeu.joueur.terrain[n],"sorcellerie");
+    for (let n=0;n<Jeu[camp].terrain.length;n++) {
+        montant += statistique(Jeu[camp].terrain[n],"sorcellerie");
     }
     return montant;
 }
@@ -801,12 +819,8 @@ function statistique (carte,nom) {
     return stat;
 }
 
-function degats_joueur (montant) {
-    Jeu.joueur.vie -= montant;
-}
-
-function degats_adverse (montant) {
-    Jeu.adverse.vie -= montant;
+function degats_direct (camp,montant) {
+    Jeu[camp].vie -= montant;
 }
 
 function deplacer (carte,camp,zone) {
@@ -834,22 +848,22 @@ function poser (slot) {
 
 function effet_pose (carte) {
     for (let n=0;n<Jeu[carte.camp][carte.zone].length-1;n++) {
-        Jeu[carte.camp].terrain[n].effet_pose_allie(carte);
+        Jeu[carte.camp].terrain[n].effet_pose_carte(carte);
     }
 }
 
-function verifier_soin () {
-    for (let n=0;n<Jeu.joueur.terrain.length;n++) {
-        if (Jeu.joueur.terrain[n].vie < Jeu.joueur.terrain[n].vie_max) {
+function verifier_soin (camp) {
+    for (let n=0;n<Jeu[camp].terrain.length;n++) {
+        if (Jeu[camp].terrain[n].vie < Jeu[camp].terrain[n].vie_max) {
             return true;
         }
     }
     return false;
 }
 
-function verifier_equipement () {
-    for (let n=0;n<Jeu.joueur.terrain.length;n++) {
-        if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].equipements.length < Jeu.joueur.terrain[n].equipement_max) {
+function verifier_equipement (camp) {
+    for (let n=0;n<Jeu[camp].terrain.length;n++) {
+        if (Jeu[camp].terrain[n].type == "Créature" && Jeu[camp].terrain[n].equipements.length < Jeu[camp].terrain[n].equipement_max) {
             return true;
         }
     }

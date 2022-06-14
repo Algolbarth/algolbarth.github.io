@@ -301,6 +301,6 @@ function combat_defaite_degats () {
     for (let n=0;n<Jeu.adverse.terrain.length;n++) {
         degats_montant += statistique(Jeu.adverse.terrain[n],"attaque");
     }
-    degats_joueur(degats_montant);
+    degats_direct("joueur",degats_montant);
     return degats_montant;
 }
