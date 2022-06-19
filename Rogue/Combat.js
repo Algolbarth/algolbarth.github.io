@@ -33,7 +33,12 @@ function combat_nouveau () {
 }
 
 function combat_continuer () {
-    if (Jeu.adverse.terrain.length == 0) {
+    if (Jeu.joueur.vie <= 0) {
+        clearInterval(Jeu.combat.affichage);
+        Jeu.combat.etat = false;
+        game_over();
+    }
+    if (Jeu.adverse.terrain.length == 0 || Jeu.adverse.vie <= 0) {
         clearInterval(Jeu.combat.affichage);
         Jeu.combat.etat = false;
         combat_victoire();
@@ -118,6 +123,10 @@ function attaque () {
     attaquant.action--;
     if (attaquant.gel > 0) {
         attaquant.gel--;
+    }
+    else if (attaquant.etourdissement) {
+        attaquant.action = 0;
+        attaquant.etourdissement = false;
     }
     else {
         let defenseur_slot = trouver_defenseur();

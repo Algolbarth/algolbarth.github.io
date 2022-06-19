@@ -15,7 +15,7 @@ function demarrage () {
             {nom : "Ombre"},//11
             {nom : "Glace"}//12
         ],
-        NOMBRE_CARTE : 69,
+        NOMBRE_CARTE : 72,
         combat : {
             auto : true,
             vitesse : 1000,
@@ -77,8 +77,8 @@ function nouvelle_partie () {
     Jeu.combat.etat = false;
     ajouter(obtenir_carte(31),"joueur","main");
     ajouter(obtenir_carte(1),"joueur","terrain");
-    boutique_actualiser();
     adversaire_generer();
+    boutique_actualiser();
     menu();
 }
 
@@ -132,6 +132,9 @@ function menu () {
                         afficher(Jeu.joueur.boutique[n].cout[i] + " " + Jeu.ressources[i].nom);
                     }
                 }
+                if (premier_cout) {
+                    afficher("Rien");
+                }
             }
             saut();
         }
@@ -174,6 +177,9 @@ function menu () {
                         afficher(Jeu.joueur.main[n].vente[i] + " " + Jeu.ressources[i].nom);
                     }
                 }
+                if (premiere_vente) {
+                    afficher("Rien");
+                }
             }
             saut();
         }
@@ -213,6 +219,9 @@ function menu () {
                         premiere_vente = false;
                         afficher(Jeu.joueur.terrain[n].vente[i] + " " + Jeu.ressources[i].nom);
                     }
+                }
+                if (premiere_vente) {
+                    afficher("Rien");
                 }
             }
             saut();
@@ -281,6 +290,9 @@ function carte_voir (camp,zone,slot) {
             texte += carte.cout[n] + " " + Jeu.ressources[n].nom;
         }
     }
+    if (premier_cout) {
+        texte += "Rien";
+    }
     texte += "<br/>";
     texte += "<u>Vente :</u> ";
     let premiere_vente = true;
@@ -292,6 +304,9 @@ function carte_voir (camp,zone,slot) {
             premiere_vente = false;
             texte += carte.vente[n] + " " + Jeu.ressources[n].nom;
         }
+    }
+    if (premiere_vente) {
+        texte += "Rien";
     }
     texte += "<br/>";
     texte += "<u>Type :</u> " + carte.type + "<br/>";
@@ -463,6 +478,13 @@ function carte_voir (camp,zone,slot) {
             }
             texte += "<br/>";
         }
+        if (carte.etourdissement > 0) {
+            texte += "Etourdissement ";
+            if (Jeu.texte_talent) {
+                texte += " : Annule les attaques du prochain tour de combat.";
+            }
+            texte += "<br/>";
+        }
         texte += "<u>Attaque :</u> " + statistique(carte,"attaque") + "<br/>";
     }
     if (carte.type == "Créature" || carte.type == "Bâtiment") {
@@ -598,6 +620,7 @@ function acheter (boutique_slot) {
 }
 
 function vendre (zone,slot) {
+    Jeu.joueur[zone][slot].effet_vente();
     for (let n=0;n<Jeu.ressources.length;n++) {
         Jeu.joueur.ressources[n].courant += Jeu.joueur[zone][slot].vente[n];
     }
@@ -659,12 +682,19 @@ function etage_fin () {
         }
     }
     boutique_actualiser();
-    menu();
+    if (Jeu.joueur.vie > 0) {
+        menu();
+    }
+    else {
+        game_over();
+    }
 }
 
 function adversaire_generer () {
     Jeu.adverse.terrain = [];
-    ajouter(obtenir_carte(5),"adverse","main");
+    for (let n=0;n<Jeu.etage;n++) {
+        ajouter(obtenir_carte(5),"adverse","main");
+    }
     let verifier = true;
     while (Jeu.adverse.main.length > 0 && verifier) {
         verifier = false;
@@ -693,7 +723,7 @@ function adversaire_voir () {
         }
     }
     else {
-        afficher("<i>Le terrain adverse est vide</i>");
+        afficher("<i>La main adverse est vide</i>");
         saut();
     }
     saut();
@@ -821,6 +851,13 @@ function statistique (carte,nom) {
 
 function degats_direct (camp,montant) {
     Jeu[camp].vie -= montant;
+}
+
+function soin_direct (camp,montant) {
+    Jeu[camp].vie += montant;
+    if (Jeu[camp].vie > Jeu[camp].vie_max) {
+        Jeu[camp].vie = Jeu[camp].vie_max;
+    }
 }
 
 function deplacer (carte,camp,zone) {
