@@ -1,9 +1,18 @@
 function combat_nouveau () {
-    Jeu.combat.tour = 1;
-    Jeu.combat.attaquant = "joueur";
-    Jeu.combat.defenseur = "adverse";
+    Jeu.combat.tour = 0;
+    combat_debut_tour();
     Jeu.combat.slot = -1;
     Jeu.combat.etat = true;
+    if (Jeu.combat.auto) {
+        Jeu.combat.affichage = setInterval("combat_continuer()", Jeu.combat.vitesse);
+    }
+    combat_afficher();
+}
+
+function combat_debut_tour () {
+    Jeu.combat.tour++;
+    Jeu.combat.attaquant = "joueur";
+    Jeu.combat.defenseur = "adverse";
     for (let n=0;n<Jeu.joueur.terrain.length;n++) {
         Jeu.joueur.terrain[n].action = statistique(Jeu.joueur.terrain[n],"action_max");
         Jeu.joueur.terrain[n].effet_tour_debut();
@@ -26,10 +35,6 @@ function combat_nouveau () {
             Jeu.adverse.terrain[n].brulure--;
         }
     }
-    if (Jeu.combat.auto) {
-        Jeu.combat.affichage = setInterval("combat_continuer()", Jeu.combat.vitesse);
-    }
-    combat_afficher();
 }
 
 function combat_continuer () {
@@ -56,32 +61,10 @@ function combat_continuer () {
                 if (!combat_verifier_attaque()) {
                     swap();
                     if (!combat_verifier_attaque()) {
-                        Jeu.combat.tour++;
-                        Jeu.combat.attaquant = "joueur";
-                        Jeu.combat.defenseur = "adverse";
-                        for (let n=0;n<Jeu.joueur.terrain.length;n++) {
-                            Jeu.joueur.terrain[n].action = Jeu.joueur.terrain[n].action_max;
-                            Jeu.joueur.terrain[n].effet_tour_debut();
-                            if (statistique(Jeu.joueur.terrain[n],"regeneration") > 0 && Jeu.joueur.terrain[n].vie < Jeu.joueur.terrain[n].vie_max) {
-                                soin(Jeu.joueur.terrain[n],statistique(Jeu.joueur.terrain[n],"regeneration"));
-                            }
-                            if (Jeu.joueur.terrain[n].brulure > 0) {
-                                degats(Jeu.joueur.terrain[n],Jeu.joueur.terrain[n].brulure);
-                                Jeu.joueur.terrain[n].brulure--;
-                            }
+                        combat_debut_tour();
+                        if (!combat_verifier_rapidite()) {
+                            combat_verifier_attaque();
                         }
-                        for (let n=0;n<Jeu.adverse.terrain.length;n++) {
-                            Jeu.adverse.terrain[n].action = Jeu.adverse.terrain[n].action_max;
-                            Jeu.adverse.terrain[n].effet_tour_debut();
-                            if (statistique(Jeu.adverse.terrain[n],"regeneration") > 0 && Jeu.adverse.terrain[n].vie < Jeu.adverse.terrain[n].vie_max) {
-                                soin(Jeu.adverse.terrain[n],statistique(Jeu.adverse.terrain[n],"regeneration"));
-                            }
-                            if (Jeu.adverse.terrain[n].brulure > 0) {
-                                degats(Jeu.adverse.terrain[n],Jeu.adverse.terrain[n].brulure);
-                                Jeu.adverse.terrain[n].brulure--;
-                            }
-                        }
-                        combat_verifier_attaque();
                     }
                 }
             }

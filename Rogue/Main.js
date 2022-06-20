@@ -15,7 +15,7 @@ function demarrage () {
             {nom : "Ombre"},//11
             {nom : "Glace"}//12
         ],
-        NOMBRE_CARTE : 72,
+        NOMBRE_CARTE : 74,
         combat : {
             auto : true,
             vitesse : 1000,
@@ -691,7 +691,6 @@ function etage_fin () {
 }
 
 function adversaire_generer () {
-    Jeu.adverse.terrain = [];
     for (let n=0;n<Jeu.etage;n++) {
         ajouter(obtenir_carte(5),"adverse","main");
     }

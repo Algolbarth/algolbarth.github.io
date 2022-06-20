@@ -2194,6 +2194,107 @@ function obtenir_carte (carte_id) {
                 }
             }
             break;
+        case 73:
+            carte.nom = "Coup d'aile";
+            carte.type = "Action";
+            carte.cout[0] = 2;
+            carte.cout[5] = 1;
+            carte.vente[0] = 1;
+            carte.texte = "Renvoie une Créature dans la main de son possesseur.";
+            carte.effet_pose = function (step,cible_camp,cible_slot) {
+                if (carte.camp == "joueur") {
+                    switch (step) {
+                        case 1:
+                            if (Jeu.adverse.terrain.length > 0) {
+                                initialiser();
+                                div("main");
+                                fonction("Annuler","menu()");
+                                saut(2);
+                                afficher(carte.nom);
+                                saut();
+                                afficher(carte.texte);
+                                saut();
+                                afficher("Choisissez une Créature : ");
+                                saut(2);
+                                for (let n=0;n<Jeu.joueur.terrain.length;n++) {
+                                    if (Jeu.joueur.terrain[n].type == "Créature") {
+                                        afficher_carte("joueur","terrain",n);
+                                        afficher(" ");
+                                        fonction("Cibler","Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + '"joueur",' + n + ")");
+                                        saut();
+                                    }
+                                }
+                                saut();
+                                afficher("Choisissez une Créature adverse : ");
+                                saut(2);
+                                for (let n=0;n<Jeu.adverse.terrain.length;n++) {
+                                    if (Jeu.adverse.terrain[n].type == "Créature") {
+                                        afficher_carte("adverse","terrain",n);
+                                        afficher(" ");
+                                        fonction("Cibler","Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + '"adverse",' + n + ")");
+                                        saut();
+                                    }
+                                }
+                                div_fin();
+                                div("carte");
+                                div_fin();
+                                actualiser();
+                            }
+                            break;
+                        case 2:
+                            deplacer(Jeu[cible_camp].terrain[cible_slot],cible_camp,"main");
+                            deplacer(carte,"joueur","defausse");
+                            effet_pose(carte);
+                            menu();
+                            break;
+                    }
+                }
+                else {
+                    if (Jeu.joueur.terrain.length > 0) {
+                        let best = 0;
+                        for (let n=0;n < Jeu.joueur.terrain.length;n++) {
+                            if (cout_total(Jeu.joueur.terrain[n]) > cout_total(Jeu.joueur.terrain[best])) {
+                                best = n;
+                            }
+                        }
+                        deplacer(Jeu.joueur.terrain[best],"joueur","main");
+                        deplacer(carte,"adverse","defausse");
+                        effet_pose(carte);
+                        return true;
+                    }
+                    return false;
+                }
+            }
+            break;
+        case 74:
+            carte.nom = "Baril explosif";
+            carte.type = "Bâtiment";
+            carte.familles.push("Explosif");
+            carte.cout[0] = 1;
+            carte.cout[1] = 1;
+            carte.vie = carte.vie_max = 2;
+            carte.texte = "Quand posé : Se place sur le terrain adverse.<br>Quand meurt : Inflige 2 dégâts à son possesseur.";
+            carte.effet_pose = function () {
+                if (carte.camp == "joueur") {
+                    deplacer(carte,"adverse","terrain");
+                }
+                else {
+                    deplacer(carte,"joueur","terrain");
+                }
+                effet_pose(carte);
+                menu();
+                return true;
+            }
+            carte.effet_mort = function () {
+                degats_direct(carte.camp,2);
+                if (statistique(carte,"ephemere")) {
+                    enlever(carte);
+                }
+                else {
+                    deplacer(carte,carte.camp,"defausse");
+                }
+            }
+            break;
     }
     return carte;
 }
