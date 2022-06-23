@@ -65,6 +65,8 @@ function obtenir_carte (carte_id) {
         effet_equiper : function () {},
         effet_decompte : function () {},
         effet_vente : function () {},
+        effet_vente_carte : function () {},
+        boutique_generer : function () {},
         equipements : [],
         equipement_max : 0,
     }
@@ -298,11 +300,19 @@ function obtenir_carte (carte_id) {
             carte.texte = "Quand posé : Crée un Objet Equipement aléatoire dans votre boutique.";
             carte.effet_pose = function () {
                 if (carte.camp == "joueur") {
-                    let nouvelle_carte = boutique_generer();
-                    while (!nouvelle_carte.familles.includes("Equipement")) {
-                        nouvelle_carte = boutique_generer();
+                    let verifier = false;
+                    for (let n=0;n<Jeu.NOMBRE_CARTE;n++) {
+                        if (boutique_condition(obtenir_carte(n)) && obtenir_carte(n).familles.includes("Equipement")) {
+                            verifier = true;
+                        }
                     }
-                    ajouter(nouvelle_carte,"joueur","boutique");
+                    if (verifier) {
+                        let nouvelle_carte = boutique_generer();
+                        while (!nouvelle_carte.familles.includes("Equipement")) {
+                            nouvelle_carte = boutique_generer();
+                        }
+                        ajouter(nouvelle_carte,"joueur","boutique");
+                    }
                     deplacer(carte,"joueur","terrain");
                     effet_pose(carte);
                     menu();
@@ -2293,6 +2303,86 @@ function obtenir_carte (carte_id) {
                 else {
                     deplacer(carte,carte.camp,"defausse");
                 }
+            }
+            break;
+        case 75:
+            carte.nom = "Chevalier monté";
+            carte.type = "Créature";
+            carte.familles.push("Humain");
+            carte.cout[0] = 14;
+            carte.vente[0] = 7;
+            carte.attaque = 3;
+            carte.vie = carte.vie_max = 3;
+            carte.rapidite = true;
+            carte.action_max = 1;
+            carte.equipement_max = 1;
+            carte.texte = "Quand meurt : Se transforme en Chevalier.";
+            carte.effet_mort = function () {
+                carte.nom = "Chevalier";
+                carte.cout[0] = 9;
+                carte.vente[0] = 4;
+                carte.attaque = 3;
+                carte.defense = 1;
+                carte.vie = carte.vie_max = 3;
+            }
+            break;
+        case 76:
+            carte.nom = "Chevalier";
+            carte.type = "Créature";
+            carte.familles.push("Humain");
+            carte.cout[0] = 9;
+            carte.vente[0] = 4;
+            carte.attaque = 3;
+            carte.defense = 1;
+            carte.vie = carte.vie_max = 3;
+            carte.action_max = 1;
+            carte.equipement_max = 1;
+            break;
+        case 77:
+            carte.nom = "Homme d'affaire";
+            carte.type = "Créature";
+            carte.familles.push("Humain");
+            carte.cout[0] = 9;
+            carte.vente[0] = 4;
+            carte.attaque = 2;
+            carte.vie = carte.vie_max = 2;
+            carte.action_max = 1;
+            carte.equipement_max = 1;
+            carte.texte = "Quand vous vendez une carte : Donne 1 Or.";
+            carte.effet_vente_carte = function () {
+                if (carte.camp == "joueur") {
+                    Jeu.joueur.ressources[0].courant++;
+                }
+            }
+            break;
+        case 78:
+            carte.nom = "Plaine";
+            carte.type = "Région";
+            carte.texte = "Toutes les cartes peuvent être créées dans la boutique.";
+            carte.boutique_generer = function (nouvelle_carte) {
+                if (cout_total(nouvelle_carte) <= Jeu.boutique_niveau*3 || Jeu.boutique_niveau == 10) {
+                    return true;
+                }
+                return false;
+            }
+            break;
+        case 79:
+            carte.nom = "Volcan";
+            carte.type = "Région";
+            carte.cout[0] = 5;
+            carte.cout[1] = 4;
+            carte.vente[0] = 2;
+            carte.vente[1] = 2;
+            carte.texte = "Les cartes créées dans la boutique ont un coût en Feu non nul.";
+            carte.effet_pose = function () {
+                deplacer(carte,"joueur","zones");
+                menu();
+            }
+            carte.boutique_generer = function (nouvelle_carte) {
+                if ((cout_total(nouvelle_carte) <= Jeu.boutique_niveau*3 || Jeu.boutique_niveau == 10) && nouvelle_carte.cout[1] > 0) {
+                    return true;
+                }
+                return false;
             }
             break;
     }

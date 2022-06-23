@@ -15,7 +15,7 @@ function demarrage () {
             {nom : "Ombre"},//11
             {nom : "Glace"}//12
         ],
-        NOMBRE_CARTE : 74,
+        NOMBRE_CARTE : 79,
         combat : {
             auto : true,
             vitesse : 1000,
@@ -46,6 +46,7 @@ function nouvelle_partie () {
         main : [],
         terrain : [],
         defausse : [],
+        regions : [],
     }
     Jeu.adverse = {
         vie : 10,
@@ -74,7 +75,9 @@ function nouvelle_partie () {
     Jeu.boutique_niveau = 1;
     Jeu.boutique_amelioration = 9;
     Jeu.ressource_sup = 1;
+    Jeu.region_active = 0;
     Jeu.combat.etat = false;
+    ajouter(obtenir_carte(78),"joueur","regions");
     ajouter(obtenir_carte(31),"joueur","main");
     ajouter(obtenir_carte(1),"joueur","terrain");
     adversaire_generer();
@@ -99,6 +102,17 @@ function menu () {
     }
     if (Jeu.ressource_sup > 0) {
         fonction("Ajouter une ressource","ressource_choisir()");
+        saut();
+    }
+    saut();
+    afficher("<u>Régions :</u>");
+    saut();
+    for (let n=0;n<Jeu.joueur.regions.length;n++) {
+        afficher_carte("joueur","regions",n);
+        if (Jeu.region_active != n) {
+            afficher(" ");
+            fonction("Choisir","Jeu.region_active=" + n + ";menu();");
+        }
         saut();
     }
     saut();
@@ -254,12 +268,12 @@ function menu () {
     actualiser();
 }
 
-function afficher_carte (camp,zone,slot) {
-    let carte = Jeu[camp][zone][slot];
+function afficher_carte (camp,region,slot) {
+    let carte = Jeu[camp][region][slot];
     if (carte.verrouillage) {
         afficher("[");
     }
-    fonction(carte.nom,"carte_voir(" + '"' + camp + '","' + zone + '",' + slot + ")");
+    fonction(carte.nom,"carte_voir(" + '"' + camp + '","' + region + '",' + slot + ")");
     if (carte.verrouillage) {
         afficher("]");
     }
@@ -275,9 +289,9 @@ function afficher_carte (camp,zone,slot) {
     }
 }
 
-function carte_voir (camp,zone,slot) {
+function carte_voir (camp,region,slot) {
     let texte = "";
-    let carte = Jeu[camp][zone][slot];
+    let carte = Jeu[camp][region][slot];
     texte += "<u>Nom :</u> " + carte.nom + "<br/>";
     texte += "<u>Cout :</u> ";
     let premier_cout = true;
@@ -496,13 +510,13 @@ function carte_voir (camp,zone,slot) {
         texte += "<br/>";
     }
     if (!Jeu.combat.etat && carte.camp == "joueur") {
-        if (zone == "boutique") {
+        if (region == "boutique") {
             texte += "<a href='javascript:acheter(" + slot + ")'>Acheter</a> <br/>";
         }
-        else if (zone == "main" || zone == "terrain") {
-            texte += "<a href='javascript:vendre(" + '"' + zone + '",' + slot + ")'>Vendre</a> <br/>";
+        else if (region == "main" || region == "terrain") {
+            texte += "<a href='javascript:vendre(" + '"' + region + '",' + slot + ")'>Vendre</a> <br/>";
         }
-        if (zone == "main") {
+        if (region == "main") {
             texte += "<a href='javascript:Jeu.joueur.main[" + slot + "].effet_pose(" + slot + ",1)'>Poser</a> <br/>";
         }
     }
@@ -573,7 +587,7 @@ function boutique_actualiser () {
 
 function boutique_generer () {
     let carte = obtenir_carte(parseInt(Math.random()*Jeu.NOMBRE_CARTE + 1));
-    while (cout_total(carte) > Jeu.boutique_niveau*3 || Jeu.boutique_niveau == 10) {
+    while (!Jeu.joueur.regions[Jeu.region_active].boutique_generer(carte)) {
         carte = obtenir_carte(parseInt(Math.random()*Jeu.NOMBRE_CARTE + 1));
     }
     return carte;
@@ -619,12 +633,18 @@ function acheter (boutique_slot) {
     }
 }
 
-function vendre (zone,slot) {
-    Jeu.joueur[zone][slot].effet_vente();
-    for (let n=0;n<Jeu.ressources.length;n++) {
-        Jeu.joueur.ressources[n].courant += Jeu.joueur[zone][slot].vente[n];
+function vendre (region,slot) {
+    Jeu.joueur[region][slot].effet_vente();
+    for (let n=0;n<Jeu.joueur.terrain.length;n++) {
+        Jeu.joueur.terrain[n].effet_vente_carte();
     }
-    enlever(Jeu.joueur[zone][slot]);
+    for (let n=0;n<Jeu.adverse.terrain.length;n++) {
+        Jeu.adverse.terrain[n].effet_vente_carte();
+    }
+    for (let n=0;n<Jeu.ressources.length;n++) {
+        Jeu.joueur.ressources[n].courant += Jeu.joueur[region][slot].vente[n];
+    }
+    enlever(Jeu.joueur[region][slot]);
     menu();
 }
 
@@ -764,21 +784,21 @@ function game_over () {
     actualiser();
 }
 
-function monter (camp,zone,slot) {
-    let carte = Jeu[camp][zone][slot];
-    let trans = Jeu[camp][zone][slot-1];
-    Jeu[camp][zone][slot] = trans;
-    Jeu[camp][zone][slot-1] = carte;
+function monter (camp,region,slot) {
+    let carte = Jeu[camp][region][slot];
+    let trans = Jeu[camp][region][slot-1];
+    Jeu[camp][region][slot] = trans;
+    Jeu[camp][region][slot-1] = carte;
     carte.slot--;
     trans.slot++;
     menu();
 }
 
-function descendre (camp,zone,slot) {
-    let carte = Jeu[camp][zone][slot];
-    let trans = Jeu[camp][zone][slot+1];
-    Jeu[camp][zone][slot] = trans;
-    Jeu[camp][zone][slot+1] = carte;
+function descendre (camp,region,slot) {
+    let carte = Jeu[camp][region][slot];
+    let trans = Jeu[camp][region][slot+1];
+    Jeu[camp][region][slot] = trans;
+    Jeu[camp][region][slot+1] = carte;
     carte.slot++;
     trans.slot--;
     menu();
@@ -790,8 +810,8 @@ function soin (carte,montant) {
         carte.vie = statistique(carte,"vie_max");
     }
     carte.effet_soin(montant);
-    for (let n=0;n<Jeu[carte.camp][carte.zone].length;n++) {
-        Jeu[carte.camp][carte.zone][n].effet_soin_carte(carte);
+    for (let n=0;n<Jeu[carte.camp][carte.region].length;n++) {
+        Jeu[carte.camp][carte.region][n].effet_soin_carte(carte);
     }
 }
 
@@ -859,22 +879,22 @@ function soin_direct (camp,montant) {
     }
 }
 
-function deplacer (carte,camp,zone) {
+function deplacer (carte,camp,region) {
     enlever(carte);
-    ajouter(carte,camp,zone);
+    ajouter(carte,camp,region);
 }
 
-function ajouter (carte,camp,zone) {
-    Jeu[camp][zone].push(carte);
-    carte.zone = zone;
+function ajouter (carte,camp,region) {
+    Jeu[camp][region].push(carte);
+    carte.region = region;
     carte.camp = camp;
-    carte.slot = Jeu[camp][zone].length - 1;
+    carte.slot = Jeu[camp][region].length - 1;
 }
 
 function enlever (carte) {
-    Jeu[carte.camp][carte.zone].splice(carte.slot,1);
-    for (let n=carte.slot;n<Jeu[carte.camp][carte.zone].length;n++) {
-        Jeu[carte.camp][carte.zone][n].slot--;
+    Jeu[carte.camp][carte.region].splice(carte.slot,1);
+    for (let n=carte.slot;n<Jeu[carte.camp][carte.region].length;n++) {
+        Jeu[carte.camp][carte.region][n].slot--;
     }
 }
 
