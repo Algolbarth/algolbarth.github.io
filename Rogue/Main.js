@@ -173,7 +173,7 @@ function menu () {
     saut();
     if (Jeu.joueur.terrain.length > 0) {
         for (let n=0;n<Jeu.joueur.terrain.length;n++) {
-            if (Jeu.joueur.terrain[n].type != "Bâtiment" || statistique(Jeu.joueur.terrain[n],"mobile")) {
+            if (Jeu.joueur.terrain[n].type == "Créature" || statistique(Jeu.joueur.terrain[n],"mobile")) {
                 if (n > 0) {
                     fonction("&#8679","monter(" + '"joueur","terrain",' + n + ")");
                     afficher(" ");
@@ -275,11 +275,16 @@ function carte_voir (camp,zone,slot) {
     texte += "<br/>";
     texte += "<u>Type :</u> " + carte.type + "<br/>";
     texte += "<u>Familles :</u> ";
-    for (let n=0;n<carte.familles.length;n++) {
-        if (n > 0) {
-            texte += ", ";
+    if (carte.familles.length > 0) {
+        for (let n=0;n<carte.familles.length;n++) {
+            if (n > 0) {
+                texte += ", ";
+            }
+            texte += carte.familles[n];
         }
-        texte += carte.familles[n];
+    }
+    else {
+        texte += "Aucune";
     }
     texte += "<br/>";
     texte += "<u>Effet :</u> " + carte.texte + "<br/>";

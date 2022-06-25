@@ -17,7 +17,7 @@ function option () {
     option_vitesse("Normal",1000);
     option_vitesse("Rapide",500);
     saut();
-    afficher("Afficher les statistiques des créatures et/ou des bâtiments : ");
+    afficher("Afficher les statistiques des créatures et des bâtiments : ");
     if (Jeu.afficher_stat) {
         afficher("Activé ");
         fonction("Désactivé","Jeu.afficher_stat=false;option()");
