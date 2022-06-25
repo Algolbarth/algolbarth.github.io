@@ -2137,7 +2137,7 @@ function obtenir_carte (carte_id) {
             carte.vie_max = carte.vie = 2;
             carte.action_max = 1;
             carte.equipement_max = 1;
-            carte.texte = "";
+            carte.texte = "Quand vendu : Crée une Action Sort aléatoire dans votre boutique.";
             carte.effet_vente = function () {
                 let nouvelle_carte = boutique_generer();
                 while (!nouvelle_carte.familles.includes("Sort")) {

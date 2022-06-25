@@ -21,8 +21,8 @@ function demarrage () {
             vitesse : 1000,
         },
         afficher_stat : true,
-        afficher_cout : false,
-        afficher_vente : false,
+        raccourci_achat : true,
+        raccourci_vente : true,
         raccourci_pose : true,
         texte_talent : true,
     }
@@ -218,12 +218,12 @@ function menu () {
     actualiser();
 }
 
-function afficher_carte (camp,region,slot) {
-    let carte = Jeu[camp][region][slot];
+function afficher_carte (camp,zone,slot) {
+    let carte = Jeu[camp][zone][slot];
     if (carte.verrouillage) {
         afficher("[");
     }
-    fonction(carte.nom,"carte_voir(" + '"' + camp + '","' + region + '",' + slot + ")");
+    fonction(carte.nom,"carte_voir(" + '"' + camp + '","' + zone + '",' + slot + ")");
     if (carte.verrouillage) {
         afficher("]");
     }
@@ -239,9 +239,9 @@ function afficher_carte (camp,region,slot) {
     }
 }
 
-function carte_voir (camp,region,slot) {
+function carte_voir (camp,zone,slot) {
     let texte = "";
-    let carte = Jeu[camp][region][slot];
+    let carte = Jeu[camp][zone][slot];
     texte += "<u>Nom :</u> " + carte.nom + "<br/>";
     texte += "<u>Cout :</u> ";
     let premier_cout = true;
@@ -466,17 +466,6 @@ function carte_voir (camp,region,slot) {
         }
         texte += "<br/>";
     }
-    if (!Jeu.combat.etat && carte.camp == "joueur") {
-        if (region == "boutique") {
-            texte += "<a href='javascript:acheter(" + slot + ")'>Acheter</a> <br/>";
-        }
-        else if (region == "main" || region == "terrain") {
-            texte += "<a href='javascript:vendre(" + '"' + region + '",' + slot + ")'>Vendre</a> <br/>";
-        }
-        if (region == "main") {
-            texte += "<a href='javascript:Jeu.joueur.main[" + slot + "].effet_pose(" + slot + ",1)'>Poser</a> <br/>";
-        }
-    }
     if (carte.type == "Créature") {
         texte += "<u>Equipements :</u> <br/>";
         if (carte.equipements.length > 0) {
@@ -485,7 +474,18 @@ function carte_voir (camp,region,slot) {
             }
         }
         else {
-            texte += "Aucun";
+            texte += "Aucun <br/>";
+        }
+    }
+    if (!Jeu.combat.etat && carte.camp == "joueur") {
+        if (zone == "main") {
+            texte += "<a href='javascript:Jeu.joueur.main[" + slot + "].effet_pose(" + slot + ",1)'>Poser</a> <br/>";
+        }
+        if (zone == "boutique") {
+            texte += "<a href='javascript:acheter(" + slot + ")'>Acheter</a> <br/>";
+        }
+        else if (zone == "main" || zone == "terrain") {
+            texte += "<a href='javascript:vendre(" + '"' + zone + '",' + slot + ")'>Vendre</a> <br/>";
         }
     }
     div_actualiser("carte",texte);
@@ -590,8 +590,8 @@ function acheter (boutique_slot) {
     }
 }
 
-function vendre (region,slot) {
-    Jeu.joueur[region][slot].effet_vente();
+function vendre (zone,slot) {
+    Jeu.joueur[zone][slot].effet_vente();
     for (let n=0;n<Jeu.joueur.terrain.length;n++) {
         Jeu.joueur.terrain[n].effet_vente_carte();
     }
@@ -599,9 +599,9 @@ function vendre (region,slot) {
         Jeu.adverse.terrain[n].effet_vente_carte();
     }
     for (let n=0;n<Jeu.ressources.length;n++) {
-        Jeu.joueur.ressources[n].courant += Jeu.joueur[region][slot].vente[n];
+        Jeu.joueur.ressources[n].courant += Jeu.joueur[zone][slot].vente[n];
     }
-    enlever(Jeu.joueur[region][slot]);
+    enlever(Jeu.joueur[zone][slot]);
     menu();
 }
 
@@ -759,21 +759,21 @@ function game_over () {
     actualiser();
 }
 
-function monter (camp,region,slot) {
-    let carte = Jeu[camp][region][slot];
-    let trans = Jeu[camp][region][slot-1];
-    Jeu[camp][region][slot] = trans;
-    Jeu[camp][region][slot-1] = carte;
+function monter (camp,zone,slot) {
+    let carte = Jeu[camp][zone][slot];
+    let trans = Jeu[camp][zone][slot-1];
+    Jeu[camp][zone][slot] = trans;
+    Jeu[camp][zone][slot-1] = carte;
     carte.slot--;
     trans.slot++;
     menu();
 }
 
-function descendre (camp,region,slot) {
-    let carte = Jeu[camp][region][slot];
-    let trans = Jeu[camp][region][slot+1];
-    Jeu[camp][region][slot] = trans;
-    Jeu[camp][region][slot+1] = carte;
+function descendre (camp,zone,slot) {
+    let carte = Jeu[camp][zone][slot];
+    let trans = Jeu[camp][zone][slot+1];
+    Jeu[camp][zone][slot] = trans;
+    Jeu[camp][zone][slot+1] = carte;
     carte.slot++;
     trans.slot--;
     menu();
@@ -785,8 +785,8 @@ function soin (carte,montant) {
         carte.vie = statistique(carte,"vie_max");
     }
     carte.effet_soin(montant);
-    for (let n=0;n<Jeu[carte.camp][carte.region].length;n++) {
-        Jeu[carte.camp][carte.region][n].effet_soin_carte(carte);
+    for (let n=0;n<Jeu[carte.camp][carte.zone].length;n++) {
+        Jeu[carte.camp][carte.zone][n].effet_soin_carte(carte);
     }
 }
 
@@ -854,22 +854,22 @@ function soin_direct (camp,montant) {
     }
 }
 
-function deplacer (carte,camp,region) {
+function deplacer (carte,camp,zone) {
     enlever(carte);
-    ajouter(carte,camp,region);
+    ajouter(carte,camp,zone);
 }
 
-function ajouter (carte,camp,region) {
-    Jeu[camp][region].push(carte);
-    carte.region = region;
+function ajouter (carte,camp,zone) {
+    Jeu[camp][zone].push(carte);
+    carte.zone = zone;
     carte.camp = camp;
-    carte.slot = Jeu[camp][region].length - 1;
+    carte.slot = Jeu[camp][zone].length - 1;
 }
 
 function enlever (carte) {
-    Jeu[carte.camp][carte.region].splice(carte.slot,1);
-    for (let n=carte.slot;n<Jeu[carte.camp][carte.region].length;n++) {
-        Jeu[carte.camp][carte.region][n].slot--;
+    Jeu[carte.camp][carte.zone].splice(carte.slot,1);
+    for (let n=carte.slot;n<Jeu[carte.camp][carte.zone].length;n++) {
+        Jeu[carte.camp][carte.zone][n].slot--;
     }
 }
 
