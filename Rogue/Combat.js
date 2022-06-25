@@ -23,6 +23,10 @@ function combat_debut_tour () {
             degats(Jeu.joueur.terrain[n],Jeu.joueur.terrain[n].brulure);
             Jeu.joueur.terrain[n].brulure--;
         }
+        if (Jeu.joueur.terrain[n].poison > 0) {
+            degats(Jeu.joueur.terrain[n],1);
+            Jeu.joueur.terrain[n].poison--;
+        }
     }
     for (let n=0;n<Jeu.adverse.terrain.length;n++) {
         Jeu.adverse.terrain[n].action = statistique(Jeu.adverse.terrain[n],"action_max");
@@ -33,6 +37,10 @@ function combat_debut_tour () {
         if (Jeu.adverse.terrain[n].brulure > 0) {
             degats(Jeu.adverse.terrain[n],Jeu.adverse.terrain[n].brulure);
             Jeu.adverse.terrain[n].brulure--;
+        }
+        if (Jeu.adverse.terrain[n].poison > 0) {
+            degats(Jeu.adverse.terrain[n],1);
+            Jeu.adverse.terrain[n].poison--;
         }
     }
 }
@@ -120,39 +128,45 @@ function attaque () {
             for (let n=0;n<attaquant.equipements.length;n++) {
                 attaquant.equipements[n].effet_attaque(defenseur);
             }
+            if (attaquant.camouflage) {
+                attaquant.camouflage = false;
+            }
             if (attaquant.type == "Créature") {
-                if (attaquant.camouflage) {
-                    attaquant.camouflage = false;
+                let attaquant_mort = false;
+                if (attaquant.saignement > 0) {
+                    attaquant_mort = degats(attaquant,1);
+                    attaquant.saignement--;
                 }
-                if (attaquant.poison > 0) {
-                    degats(attaquant,1);
-                    attaquant.poison;
-                }
-                let defense = statistique(defenseur,"defense") - statistique(attaquant,"percee");
-                if (defense < 0) {
-                    defense = 0;
-                }
-                let degats_montant = statistique(attaquant,"attaque") - defense;
-                if (degats_montant < 0) {
-                    degats_montant = 0;
-                }
-                let is_mort = degats(defenseur,degats_montant);
-                if (!is_mort) {
-                    if (statistique(attaquant,"mortel")) {
-                        mort(Jeu.combat.defenseur,defenseur_slot);
+                if (!attaquant_mort) {
+                    let defense = statistique(defenseur,"defense") - statistique(attaquant,"percee");
+                    if (defense < 0) {
+                        defense = 0;
                     }
-                }
-                if (statistique(defenseur,"epine") > 0) {
-                    degats(attaquant,statistique(defenseur,"epine"));
-                }
-                if (is_mort) {
-                    attaquant.effet_tuer(defenseur_save);
-                }
-                if (degats_montant > defenseur_save.vie) {
-                    degats_montant = degats_montant + defenseur.vie;
-                }
-                if (statistique(attaquant,"vol_de_vie")) {
-                    soin(attaquant,degats_montant);
+                    let degats_montant = statistique(attaquant,"attaque") - defense;
+                    if (degats_montant < 0) {
+                        degats_montant = 0;
+                    }
+                    let defenseur_mort = degats(defenseur,degats_montant);
+                    degats_montant -= defenseur.resistance;
+                    if (degats_montant > defenseur_save.vie) {
+                        degats_montant = degats_montant + defenseur.vie;
+                    }
+                    if (defenseur_mort) {
+                        attaquant.effet_tuer(defenseur_save);
+                    }
+                    else {
+                        if (statistique(attaquant,"mortel")) {
+                            mort(Jeu.combat.defenseur,defenseur_slot);
+                        }
+                    }
+                    if (statistique(defenseur,"epine") > 0) {
+                        attaquant_mort = degats(attaquant,statistique(defenseur,"epine"));
+                    }
+                    if (!attaquant_mort) {
+                        if (statistique(attaquant,"vol_de_vie")) {
+                            soin(attaquant,degats_montant);
+                        }
+                    }
                 }
             }
         }

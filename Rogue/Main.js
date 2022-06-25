@@ -15,15 +15,13 @@ function demarrage () {
             {nom : "Ombre"},//11
             {nom : "Glace"}//12
         ],
-        NOMBRE_CARTE : 79,
+        NOMBRE_CARTE : 80,
         combat : {
             auto : true,
             vitesse : 1000,
         },
         afficher_stat : true,
-        raccourci_achat : true,
         afficher_cout : false,
-        raccourci_vente : true,
         afficher_vente : false,
         raccourci_pose : true,
         texte_talent : true,
@@ -134,22 +132,6 @@ function menu () {
             if (Jeu.raccourci_achat) {
                 fonction("Acheter","acheter(" + n + ")");
             }
-            if (Jeu.afficher_cout) {
-                let premier_cout = true;
-                afficher(" ");
-                for (let i=0;i<Jeu.joueur.boutique[n].cout.length;i++) {
-                    if (Jeu.joueur.boutique[n].cout[i] > 0) {
-                        if (!premier_cout) {
-                            afficher(", ");
-                        }
-                        premier_cout = false;
-                        afficher(Jeu.joueur.boutique[n].cout[i] + " " + Jeu.ressources[i].nom);
-                    }
-                }
-                if (premier_cout) {
-                    afficher("Rien");
-                }
-            }
             saut();
         }
     }
@@ -179,22 +161,6 @@ function menu () {
             if (Jeu.raccourci_vente) {
                 fonction("Vendre","vendre(" + '"main",' + n + ")");
             }
-            if (Jeu.afficher_vente) {
-                let premiere_vente = true;
-                afficher(" ");
-                for (let i=0;i<Jeu.joueur.main[n].vente.length;i++) {
-                    if (Jeu.joueur.main[n].vente[i] > 0) {
-                        if (!premiere_vente) {
-                            afficher(", ");
-                        }
-                        premiere_vente = false;
-                        afficher(Jeu.joueur.main[n].vente[i] + " " + Jeu.ressources[i].nom);
-                    }
-                }
-                if (premiere_vente) {
-                    afficher("Rien");
-                }
-            }
             saut();
         }
     }
@@ -221,22 +187,6 @@ function menu () {
             afficher(" ");
             if (Jeu.raccourci_vente) {
                 fonction("Vendre","vendre(" + '"terrain",' + n + ")");
-            }
-            if (Jeu.afficher_vente) {
-                let premiere_vente = true;
-                afficher(" ");
-                for (let i=0;i<Jeu.joueur.terrain[n].vente.length;i++) {
-                    if (Jeu.joueur.terrain[n].vente[i] > 0) {
-                        if (!premiere_vente) {
-                            afficher(", ");
-                        }
-                        premiere_vente = false;
-                        afficher(Jeu.joueur.terrain[n].vente[i] + " " + Jeu.ressources[i].nom);
-                    }
-                }
-                if (premiere_vente) {
-                    afficher("Rien");
-                }
             }
             saut();
         }
@@ -372,7 +322,7 @@ function carte_voir (camp,region,slot) {
         if (statistique(carte,"resistance") > 0) {
             texte += "Résistance " + statistique(carte,"resistance");
             if (Jeu.texte_talent) {
-                texte += " : A chaque fois que cette carte subit des dégats, en subis " + statistique(carte,"resistance") + " de moins.";
+                texte += " : Quand cette carte subit des dégats, en subis " + statistique(carte,"resistance") + " de moins.";
             }
             texte += "<br/>";
         }
@@ -414,7 +364,7 @@ function carte_voir (camp,region,slot) {
         if (carte.temporaire > 0) {
             texte += "Temporaire ";
             if (Jeu.texte_talent) {
-                texte += " : Est banni à la fin de la prochaine phase de combat.";
+                texte += " : Est banni à la fin de la phase de combat.";
             }
             texte += "<br/>";
         }
@@ -481,7 +431,7 @@ function carte_voir (camp,region,slot) {
         if (carte.poison > 0) {
             texte += "Poison " + carte.poison;
             if (Jeu.texte_talent) {
-                texte += " : Au début de chaque tour pendant " + carte.poison + " tour(s), subit 1 dégât.";
+                texte += " : Au début de chaque tour de combat pendant " + carte.poison + " tour(s), subit 1 dégât.";
             }
             texte += "<br/>";
         }
@@ -496,6 +446,13 @@ function carte_voir (camp,region,slot) {
             texte += "Etourdissement ";
             if (Jeu.texte_talent) {
                 texte += " : Annule les attaques du prochain tour de combat.";
+            }
+            texte += "<br/>";
+        }
+        if (carte.saignement > 0) {
+            texte += "Saignement " + carte.saignement;
+            if (Jeu.texte_talent) {
+                texte += " : Quand attaque, subit 1 dégât.";
             }
             texte += "<br/>";
         }
@@ -651,7 +608,6 @@ function vendre (region,slot) {
 function etage_suivant () {
     Jeu.etage++;
     if (Jeu.etage <= 100) {
-        Jeu.adverse.vie = 10;
         if (Jeu.boutique_amelioration > 0) {
             Jeu.boutique_amelioration--;
         }
@@ -711,6 +667,16 @@ function etage_fin () {
 }
 
 function adversaire_generer () {
+    if (Jeu.etage == 100) {
+        Jeu.adverse.vie = Jeu.adverse.vie_max = 100;
+    }
+    else if (Jeu.etage%10 == 0) {
+        Jeu.adverse.vie = Jeu.adverse.vie_max = 30;
+    }
+    else {
+        Jeu.adverse.vie = Jeu.adverse.vie_max = 10;
+    }
+    Jeu.adverse.ressources[0].courant = Jeu.adverse.ressources[0].max = Math.trunc(Jeu.etage/10)*10 + 5;
     for (let n=0;n<Jeu.etage;n++) {
         ajouter(obtenir_carte(5),"adverse","main");
     }
@@ -731,8 +697,17 @@ function adversaire_voir () {
     div("main");
     fonction("Retour","menu()");
     saut(2);
+    afficher("Etage : " + Jeu.etage);
+    saut();
     afficher("Vie adverse : " + Jeu.adverse.vie + " / " + Jeu.adverse.vie_max);
-    saut(2);
+    saut();
+    for (let n=0;n<Jeu.ressources.length;n++) {
+        if (Jeu.adverse.ressources[n].max > 0 || Jeu.adverse.ressources[n].courant > 0) {
+            afficher(Jeu.ressources[n].nom + " : " + Jeu.adverse.ressources[n].courant + " / " + Jeu.adverse.ressources[n].max);
+            saut();
+        }
+    }
+    saut();
     afficher("<u>Main adverse :</u>");
     saut();
     if (Jeu.adverse.main.length > 0) {

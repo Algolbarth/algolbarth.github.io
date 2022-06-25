@@ -3,6 +3,7 @@ function obtenir_carte (carte_id) {
         id : carte_id,
         verrouillage : false,
         etage_mort : 0,
+        exclusif : false,
         camp : "",
         zone : "",
         slot : 0,
@@ -39,6 +40,7 @@ function obtenir_carte (carte_id) {
         camouflage : false,
         gel : 0,
         etourdissement : false,
+        saignement : 0,
         texte : "Aucun",
         effet_pose : function () {
             deplacer(carte,carte.camp,"terrain");
@@ -2191,7 +2193,7 @@ function obtenir_carte (carte_id) {
                     if (Jeu.joueur.terrain.length > 0) {
                         let best = 0;
                         for (let n=0;n<Jeu.adverse.terrain.length;n++) {
-                            if (!Jeu.joueur.terrain[n].etourdissement) {
+                            if (!Jeu.joueur.terrain[n].etourdissement && Jeu.joueur.terrain[n].action_max > Jeu.joueur.terrain[best].action_max) {
                                 best = n;
                             }
                         }
@@ -2358,9 +2360,10 @@ function obtenir_carte (carte_id) {
         case 78:
             carte.nom = "Plaine";
             carte.type = "Région";
+            carte.exclusif = true;
             carte.texte = "Toutes les cartes peuvent être créées dans la boutique.";
             carte.boutique_generer = function (nouvelle_carte) {
-                if (cout_total(nouvelle_carte) <= Jeu.boutique_niveau*3 || Jeu.boutique_niveau == 10) {
+                if ((cout_total(nouvelle_carte) <= Jeu.boutique_niveau*3 || Jeu.boutique_niveau == 10) && !nouvelle_carte.exclusif) {
                     return true;
                 }
                 return false;
@@ -2379,10 +2382,70 @@ function obtenir_carte (carte_id) {
                 menu();
             }
             carte.boutique_generer = function (nouvelle_carte) {
-                if ((cout_total(nouvelle_carte) <= Jeu.boutique_niveau*3 || Jeu.boutique_niveau == 10) && nouvelle_carte.cout[1] > 0) {
+                if ((cout_total(nouvelle_carte) <= Jeu.boutique_niveau*3 || Jeu.boutique_niveau == 10) && nouvelle_carte.cout[1] > 0 && !nouvelle_carte.exclusif) {
                     return true;
                 }
                 return false;
+            }
+            break;
+        case 80:
+            carte.nom = "Taillade";
+            carte.type = "Action";
+            carte.cout[0] = 2;
+            carte.vente[0] = 1;
+            carte.texte = "Applique Saignement 2 à une Créature adverse.";
+            carte.effet_pose = function (step,cible) {
+                if (carte.camp == "joueur") {
+                    switch (step) {
+                        case 1:
+                            if (Jeu.adverse.terrain.length > 0) {
+                                initialiser();
+                                div("main");
+                                fonction("Annuler","menu()");
+                                saut(2);
+                                afficher(carte.nom);
+                                saut();
+                                afficher(carte.texte);
+                                saut();
+                                afficher("Choisissez une Créature adverse : ");
+                                saut(2);
+                                for (let n=0;n<Jeu.adverse.terrain.length;n++) {
+                                    if (Jeu.adverse.terrain[n].type == "Créature") {
+                                        afficher_carte("adverse","terrain",n);
+                                        afficher(" ");
+                                        fonction("Cibler","Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
+                                        saut();
+                                    }
+                                }
+                                div_fin();
+                                div("carte");
+                                div_fin();
+                                actualiser();
+                            }
+                            break;
+                        case 2:
+                            Jeu.adverse.terrain[cible].saignement += 2;
+                            deplacer(carte,"joueur","defausse");
+                            effet_pose(carte);
+                            menu();
+                            break;
+                    }
+                }
+                else {
+                    if (Jeu.joueur.terrain.length > 0) {
+                        let best = 0;
+                        for (let n=0;n<Jeu.adverse.terrain.length;n++) {
+                            if (Jeu.joueur.terrain[n].action_max > Jeu.joueur.terrain[best].action_max) {
+                                best = n;
+                            }
+                        }
+                        Jeu.joueur.terrain[best].saignement += 2;
+                        deplacer(carte,"adverse","defausse");
+                        effet_pose(carte);
+                        return true;
+                    }
+                    return false;
+                }
             }
             break;
     }

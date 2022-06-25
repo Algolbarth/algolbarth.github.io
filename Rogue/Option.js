@@ -37,16 +37,6 @@ function option () {
         afficher(" Désactivé");
     }
     saut();
-    afficher("Afficher le prix des cartes de la boutique : ");
-    if (Jeu.afficher_cout) {
-        afficher("Activé ");
-        fonction("Désactivé","Jeu.afficher_cout=false;option()");
-    }
-    else {
-        fonction("Activé","Jeu.afficher_cout=true;option()");
-        afficher(" Désactivé");
-    }
-    saut();
     afficher("Raccourci de vente : ");
     if (Jeu.raccourci_vente) {
         afficher("Activé ");
@@ -54,16 +44,6 @@ function option () {
     }
     else {
         fonction("Activé","Jeu.raccourci_vente=true;option()");
-        afficher(" Désactivé");
-    }
-    saut();
-    afficher("Afficher le prix de vente des cartes : ");
-    if (Jeu.afficher_vente) {
-        afficher("Activé ");
-        fonction("Désactivé","Jeu.afficher_vente=false;option()");
-    }
-    else {
-        fonction("Activé","Jeu.afficher_vente=true;option()");
         afficher(" Désactivé");
     }
     saut();
