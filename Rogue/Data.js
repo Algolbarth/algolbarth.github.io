@@ -1611,7 +1611,7 @@ function obtenir_carte (carte_id) {
                         case 1:
                             let verifier_debuff = false;
                             for (let n=0;n<Jeu.joueur.terrain.length;n++) {
-                                if (Jeu.joueur.terrain[n].poison > 0 || Jeu.joueur.terrain[n].brulure > 0 || Jeu.joueur.terrain[n].maladie > 0 || Jeu.joueur.terrain[n].gel > 0) {
+                                if (Jeu.joueur.terrain[n].poison > 0 || Jeu.joueur.terrain[n].brulure > 0 || Jeu.joueur.terrain[n].saignement > 0 || Jeu.joueur.terrain[n].maladie > 0 || Jeu.joueur.terrain[n].gel > 0) {
                                     verifier_debuff = true;
                                 }
                             }
@@ -1627,7 +1627,7 @@ function obtenir_carte (carte_id) {
                                 afficher("Choisissez une Créature : ");
                                 saut(2);
                                 for (let n=0;n<Jeu.joueur.terrain.length;n++) {
-                                    if (Jeu.joueur.terrain[n].type == "Créature" && (Jeu.joueur.terrain[n].poison > 0 || Jeu.joueur.terrain[n].brulure > 0 || Jeu.joueur.terrain[n].maladie > 0 || Jeu.joueur.terrain[n].etourdissement)) {
+                                    if (Jeu.joueur.terrain[n].type == "Créature" && (Jeu.joueur.terrain[n].poison > 0 || Jeu.joueur.terrain[n].brulure > 0 || Jeu.joueur.terrain[n].saignement > 0 || Jeu.joueur.terrain[n].maladie > 0 || Jeu.joueur.terrain[n].etourdissement)) {
                                         afficher_carte("joueur","terrain",n);
                                         afficher(" ");
                                         fonction("Cibler","Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
@@ -1644,6 +1644,7 @@ function obtenir_carte (carte_id) {
                             let carte_cible = Jeu.joueur.terrain[cible];
                             carte_cible.poison = 0;
                             carte_cible.brulure = 0;
+                            carte_cible.saignement = 0;
                             carte_cible.maladie = 0;
                             carte_cible.gel = 0;
                             carte_cible.etourdissement = false;
@@ -1656,21 +1657,22 @@ function obtenir_carte (carte_id) {
                 else {
                     let verifier_debuff = false;
                     for (let n=0;n<Jeu.adverse.terrain.length;n++) {
-                        if (Jeu.adverse.terrain[n].poison > 0 || Jeu.adverse.terrain[n].brulure > 0 || Jeu.adverse.terrain[n].maladie > 0 || Jeu.adverse.terrain[n].gel > 0 || Jeu.adverse.terrain[n].etourdissement) {
+                        if (Jeu.adverse.terrain[n].poison > 0 || Jeu.adverse.terrain[n].brulure > 0 || Jeu.adverse.terrain[n].saignement > 0 || Jeu.adverse.terrain[n].maladie > 0 || Jeu.adverse.terrain[n].gel > 0 || Jeu.adverse.terrain[n].etourdissement) {
                             verifier_debuff = true;
                         }
                     }
                     if (verifier_debuff) {
                         let best = 0;
                         for (let n=0;n<Jeu.adverse.terrain.length;n++) {
-                            let debuff = Jeu.adverse.terrain[n].poison + Jeu.adverse.terrain[n].brulure*2 + Jeu.adverse.terrain[n].maladie + Jeu.adverse.terrain[n].gel*2 + Jeu.adverse.terrain[n].etourdissement*3;
-                            let best_debuff = Jeu.adverse.terrain[best].poison + Jeu.adverse.terrain[best].brulure*2 + Jeu.adverse.terrain[best].maladie + Jeu.adverse.terrain[best].gel*2 + Jeu.adverse.terrain[best].etourdissement*3;
+                            let debuff = Jeu.adverse.terrain[n].poison + Jeu.adverse.terrain[n].brulure*2 + Jeu.adverse.terrain[n].saignement + Jeu.adverse.terrain[n].maladie + Jeu.adverse.terrain[n].gel*2 + Jeu.adverse.terrain[n].etourdissement*3;
+                            let best_debuff = Jeu.adverse.terrain[best].poison + Jeu.adverse.terrain[best].brulure*2 + Jeu.adverse.terrain[best].saignement + Jeu.adverse.terrain[best].maladie + Jeu.adverse.terrain[best].gel*2 + Jeu.adverse.terrain[best].etourdissement*3;
                             if (debuff > best_debuff) {
                                 best = n;
                             }
                         }
                         Jeu.adverse.terrain[best].poison = 0;
                         Jeu.adverse.terrain[best].brulure = 0;
+                        Jeu.adverse.terrain[best].saignement = 0;
                         Jeu.adverse.terrain[best].maladie = 0;
                         Jeu.adverse.terrain[best].gel = 0;
                         Jeu.adverse.terrain[best].etourdissement = false;
