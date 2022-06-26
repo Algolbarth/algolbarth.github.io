@@ -15,7 +15,7 @@ function demarrage () {
             {nom : "Ombre"},//11
             {nom : "Glace"}//12
         ],
-        NOMBRE_CARTE : 80,
+        NOMBRE_CARTE : 81,
         combat : {
             auto : true,
             vitesse : 1000,
@@ -78,7 +78,9 @@ function nouvelle_partie () {
     ajouter(obtenir_carte(78),"joueur","regions");
     ajouter(obtenir_carte(31),"joueur","main");
     ajouter(obtenir_carte(1),"joueur","terrain");
-    adversaire_generer();
+    adversaire_generer(1);
+    adversaire_jouer();
+    adversaire_generer(2);
     boutique_actualiser();
     menu();
 }
@@ -613,11 +615,24 @@ function vendre (zone,slot) {
 function etage_suivant () {
     Jeu.etage++;
     if (Jeu.etage <= 100) {
+        etage_fin();
         if (Jeu.boutique_amelioration > 0) {
             Jeu.boutique_amelioration--;
         }
-        adversaire_generer();
-        etage_fin();
+        if (Jeu.etage == 100) {
+            Jeu.adverse.vie = Jeu.adverse.vie_max = 100;
+        }
+        else if (Jeu.etage%10 == 0) {
+            Jeu.adverse.vie = Jeu.adverse.vie_max = 30;
+        }
+        else {
+            Jeu.adverse.vie = Jeu.adverse.vie_max = 10;
+        }
+        adversaire_jouer();
+        if (Jeu.etage < 100) {
+            adversaire_generer(Jeu.etage+1);
+        }
+        menu();
     }
     else {
         victoire();        
@@ -631,31 +646,91 @@ function etage_fin () {
         Jeu.joueur.ressources[n].courant = Jeu.joueur.ressources[n].max;
     }
     for (let n=0;n<Jeu.joueur.terrain.length;n++) {
-        if (Jeu.joueur.terrain[n].temporaire) {
-            enlever(Jeu.joueur.terrain[n]);
-            n--;
-        }
-        else if (Jeu.joueur.terrain[n].decompte > 0) {
+        Jeu.joueur.terrain[n].vie -= Jeu.joueur.terrain[n].etage.vie_max;
+        Jeu.joueur.terrain[n].etage = obtenir_carte(0);
+        if (Jeu.joueur.terrain[n].decompte > 0) {
             Jeu.joueur.terrain[n].decompte--;
             if (Jeu.joueur.terrain[n].decompte == 0) {
                 Jeu.joueur.terrain[n].effet_decompte();
             }
         }
+        if (Jeu.joueur.terrain[n].temporaire) {
+            enlever(Jeu.joueur.terrain[n]);
+            n--;
+        }
+        else if (Jeu.joueur.terrain[n].vie <= 0) {
+            mort(Jeu.joueur.terrain[n]);
+            n--;
+        }
     }
     for (let n=0;n<Jeu.joueur.main.length;n++) {
+        if (["Créature","Bâtiment"].includes(Jeu.joueur.main[n].type)) {
+            Jeu.joueur.main[n].vie -= Jeu.joueur.main[n].etage.vie_max;
+            Jeu.joueur.main[n].etage = obtenir_carte(0);
+        }
         if (Jeu.joueur.main[n].temporaire) {
             enlever(Jeu.joueur.main[n]);
             n--;
         }
+        else if (["Créature","Bâtiment"].includes(Jeu.joueur.main[n].type) && Jeu.joueur.main[n].vie <= 0) {
+            mort(Jeu.joueur.main[n]);
+            n--;
+        }
     }
     for (let n=0;n<Jeu.joueur.defausse.length;n++) {
+        if (["Créature","Bâtiment"].includes(Jeu.joueur.defausse[n].type)) {
+            Jeu.joueur.defausse[n].vie -= Jeu.joueur.defausse[n].etage.vie_max;
+            Jeu.joueur.defausse[n].etage = obtenir_carte(0);
+            if (Jeu.joueur.defausse[n].vie < 0) {
+                Jeu.joueur.defausse[n].vie = 0;
+            }
+        }
         Jeu.joueur.defausse[n].etage_mort++;
         if ((Jeu.joueur.defausse[n].etage_mort > 1 && !Jeu.joueur.defausse[n].eternite) || Jeu.joueur.defausse[n].temporaire) {
             enlever(Jeu.joueur.defausse[n]);
             n--;
         }
     }
+    for (let n=0;n<Jeu.adverse.terrain.length;n++) {
+        Jeu.adverse.terrain[n].vie -= Jeu.adverse.terrain[n].etage.vie_max;
+        Jeu.adverse.terrain[n].etage = obtenir_carte(0);
+        if (Jeu.adverse.terrain[n].decompte > 0) {
+            Jeu.adverse.terrain[n].decompte--;
+            if (Jeu.adverse.terrain[n].decompte == 0) {
+                Jeu.adverse.terrain[n].effet_decompte();
+            }
+        }
+        if (Jeu.adverse.terrain[n].temporaire) {
+            enlever(Jeu.adverse.terrain[n]);
+            n--;
+        }
+        else if (Jeu.adverse.terrain[n].vie <= 0) {
+            mort(Jeu.adverse.terrain[n]);
+            n--;
+        }
+    }
+    for (let n=0;n<Jeu.adverse.main.length;n++) {
+        if (["Créature","Bâtiment"].includes(Jeu.adverse.main[n].type)) {
+            Jeu.adverse.main[n].vie -= Jeu.adverse.main[n].etage.vie_max;
+            Jeu.adverse.main[n].etage = obtenir_carte(0);
+        }
+        if (Jeu.adverse.main[n].temporaire) {
+            enlever(Jeu.adverse.main[n]);
+            n--;
+        }
+        else if (["Créature","Bâtiment"].includes(Jeu.adverse.main[n].type) && Jeu.adverse.main[n].vie <= 0) {
+            mort(Jeu.adverse.main[n]);
+            n--;
+        }
+    }
     for (let n=0;n<Jeu.adverse.defausse.length;n++) {
+        if (["Créature","Bâtiment"].includes(Jeu.adverse.defausse[n].type)) {
+            Jeu.adverse.defausse[n].vie -= Jeu.adverse.defausse[n].etage.vie_max;
+            Jeu.adverse.defausse[n].etage = obtenir_carte(0);
+            if (Jeu.adverse.defausse[n].vie < 0) {
+                Jeu.adverse.defausse[n].vie = 0;
+            }
+        }
         Jeu.adverse.defausse[n].etage_mort++;
         if ((Jeu.adverse.defausse[n].etage_mort > 1 && !Jeu.adverse.defausse[n].eternite) || Jeu.adverse.defausse[n].temporaire) {
             enlever(Jeu.adverse.defausse[n]);
@@ -671,20 +746,85 @@ function etage_fin () {
     }
 }
 
-function adversaire_generer () {
-    if (Jeu.etage == 100) {
-        Jeu.adverse.vie = Jeu.adverse.vie_max = 100;
-    }
-    else if (Jeu.etage%10 == 0) {
-        Jeu.adverse.vie = Jeu.adverse.vie_max = 30;
+function adversaire_generer (etage) {
+    if (etage%10 != 0) {
+        switch (Math.trunc(etage/10)) {
+            case 0:
+                Jeu.adverse.ressources[0].courant = Jeu.adverse.ressources[0].max = 5;
+                for (let n=0;n<etage;n++) {
+                    ajouter(obtenir_carte(5),"adverse","main");
+                }
+                break;
+            case 1:
+                Jeu.adverse.ressources[0].courant = Jeu.adverse.ressources[0].max = 15;
+                for (let n=0;n<etage-10;n++) {
+                    ajouter(obtenir_carte(13),"adverse","main");
+                }
+                break;
+            case 2:
+                Jeu.adverse.ressources[0].courant = Jeu.adverse.ressources[0].max = 25;
+                for (let n=0;n<etage-20;n++) {
+                    ajouter(obtenir_carte(60),"adverse","main");
+                }
+                break;
+            case 3:
+                Jeu.adverse.ressources[0].courant = Jeu.adverse.ressources[0].max = 35;
+                for (let n=0;n<etage-30;n++) {
+                    ajouter(obtenir_carte(12),"adverse","main");
+                }
+                break;
+            case 4:
+                Jeu.adverse.ressources[0].courant = Jeu.adverse.ressources[0].max = 45;
+                for (let n=0;n<etage-40;n++) {
+                    ajouter(obtenir_carte(34),"adverse","main");
+                }
+                break;
+            case 5:
+                Jeu.adverse.ressources[0].courant = Jeu.adverse.ressources[0].max = 55;
+                for (let n=0;n<etage-50;n++) {
+                    ajouter(obtenir_carte(62),"adverse","main");
+                    ajouter(obtenir_carte(2),"adverse","main");
+                }
+                break;
+            case 6:
+                Jeu.adverse.ressources[0].courant = Jeu.adverse.ressources[0].max = 65;
+                for (let n=0;n<etage-60;n++) {
+                    ajouter(obtenir_carte(69),"adverse","main");
+                }
+                break;
+            case 7:
+                Jeu.adverse.ressources[0].courant = Jeu.adverse.ressources[0].max = 75;
+                for (let n=0;n<etage-70;n++) {
+                    ajouter(obtenir_carte(5),"adverse","main");
+                }
+                break;
+            case 8:
+                Jeu.adverse.ressources[0].courant = Jeu.adverse.ressources[0].max = 85;
+                for (let n=0;n<etage-80;n++) {
+                    ajouter(obtenir_carte(9),"adverse","main");
+                    ajouter(obtenir_carte(28),"adverse","main");
+                }
+                break;
+            case 9:
+                Jeu.adverse.ressources[0].courant = Jeu.adverse.ressources[0].max = 85;
+                for (let n=0;n<etage-90;n++) {
+                    ajouter(obtenir_carte(37),"adverse","main");
+                    ajouter(obtenir_carte(28),"adverse","main");
+                }
+                break;
+        }
     }
     else {
-        Jeu.adverse.vie = Jeu.adverse.vie_max = 10;
+        switch (etage) {
+            case 10:
+                Jeu.adverse.ressources[0].courant = Jeu.adverse.ressources[0].max = 10;
+                ajouter(obtenir_carte(6),"adverse","main");
+                break;
+        }
     }
-    Jeu.adverse.ressources[0].courant = Jeu.adverse.ressources[0].max = Math.trunc(Jeu.etage/10)*10 + 5;
-    for (let n=0;n<Jeu.etage;n++) {
-        ajouter(obtenir_carte(5),"adverse","main");
-    }
+}
+
+function adversaire_jouer () {
     let verifier = true;
     while (Jeu.adverse.main.length > 0 && verifier) {
         verifier = false;
@@ -842,6 +982,7 @@ function sorcellerie (camp) {
 
 function statistique (carte,nom) {
     let stat = carte[nom];
+    stat += carte.etage[nom];
     for (let n=0;n<carte.equipements.length;n++) {
         stat += carte.equipements[n][nom];
     }
@@ -888,9 +1029,9 @@ function effet_pose (carte) {
     }
 }
 
-function verifier_soin (camp) {
+function verifier_soin_creature (camp) {
     for (let n=0;n<Jeu[camp].terrain.length;n++) {
-        if (Jeu[camp].terrain[n].vie < Jeu[camp].terrain[n].vie_max) {
+        if (Jeu[camp].terrain[n].vie < Jeu[camp].terrain[n].vie_max && Jeu[camp].terrain[n].type == "Créature") {
             return true;
         }
     }
@@ -900,6 +1041,42 @@ function verifier_soin (camp) {
 function verifier_equipement (camp) {
     for (let n=0;n<Jeu[camp].terrain.length;n++) {
         if (Jeu[camp].terrain[n].type == "Créature" && Jeu[camp].terrain[n].equipements.length < Jeu[camp].terrain[n].equipement_max) {
+            return true;
+        }
+    }
+    return false;
+}
+
+function verifier_creature (camp) {
+    for (let n=0;n<Jeu[camp].terrain.length;n++) {
+        if (Jeu[camp].terrain[n].type == "Créature") {
+            return true;
+        }
+    }
+    return false;
+}
+
+function verifier_boutique_or () {
+    for (let n=0;n<Jeu.joueur.boutique.length;n++) {
+        if (Jeu.joueur.boutique[n].cout[0] > 0) {
+            return true;
+        }
+    }
+    return false;
+}
+
+function verifier_poison (camp) {
+    for (let n=0;n<Jeu[camp].terrain.length;n++) {
+        if (Jeu[camp].terrain[n].poison > 0) {
+            return true;
+        }
+    }
+    return false;
+}
+
+function verifier_debuff (camp) {
+    for (let n=0;n<Jeu[camp].terrain.length;n++) {
+        if (Jeu[camp].terrain[n].poison > 0 || Jeu[camp].terrain[n].brulure > 0 || Jeu[camp].terrain[n].saignement > 0 || Jeu[camp].terrain[n].maladie > 0 || Jeu[camp].terrain[n].gel > 0) {
             return true;
         }
     }

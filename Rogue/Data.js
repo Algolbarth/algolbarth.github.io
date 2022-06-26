@@ -72,6 +72,9 @@ function obtenir_carte (carte_id) {
         equipements : [],
         equipement_max : 0,
     }
+    if (carte_id > 0) {
+        carte.etage = obtenir_carte(0);
+    }
     switch (carte_id) {
         case 1:
             carte.nom = "Humain";
@@ -158,7 +161,7 @@ function obtenir_carte (carte_id) {
                 if (carte.camp == "joueur") {
                     switch (step) {
                         case 1:
-                            if (verifier_soin(carte.camp)) {
+                            if (verifier_soin_creature(carte.camp)) {
                                 initialiser();
                                 div("main");
                                 fonction("Annuler","menu()");
@@ -193,7 +196,7 @@ function obtenir_carte (carte_id) {
                     }
                 }
                 else {
-                    if (verifier_soin(carte.camp)) {
+                    if (verifier_soin_creature(carte.camp)) {
                         let best = 0;
                         for (let n=0;n<Jeu.adverse.terrain.length;n++) {
                             if ((Jeu.adverse.terrain[n].vie_max - Jeu.adverse.terrain[n].vie) > (Jeu.adverse.terrain[best].vie_max - Jeu.adverse.terrain[best].vie)) {
@@ -378,7 +381,7 @@ function obtenir_carte (carte_id) {
                 if (carte.camp == "joueur") {
                     switch (step) {
                         case 1:
-                            if (verifier_soin(carte.camp)) {
+                            if (verifier_soin_creature(carte.camp)) {
                                 initialiser();
                                 div("main");
                                 fonction("Annuler","menu()");
@@ -417,10 +420,10 @@ function obtenir_carte (carte_id) {
                     }
                 }
                 else {
-                    if (verifier_soin(carte.camp)) {
+                    if (verifier_soin_creature(carte.camp)) {
                         let best = 0;
                         for (let n=0;n<Jeu.adverse.terrain.length;n++) {
-                            if ((Jeu.adverse.terrain[n].vie_max - Jeu.adverse.terrain[n].vie) > (Jeu.adverse.terrain[best].vie_max - Jeu.adverse.terrain[best].vie)) {
+                            if ((Jeu.adverse.terrain[n].vie_max - Jeu.adverse.terrain[n].vie) > (Jeu.adverse.terrain[best].vie_max - Jeu.adverse.terrain[best].vie) && Jeu.adverse.terrain[n].type == "Créature") {
                                 best = n;
                             }
                         }
@@ -544,8 +547,8 @@ function obtenir_carte (carte_id) {
                 else {
                     if (Jeu.joueur.terrain.length > 0) {
                         let best = 0;
-                        for (let n=0;n<Jeu.adverse.terrain.length;n++) {
-                            if (Jeu.joueur.terrain[n].vie > 3) {
+                        for (let n=0;n<Jeu.joueur.terrain.length;n++) {
+                            if (Jeu.joueur.terrain[n].vie <= 3) {
                                 best = n;
                             }
                         }
@@ -779,7 +782,7 @@ function obtenir_carte (carte_id) {
                         let best = 0;
                         if (sorcellerie("adverse") >= 2) {
                             for (let n=0;n<Jeu.adverse.terrain.length;n++) {
-                                if (Jeu.joueur.terrain[n].vie > 5) {
+                                if (Jeu.joueur.terrain[n].vie <= 5) {
                                     best = n;
                                 }
                             }
@@ -787,7 +790,7 @@ function obtenir_carte (carte_id) {
                         }
                         else {
                             for (let n=0;n<Jeu.adverse.terrain.length;n++) {
-                                if (Jeu.joueur.terrain[n].vie > 3) {
+                                if (Jeu.joueur.terrain[n].vie <= 3) {
                                     best = n;
                                 }
                             }
@@ -974,13 +977,7 @@ function obtenir_carte (carte_id) {
                 if (carte.camp == "joueur") {
                     switch (step) {
                         case 1:
-                            let verifier_boutique_or = false;
-                            for (let n=0;n<Jeu.joueur.boutique.length;n++) {
-                                if (Jeu.joueur.boutique[n].cout[0] > 0) {
-                                    verifier_boutique_or = true;
-                                }
-                            }
-                            if (verifier_boutique_or) {
+                            if (verifier_boutique_or()) {
                                 initialiser();
                                 div("main");
                                 fonction("Annuler","menu()");
@@ -1294,30 +1291,30 @@ function obtenir_carte (carte_id) {
             carte.familles.push("Equipement","Arme");
             carte.cout[0] = 2;
             carte.vente[0] = 1;
-            carte.texte = "Applique l'effet suivant à la Créature équipée : Quand attaque : applique Poison 1 à la Créature attaquée.<br/>ou<br/>Applique Poison 1 à une Créature.";
+            carte.texte = "Applique l'effet suivant à la Créature équipée : Quand attaque : applique Poison 1 à la Créature attaquée.<br/>ou<br/>Applique Poison 1 à une Créature adverse.";
             carte.effet_pose = function (step,cible) {
                 if (carte.camp == "joueur") {
                     switch (step) {
                         case 1:
                             initialiser();
-                                div("main");
-                                fonction("Annuler","menu()");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte);
-                                saut();
-                                afficher("Choisissez un effet : ");
-                                saut(2);
-                                fonction("Applique l'effet suivant à la Créature équipée : Quand attaque : applique Poison 1 à la Créature attaquée","Jeu.joueur.main[" + carte.slot + "].effet_pose(2)");
-                                saut();
-                                afficher("ou");
-                                saut();
-                                fonction("Applique Poison 1 à une Créature","Jeu.joueur.main[" + carte.slot + "].effet_pose(4)");                   
-                                div_fin();
-                                div("carte");
-                                div_fin();
-                                actualiser();
+                            div("main");
+                            fonction("Annuler","menu()");
+                            saut(2);
+                            afficher(carte.nom);
+                            saut();
+                            afficher(carte.texte);
+                            saut();
+                            afficher("Choisissez un effet : ");
+                            saut(2);
+                            fonction("Applique l'effet suivant à la Créature équipée : Quand attaque : applique Poison 1 à la Créature attaquée","Jeu.joueur.main[" + carte.slot + "].effet_pose(2)");
+                            saut();
+                            afficher("ou");
+                            saut();
+                            fonction("Applique Poison 1 à une Créature","Jeu.joueur.main[" + carte.slot + "].effet_pose(4)");                   
+                            div_fin();
+                            div("carte");
+                            div_fin();
+                            actualiser();
                             break;
                         case 2:
                             if (verifier_equipement(carte.camp)) {
@@ -1353,7 +1350,7 @@ function obtenir_carte (carte_id) {
                             menu();
                             break;
                         case 4:
-                            if (Jeu.adverse.terrain.length) {
+                            if (verifier_creature("adverse")) {
                                 initialiser();
                                 div("main");
                                 fonction("Retour","Jeu.joueur.main[" + carte.slot + "].effet_pose(1)");
@@ -1398,12 +1395,12 @@ function obtenir_carte (carte_id) {
                         enlever(carte);
                         return true;
                     }
-                    else if (Jeu.joueur.terrain.length > 0) {
-                        let n=0;
-                        while (Jeu.joueur.terrain[n].vie > 1 && n < Jeu.joueur.terrain.length - 1) {
-                            n++;
+                    else if (verifier_creature("joueur")) {
+                        let best = 0;
+                        while (Jeu.joueur.terrain[best].type != "Créature") {
+                            best++;
                         }
-                        Jeu.joueur.terrain[n].poison++;
+                        Jeu.joueur.terrain[best].poison++;
                         deplacer(carte,"adverse","defausse");
                         effet_pose(carte);
                         return true;
@@ -1428,13 +1425,7 @@ function obtenir_carte (carte_id) {
                 if (carte.camp == "joueur") {
                     switch (step) {
                         case 1:
-                            let verifier_poison = false;
-                            for (let n=0;n<Jeu.joueur.terrain.length;n++) {
-                                if (Jeu.joueur.terrain[n].poison > 0) {
-                                    verifier_poison = true;
-                                }
-                            }
-                            if (verifier_poison) {
+                            if (verifier_poison("joueur")) {
                                 initialiser();
                                 div("main");
                                 fonction("Annuler","menu()");
@@ -1468,13 +1459,7 @@ function obtenir_carte (carte_id) {
                     }
                 }
                 else {
-                    let verifier_poison = false;
-                    for (let n=0;n<Jeu.adverse.terrain.length;n++) {
-                        if (Jeu.adverse.terrain[n].poison > 0) {
-                            verifier_poison = true;
-                        }
-                    }
-                    if (verifier_poison) {
+                    if (verifier_poison("adverse")) {
                         let best = 0;
                         for (let n=0;n<Jeu.adverse.terrain.length;n++) {
                             if (Jeu.adverse.terrain[n].poison > Jeu.adverse.terrain[best].poison) {
@@ -1581,6 +1566,11 @@ function obtenir_carte (carte_id) {
                                 div_fin();
                                 actualiser();
                             }
+                            else {
+                                deplacer(carte,"joueur","terrain");
+                                effet_pose(carte);
+                                menu();
+                            }
                             break;
                         case 2:
                             enlever(Jeu.joueur.boutique[cible]);
@@ -1609,13 +1599,7 @@ function obtenir_carte (carte_id) {
                 if (carte.camp == "joueur") {
                     switch (step) {
                         case 1:
-                            let verifier_debuff = false;
-                            for (let n=0;n<Jeu.joueur.terrain.length;n++) {
-                                if (Jeu.joueur.terrain[n].poison > 0 || Jeu.joueur.terrain[n].brulure > 0 || Jeu.joueur.terrain[n].saignement > 0 || Jeu.joueur.terrain[n].maladie > 0 || Jeu.joueur.terrain[n].gel > 0) {
-                                    verifier_debuff = true;
-                                }
-                            }
-                            if (verifier_debuff) {
+                            if (verifier_debuff("joueur")) {
                                 initialiser();
                                 div("main");
                                 fonction("Annuler","menu()");
@@ -1641,13 +1625,12 @@ function obtenir_carte (carte_id) {
                             }
                             break;
                         case 2:
-                            let carte_cible = Jeu.joueur.terrain[cible];
-                            carte_cible.poison = 0;
-                            carte_cible.brulure = 0;
-                            carte_cible.saignement = 0;
-                            carte_cible.maladie = 0;
-                            carte_cible.gel = 0;
-                            carte_cible.etourdissement = false;
+                            Jeu.joueur.terrain[cible].poison = 0;
+                            Jeu.joueur.terrain[cible].brulure = 0;
+                            Jeu.joueur.terrain[cible].saignement = 0;
+                            Jeu.joueur.terrain[cible].maladie = 0;
+                            Jeu.joueur.terrain[cible].gel = 0;
+                            Jeu.joueur.terrain[cible].etourdissement = false;
                             deplacer(carte,"joueur","defausse");
                             effet_pose(carte);
                             menu();
@@ -1655,13 +1638,7 @@ function obtenir_carte (carte_id) {
                     }
                 }
                 else {
-                    let verifier_debuff = false;
-                    for (let n=0;n<Jeu.adverse.terrain.length;n++) {
-                        if (Jeu.adverse.terrain[n].poison > 0 || Jeu.adverse.terrain[n].brulure > 0 || Jeu.adverse.terrain[n].saignement > 0 || Jeu.adverse.terrain[n].maladie > 0 || Jeu.adverse.terrain[n].gel > 0 || Jeu.adverse.terrain[n].etourdissement) {
-                            verifier_debuff = true;
-                        }
-                    }
-                    if (verifier_debuff) {
+                    if (verifier_debuff("adverse")) {
                         let best = 0;
                         for (let n=0;n<Jeu.adverse.terrain.length;n++) {
                             let debuff = Jeu.adverse.terrain[n].poison + Jeu.adverse.terrain[n].brulure*2 + Jeu.adverse.terrain[n].saignement + Jeu.adverse.terrain[n].maladie + Jeu.adverse.terrain[n].gel*2 + Jeu.adverse.terrain[n].etourdissement*3;
@@ -1728,7 +1705,7 @@ function obtenir_carte (carte_id) {
             carte.cout[0] = 2;
             carte.vente[0] = 1;
             carte.attaque = 1;
-            carte.texte = "Donne 1 attaque à la Créature équipée.<br/>ou<br/>Inflige 1 dégat à une Créature.";
+            carte.texte = "Donne 1 attaque à la Créature équipée.<br/>ou<br/>Inflige 1 dégat à une Créature adverse.";
             carte.effet_pose = function (step,cible) {
                 if (carte.camp == "joueur") {
                     switch (step) {
@@ -1787,7 +1764,7 @@ function obtenir_carte (carte_id) {
                             menu();
                             break;
                         case 4:
-                            if (Jeu.adverse.terrain.length) {
+                            if (verifier_creature("adverse")) {
                                 initialiser();
                                 div("main");
                                 fonction("Retour","Jeu.joueur.main[" + carte.slot + "].effet_pose(1)");
@@ -1832,10 +1809,15 @@ function obtenir_carte (carte_id) {
                         enlever(carte);
                         return true;
                     }
-                    else if (Jeu.joueur.terrain.length > 0) {
-                        let n=0;
-                        while (Jeu.joueur.terrain[n].vie > 1 && n < Jeu.joueur.terrain.length - 1) {
-                            n++;
+                    else if (verifier_creature("joueur")) {
+                        let best = 0;
+                        while (Jeu.joueur.terrain[best].type != "Créature") {
+                            best++;
+                        }
+                        for (let n=0;n<Jeu.joueur.terrain.length;n++) {
+                            if (Jeu.joueur.terrain[n].vie == 1 && Jeu.joueur.terrain[n].type == "Créature") {
+                                best = n;
+                            }
                         }
                         degats(Jeu.joueur.terrain[n],1);
                         deplacer(carte,"adverse","defausse");
@@ -2070,7 +2052,7 @@ function obtenir_carte (carte_id) {
                 if (carte.camp == "joueur") {
                     switch (step) {
                         case 1:
-                            if (Jeu.adverse.terrain.length > 0) {
+                            if (verifier_creature("adverse")) {
                                 initialiser();
                                 div("main");
                                 fonction("Annuler","menu()");
@@ -2109,10 +2091,13 @@ function obtenir_carte (carte_id) {
                     }
                 }
                 else {
-                    if (Jeu.joueur.terrain.length > 0) {
+                    if (verifier_creature("joueur")) {
                         let best = 0;
+                        while (Jeu.joueur.terrain[best].type != "Créature") {
+                            best++;
+                        }
                         for (let n=0;n<Jeu.joueur.terrain.length;n++) {
-                            if (Jeu.joueur.terrain[n].vie < Jeu.joueur.terrain[best].vie) {
+                            if (Jeu.joueur.terrain[n].vie < Jeu.joueur.terrain[best].vie && Jeu.joueur.terrain[n].type == "Créature") {
                                 best = n;
                             }
                         }
@@ -2158,7 +2143,7 @@ function obtenir_carte (carte_id) {
                 if (carte.camp == "joueur") {
                     switch (step) {
                         case 1:
-                            if (Jeu.adverse.terrain.length > 0) {
+                            if (verifier_creature("adverse")) {
                                 initialiser();
                                 div("main");
                                 fonction("Annuler","menu()");
@@ -2192,10 +2177,13 @@ function obtenir_carte (carte_id) {
                     }
                 }
                 else {
-                    if (Jeu.joueur.terrain.length > 0) {
+                    if (verifier_creature("joueur")) {
                         let best = 0;
-                        for (let n=0;n<Jeu.adverse.terrain.length;n++) {
-                            if (!Jeu.joueur.terrain[n].etourdissement && Jeu.joueur.terrain[n].action_max > Jeu.joueur.terrain[best].action_max) {
+                        while (Jeu.joueur.terrain[best].type != "Créature") {
+                            best++;
+                        }
+                        for (let n=0;n<Jeu.joueur.terrain.length;n++) {
+                            if (!Jeu.joueur.terrain[n].etourdissement && Jeu.joueur.terrain[n].action_max > Jeu.joueur.terrain[best].action_maxc && Jeu.joueur.terrain[n].type == "Créature") {
                                 best = n;
                             }
                         }
@@ -2219,7 +2207,7 @@ function obtenir_carte (carte_id) {
                 if (carte.camp == "joueur") {
                     switch (step) {
                         case 1:
-                            if (Jeu.adverse.terrain.length > 0) {
+                            if (verifier_creature("adverse")) {
                                 initialiser();
                                 div("main");
                                 fonction("Annuler","menu()");
@@ -2264,10 +2252,13 @@ function obtenir_carte (carte_id) {
                     }
                 }
                 else {
-                    if (Jeu.joueur.terrain.length > 0) {
+                    if (verifier_creature("joueur")) {
                         let best = 0;
+                        while (Jeu.joueur.terrain[best].type != "Créature") {
+                            best++;
+                        }
                         for (let n=0;n < Jeu.joueur.terrain.length;n++) {
-                            if (cout_total(Jeu.joueur.terrain[n]) > cout_total(Jeu.joueur.terrain[best])) {
+                            if (cout_total(Jeu.joueur.terrain[n]) > cout_total(Jeu.joueur.terrain[best]) && Jeu.joueur.terrain[n].type == "Créature") {
                                 best = n;
                             }
                         }
@@ -2380,8 +2371,13 @@ function obtenir_carte (carte_id) {
             carte.vente[1] = 2;
             carte.texte = "Les cartes créées dans la boutique ont un coût en Feu non nul.";
             carte.effet_pose = function () {
-                deplacer(carte,"joueur","zones");
-                menu();
+                if (carte.camp == "joueur") {
+                    deplacer(carte,"joueur","zones");
+                    menu();
+                }
+                else {
+                    return false;
+                }
             }
             carte.boutique_generer = function (nouvelle_carte) {
                 if ((cout_total(nouvelle_carte) <= Jeu.boutique_niveau*3 || Jeu.boutique_niveau == 10) && nouvelle_carte.cout[1] > 0 && !nouvelle_carte.exclusif) {
@@ -2400,7 +2396,7 @@ function obtenir_carte (carte_id) {
                 if (carte.camp == "joueur") {
                     switch (step) {
                         case 1:
-                            if (Jeu.adverse.terrain.length > 0) {
+                            if (verifier_creature("adverse")) {
                                 initialiser();
                                 div("main");
                                 fonction("Annuler","menu()");
@@ -2434,12 +2430,75 @@ function obtenir_carte (carte_id) {
                     }
                 }
                 else {
-                    if (Jeu.joueur.terrain.length > 0) {
+                    if (verifier_creature("joueur")) {
                         let best = 0;
-                        for (let n=0;n<Jeu.adverse.terrain.length;n++) {
-                            if (Jeu.joueur.terrain[n].action_max > Jeu.joueur.terrain[best].action_max) {
+                        while (Jeu.joueur.terrain[best].type != "Créature") {
+                            best++;
+                        }
+                        for (let n=0;n<Jeu.joueur.terrain.length;n++) {
+                            if (Jeu.joueur.terrain[n].action_max > Jeu.joueur.terrain[best].action_max && Jeu.joueur.terrain[n].type == "Créature") {
                                 best = n;
                             }
+                        }
+                        Jeu.joueur.terrain[best].saignement += 2;
+                        deplacer(carte,"adverse","defausse");
+                        effet_pose(carte);
+                        return true;
+                    }
+                    return false;
+                }
+            }
+            break;
+        case 81:
+            carte.nom = "Boost";
+            carte.type = "Action";
+            carte.cout[0] = 2;
+            carte.vente[0] = 1;
+            carte.texte = "Donne 2 attaque et 2 vie à une Créature sur votre terrain jusqu'à la fin de la phase de combat.";
+            carte.effet_pose = function (step,cible) {
+                if (carte.camp == "joueur") {
+                    switch (step) {
+                        case 1:
+                            if (verifier_creature("joueur")) {
+                                initialiser();
+                                div("main");
+                                fonction("Annuler","menu()");
+                                saut(2);
+                                afficher(carte.nom);
+                                saut();
+                                afficher(carte.texte);
+                                saut();
+                                afficher("Choisissez une Créature : ");
+                                saut(2);
+                                for (let n=0;n<Jeu.joueur.terrain.length;n++) {
+                                    if (Jeu.joueur.terrain[n].type == "Créature") {
+                                        afficher_carte("joueur","terrain",n);
+                                        afficher(" ");
+                                        fonction("Cibler","Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
+                                        saut();
+                                    }
+                                }
+                                div_fin();
+                                div("carte");
+                                div_fin();
+                                actualiser();
+                            }
+                            break;
+                        case 2:
+                            Jeu.joueur.terrain[cible].etage.attaque += 2;
+                            Jeu.joueur.terrain[cible].vie += 2;
+                            Jeu.joueur.terrain[cible].etage.vie_max += 2;
+                            deplacer(carte,"joueur","defausse");
+                            effet_pose(carte);
+                            menu();
+                            break;
+                    }
+                }
+                else {
+                    if (verifier_creature("adverse")) {
+                        let best = 0;
+                        while (Jeu.adverse.terrain[best].type != "Créature") {
+                            best++;
                         }
                         Jeu.joueur.terrain[best].saignement += 2;
                         deplacer(carte,"adverse","defausse");
