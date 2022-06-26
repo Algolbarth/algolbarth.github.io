@@ -485,7 +485,7 @@ function obtenir_carte (carte_id) {
             carte.vie_max = carte.vie = 2;
             carte.action_max = 1;
             carte.equipement_max = 1;
-            carte.texte = "Quand attaque : Crée Squelette sur votre terrain.";
+            carte.texte = "Quand attaque : Crée <a href='javascript:carte_voir_id(13)'>Squelette</a> sur votre terrain.";
             carte.effet_attaque = function () {
                 let nouvelle_carte = obtenir_carte(13);
                 nouvelle_carte.vente = [0,0,0,0,0,0,0,0,0,0,0,0,0];
@@ -653,7 +653,7 @@ function obtenir_carte (carte_id) {
             carte.vie_max = carte.vie = 2;
             carte.action_max = 1;
             carte.equipement_max = 1;
-            carte.texte = "Quand meurt : Crée Automate sur votre terrain.";
+            carte.texte = "Quand meurt : Crée <a href='javascript:carte_voir_id(23)'>Automate</a> sur votre terrain.";
             carte.effet_mort = function () {
                 let nouvelle_carte = obtenir_carte(23);
                 nouvelle_carte.vente = [0,0,0,0,0,0,0,0,0,0,0,0,0];
@@ -697,7 +697,7 @@ function obtenir_carte (carte_id) {
             carte.vie_max = carte.vie = 4;
             carte.action_max = 1;
             carte.mobile = true;
-            carte.texte = "Quand attaque : Crée Pirate sur votre terrain.";
+            carte.texte = "Quand attaque : Crée <a href='javascript:carte_voir_id(26)'>Pirate</a> sur votre terrain.";
             carte.effet_attaque = function () {
                 let nouvelle_carte = obtenir_carte(26);
                 nouvelle_carte.vente = [0,0,0,0,0,0,0,0,0,0,0,0,0];
@@ -914,7 +914,7 @@ function obtenir_carte (carte_id) {
             carte.vente[7] = 1;
             carte.vie_max = carte.vie = 2;
             carte.mobile = false;
-            carte.texte = "Au début d'un tour de combat : Crée Robot sur votre terrain.";
+            carte.texte = "Au début d'un tour de combat : Crée <a href='javascript:carte_voir_id(33)'>Robot</a> sur votre terrain.";
             carte.effet_tour_debut = function () {
                 let nouvelle_carte = obtenir_carte(33);
                 nouvelle_carte.vente = [0,0,0,0,0,0,0,0,0,0,0,0,0];
@@ -1893,7 +1893,7 @@ function obtenir_carte (carte_id) {
             carte.cout[5] = 1;
             carte.vente[0] = 2;
             carte.vie_max = carte.vie = 1;
-            carte.texte = "Quand le décompte est écoulé : Se détruit et crée Dragon sur votre terrain.";
+            carte.texte = "Quand le décompte est écoulé : Se détruit et crée <a href='javascript:carte_voir_id(9)'>Dragon</a> sur votre terrain.";
             carte.effet_pose = function () {
                 carte.decompte = 1;
                 deplacer(carte,carte.camp,"terrain");
@@ -2047,7 +2047,7 @@ function obtenir_carte (carte_id) {
             carte.type = "Objet";
             carte.cout[0] = 3;
             carte.vente[0] = 1;
-            carte.texte = "Place en première ligne une Créature adverse.";
+            carte.texte = "Place en première position une Créature adverse.";
             carte.effet_pose = function (step,cible) {
                 if (carte.camp == "joueur") {
                     switch (step) {
@@ -2207,7 +2207,7 @@ function obtenir_carte (carte_id) {
                 if (carte.camp == "joueur") {
                     switch (step) {
                         case 1:
-                            if (verifier_creature("adverse")) {
+                            if (verifier_creature("joueur") || verifier_creature("adverse")) {
                                 initialiser();
                                 div("main");
                                 fonction("Annuler","menu()");
@@ -2311,7 +2311,7 @@ function obtenir_carte (carte_id) {
             carte.rapidite = true;
             carte.action_max = 1;
             carte.equipement_max = 1;
-            carte.texte = "Quand meurt : Se transforme en Chevalier.";
+            carte.texte = "Quand meurt : Se transforme en <a href='javascript:carte_voir_id(76)'>Chevalier</a>.";
             carte.effet_mort = function () {
                 carte.nom = "Chevalier";
                 carte.cout[0] = 9;

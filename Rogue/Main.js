@@ -242,8 +242,15 @@ function afficher_carte (camp,zone,slot) {
 }
 
 function carte_voir (camp,zone,slot) {
+    carte_afficher(Jeu[camp][zone][slot]);
+}
+
+function carte_voir_id (carte_id) {
+    carte_afficher(obtenir_carte(carte_id));
+}
+
+function carte_afficher (carte) {
     let texte = "";
-    let carte = Jeu[camp][zone][slot];
     texte += "<u>Nom :</u> " + carte.nom + "<br/>";
     texte += "<u>Cout :</u> ";
     let premier_cout = true;
@@ -485,14 +492,14 @@ function carte_voir (camp,zone,slot) {
         }
     }
     if (!Jeu.combat.etat && carte.camp == "joueur") {
-        if (zone == "main") {
-            texte += "<a href='javascript:Jeu.joueur.main[" + slot + "].effet_pose(" + slot + ",1)'>Poser</a> <br/>";
+        if (carte.zone == "main") {
+            texte += "<a href='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(" + carte.slot + ",1)'>Poser</a> <br/>";
         }
-        if (zone == "boutique") {
-            texte += "<a href='javascript:acheter(" + slot + ")'>Acheter</a> <br/>";
+        if (carte.zone == "boutique") {
+            texte += "<a href='javascript:acheter(" + carte.slot + ")'>Acheter</a> <br/>";
         }
-        else if (zone == "main" || zone == "terrain") {
-            texte += "<a href='javascript:vendre(" + '"' + zone + '",' + slot + ")'>Vendre</a> <br/>";
+        else if (carte.zone == "main" || carte.zone == "terrain") {
+            texte += "<a href='javascript:vendre(" + '"' + carte.zone + '",' + carte.slot + ")'>Vendre</a> <br/>";
         }
     }
     div_actualiser("carte",texte);
