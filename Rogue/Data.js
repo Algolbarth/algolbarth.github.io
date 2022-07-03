@@ -1230,7 +1230,7 @@ function obtenir_carte (carte_id) {
             carte.equipement_max = 1;
             carte.texte = "Quand tue une Créature : Se soigne de 2.";
             carte.effet_tuer = function (defenseur) {
-                soin(carte,defenseur.vie_max);
+                soin(carte,2);
             }
             break;
         case 44:
