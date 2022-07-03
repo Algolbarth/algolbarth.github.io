@@ -15,7 +15,7 @@ function demarrage () {
             {nom : "Ombre"},//11
             {nom : "Glace"}//12
         ],
-        NOMBRE_CARTE : 81,
+        NOMBRE_CARTE : 82,
         combat : {
             auto : true,
             vitesse : 1000,
@@ -175,7 +175,7 @@ function menu () {
     saut();
     if (Jeu.joueur.terrain.length > 0) {
         for (let n=0;n<Jeu.joueur.terrain.length;n++) {
-            if (Jeu.joueur.terrain[n].type == "Créature" || statistique(Jeu.joueur.terrain[n],"mobile")) {
+            if (Jeu.joueur.terrain[n].type == "Créature" || (statistique(Jeu.joueur.terrain[n],"mobile") && !Jeu.joueur.terrain[n].silence)) {
                 if (n > 0) {
                     fonction("&#8679","monter(" + '"joueur","terrain",' + n + ")");
                     afficher(" ");
@@ -301,7 +301,7 @@ function carte_afficher (carte) {
         if (statistique(carte,"protection")) {
             texte += "Protection";
             if (Jeu.texte_talent) {
-                texte += " : Les attaquent ennnemies ciblent cette carte en priorité.";
+                texte += " : Les attaques adverses ciblent cette carte en priorité.";
             }
             texte += "<br/>";
         }
@@ -362,7 +362,7 @@ function carte_afficher (carte) {
             texte += "<br/>";
         }
         if (carte.decompte > 0) {
-            texte += "Compte à rebours " + carte.decompte;
+            texte += "Décompte " + carte.decompte;
             if (Jeu.texte_talent) {
                 texte += " : Diminue de 1 à la fin de la phase de combat.";
             }
@@ -385,7 +385,7 @@ function carte_afficher (carte) {
         if (carte.camouflage) {
             texte += "Camouflage ";
             if (Jeu.texte_talent) {
-                texte += " : Ne peut pas être ciblé par une attaque ennemie. S'enlève quand joue.";
+                texte += " : Ne peut pas être ciblé par une attaque adverse. S'enlève quand joue.";
             }
             texte += "<br/>";
         }
@@ -393,6 +393,13 @@ function carte_afficher (carte) {
             texte += "Ephémère ";
             if (Jeu.texte_talent) {
                 texte += " : Quand meurt ou est détruit, est banni. (les effets qui se déclenche à la mort de la Créature se déclenche quand même, mais elle ne va pas à la défausse)";
+            }
+            texte += "<br/>";
+        }
+        if (statistique(carte,"silence")) {
+            texte += "Silence ";
+            if (Jeu.texte_talent) {
+                texte += " : Empêche tous les effets de cette carte de se déclencher.";
             }
             texte += "<br/>";
         }
@@ -605,12 +612,18 @@ function acheter (boutique_slot) {
 }
 
 function vendre (zone,slot) {
-    Jeu.joueur[zone][slot].effet_vente();
+    if (!Jeu.joueur[zone][slot].silence) {
+        Jeu.joueur[zone][slot].effet_vente();
+    }
     for (let n=0;n<Jeu.joueur.terrain.length;n++) {
-        Jeu.joueur.terrain[n].effet_vente_carte();
+        if (!Jeu.joueur.terrain[n].silence) {
+            Jeu.joueur.terrain[n].effet_vente_carte();
+        }
     }
     for (let n=0;n<Jeu.adverse.terrain.length;n++) {
-        Jeu.adverse.terrain[n].effet_vente_carte();
+        if (!Jeu.adverse.terrain[n].silence) {
+            Jeu.adverse.terrain[n].effet_vente_carte();
+        }
     }
     for (let n=0;n<Jeu.ressources.length;n++) {
         Jeu.joueur.ressources[n].courant += Jeu.joueur[zone][slot].vente[n];
@@ -655,13 +668,13 @@ function etage_fin () {
     for (let n=0;n<Jeu.joueur.terrain.length;n++) {
         Jeu.joueur.terrain[n].vie -= Jeu.joueur.terrain[n].etage.vie_max;
         Jeu.joueur.terrain[n].etage = obtenir_carte(0);
-        if (Jeu.joueur.terrain[n].decompte > 0) {
+        if (Jeu.joueur.terrain[n].decompte > 0 && !Jeu.joueur.terrain[n].silence) {
             Jeu.joueur.terrain[n].decompte--;
             if (Jeu.joueur.terrain[n].decompte == 0) {
                 Jeu.joueur.terrain[n].effet_decompte();
             }
         }
-        if (Jeu.joueur.terrain[n].temporaire) {
+        if (Jeu.joueur.terrain[n].temporaire && !Jeu.joueur.terrain[n].silence) {
             enlever(Jeu.joueur.terrain[n]);
             n--;
         }
@@ -675,7 +688,7 @@ function etage_fin () {
             Jeu.joueur.main[n].vie -= Jeu.joueur.main[n].etage.vie_max;
             Jeu.joueur.main[n].etage = obtenir_carte(0);
         }
-        if (Jeu.joueur.main[n].temporaire) {
+        if (Jeu.joueur.main[n].temporaire && !Jeu.joueur.main[n].silence) {
             enlever(Jeu.joueur.main[n]);
             n--;
         }
@@ -693,7 +706,7 @@ function etage_fin () {
             }
         }
         Jeu.joueur.defausse[n].etage_mort++;
-        if ((Jeu.joueur.defausse[n].etage_mort > 1 && !Jeu.joueur.defausse[n].eternite) || Jeu.joueur.defausse[n].temporaire) {
+        if ((Jeu.joueur.defausse[n].etage_mort > 1 && !(Jeu.joueur.defausse[n].eternite && !Jeu.joueur.defausse[n].silence)) || (Jeu.joueur.defausse[n].temporaire && !Jeu.joueur.defausse[n].silence)) {
             enlever(Jeu.joueur.defausse[n]);
             n--;
         }
@@ -701,13 +714,13 @@ function etage_fin () {
     for (let n=0;n<Jeu.adverse.terrain.length;n++) {
         Jeu.adverse.terrain[n].vie -= Jeu.adverse.terrain[n].etage.vie_max;
         Jeu.adverse.terrain[n].etage = obtenir_carte(0);
-        if (Jeu.adverse.terrain[n].decompte > 0) {
+        if (Jeu.adverse.terrain[n].decompte > 0 && !Jeu.adverse.terrain[n].silence) {
             Jeu.adverse.terrain[n].decompte--;
             if (Jeu.adverse.terrain[n].decompte == 0) {
                 Jeu.adverse.terrain[n].effet_decompte();
             }
         }
-        if (Jeu.adverse.terrain[n].temporaire) {
+        if (Jeu.adverse.terrain[n].temporaire && !Jeu.adverse.terrain[n].silence) {
             enlever(Jeu.adverse.terrain[n]);
             n--;
         }
@@ -721,7 +734,7 @@ function etage_fin () {
             Jeu.adverse.main[n].vie -= Jeu.adverse.main[n].etage.vie_max;
             Jeu.adverse.main[n].etage = obtenir_carte(0);
         }
-        if (Jeu.adverse.main[n].temporaire) {
+        if (Jeu.adverse.main[n].temporaire && !Jeu.adverse.main[n].silence) {
             enlever(Jeu.adverse.main[n]);
             n--;
         }
@@ -739,7 +752,7 @@ function etage_fin () {
             }
         }
         Jeu.adverse.defausse[n].etage_mort++;
-        if ((Jeu.adverse.defausse[n].etage_mort > 1 && !Jeu.adverse.defausse[n].eternite) || Jeu.adverse.defausse[n].temporaire) {
+        if ((Jeu.adverse.defausse[n].etage_mort > 1 && (!Jeu.adverse.defausse[n].eternite && !Jeu.adverse.defausse[n].silence)) || (Jeu.adverse.defausse[n].temporaire && !Jeu.adverse.defausse[n].silence)) {
             enlever(Jeu.adverse.defausse[n]);
             n--;
         }
@@ -936,14 +949,18 @@ function soin (carte,montant) {
     if (carte.vie > statistique(carte,"vie_max")) {
         carte.vie = statistique(carte,"vie_max");
     }
-    carte.effet_soin(montant);
-    for (let n=0;n<Jeu[carte.camp][carte.zone].length;n++) {
-        Jeu[carte.camp][carte.zone][n].effet_soin_carte(carte);
+    if (!carte.silence) {
+        carte.effet_soin(montant);
+    }
+    for (let n=0;n<Jeu[carte.camp].terrain.length;n++) {
+        if (!Jeu[carte.camp].terrain[n].silence) {
+            Jeu[carte.camp].terrain[n].effet_soin_carte(carte);
+        }
     }
 }
 
 function degats (carte,montant) {
-    if (carte.resistance > 0) {
+    if (carte.resistance > 0 && !carte.silence) {
         montant -= carte.resistance;
         if (carte.vie_sup < 0) {
             carte.vie_sup = 0;
@@ -959,7 +976,9 @@ function degats (carte,montant) {
     }
     if (montant > 0) {
         carte.vie -= montant;
-        carte.effet_degat();
+        if (!carte.silence) {
+            carte.effet_degat();
+        }
         if (carte.vie <= 0) {
             mort(carte);
             return true;
@@ -972,17 +991,23 @@ function mort (carte) {
     carte.vie = 0;
     carte.effet_mort();
     for (let n=0;n<Jeu.joueur.terrain.length;n++) {
-        Jeu.joueur.terrain[n].effet_mort_carte(carte);
+        if (!Jeu.joueur.terrain[n].silence) {
+            Jeu.joueur.terrain[n].effet_mort_carte(carte);
+        }
     }
     for (let n=0;n<Jeu.adverse.terrain.length;n++) {
-        Jeu.adverse.terrain[n].effet_mort_carte(carte);
+        if (!Jeu.adverse.terrain[n].silence) {
+            Jeu.adverse.terrain[n].effet_mort_carte(carte);
+        }
     }
 }
 
 function sorcellerie (camp) {
     let montant = 0;
     for (let n=0;n<Jeu[camp].terrain.length;n++) {
-        montant += statistique(Jeu[camp].terrain[n],"sorcellerie");
+        if (!Jeu[camp].terrain[n].silence) {
+            montant += statistique(Jeu[camp].terrain[n],"sorcellerie");
+        }
     }
     return montant;
 }
@@ -1032,7 +1057,9 @@ function poser (slot) {
 
 function effet_pose (carte) {
     for (let n=0;n<Jeu[carte.camp].terrain.length;n++) {
-        Jeu[carte.camp].terrain[n].effet_pose_carte(carte);
+        if (!Jeu[carte.camp].terrain[n].silence) {
+            Jeu[carte.camp].terrain[n].effet_pose_carte(carte);
+        }
     }
 }
 
@@ -1083,7 +1110,7 @@ function verifier_poison (camp) {
 
 function verifier_debuff (camp) {
     for (let n=0;n<Jeu[camp].terrain.length;n++) {
-        if (Jeu[camp].terrain[n].poison > 0 || Jeu[camp].terrain[n].brulure > 0 || Jeu[camp].terrain[n].saignement > 0 || Jeu[camp].terrain[n].maladie > 0 || Jeu[camp].terrain[n].gel > 0) {
+        if (Jeu[camp].terrain[n].poison > 0 || Jeu[camp].terrain[n].brulure > 0 || Jeu[camp].terrain[n].saignement > 0 || Jeu[camp].terrain[n].maladie > 0 || Jeu[camp].terrain[n].gel > 0 || Jeu[camp].terrain[n].etourdissement || Jeu[camp].terrain[n].silence) {
             return true;
         }
     }
