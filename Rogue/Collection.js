@@ -7,6 +7,8 @@ function collection () {
     saut();
     fonction("Filtrer","collection_filtre()");
     saut(2);
+    afficher(Jeu.collection.length + " résultats");
+    saut(2);
     if (Jeu.collection_ordre == "croissant") {
         for (let n=0;n<Jeu.collection.length;n++) {
             fonction(Jeu.collection[n].nom,"carte_voir_id(" + Jeu.collection[n].id + ")");

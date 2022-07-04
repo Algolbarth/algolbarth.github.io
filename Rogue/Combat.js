@@ -14,7 +14,8 @@ function combat_debut_tour () {
     Jeu.combat.attaquant = "joueur";
     Jeu.combat.defenseur = "adverse";
     for (let n=0;n<Jeu.joueur.terrain.length;n++) {
-        
+        Jeu.joueur.terrain[n].vie -= Jeu.joueur.terrain[n].stat_tour.vie_max;
+        Jeu.joueur.terrain[n].stat_tour = obtenir_carte(0);
         Jeu.joueur.terrain[n].action = statistique(Jeu.joueur.terrain[n],"action_max");
         if (!statistique(Jeu.joueur.terrain[n],"silence")) {
             Jeu.joueur.terrain[n].effet_tour_debut();
@@ -32,6 +33,8 @@ function combat_debut_tour () {
         }
     }
     for (let n=0;n<Jeu.adverse.terrain.length;n++) {
+        Jeu.adverse.terrain[n].vie -= Jeu.adverse.terrain[n].stat_tour.vie_max;
+        Jeu.adverse.terrain[n].stat_tour = obtenir_carte(0);
         Jeu.adverse.terrain[n].action = statistique(Jeu.adverse.terrain[n],"action_max");
         if (!statistique(Jeu.adverse.terrain[n],"silence")) {
             Jeu.adverse.terrain[n].effet_tour_debut();

@@ -15,7 +15,7 @@ function demarrage () {
             {nom : "Ombre"},//11
             {nom : "Glace"}//12
         ],
-        NOMBRE_CARTE : 82,
+        NOMBRE_CARTE : 83,
         combat : {
             auto : true,
             vitesse : 1000,
@@ -700,6 +700,8 @@ function etage_fin () {
     for (let n=0;n<Jeu.joueur.terrain.length;n++) {
         Jeu.joueur.terrain[n].vie -= Jeu.joueur.terrain[n].stat_etage.vie_max;
         Jeu.joueur.terrain[n].stat_etage = obtenir_carte(0);
+        Jeu.joueur.terrain[n].vie -= Jeu.joueur.terrain[n].stat_tour.vie_max;
+        Jeu.joueur.terrain[n].stat_tour = obtenir_carte(0);
         if (Jeu.joueur.terrain[n].decompte > 0 && !statistique(Jeu.joueur.terrain[n],"silence")) {
             Jeu.joueur.terrain[n].decompte--;
             if (Jeu.joueur.terrain[n].decompte == 0) {
@@ -746,6 +748,8 @@ function etage_fin () {
     for (let n=0;n<Jeu.adverse.terrain.length;n++) {
         Jeu.adverse.terrain[n].vie -= Jeu.adverse.terrain[n].stat_etage.vie_max;
         Jeu.adverse.terrain[n].stat_etage = obtenir_carte(0);
+        Jeu.adverse.terrain[n].vie -= Jeu.adverse.terrain[n].stat_tour.vie_max;
+        Jeu.adverse.terrain[n].stat_tour = obtenir_carte(0);
         if (Jeu.adverse.terrain[n].decompte > 0 && !statistique(Jeu.adverse.terrain[n],"silence")) {
             Jeu.adverse.terrain[n].decompte--;
             if (Jeu.adverse.terrain[n].decompte == 0) {

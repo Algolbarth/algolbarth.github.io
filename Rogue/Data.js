@@ -2652,17 +2652,43 @@ function obtenir_carte (carte_id) {
                 else {
                     if (verifier_creature("adverse")) {
                         let best = 0;
-                        while (Jeu.adverse.terrain[best].type != "Créature") {
+                        while (Jeu.joueur.terrain[best].type != "Créature") {
                             best++;
                         }
-                        Jeu.adverse.terrain[best].etage.attaque += 2;
-                        Jeu.adverse.terrain[best].vie += 2;
-                        Jeu.adverse.terrain[best].etage.vie_max += 2;
+                        Jeu.joueur.terrain[best].silence = true;
                         deplacer(carte,"adverse","defausse");
                         effet_pose(carte);
                         return true;
                     }
                     return false;
+                }
+            }
+            break;
+        case 83:
+            carte.nom = "Guerrier courageux";
+            carte.type = "Créature";
+            carte.familles.push("Humain");
+            carte.cout[0] = 5;
+            carte.vente[0] = 2;
+            carte.attaque = 2;
+            carte.vie = carte.vie_max = 2;
+            carte.action_max = 1;
+            carte.equipement_max = 1;
+            carte.texte = "Au début d'un tour de combat : se donne 1 attaque pour chaque créature adverse sur le terrain jusqu'à la fin du tour de combat.";
+            carte.effet_tour_debut = function () {
+                if (carte.camp == "joueur") {
+                    for (let n=0;n<Jeu.adverse.terrain.length;n++) {
+                        if (Jeu.adverse.terrain[n].type == "Créature") {
+                            carte.stat_tour.attaque++;
+                        }
+                    }
+                }
+                else {
+                    for (let n=0;n<Jeu.joueur.terrain.length;n++) {
+                        if (Jeu.joueur.terrain[n].type == "Créature") {
+                            carte.stat_tour.attaque++;
+                        }
+                    }
                 }
             }
             break;
