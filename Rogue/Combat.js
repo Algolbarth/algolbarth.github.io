@@ -15,7 +15,7 @@ function combat_debut_tour () {
     Jeu.combat.defenseur = "adverse";
     for (let n=0;n<Jeu.joueur.terrain.length;n++) {
         Jeu.joueur.terrain[n].action = statistique(Jeu.joueur.terrain[n],"action_max");
-        if (!Jeu.joueur.terrain[n].silence) {
+        if (!statistique(Jeu.joueur.terrain[n],"silence")) {
             Jeu.joueur.terrain[n].effet_tour_debut();
             if (statistique(Jeu.joueur.terrain[n],"regeneration") > 0 && Jeu.joueur.terrain[n].vie < Jeu.joueur.terrain[n].vie_max) {
                 soin(Jeu.joueur.terrain[n],statistique(Jeu.joueur.terrain[n],"regeneration"));
@@ -32,7 +32,7 @@ function combat_debut_tour () {
     }
     for (let n=0;n<Jeu.adverse.terrain.length;n++) {
         Jeu.adverse.terrain[n].action = statistique(Jeu.adverse.terrain[n],"action_max");
-        if (!Jeu.adverse.terrain[n].silence) {
+        if (!statistique(Jeu.adverse.terrain[n],"silence")) {
             Jeu.adverse.terrain[n].effet_tour_debut();
             if (statistique(Jeu.adverse.terrain[n],"regeneration") > 0 && Jeu.adverse.terrain[n].vie < Jeu.adverse.terrain[n].vie_max) {
                 soin(Jeu.adverse.terrain[n],statistique(Jeu.adverse.terrain[n],"regeneration"));
@@ -105,7 +105,7 @@ function combat_verifier_attaque () {
 
 function combat_verifier_rapidite () {
     for (let n=0;n<Jeu[Jeu.combat.attaquant].terrain.length;n++) {
-        if (Jeu[Jeu.combat.attaquant].terrain[n].action > 0 && statistique(Jeu[Jeu.combat.attaquant].terrain[n],"rapidite") && !Jeu[Jeu.combat.attaquant].terrain[n].silence) {
+        if (Jeu[Jeu.combat.attaquant].terrain[n].action > 0 && statistique(Jeu[Jeu.combat.attaquant].terrain[n],"rapidite") && !statistique(Jeu[Jeu.combat.attaquant].terrain[n],"silence")) {
             Jeu.combat.slot = n;
             return true;
         }
@@ -116,10 +116,10 @@ function combat_verifier_rapidite () {
 function attaque () {
     let attaquant = Jeu[Jeu.combat.attaquant].terrain[Jeu.combat.slot];
     attaquant.action--;
-    if (attaquant.gel > 0 && !attaquant.silence) {
+    if (attaquant.gel > 0 && !statistique(attaquant,"silence")) {
         attaquant.gel--;
     }
-    else if (attaquant.etourdissement && !attaquant.silence) {
+    else if (attaquant.etourdissement && !statistique(attaquant,"silence")) {
         attaquant.action = 0;
         attaquant.etourdissement = false;
     }
@@ -128,7 +128,7 @@ function attaque () {
         if (defenseur_slot !== false) {
             let defenseur = Jeu[Jeu.combat.defenseur].terrain[defenseur_slot];
             let defenseur_save = dupliquer_objet(defenseur);
-            if (!attaquant.silence) {
+            if (!statistique(attaquant,"silence")) {
                 attaquant.effet_attaque(defenseur);
                 for (let n=0;n<attaquant.equipements.length;n++) {
                     attaquant.equipements[n].effet_attaque(defenseur);
@@ -139,13 +139,13 @@ function attaque () {
             }
             if (attaquant.type == "Créature") {
                 let attaquant_mort = false;
-                if (attaquant.saignement > 0 && !attaquant.silence) {
+                if (attaquant.saignement > 0 && !statistique(attaquant,"silence")) {
                     attaquant_mort = degats(attaquant,1);
                     attaquant.saignement--;
                 }
                 if (!attaquant_mort) {
                     let defense = statistique(defenseur,"defense");
-                    if (!attaquant.silence) {
+                    if (!statistique(attaquant,"silence")) {
                         defense -= statistique(attaquant,"percee");
                     }
                     if (defense < 0) {
@@ -159,25 +159,25 @@ function attaque () {
                     if (defenseur_mort) {
                         defenseur = defenseur_save;
                     }
-                    if (!defenseur.silence) {
+                    if (!statistique(defenseur,"silence")) {
                         degats_montant -= defenseur.resistance;
                     }
                     if (degats_montant > defenseur.vie) {
                         degats_montant = defenseur.vie;
                     }
-                    if (defenseur_mort && !attaquant.silence) {
+                    if (defenseur_mort && !statistique(attaquant,"silence")) {
                         attaquant.effet_tuer(defenseur);
                     }
                     else {
-                        if (statistique(attaquant,"mortel") && !attaquant.silence) {
+                        if (statistique(attaquant,"mortel") && !statistique(attaquant,"silence")) {
                             mort(defenseur);
                             defenseur = defenseur_save;
                         }
                     }
-                    if (statistique(defenseur,"epine") > 0 && !defenseur.silence) {
+                    if (statistique(defenseur,"epine") > 0 && !statistique(defenseur,"silence")) {
                         attaquant_mort = degats(attaquant,statistique(defenseur,"epine"));
                     }
-                    if (!attaquant_mort && statistique(attaquant,"vol_de_vie") && !attaquant.silence) {
+                    if (!attaquant_mort && statistique(attaquant,"vol_de_vie") && !statistique(attaquant,"silence")) {
                         soin(attaquant,degats_montant);
                     }
                 }
@@ -189,30 +189,30 @@ function attaque () {
 function trouver_defenseur () {
     let attaquant = Jeu[Jeu.combat.attaquant].terrain[Jeu.combat.slot];
     let defenseur_slot = 0;
-    if (attaquant.portee && !attaquant.silence) {
+    if (attaquant.portee && !statistique(attaquant,"silence")) {
         defenseur_slot = Jeu[Jeu.combat.defenseur].terrain.length - 1;
-        while (Jeu[Jeu.combat.defenseur].terrain[defenseur_slot].camouflage && !Jeu[Jeu.combat.defenseur].terrain[defenseur_slot].silence && defenseur_slot > 0) {
+        while (Jeu[Jeu.combat.defenseur].terrain[defenseur_slot].camouflage && !statistique(Jeu[Jeu.combat.defenseur].terrain[defenseur_slot],"silence") && defenseur_slot > 0) {
             defenseur_slot--;
         }
-        if (Jeu[Jeu.combat.defenseur].terrain[defenseur_slot].camouflage && !Jeu[Jeu.combat.defenseur].terrain[defenseur_slot].silence) {
+        if (Jeu[Jeu.combat.defenseur].terrain[defenseur_slot].camouflage && !statistique(Jeu[Jeu.combat.defenseur].terrain[defenseur_slot],"silence")) {
             return false;
         }
         for (let n=Jeu[Jeu.combat.defenseur].terrain.length - 1;n>=0;n--) {
-            if (statistique(Jeu[Jeu.combat.defenseur].terrain[n],"protection") && !Jeu[Jeu.combat.defenseur].terrain[n].camouflage && !Jeu[Jeu.combat.defenseur].terrain[n].silence) {
+            if (statistique(Jeu[Jeu.combat.defenseur].terrain[n],"protection") && !Jeu[Jeu.combat.defenseur].terrain[n].camouflage && !statistique(Jeu[Jeu.combat.defenseur].terrain[n],"silence")) {
                 defenseur_slot = n;
                 break;
             }
         }
     }
     else {
-        while (Jeu[Jeu.combat.defenseur].terrain[defenseur_slot].camouflage && !Jeu[Jeu.combat.defenseur].terrain[defenseur_slot].silence && defenseur_slot < Jeu[Jeu.combat.defenseur].terrain.length - 1) {
+        while (Jeu[Jeu.combat.defenseur].terrain[defenseur_slot].camouflage && !statistique(Jeu[Jeu.combat.defenseur].terrain[defenseur_slot],"silence") && defenseur_slot < Jeu[Jeu.combat.defenseur].terrain.length - 1) {
             defenseur_slot++;
         }
-        if (Jeu[Jeu.combat.defenseur].terrain[defenseur_slot].camouflage && !Jeu[Jeu.combat.defenseur].terrain[defenseur_slot].silence) {
+        if (Jeu[Jeu.combat.defenseur].terrain[defenseur_slot].camouflage && !statistique(Jeu[Jeu.combat.defenseur].terrain[defenseur_slot],"silence")) {
             return false;
         }
         for (let n=0;n<Jeu[Jeu.combat.defenseur].terrain.length;n++) {
-            if (statistique(Jeu[Jeu.combat.defenseur].terrain[n],"protection") && !Jeu[Jeu.combat.defenseur].terrain[n].camouflage && !Jeu[Jeu.combat.defenseur].terrain[n].silence) {
+            if (statistique(Jeu[Jeu.combat.defenseur].terrain[n],"protection") && !Jeu[Jeu.combat.defenseur].terrain[n].camouflage && !statistique(Jeu[Jeu.combat.defenseur].terrain[n],"silence")) {
                 defenseur_slot = n;
                 break;
             }
