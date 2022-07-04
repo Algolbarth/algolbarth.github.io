@@ -109,7 +109,6 @@ function nouvelle_partie () {
     Jeu.combat.etat = false;
     ajouter(obtenir_carte(78),"joueur","regions");
     ajouter(obtenir_carte(31),"joueur","main");
-    ajouter(obtenir_carte(15),"joueur","main");
     ajouter(obtenir_carte(1),"joueur","terrain");
     adversaire_generer(1);
     adversaire_jouer();
