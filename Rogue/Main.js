@@ -78,7 +78,6 @@ function nouvelle_partie () {
     ajouter(obtenir_carte(78),"joueur","regions");
     ajouter(obtenir_carte(31),"joueur","main");
     ajouter(obtenir_carte(1),"joueur","terrain");
-    ajouter(obtenir_carte(71),"joueur","terrain");
     adversaire_generer(1);
     adversaire_jouer();
     adversaire_generer(2);
