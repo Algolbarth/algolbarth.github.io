@@ -473,7 +473,7 @@ function carte_afficher (carte) {
         if (carte.saignement > 0) {
             texte += "Saignement " + carte.saignement;
             if (Jeu.texte_talent) {
-                texte += " : Quand attaque, subit 1 dégât.";
+                texte += " : Quand attaque (pour les " + carte.saignement + " prochaines attaque), subit 1 dégât.";
             }
             texte += "<br/>";
         }

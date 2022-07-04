@@ -139,7 +139,7 @@ function attaque () {
             }
             if (attaquant.type == "Créature") {
                 let attaquant_mort = false;
-                if (attaquant.saignement > 0) {
+                if (attaquant.saignement > 0 && !attaquant.silence) {
                     attaquant_mort = degats(attaquant,1);
                     attaquant.saignement--;
                 }
