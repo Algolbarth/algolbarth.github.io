@@ -14,6 +14,7 @@ function combat_debut_tour () {
     Jeu.combat.attaquant = "joueur";
     Jeu.combat.defenseur = "adverse";
     for (let n=0;n<Jeu.joueur.terrain.length;n++) {
+        
         Jeu.joueur.terrain[n].action = statistique(Jeu.joueur.terrain[n],"action_max");
         if (!statistique(Jeu.joueur.terrain[n],"silence")) {
             Jeu.joueur.terrain[n].effet_tour_debut();

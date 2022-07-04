@@ -25,13 +25,45 @@ function demarrage () {
         raccourci_vente : true,
         raccourci_pose : true,
         texte_talent : true,
+        collection : [],
+        familles : [],
+        collection_ordre : "croissant",
+    }
+    for (let n=1;n<=Jeu.NOMBRE_CARTE;n++) {
+        let carte = obtenir_carte(n);
+        for (let i=0;i<carte.familles.length;i++) {
+            if (!verifier_famille(carte.familles[i])) {
+                Jeu.familles.push(carte.familles[i]);
+            }
+        }
+    }
+    for (let i=0;i<Jeu.familles.length;i++) {
+        let j = i;
+        while (j > 0 && Jeu.familles[j-1] > Jeu.familles[j]) {
+            let a = Jeu.familles[j];
+            let b = Jeu.familles[j - 1];
+            Jeu.familles[j] = b;
+            Jeu.familles[j - 1] = a;
+            j--;
+        }
     }
     ecran_titre();
+}
+
+function verifier_famille (famille) {
+    for (let n=0;n<Jeu.familles.length;n++) {
+        if (Jeu.familles[n] == famille) {
+            return true;
+        }
+    }
+    return false;
 }
 
 function ecran_titre () {
     initialiser();
     fonction("Jouer","nouvelle_partie()");
+    saut(2);
+    fonction("Collection","collection_tri_init();collection()");
     actualiser();
 }
 
@@ -77,6 +109,7 @@ function nouvelle_partie () {
     Jeu.combat.etat = false;
     ajouter(obtenir_carte(78),"joueur","regions");
     ajouter(obtenir_carte(31),"joueur","main");
+    ajouter(obtenir_carte(15),"joueur","main");
     ajouter(obtenir_carte(1),"joueur","terrain");
     adversaire_generer(1);
     adversaire_jouer();
@@ -313,7 +346,7 @@ function carte_afficher (carte) {
             texte += "<br/>";
         }
         if (statistique(carte,"action_max") > 1) {
-            texte += statistique(carte,"action_max") + " attaques";
+            texte += "Action " + statistique(carte,"action_max");
             if (Jeu.texte_talent) {
                 texte += " : Peut jouer " + statistique(carte,"action_max") + " fois par tour de combat.";
             }
@@ -666,8 +699,8 @@ function etage_fin () {
         Jeu.joueur.ressources[n].courant = Jeu.joueur.ressources[n].max;
     }
     for (let n=0;n<Jeu.joueur.terrain.length;n++) {
-        Jeu.joueur.terrain[n].vie -= Jeu.joueur.terrain[n].etage.vie_max;
-        Jeu.joueur.terrain[n].etage = obtenir_carte(0);
+        Jeu.joueur.terrain[n].vie -= Jeu.joueur.terrain[n].stat_etage.vie_max;
+        Jeu.joueur.terrain[n].stat_etage = obtenir_carte(0);
         if (Jeu.joueur.terrain[n].decompte > 0 && !statistique(Jeu.joueur.terrain[n],"silence")) {
             Jeu.joueur.terrain[n].decompte--;
             if (Jeu.joueur.terrain[n].decompte == 0) {
@@ -685,8 +718,8 @@ function etage_fin () {
     }
     for (let n=0;n<Jeu.joueur.main.length;n++) {
         if (["Créature","Bâtiment"].includes(Jeu.joueur.main[n].type)) {
-            Jeu.joueur.main[n].vie -= Jeu.joueur.main[n].etage.vie_max;
-            Jeu.joueur.main[n].etage = obtenir_carte(0);
+            Jeu.joueur.main[n].vie -= Jeu.joueur.main[n].stat_etage.vie_max;
+            Jeu.joueur.main[n].stat_etage = obtenir_carte(0);
         }
         if (Jeu.joueur.main[n].temporaire && !statistique(Jeu.joueur.main[n],"silence")) {
             enlever(Jeu.joueur.main[n]);
@@ -699,8 +732,8 @@ function etage_fin () {
     }
     for (let n=0;n<Jeu.joueur.defausse.length;n++) {
         if (["Créature","Bâtiment"].includes(Jeu.joueur.defausse[n].type)) {
-            Jeu.joueur.defausse[n].vie -= Jeu.joueur.defausse[n].etage.vie_max;
-            Jeu.joueur.defausse[n].etage = obtenir_carte(0);
+            Jeu.joueur.defausse[n].vie -= Jeu.joueur.defausse[n].stat_etage.vie_max;
+            Jeu.joueur.defausse[n].stat_etage = obtenir_carte(0);
             if (Jeu.joueur.defausse[n].vie < 0) {
                 Jeu.joueur.defausse[n].vie = 0;
             }
@@ -712,8 +745,8 @@ function etage_fin () {
         }
     }
     for (let n=0;n<Jeu.adverse.terrain.length;n++) {
-        Jeu.adverse.terrain[n].vie -= Jeu.adverse.terrain[n].etage.vie_max;
-        Jeu.adverse.terrain[n].etage = obtenir_carte(0);
+        Jeu.adverse.terrain[n].vie -= Jeu.adverse.terrain[n].stat_etage.vie_max;
+        Jeu.adverse.terrain[n].stat_etage = obtenir_carte(0);
         if (Jeu.adverse.terrain[n].decompte > 0 && !statistique(Jeu.adverse.terrain[n],"silence")) {
             Jeu.adverse.terrain[n].decompte--;
             if (Jeu.adverse.terrain[n].decompte == 0) {
@@ -731,8 +764,8 @@ function etage_fin () {
     }
     for (let n=0;n<Jeu.adverse.main.length;n++) {
         if (["Créature","Bâtiment"].includes(Jeu.adverse.main[n].type)) {
-            Jeu.adverse.main[n].vie -= Jeu.adverse.main[n].etage.vie_max;
-            Jeu.adverse.main[n].etage = obtenir_carte(0);
+            Jeu.adverse.main[n].vie -= Jeu.adverse.main[n].stat_etage.vie_max;
+            Jeu.adverse.main[n].stat_etage = obtenir_carte(0);
         }
         if (Jeu.adverse.main[n].temporaire && !statistique(Jeu.adverse.main[n],"silence")) {
             enlever(Jeu.adverse.main[n]);
@@ -745,8 +778,8 @@ function etage_fin () {
     }
     for (let n=0;n<Jeu.adverse.defausse.length;n++) {
         if (["Créature","Bâtiment"].includes(Jeu.adverse.defausse[n].type)) {
-            Jeu.adverse.defausse[n].vie -= Jeu.adverse.defausse[n].etage.vie_max;
-            Jeu.adverse.defausse[n].etage = obtenir_carte(0);
+            Jeu.adverse.defausse[n].vie -= Jeu.adverse.defausse[n].stat_etage.vie_max;
+            Jeu.adverse.defausse[n].stat_etage = obtenir_carte(0);
             if (Jeu.adverse.defausse[n].vie < 0) {
                 Jeu.adverse.defausse[n].vie = 0;
             }
@@ -771,66 +804,56 @@ function adversaire_generer (etage) {
         switch (Math.trunc(etage/10)) {
             case 0:
                 Jeu.adverse.ressources[0].courant = Jeu.adverse.ressources[0].max = 5;
-                for (let n=0;n<etage;n++) {
-                    ajouter(obtenir_carte(5),"adverse","main");
-                }
+                ajouter(obtenir_carte(5),"adverse","main");
+                ajouter(obtenir_carte(5),"adverse","main");
                 break;
             case 1:
                 Jeu.adverse.ressources[0].courant = Jeu.adverse.ressources[0].max = 15;
-                for (let n=0;n<etage-10;n++) {
-                    ajouter(obtenir_carte(13),"adverse","main");
-                }
+                ajouter(obtenir_carte(13),"adverse","main");
+                ajouter(obtenir_carte(13),"adverse","main");
                 break;
             case 2:
                 Jeu.adverse.ressources[0].courant = Jeu.adverse.ressources[0].max = 25;
-                for (let n=0;n<etage-20;n++) {
-                    ajouter(obtenir_carte(60),"adverse","main");
-                }
+                ajouter(obtenir_carte(60),"adverse","main");
+                ajouter(obtenir_carte(60),"adverse","main");
                 break;
             case 3:
                 Jeu.adverse.ressources[0].courant = Jeu.adverse.ressources[0].max = 35;
-                for (let n=0;n<etage-30;n++) {
-                    ajouter(obtenir_carte(12),"adverse","main");
-                }
+                ajouter(obtenir_carte(12),"adverse","main");
+                ajouter(obtenir_carte(12),"adverse","main");
                 break;
             case 4:
                 Jeu.adverse.ressources[0].courant = Jeu.adverse.ressources[0].max = 45;
-                for (let n=0;n<etage-40;n++) {
-                    ajouter(obtenir_carte(34),"adverse","main");
-                }
+                ajouter(obtenir_carte(34),"adverse","main");
+                ajouter(obtenir_carte(34),"adverse","main");
                 break;
             case 5:
                 Jeu.adverse.ressources[0].courant = Jeu.adverse.ressources[0].max = 55;
-                for (let n=0;n<etage-50;n++) {
-                    ajouter(obtenir_carte(62),"adverse","main");
-                    ajouter(obtenir_carte(2),"adverse","main");
-                }
+                ajouter(obtenir_carte(62),"adverse","main");
+                ajouter(obtenir_carte(62),"adverse","main");
+                ajouter(obtenir_carte(2),"adverse","main");
                 break;
             case 6:
                 Jeu.adverse.ressources[0].courant = Jeu.adverse.ressources[0].max = 65;
-                for (let n=0;n<etage-60;n++) {
-                    ajouter(obtenir_carte(69),"adverse","main");
-                }
+                ajouter(obtenir_carte(69),"adverse","main");
+                ajouter(obtenir_carte(69),"adverse","main");
                 break;
             case 7:
                 Jeu.adverse.ressources[0].courant = Jeu.adverse.ressources[0].max = 75;
-                for (let n=0;n<etage-70;n++) {
-                    ajouter(obtenir_carte(5),"adverse","main");
-                }
+                ajouter(obtenir_carte(5),"adverse","main");
+                ajouter(obtenir_carte(5),"adverse","main");
                 break;
             case 8:
                 Jeu.adverse.ressources[0].courant = Jeu.adverse.ressources[0].max = 85;
-                for (let n=0;n<etage-80;n++) {
-                    ajouter(obtenir_carte(9),"adverse","main");
-                    ajouter(obtenir_carte(28),"adverse","main");
-                }
+                ajouter(obtenir_carte(9),"adverse","main");
+                ajouter(obtenir_carte(9),"adverse","main");
+                ajouter(obtenir_carte(28),"adverse","main");
                 break;
             case 9:
                 Jeu.adverse.ressources[0].courant = Jeu.adverse.ressources[0].max = 85;
-                for (let n=0;n<etage-90;n++) {
-                    ajouter(obtenir_carte(37),"adverse","main");
-                    ajouter(obtenir_carte(28),"adverse","main");
-                }
+                ajouter(obtenir_carte(37),"adverse","main");
+                ajouter(obtenir_carte(37),"adverse","main");
+                ajouter(obtenir_carte(28),"adverse","main");
                 break;
         }
     }
@@ -1014,7 +1037,8 @@ function sorcellerie (camp) {
 
 function statistique (carte,nom) {
     let stat = carte[nom];
-    stat += carte.etage[nom];
+    stat += carte.stat_etage[nom];
+    stat += carte.stat_tour[nom];
     for (let n=0;n<carte.equipements.length;n++) {
         stat += carte.equipements[n][nom];
     }
