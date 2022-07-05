@@ -50,6 +50,8 @@ function obtenir_carte (carte_id) {
             return true;
         },
         effet_pose_carte : function () {},
+        effet_ajouter : function () {},
+        effet_enlever : function () {},
         effet_attaque : function () {},
         effet_mort : function () {
             if (statistique(carte,"ephemere") && !statistique(carte,"silence")) {
@@ -71,7 +73,7 @@ function obtenir_carte (carte_id) {
         effet_vente_carte : function () {},
         boutique_generer : function () {},
         equipements : [],
-        equipement_max : 0,
+        equipement_max : 0
     }
     if (carte_id > 0) {
         carte.stat_etage = obtenir_carte(0);
@@ -91,7 +93,7 @@ function obtenir_carte (carte_id) {
         case 2:
             carte.nom = "Plastron";
             carte.type = "Objet";
-            carte.familles.push("Equipement","Armure");
+            carte.familles.push("Équipement","Armure");
             carte.cout[0] = 2;
             carte.vente[0] = 1;
             carte.vie_max = 2;
@@ -220,7 +222,7 @@ function obtenir_carte (carte_id) {
         case 4:
             carte.nom = "Epée";
             carte.type = "Objet";
-            carte.familles.push("Equipement","Arme");
+            carte.familles.push("Équipement","Arme");
             carte.cout[0] = 2;
             carte.vente[0] = 1;
             carte.attaque = 2;
@@ -311,19 +313,19 @@ function obtenir_carte (carte_id) {
             carte.vie_max = carte.vie = 2;
             carte.action_max = 1;
             carte.equipement_max = 1;
-            carte.texte = "Quand posé : Crée un Objet Equipement aléatoire dans la boutique.";
+            carte.texte = "Quand posé : Crée un Objet Équipement aléatoire dans la boutique.";
             carte.effet_pose = function () {
                 if (carte.camp == "joueur") {
                     if (!statistique(carte,"silence")) {
                         let verifier = false;
                         for (let n=0;n<Jeu.NOMBRE_CARTE;n++) {
-                            if (Jeu.joueur.regions[Jeu.region_active].boutique_generer(obtenir_carte(n)) && obtenir_carte(n).familles.includes("Equipement")) {
+                            if (Jeu.joueur.regions[Jeu.region_active].boutique_generer(obtenir_carte(n)) && obtenir_carte(n).familles.includes("Équipement")) {
                                 verifier = true;
                             }
                         }
                         if (verifier) {
                             let nouvelle_carte = boutique_generer();
-                            while (!nouvelle_carte.familles.includes("Equipement")) {
+                            while (!nouvelle_carte.familles.includes("Équipement")) {
                                 nouvelle_carte = boutique_generer();
                             }
                             ajouter(nouvelle_carte,"joueur","boutique");
@@ -491,7 +493,7 @@ function obtenir_carte (carte_id) {
             break;
         case 14:
             carte.nom = "Nécromancien";
-            carte.familles.push("Mort-vivant","Revenant");
+            carte.familles.push("Mort-vivant","Revenant","Mage");
             carte.cout[0] = 3;
             carte.cout[9] = 2;
             carte.vente[0] = 1;
@@ -512,7 +514,7 @@ function obtenir_carte (carte_id) {
             carte.familles.push("Hydre");
             carte.cout = [0,5,5,5,5,5,5,5,5,5,5,5,5];
             carte.vente = [0,2,2,2,2,2,2,2,2,2,2,2,2];
-            carte.attaque = 20;
+            carte.attaque = 25;
             carte.vie_max = carte.vie = 26;
             carte.action_max = 3;
             carte.equipement_max = 1;
@@ -842,7 +844,7 @@ function obtenir_carte (carte_id) {
         case 30:
             carte.nom = "Bottes";
             carte.type = "Objet";
-            carte.familles.push("Equipement","Armure");
+            carte.familles.push("Équipement","Armure");
             carte.cout[0] = 2;
             carte.vente[0] = 1;
             carte.rapidite = true;
@@ -1323,7 +1325,7 @@ function obtenir_carte (carte_id) {
         case 49:
             carte.nom = "Dague empoisonnée";
             carte.type = "Objet";
-            carte.familles.push("Equipement","Arme");
+            carte.familles.push("Équipement","Arme");
             carte.cout[0] = 2;
             carte.vente[0] = 1;
             carte.texte = "Applique l'effet suivant à la Créature équipée : Quand attaque : applique Poison 1 à la Créature attaquée.<br/>ou<br/>Applique Poison 1 à une Créature adverse sur le terrain.";
@@ -1536,7 +1538,7 @@ function obtenir_carte (carte_id) {
         case 52:
             carte.nom = "Fidèle espérant";
             carte.type = "Créature";
-            carte.familles.push("Humain","Eglise");
+            carte.familles.push("Humain","Église");
             carte.cout[0] = 3;
             carte.cout[10] = 2;
             carte.vente[0] = 1;
@@ -1743,7 +1745,7 @@ function obtenir_carte (carte_id) {
         case 58:
             carte.nom = "Dague";
             carte.type = "Objet";
-            carte.familles.push("Equipement","Arme");
+            carte.familles.push("Équipement","Arme");
             carte.cout[0] = 2;
             carte.vente[0] = 1;
             carte.attaque = 1;
@@ -1923,7 +1925,7 @@ function obtenir_carte (carte_id) {
             carte.vie_max = carte.vie = 2;
             carte.action_max = 1;
             carte.equipement_max = 1;
-            carte.texte = "Quand est équipé d'un Objet Equipement Arme : Se donne 1 attaque.";
+            carte.texte = "Quand est équipé d'un Objet Équipement Arme : Se donne 1 attaque.";
             carte.effet_equiper = function (equipement) {
                 if (equipement.familles.includes("Arme")) {
                     carte.attaque++;
@@ -1939,13 +1941,16 @@ function obtenir_carte (carte_id) {
             carte.cout[5] = 1;
             carte.vente[0] = 2;
             carte.vie_max = carte.vie = 1;
-            carte.texte = "Quand posé : Lance un décompte de 1.<br/>Quand le décompte de cette carte est écoulé : Se détruit et crée <a href='javascript:carte_voir_id(9)'>Dragon</a> sur le terrain.";
-            carte.effet_pose = function () {
-                carte.decompte = 1;
-                deplacer(carte,carte.camp,"terrain");
-                effet_pose(carte);
-                menu();
-                return true;
+            carte.texte = "Quand arrive sur le terrain : Lance un décompte de 1.<br/>Quand le décompte de cette carte est écoulé : Se détruit et crée <a href='javascript:carte_voir_id(9)'>Dragon</a> sur le terrain.";
+            carte.effet_ajouter = function () {
+                if (carte.zone == "terrain") {
+                    carte.decompte = 1;
+                }
+            }
+            carte.effet_enlever = function () {
+                if (carte.zone == "terrain") {
+                    carte.decompte = 0;
+                }
             }
             carte.effet_decompte = function () {
                 let nouvelle_carte = obtenir_carte(9);
@@ -2002,10 +2007,10 @@ function obtenir_carte (carte_id) {
             carte.type = "Créature";
             carte.familles.push("Ange");
             carte.cout[0] = 5;
-            carte.cout[1] = 2;
+            carte.cout[5] = 2;
             carte.cout[10] = 2;
             carte.vente[0] = 2;
-            carte.vente[1] = 1;
+            carte.vente[5] = 1;
             carte.vente[10] = 1;
             carte.attaque = 4;
             carte.vie_max = carte.vie = 4;
@@ -2023,9 +2028,9 @@ function obtenir_carte (carte_id) {
             }
             break;
         case 66:
-            carte.nom = "Evêque";
+            carte.nom = "Évêque";
             carte.type = "Créature";
-            carte.familles.push("Humain","Eglise");
+            carte.familles.push("Humain","Église");
             carte.cout[0] = 4;
             carte.cout[10] = 3;
             carte.vente[0] = 2;
@@ -2174,9 +2179,9 @@ function obtenir_carte (carte_id) {
             }
             break;
         case 71:
-            carte.nom = "Chercheur";
+            carte.nom = "Chercheur de sort";
             carte.type = "Créature";
-            carte.familles.push("Humain");
+            carte.familles.push("Humain","Mage");
             carte.cout[0] = 3;
             carte.attaque = 2;
             carte.vie_max = carte.vie = 2;
@@ -2453,7 +2458,7 @@ function obtenir_carte (carte_id) {
             carte.cout[1] = 4;
             carte.vente[0] = 2;
             carte.vente[1] = 2;
-            carte.texte = "Les cartes créées dans la boutique ont un coût minimum de 1 en Feu.";
+            carte.texte = "Les cartes créées dans la boutique ont un coût minimum de 1 Feu.";
             carte.effet_pose = function () {
                 if (carte.camp == "joueur") {
                     deplacer(carte,"joueur","zones");
@@ -2665,11 +2670,11 @@ function obtenir_carte (carte_id) {
             }
             break;
         case 83:
-            carte.nom = "Guerrier courageux";
+            carte.nom = "Soldat courageux";
             carte.type = "Créature";
             carte.familles.push("Humain");
-            carte.cout[0] = 5;
-            carte.vente[0] = 2;
+            carte.cout[0] = 6;
+            carte.vente[0] = 3;
             carte.attaque = 2;
             carte.vie = carte.vie_max = 2;
             carte.action_max = 1;
@@ -2689,6 +2694,1082 @@ function obtenir_carte (carte_id) {
                             carte.stat_tour.attaque++;
                         }
                     }
+                }
+            }
+            break;
+        case 84:
+            carte.nom = "Gobelin";
+            carte.familles.push("Gobelin");
+            carte.cout[0] = 2;
+            carte.cout[1] = 1;
+            carte.vente[0] = 1;
+            carte.attaque = 2;
+            carte.vie_max = carte.vie = 2;
+            carte.action_max = 1;
+            carte.equipement_max = 1;
+            break;
+        case 85:
+            carte.nom = "Ondin";
+            carte.familles.push("Ondin");
+            carte.cout[0] = 2;
+            carte.cout[2] = 1;
+            carte.vente[0] = 1;
+            carte.attaque = 2;
+            carte.vie_max = carte.vie = 2;
+            carte.action_max = 1;
+            carte.equipement_max = 1;
+            break;
+        case 86:
+            carte.nom = "Elfe";
+            carte.familles.push("Elfe");
+            carte.cout[0] = 2;
+            carte.cout[3] = 1;
+            carte.vente[0] = 1;
+            carte.attaque = 2;
+            carte.vie_max = carte.vie = 2;
+            carte.action_max = 1;
+            carte.equipement_max = 1;
+            break;
+        case 87:
+            carte.nom = "Nain";
+            carte.familles.push("Nain");
+            carte.cout[0] = 2;
+            carte.cout[4] = 1;
+            carte.vente[0] = 1;
+            carte.attaque = 2;
+            carte.vie_max = carte.vie = 2;
+            carte.action_max = 1;
+            carte.equipement_max = 1;
+            break;
+        case 88:
+            carte.nom = "Eolien";
+            carte.familles.push("Eolien");
+            carte.cout[0] = 2;
+            carte.cout[5] = 1;
+            carte.vente[0] = 1;
+            carte.attaque = 2;
+            carte.vie_max = carte.vie = 2;
+            carte.action_max = 1;
+            carte.equipement_max = 1;
+            break;
+        case 89:
+            carte.nom = "Satyre";
+            carte.familles.push("Satyre");
+            carte.cout[0] = 2;
+            carte.cout[6] = 1;
+            carte.vente[0] = 1;
+            carte.attaque = 2;
+            carte.vie_max = carte.vie = 2;
+            carte.action_max = 1;
+            carte.equipement_max = 1;
+            break;
+        case 90:
+            carte.nom = "Gnome";
+            carte.familles.push("Gnome");
+            carte.cout[0] = 2;
+            carte.cout[7] = 1;
+            carte.vente[0] = 1;
+            carte.attaque = 2;
+            carte.vie_max = carte.vie = 2;
+            carte.action_max = 1;
+            carte.equipement_max = 1;
+            break;
+        case 91:
+            carte.nom = "Arcaniste";
+            carte.familles.push("Arcaniste");
+            carte.cout[0] = 2;
+            carte.cout[8] = 1;
+            carte.vente[0] = 1;
+            carte.attaque = 2;
+            carte.vie_max = carte.vie = 2;
+            carte.action_max = 1;
+            carte.equipement_max = 1;
+            break;
+        case 92:
+            carte.nom = "Revenant";
+            carte.familles.push("Mort-vivant","Revenant");
+            carte.cout[0] = 2;
+            carte.cout[9] = 1;
+            carte.vente[0] = 1;
+            carte.attaque = 2;
+            carte.vie_max = carte.vie = 2;
+            carte.action_max = 1;
+            carte.equipement_max = 1;
+            break;
+        case 93:
+            carte.nom = "Fidèle";
+            carte.familles.push("Humain","Église");
+            carte.cout[0] = 2;
+            carte.cout[10] = 1;
+            carte.vente[0] = 1;
+            carte.attaque = 2;
+            carte.vie_max = carte.vie = 2;
+            carte.action_max = 1;
+            carte.equipement_max = 1;
+            break;
+        case 94:
+            carte.nom = "Elfe noir";
+            carte.familles.push("Elfe noir");
+            carte.cout[0] = 2;
+            carte.cout[11] = 1;
+            carte.vente[0] = 1;
+            carte.attaque = 2;
+            carte.vie_max = carte.vie = 2;
+            carte.action_max = 1;
+            carte.equipement_max = 1;
+            break;
+        case 95:
+            carte.nom = "Nordique";
+            carte.familles.push("Nordique");
+            carte.cout[0] = 2;
+            carte.cout[12] = 1;
+            carte.vente[0] = 1;
+            carte.attaque = 2;
+            carte.vie_max = carte.vie = 2;
+            carte.action_max = 1;
+            carte.equipement_max = 1;
+            break;
+        case 96:
+            carte.nom = "Île";
+            carte.type = "Région";
+            carte.cout[0] = 5;
+            carte.cout[2] = 4;
+            carte.vente[0] = 2;
+            carte.vente[2] = 2;
+            carte.texte = "Les cartes créées dans la boutique ont un coût minimum de 1 Eau.";
+            carte.effet_pose = function () {
+                if (carte.camp == "joueur") {
+                    deplacer(carte,"joueur","zones");
+                    menu();
+                }
+                else {
+                    return false;
+                }
+            }
+            carte.boutique_generer = function (nouvelle_carte) {
+                if ((cout_total(nouvelle_carte) <= Jeu.boutique_niveau*3 || Jeu.boutique_niveau == 10) && !nouvelle_carte.exclusif && nouvelle_carte.cout[2] > 0) {
+                    return true;
+                }
+                return false;
+            }
+            break;
+        case 97:
+            carte.nom = "Forêt";
+            carte.type = "Région";
+            carte.cout[0] = 5;
+            carte.cout[3] = 4;
+            carte.vente[0] = 2;
+            carte.vente[3] = 2;
+            carte.texte = "Les cartes créées dans la boutique ont un coût minimum de 1 Végétal.";
+            carte.effet_pose = function () {
+                if (carte.camp == "joueur") {
+                    deplacer(carte,"joueur","zones");
+                    menu();
+                }
+                else {
+                    return false;
+                }
+            }
+            carte.boutique_generer = function (nouvelle_carte) {
+                if ((cout_total(nouvelle_carte) <= Jeu.boutique_niveau*3 || Jeu.boutique_niveau == 10) && !nouvelle_carte.exclusif && nouvelle_carte.cout[3] > 0) {
+                    return true;
+                }
+                return false;
+            }
+            break;
+        case 98:
+            carte.nom = "Montagne";
+            carte.type = "Région";
+            carte.cout[0] = 5;
+            carte.cout[4] = 4;
+            carte.vente[0] = 2;
+            carte.vente[4] = 2;
+            carte.texte = "Les cartes créées dans la boutique ont un coût minimum de 1 Terre.";
+            carte.effet_pose = function () {
+                if (carte.camp == "joueur") {
+                    deplacer(carte,"joueur","zones");
+                    menu();
+                }
+                else {
+                    return false;
+                }
+            }
+            carte.boutique_generer = function (nouvelle_carte) {
+                if ((cout_total(nouvelle_carte) <= Jeu.boutique_niveau*3 || Jeu.boutique_niveau == 10) && !nouvelle_carte.exclusif && nouvelle_carte.cout[4] > 0) {
+                    return true;
+                }
+                return false;
+            }
+            break;
+        case 99:
+            carte.nom = "Île volante";
+            carte.type = "Région";
+            carte.cout[0] = 5;
+            carte.cout[5] = 4;
+            carte.vente[0] = 2;
+            carte.vente[5] = 2;
+            carte.texte = "Les cartes créées dans la boutique ont un coût minimum de 1 Air.";
+            carte.effet_pose = function () {
+                if (carte.camp == "joueur") {
+                    deplacer(carte,"joueur","zones");
+                    menu();
+                }
+                else {
+                    return false;
+                }
+            }
+            carte.boutique_generer = function (nouvelle_carte) {
+                if ((cout_total(nouvelle_carte) <= Jeu.boutique_niveau*3 || Jeu.boutique_niveau == 10) && !nouvelle_carte.exclusif && nouvelle_carte.cout[5] > 0) {
+                    return true;
+                }
+                return false;
+            }
+            break;
+        case 100:
+            carte.nom = "Haut plateau";
+            carte.type = "Région";
+            carte.cout[0] = 5;
+            carte.cout[6] = 4;
+            carte.vente[0] = 2;
+            carte.vente[6] = 2;
+            carte.texte = "Les cartes créées dans la boutique ont un coût minimum de 1 Foudre.";
+            carte.effet_pose = function () {
+                if (carte.camp == "joueur") {
+                    deplacer(carte,"joueur","zones");
+                    menu();
+                }
+                else {
+                    return false;
+                }
+            }
+            carte.boutique_generer = function (nouvelle_carte) {
+                if ((cout_total(nouvelle_carte) <= Jeu.boutique_niveau*3 || Jeu.boutique_niveau == 10) && !nouvelle_carte.exclusif && nouvelle_carte.cout[6] > 0) {
+                    return true;
+                }
+                return false;
+            }
+            break;
+        case 101:
+            carte.nom = "Mine";
+            carte.type = "Région";
+            carte.cout[0] = 5;
+            carte.cout[7] = 4;
+            carte.vente[0] = 2;
+            carte.vente[7] = 2;
+            carte.texte = "Les cartes créées dans la boutique ont un coût minimum de 1 Metal.";
+            carte.effet_pose = function () {
+                if (carte.camp == "joueur") {
+                    deplacer(carte,"joueur","zones");
+                    menu();
+                }
+                else {
+                    return false;
+                }
+            }
+            carte.boutique_generer = function (nouvelle_carte) {
+                if ((cout_total(nouvelle_carte) <= Jeu.boutique_niveau*3 || Jeu.boutique_niveau == 10) && !nouvelle_carte.exclusif && nouvelle_carte.cout[7] > 0) {
+                    return true;
+                }
+                return false;
+            }
+            break;
+        case 102:
+            carte.nom = "Terre illusoire";
+            carte.type = "Région";
+            carte.cout[0] = 5;
+            carte.cout[8] = 4;
+            carte.vente[0] = 2;
+            carte.vente[8] = 2;
+            carte.texte = "Les cartes créées dans la boutique ont un coût minimum de 1 Arcane.";
+            carte.effet_pose = function () {
+                if (carte.camp == "joueur") {
+                    deplacer(carte,"joueur","zones");
+                    menu();
+                }
+                else {
+                    return false;
+                }
+            }
+            carte.boutique_generer = function (nouvelle_carte) {
+                if ((cout_total(nouvelle_carte) <= Jeu.boutique_niveau*3 || Jeu.boutique_niveau == 10) && !nouvelle_carte.exclusif && nouvelle_carte.cout[8] > 0) {
+                    return true;
+                }
+                return false;
+            }
+            break;
+        case 103:
+            carte.nom = "Cimetière";
+            carte.type = "Région";
+            carte.cout[0] = 5;
+            carte.cout[9] = 4;
+            carte.vente[0] = 2;
+            carte.vente[9] = 2;
+            carte.texte = "Les cartes créées dans la boutique ont un coût minimum de 1 Mort.";
+            carte.effet_pose = function () {
+                if (carte.camp == "joueur") {
+                    deplacer(carte,"joueur","zones");
+                    menu();
+                }
+                else {
+                    return false;
+                }
+            }
+            carte.boutique_generer = function (nouvelle_carte) {
+                if ((cout_total(nouvelle_carte) <= Jeu.boutique_niveau*3 || Jeu.boutique_niveau == 10) && !nouvelle_carte.exclusif && nouvelle_carte.cout[9] > 0) {
+                    return true;
+                }
+                return false;
+            }
+            break;
+        case 104:
+            carte.nom = "Terre sacrée";
+            carte.type = "Région";
+            carte.cout[0] = 5;
+            carte.cout[10] = 4;
+            carte.vente[0] = 2;
+            carte.vente[10] = 2;
+            carte.texte = "Les cartes créées dans la boutique ont un coût minimum de 1 Lumière.";
+            carte.effet_pose = function () {
+                if (carte.camp == "joueur") {
+                    deplacer(carte,"joueur","zones");
+                    menu();
+                }
+                else {
+                    return false;
+                }
+            }
+            carte.boutique_generer = function (nouvelle_carte) {
+                if ((cout_total(nouvelle_carte) <= Jeu.boutique_niveau*3 || Jeu.boutique_niveau == 10) && !nouvelle_carte.exclusif && nouvelle_carte.cout[10] > 0) {
+                    return true;
+                }
+                return false;
+            }
+            break;
+        case 105:
+            carte.nom = "Caverne";
+            carte.type = "Région";
+            carte.cout[0] = 5;
+            carte.cout[11] = 4;
+            carte.vente[0] = 2;
+            carte.vente[11] = 2;
+            carte.texte = "Les cartes créées dans la boutique ont un coût minimum de 1 Ombre.";
+            carte.effet_pose = function () {
+                if (carte.camp == "joueur") {
+                    deplacer(carte,"joueur","zones");
+                    menu();
+                }
+                else {
+                    return false;
+                }
+            }
+            carte.boutique_generer = function (nouvelle_carte) {
+                if ((cout_total(nouvelle_carte) <= Jeu.boutique_niveau*3 || Jeu.boutique_niveau == 10) && !nouvelle_carte.exclusif && nouvelle_carte.cout[11] > 0) {
+                    return true;
+                }
+                return false;
+            }
+            break;
+        case 106:
+            carte.nom = "Toundra";
+            carte.type = "Région";
+            carte.cout[0] = 5;
+            carte.cout[12] = 4;
+            carte.vente[0] = 2;
+            carte.vente[12] = 2;
+            carte.texte = "Les cartes créées dans la boutique ont un coût minimum de 1 Glace.";
+            carte.effet_pose = function () {
+                if (carte.camp == "joueur") {
+                    deplacer(carte,"joueur","zones");
+                    menu();
+                }
+                else {
+                    return false;
+                }
+            }
+            carte.boutique_generer = function (nouvelle_carte) {
+                if ((cout_total(nouvelle_carte) <= Jeu.boutique_niveau*3 || Jeu.boutique_niveau == 10) && !nouvelle_carte.exclusif && nouvelle_carte.cout[12] > 0) {
+                    return true;
+                }
+                return false;
+            }
+            break;
+        case 107:
+            carte.nom = "Bouclier";
+            carte.type = "Objet";
+            carte.familles.push("Équipement","Armure");
+            carte.cout[0] = 2;
+            carte.vente[0] = 1;
+            carte.defense = 1;
+            carte.texte = "Donne 1 défense à la Créature équipée.";
+            carte.effet_pose = function (step,cible) {
+                if (carte.camp == "joueur") {
+                    switch (step) {
+                        case 1:
+                            if (verifier_equipement(carte.camp)) {
+                                initialiser();
+                                div("main");
+                                fonction("Annuler","menu()");
+                                saut(2);
+                                afficher(carte.nom);
+                                saut();
+                                afficher(carte.texte);
+                                saut();
+                                afficher("Choisissez une Créature : ");
+                                saut(2);
+                                for (let n=0;n<Jeu.joueur.terrain.length;n++) {
+                                    if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].equipements.length < Jeu.joueur.terrain[n].equipement_max) {
+                                        afficher_carte("joueur","terrain",n);
+                                        afficher(" ");
+                                        fonction("Cibler","Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
+                                        saut();
+                                    }
+                                }
+                                div_fin();
+                                div("carte");
+                                div_fin();
+                                actualiser();
+                            }
+                            break;
+                        case 2:
+                            Jeu.joueur.terrain[cible].equipements.push(carte);
+                            if (!statistique(Jeu.joueur.terrain[cible],"silence")) {
+                                Jeu.joueur.terrain[cible].effet_equiper(carte);
+                            }
+                            effet_pose(carte);
+                            enlever(carte);
+                            menu();
+                            break;
+                    }
+                }
+                else {
+                    if (verifier_equipement(carte.camp)) {
+                        let best = 0;
+                        while (Jeu.adverse.terrain[best].type != "Créature" || Jeu.adverse.terrain[best].equipements.length >= Jeu.adverse.terrain[best].equipement_max) {
+                            best++;
+                        }
+                        Jeu.adverse.terrain[best].equipements.push(carte);
+                        if (!statistique(Jeu.adverse.terrain[best],"silence")) {
+                            Jeu.adverse.terrain[best].effet_equiper(carte);
+                        }
+                        effet_pose(carte);
+                        enlever(carte);
+                        return true;
+                    }
+                    return false;
+                }
+            }
+            break;
+        case 108:
+            carte.nom = "Arc";
+            carte.type = "Objet";
+            carte.familles.push("Équipement","Arme");
+            carte.cout[0] = 2;
+            carte.vente[0] = 1;
+            carte.attaque = 1;
+            carte.portee = true;
+            carte.texte = "Donne 1 attaque et applique Portée à la Créature équipée.";
+            carte.effet_pose = function (step,cible) {
+                if (carte.camp == "joueur") {
+                    switch (step) {
+                        case 1:
+                            if (verifier_equipement(carte.camp)) {
+                                initialiser();
+                                div("main");
+                                fonction("Annuler","menu()");
+                                saut(2);
+                                afficher(carte.nom);
+                                saut();
+                                afficher(carte.texte);
+                                saut();
+                                afficher("Choisissez une Créature : ");
+                                saut(2);
+                                for (let n=0;n<Jeu.joueur.terrain.length;n++) {
+                                    if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].equipements.length < Jeu.joueur.terrain[n].equipement_max) {
+                                        afficher_carte("joueur","terrain",n);
+                                        afficher(" ");
+                                        fonction("Cibler","Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
+                                        saut();
+                                    }
+                                }
+                                div_fin();
+                                div("carte");
+                                div_fin();
+                                actualiser();
+                            }
+                            break;
+                        case 2:
+                            Jeu.joueur.terrain[cible].equipements.push(carte);
+                            if (!statistique(Jeu.joueur.terrain[cible],"silence")) {
+                                Jeu.joueur.terrain[cible].effet_equiper(carte);
+                            }
+                            effet_pose(carte);
+                            enlever(carte);
+                            menu();
+                            break;
+                    }
+                }
+                else {
+                    if (verifier_equipement(carte.camp)) {
+                        let best = 0;
+                        while (Jeu.adverse.terrain[best].type != "Créature" || Jeu.adverse.terrain[best].equipements.length >= Jeu.adverse.terrain[best].equipement_max) {
+                            best++;
+                        }
+                        Jeu.adverse.terrain[best].equipements.push(carte);
+                        if (!statistique(Jeu.adverse.terrain[best],"silence")) {
+                            Jeu.adverse.terrain[best].effet_equiper(carte);
+                        }
+                        effet_pose(carte);
+                        enlever(carte);
+                        return true;
+                    }
+                    return false;
+                }
+            }
+            break;
+        case 109:
+            carte.nom = "Baguette";
+            carte.type = "Objet";
+            carte.familles.push("Équipement","Arme");
+            carte.cout[0] = 2;
+            carte.vente[0] = 1;
+            carte.attaque = 1;
+            carte.sorcellerie = 1;
+            carte.texte = "Donne 1 attaque et applique Sorcellerie 1 à la Créature équipée.";
+            carte.effet_pose = function (step,cible) {
+                if (carte.camp == "joueur") {
+                    switch (step) {
+                        case 1:
+                            if (verifier_equipement(carte.camp)) {
+                                initialiser();
+                                div("main");
+                                fonction("Annuler","menu()");
+                                saut(2);
+                                afficher(carte.nom);
+                                saut();
+                                afficher(carte.texte);
+                                saut();
+                                afficher("Choisissez une Créature : ");
+                                saut(2);
+                                for (let n=0;n<Jeu.joueur.terrain.length;n++) {
+                                    if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].equipements.length < Jeu.joueur.terrain[n].equipement_max) {
+                                        afficher_carte("joueur","terrain",n);
+                                        afficher(" ");
+                                        fonction("Cibler","Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
+                                        saut();
+                                    }
+                                }
+                                div_fin();
+                                div("carte");
+                                div_fin();
+                                actualiser();
+                            }
+                            break;
+                        case 2:
+                            Jeu.joueur.terrain[cible].equipements.push(carte);
+                            if (!statistique(Jeu.joueur.terrain[cible],"silence")) {
+                                Jeu.joueur.terrain[cible].effet_equiper(carte);
+                            }
+                            effet_pose(carte);
+                            enlever(carte);
+                            menu();
+                            break;
+                    }
+                }
+                else {
+                    if (verifier_equipement(carte.camp)) {
+                        let best = 0;
+                        while (Jeu.adverse.terrain[best].type != "Créature" || Jeu.adverse.terrain[best].equipements.length >= Jeu.adverse.terrain[best].equipement_max) {
+                            best++;
+                        }
+                        Jeu.adverse.terrain[best].equipements.push(carte);
+                        if (!statistique(Jeu.adverse.terrain[best],"silence")) {
+                            Jeu.adverse.terrain[best].effet_equiper(carte);
+                        }
+                        effet_pose(carte);
+                        enlever(carte);
+                        return true;
+                    }
+                    return false;
+                }
+            }
+            break;
+        case 110:
+            carte.nom = "Lance";
+            carte.type = "Objet";
+            carte.familles.push("Équipement","Arme");
+            carte.cout[0] = 2;
+            carte.vente[0] = 1;
+            carte.attaque = 1;
+            carte.percee = 1;
+            carte.texte = "Donne 1 attaque et applique Percée 1 à la Créature équipée.";
+            carte.effet_pose = function (step,cible) {
+                if (carte.camp == "joueur") {
+                    switch (step) {
+                        case 1:
+                            if (verifier_equipement(carte.camp)) {
+                                initialiser();
+                                div("main");
+                                fonction("Annuler","menu()");
+                                saut(2);
+                                afficher(carte.nom);
+                                saut();
+                                afficher(carte.texte);
+                                saut();
+                                afficher("Choisissez une Créature : ");
+                                saut(2);
+                                for (let n=0;n<Jeu.joueur.terrain.length;n++) {
+                                    if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].equipements.length < Jeu.joueur.terrain[n].equipement_max) {
+                                        afficher_carte("joueur","terrain",n);
+                                        afficher(" ");
+                                        fonction("Cibler","Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
+                                        saut();
+                                    }
+                                }
+                                div_fin();
+                                div("carte");
+                                div_fin();
+                                actualiser();
+                            }
+                            break;
+                        case 2:
+                            Jeu.joueur.terrain[cible].equipements.push(carte);
+                            if (!statistique(Jeu.joueur.terrain[cible],"silence")) {
+                                Jeu.joueur.terrain[cible].effet_equiper(carte);
+                            }
+                            effet_pose(carte);
+                            enlever(carte);
+                            menu();
+                            break;
+                    }
+                }
+                else {
+                    if (verifier_equipement(carte.camp)) {
+                        let best = 0;
+                        while (Jeu.adverse.terrain[best].type != "Créature" || Jeu.adverse.terrain[best].equipements.length >= Jeu.adverse.terrain[best].equipement_max) {
+                            best++;
+                        }
+                        Jeu.adverse.terrain[best].equipements.push(carte);
+                        if (!statistique(Jeu.adverse.terrain[best],"silence")) {
+                            Jeu.adverse.terrain[best].effet_equiper(carte);
+                        }
+                        effet_pose(carte);
+                        enlever(carte);
+                        return true;
+                    }
+                    return false;
+                }
+            }
+            break;
+        case 111:
+            carte.nom = "Double lame";
+            carte.type = "Objet";
+            carte.familles.push("Équipement","Arme");
+            carte.cout[0] = 5;
+            carte.vente[0] = 2;
+            carte.action_max = 1;
+            carte.texte = "Donne 1 action supplémentaire à la Créature équipée.";
+            carte.effet_pose = function (step,cible) {
+                if (carte.camp == "joueur") {
+                    switch (step) {
+                        case 1:
+                            if (verifier_equipement(carte.camp)) {
+                                initialiser();
+                                div("main");
+                                fonction("Annuler","menu()");
+                                saut(2);
+                                afficher(carte.nom);
+                                saut();
+                                afficher(carte.texte);
+                                saut();
+                                afficher("Choisissez une Créature : ");
+                                saut(2);
+                                for (let n=0;n<Jeu.joueur.terrain.length;n++) {
+                                    if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].equipements.length < Jeu.joueur.terrain[n].equipement_max) {
+                                        afficher_carte("joueur","terrain",n);
+                                        afficher(" ");
+                                        fonction("Cibler","Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
+                                        saut();
+                                    }
+                                }
+                                div_fin();
+                                div("carte");
+                                div_fin();
+                                actualiser();
+                            }
+                            break;
+                        case 2:
+                            Jeu.joueur.terrain[cible].equipements.push(carte);
+                            if (!statistique(Jeu.joueur.terrain[cible],"silence")) {
+                                Jeu.joueur.terrain[cible].effet_equiper(carte);
+                            }
+                            effet_pose(carte);
+                            enlever(carte);
+                            menu();
+                            break;
+                    }
+                }
+                else {
+                    if (verifier_equipement(carte.camp)) {
+                        let best = 0;
+                        while (Jeu.adverse.terrain[best].type != "Créature" || Jeu.adverse.terrain[best].equipements.length >= Jeu.adverse.terrain[best].equipement_max) {
+                            best++;
+                        }
+                        Jeu.adverse.terrain[best].equipements.push(carte);
+                        if (!statistique(Jeu.adverse.terrain[best],"silence")) {
+                            Jeu.adverse.terrain[best].effet_equiper(carte);
+                        }
+                        effet_pose(carte);
+                        enlever(carte);
+                        return true;
+                    }
+                    return false;
+                }
+            }
+            break;
+        case 112:
+            carte.nom = "Loup";
+            carte.familles.push("Bête");
+            carte.cout[0] = 3;
+            carte.vente[0] = 1;
+            carte.attaque = 2;
+            carte.vie_max = carte.vie = 2;
+            carte.action_max = 1;
+            carte.equipement_max = 1;
+            break;
+        case 113:
+            carte.nom = "Ville";
+            carte.type = "Région";
+            carte.cout[0] = 9;
+            carte.vente[0] = 4;
+            carte.texte = "Les cartes créées dans la boutique coûtent uniquement de l'Or.";
+            carte.effet_pose = function () {
+                if (carte.camp == "joueur") {
+                    deplacer(carte,"joueur","regions");
+                    menu();
+                }
+                else {
+                    return false;
+                }
+            }
+            carte.boutique_generer = function (nouvelle_carte) {
+                if ((cout_total(nouvelle_carte) <= Jeu.boutique_niveau*3 || Jeu.boutique_niveau == 10) && !nouvelle_carte.exclusif && nouvelle_carte.cout[0] == cout_total(nouvelle_carte)) {
+                    return true;
+                }
+                return false;
+            }
+            break;
+        case 114:
+            carte.nom = "Golem";
+            carte.familles.push("Golem");
+            carte.cout[0] = 5;
+            carte.cout[4] = 4;
+            carte.vente[0] = 2;
+            carte.vente[4] = 2;
+            carte.attaque = 1;
+            carte.defense = 2;
+            carte.vie_max = carte.vie = 5;
+            carte.action_max = 1;
+            carte.equipement_max = 1;
+            break;
+        case 115:
+            carte.nom = "Minotaure";
+            carte.familles.push("Minotaure");
+            carte.cout[0] = 3;
+            carte.cout[4] = 2;
+            carte.vente[0] = 1;
+            carte.vente[4] = 1;
+            carte.attaque = 2;
+            carte.vie_max = carte.vie = 2;
+            carte.action_max = 1;
+            carte.equipement_max = 1;
+            carte.texte = "Quand attaque un Bâtiment : Inflige 2 dégats au Bâtiment attaqué.";
+            carte.effet_attaque = function (defenseur) {
+                if (defenseur.type == "Bâtiment") {
+                    degats(defenseur,2);
+                }
+            }
+            break;
+        case 116:
+            carte.nom = "Centaure";
+            carte.familles.push("Centaure");
+            carte.cout[0] = 3;
+            carte.cout[6] = 2;
+            carte.vente[0] = 1;
+            carte.vente[6] = 1;
+            carte.attaque = 2;
+            carte.vie_max = carte.vie = 2;
+            carte.action_max = 1;
+            carte.equipement_max = 1;
+            carte.rapidite = true;
+            break;
+        case 117:
+            carte.nom = "Archimage";
+            carte.type = "Créature";
+            carte.familles.push("Humain","Mage");
+            carte.cout[0] = 9;
+            carte.vente[0] = 4;
+            carte.attaque = 4;
+            carte.vie_max = carte.vie = 4;
+            carte.action_max = 1;
+            carte.sorcellerie = 2;
+            carte.equipement_max = 1;
+            break;
+        case 118:
+            carte.nom = "Grand automate";
+            carte.type = "Créature";
+            carte.familles.push("Machine","Automate");
+            carte.cout[0] = 5;
+            carte.cout[7] = 4;
+            carte.vente[0] = 2;
+            carte.vente[7] = 2;
+            carte.attaque = 5;
+            carte.vie_max = carte.vie = 5;
+            carte.action_max = 1;
+            carte.equipement_max = 1;
+            break;
+        case 119:
+            carte.nom = "Faucon";
+            carte.type = "Créature";
+            carte.familles.push("Oiseau");
+            carte.cout[0] = 2;
+            carte.cout[5] = 1;
+            carte.vente[0] = 1;
+            carte.attaque = 2;
+            carte.vie_max = carte.vie = 2;
+            carte.action_max = 1;
+            carte.equipement_max = 1;
+            break;
+        case 120:
+            carte.nom = "Hydre";
+            carte.familles.push("Hydre");
+            carte.cout[0] = 5;
+            carte.cout[2] = 4;
+            carte.vente[0] = 2;
+            carte.vente[2] = 2;
+            carte.attaque = 2;
+            carte.vie_max = carte.vie = 3;
+            carte.action_max = 2;
+            carte.equipement_max = 1;
+            break;
+        case 121:
+            carte.nom = "Tir de flèche";
+            carte.type = "Action";
+            carte.cout[0] = 1;
+            carte.texte = "Inflige 1 dégât à une Créature ou un Bâtiment adverse sur le terrain.";
+            carte.effet_pose = function (step,cible) {
+                if (carte.camp == "joueur") {
+                    switch (step) {
+                        case 1:
+                            if (Jeu.adverse.terrain.length > 0) {
+                                initialiser();
+                                div("main");
+                                fonction("Annuler","menu()");
+                                saut(2);
+                                afficher(carte.nom);
+                                saut();
+                                afficher(carte.texte);
+                                saut();
+                                afficher("Choisissez une Créature ou un Bâtiment adverse : ");
+                                saut(2);
+                                for (let n=0;n<Jeu.adverse.terrain.length;n++) {
+                                    afficher_carte("adverse","terrain",n);
+                                    afficher(" ");
+                                    fonction("Cibler","Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
+                                    saut();
+                                }
+                                div_fin();
+                                div("carte");
+                                div_fin();
+                                actualiser();
+                            }
+                            break;
+                        case 2:
+                            degats(Jeu.adverse.terrain[cible],1);
+                            deplacer(carte,"joueur","defausse");
+                            effet_pose(carte);
+                            menu();
+                            break;
+                    }
+                }
+                else {
+                    if (Jeu.joueur.terrain.length > 0) {
+                        let best = 0;
+                        for (let n=0;n<Jeu.joueur.terrain.length;n++) {
+                            if (Jeu.joueur.terrain[n].vie == 1) {
+                                best = n;
+                            }
+                        }
+                        degats(Jeu.joueur.terrain[best],1);
+                        deplacer(carte,"adverse","defausse");
+                        effet_pose(carte);
+                        return true;
+                    }
+                    return false;
+                }
+            }
+            break;
+        case 122:
+            carte.nom = "Carpe";
+            carte.familles.push("Poisson");
+            carte.cout[0] = 2;
+            carte.cout[2] = 1;
+            carte.vente[0] = 1;
+            carte.attaque = 2;
+            carte.vie_max = carte.vie = 2;
+            carte.action_max = 1;
+            carte.equipement_max = 1;
+            break;
+        case 123:
+            carte.nom = "Requin";
+            carte.familles.push("Poisson");
+            carte.cout[0] = 3;
+            carte.cout[2] = 2;
+            carte.vente[0] = 1;
+            carte.vente[2] = 1;
+            carte.attaque = 3;
+            carte.vie_max = carte.vie = 3;
+            carte.action_max = 1;
+            carte.equipement_max = 1;
+            break;
+        case 124:
+            carte.nom = "Sardine";
+            carte.familles.push("Poisson");
+            carte.cout[2] = 1;
+            carte.attaque = 1;
+            carte.vie_max = carte.vie = 1;
+            carte.action_max = 1;
+            carte.equipement_max = 1;
+            break;
+        case 125:
+            carte.nom = "Tortue";
+            carte.familles.push("Reptile");
+            carte.cout[0] = 2;
+            carte.cout[2] = 1;
+            carte.vente[0] = 1;
+            carte.attaque = 1;
+            carte.defense = 1;
+            carte.vie_max = carte.vie = 1;
+            carte.action_max = 1;
+            carte.equipement_max = 1;
+            break;
+        case 126:
+            carte.nom = "Crabe";
+            carte.cout[0] = 2;
+            carte.cout[2] = 1;
+            carte.vente[0] = 1;
+            carte.attaque = 1;
+            carte.vie_max = carte.vie = 2;
+            carte.action_max = 1;
+            carte.equipement_max = 1;
+            carte.regeneration = 1;
+            break;
+        case 127:
+            carte.nom = "Zombie";
+            carte.familles.push("Mort-vivant","Zombie");
+            carte.cout[0] = 2;
+            carte.cout[9] = 2;
+            carte.vente[0] = 1;
+            carte.vente[9] = 1;
+            carte.attaque = 2;
+            carte.vie_max = carte.vie = 3;
+            carte.action_max = 1;
+            carte.equipement_max = 1;
+            break;
+        case 128:
+            carte.nom = "Cyclope";
+            carte.familles.push("Cyclope");
+            carte.cout[0] = 5;
+            carte.cout[6] = 4;
+            carte.vente[0] = 2;
+            carte.vente[6] = 2;
+            carte.attaque = 4;
+            carte.vie_max = carte.vie = 4;
+            carte.action_max = 1;
+            carte.equipement_max = 1;
+            carte.texte = "Quand posé : Crée un Eclair cyclopéen dans la boutique.";
+            carte.effet_pose = function () {
+                if (carte.camp == "joueur") {
+                    if (!statistique(carte,"silence")) {
+                        ajouter(obtenir_carte(129),"joueur","boutique");
+                    }
+                    deplacer(carte,"joueur","terrain");
+                    effet_pose(carte);
+                    menu();
+                }
+                else {
+                    deplacer(carte,"adverse","terrain");
+                    effet_pose(carte);
+                    return true;
+                }
+            }
+            break;
+        case 129:
+            carte.nom = "Eclair cyclopéen";
+            carte.type = "Objet";
+            carte.familles.push("Équipement","Arme");
+            carte.cout[0] = 3;
+            carte.cout[6] = 2;
+            carte.vente[0] = 1;
+            carte.vente[6] = 1;
+            carte.attaque = 4;
+            carte.sorcellerie = 1;
+            carte.exclusif = true;
+            carte.texte = "Donne 4 attaque et applique Sorcellerie 1 à la Créature équipée.";
+            carte.effet_pose = function (step,cible) {
+                if (carte.camp == "joueur") {
+                    switch (step) {
+                        case 1:
+                            if (verifier_equipement(carte.camp)) {
+                                initialiser();
+                                div("main");
+                                fonction("Annuler","menu()");
+                                saut(2);
+                                afficher(carte.nom);
+                                saut();
+                                afficher(carte.texte);
+                                saut();
+                                afficher("Choisissez une Créature : ");
+                                saut(2);
+                                for (let n=0;n<Jeu.joueur.terrain.length;n++) {
+                                    if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].equipements.length < Jeu.joueur.terrain[n].equipement_max) {
+                                        afficher_carte("joueur","terrain",n);
+                                        afficher(" ");
+                                        fonction("Cibler","Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
+                                        saut();
+                                    }
+                                }
+                                div_fin();
+                                div("carte");
+                                div_fin();
+                                actualiser();
+                            }
+                            break;
+                        case 2:
+                            Jeu.joueur.terrain[cible].equipements.push(carte);
+                            if (!statistique(Jeu.joueur.terrain[cible],"silence")) {
+                                Jeu.joueur.terrain[cible].effet_equiper(carte);
+                            }
+                            effet_pose(carte);
+                            enlever(carte);
+                            menu();
+                            break;
+                    }
+                }
+                else {
+                    if (verifier_equipement(carte.camp)) {
+                        let best = 0;
+                        while (Jeu.adverse.terrain[best].type != "Créature" || Jeu.adverse.terrain[best].equipements.length >= Jeu.adverse.terrain[best].equipement_max) {
+                            best++;
+                        }
+                        Jeu.adverse.terrain[best].equipements.push(carte);
+                        if (!statistique(Jeu.adverse.terrain[best],"silence")) {
+                            Jeu.adverse.terrain[best].effet_equiper(carte);
+                        }
+                        effet_pose(carte);
+                        enlever(carte);
+                        return true;
+                    }
+                    return false;
                 }
             }
             break;

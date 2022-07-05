@@ -15,7 +15,9 @@ function demarrage () {
             {nom : "Ombre"},//11
             {nom : "Glace"}//12
         ],
-        NOMBRE_CARTE : 83,
+        types : ["Créature","Bâtiment","Objet","Action","Région"],
+        familles : [],
+        NOMBRE_CARTE : 129,
         combat : {
             auto : true,
             vitesse : 1000,
@@ -26,8 +28,13 @@ function demarrage () {
         raccourci_pose : true,
         texte_talent : true,
         collection : [],
-        familles : [],
+        collection_tri : "id",
         collection_ordre : "croissant",
+        collection_filtre : {
+            type : "Tous",
+            famille : "Toutes",
+            cout : "Tous"
+        }
     }
     for (let n=1;n<=Jeu.NOMBRE_CARTE;n++) {
         let carte = obtenir_carte(n);
@@ -109,6 +116,7 @@ function nouvelle_partie () {
     Jeu.combat.etat = false;
     ajouter(obtenir_carte(78),"joueur","regions");
     ajouter(obtenir_carte(31),"joueur","main");
+    ajouter(obtenir_carte(128),"joueur","main");
     ajouter(obtenir_carte(1),"joueur","terrain");
     adversaire_generer(1);
     adversaire_jouer();
@@ -284,7 +292,7 @@ function carte_voir_id (carte_id) {
 function carte_afficher (carte) {
     let texte = "";
     texte += "<u>Nom :</u> " + carte.nom + "<br/>";
-    texte += "<u>Cout :</u> ";
+    texte += "<u>Coût :</u> ";
     let premier_cout = true;
     for (let n=0;n<carte.cout.length;n++) {
         if (carte.cout[n] > 0) {
@@ -329,6 +337,9 @@ function carte_afficher (carte) {
     }
     texte += "<br/>";
     texte += "<u>Effet :</u> " + carte.texte + "<br/>";
+    if (carte.exclusif) {
+        texte += "Cette carte ne peut pas être créée dans la boutique. <br/>";
+    }
     if (["Créature","Bâtiment"].includes(carte.type)) {
         if (statistique(carte,"protection")) {
             texte += "Protection";
@@ -363,7 +374,10 @@ function carte_afficher (carte) {
             if (Jeu.texte_talent) {
                 texte += " : Débloque des effets supplémentaires de certaines cartes.";
             }
-            texte += " <i>(votre sorcellerie totale est de " + sorcellerie(carte.camp) + ")</i> <br/>";
+            if (carte.camp == "joueur" || carte.camp == "adverse") {
+                texte += " <i>(votre sorcellerie totale est de " + sorcellerie(carte.camp) + ")</i>";
+            }
+            texte += "<br/>";
         }
         if (statistique(carte,"resistance") > 0) {
             texte += "Résistance " + statistique(carte,"resistance");
@@ -520,7 +534,7 @@ function carte_afficher (carte) {
         texte += "<br/>";
     }
     if (carte.type == "Créature") {
-        texte += "<u>Equipements :</u> <br/>";
+        texte += "<u>Équipements :</u> <br/>";
         if (carte.equipements.length > 0) {
             for (let n=0;n<carte.equipements.length;n++) {
                 texte += carte.equipements[n].nom + " : " + carte.equipements[n].texte + "<br/>";
@@ -1069,9 +1083,15 @@ function ajouter (carte,camp,zone) {
     carte.zone = zone;
     carte.camp = camp;
     carte.slot = Jeu[camp][zone].length - 1;
+    if (!statistique(carte,"silence")) {
+        carte.effet_ajouter();
+    }
 }
 
 function enlever (carte) {
+    if (!statistique(carte,"silence")) {
+        carte.effet_enlever();
+    }
     Jeu[carte.camp][carte.zone].splice(carte.slot,1);
     for (let n=carte.slot;n<Jeu[carte.camp][carte.zone].length;n++) {
         Jeu[carte.camp][carte.zone][n].slot--;

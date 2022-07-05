@@ -54,9 +54,12 @@ function collection_tri_init () {
     for (let n=1;n<=Jeu.NOMBRE_CARTE;n++) {
         Jeu.collection.push(obtenir_carte(n));
     }
+    Jeu.collection_tri = "id";
+    Jeu.collection_ordre = "croissant";
 }
 
 function collection_tri_nom () {
+    Jeu.collection_tri = "nom";
     for (let i=0;i<Jeu.collection.length;i++) {
         let j = i;
         while (j > 0 && Jeu.collection[j-1].nom > Jeu.collection[j].nom) {
@@ -71,6 +74,7 @@ function collection_tri_nom () {
 }
 
 function collection_tri_id () {
+    Jeu.collection_tri = "id";
     for (let i=0;i<Jeu.collection.length;i++) {
         let j = i;
         while (j > 0 && Jeu.collection[j-1].id > Jeu.collection[j].id) {
@@ -85,6 +89,7 @@ function collection_tri_id () {
 }
 
 function collection_tri_cout () {
+    Jeu.collection_tri = "cout";
     for (let i=0;i<Jeu.collection.length;i++) {
         let j = i;
         while (j > 0 && cout_total(Jeu.collection[j-1]) > cout_total(Jeu.collection[j])) {
@@ -104,17 +109,34 @@ function collection_filtre () {
     saut(2);
     afficher("Type de carte : <select id='filtre_type'>")
     afficher("<option value=" + '"Tous"' + ">Tous</option>");
-    afficher("<option value=" + '"Créature"' + ">Créature</option>");
-    afficher("<option value=" + '"Bâtiment"' + ">Bâtiment</option>");
-    afficher("<option value=" + '"Objet"' + ">Objet</option>");
-    afficher("<option value=" + '"Action"' + ">Action</option>");
-    afficher("<option value=" + '"Région"' + ">Région</option>");
+    for (let n=0;n<Jeu.types.length;n++) {
+        afficher("<option value=" + Jeu.types[n]);
+        if (Jeu.collection_filtre.type == Jeu.types[n]) {
+            afficher(" selected=" + '"selected"');
+        }
+        afficher(">" + Jeu.types[n] + "</option>");
+    }
     afficher("</select>");
     saut(2);
     afficher("Famille : <select id='filtre_famille'>")
     afficher("<option value=" + '"Toutes"' + ">Toutes</option>");
     for (let n=0;n<Jeu.familles.length;n++) {
-        afficher("<option value=" + Jeu.familles[n] + ">" + Jeu.familles[n] + "</option>");
+        afficher("<option value=" + Jeu.familles[n]);
+        if (Jeu.collection_filtre.famille == Jeu.familles[n]) {
+            afficher(" selected=" + '"selected"');
+        }
+        afficher(">" + Jeu.familles[n] + "</option>");
+    }
+    afficher("</select>");
+    saut(2);
+    afficher("Coût : <select id='filtre_cout'>")
+    afficher("<option value=" + '"Tous"' + ">Tous</option>");
+    for (let n=0;n<Jeu.ressources.length;n++) {
+        afficher("<option value=" + n);
+        if (Jeu.collection_filtre.cout == n) {
+            afficher(" selected=" + '"selected"');
+        }
+        afficher(">" + Jeu.ressources[n].nom + "</option>");
     }
     afficher("</select>");
     saut(2);
@@ -123,12 +145,29 @@ function collection_filtre () {
 }
 
 function collection_filtre_appliquer () {
+    let filtre = {
+        type : document.getElementById("filtre_type").value,
+        famille : document.getElementById("filtre_famille").value,
+        cout : document.getElementById("filtre_cout").value
+    }
+    Jeu.collection_filtre = filtre;
     Jeu.collection = [];
     for (let n=1;n<=Jeu.NOMBRE_CARTE;n++) {
         let carte = obtenir_carte(n);
-        if ((document.getElementById("filtre_type").value == carte.type || document.getElementById("filtre_type").value == "Tous") && (carte.familles.includes(document.getElementById("filtre_famille").value) || document.getElementById("filtre_famille").value == "Toutes")) {
+        if ((filtre.type == carte.type || filtre.type == "Tous") && (carte.familles.includes(filtre.famille) || filtre.famille == "Toutes") && (carte.cout[filtre.cout] > 0 || filtre.cout == "Tous")) {
             Jeu.collection.push(obtenir_carte(n));
         }
+    }
+    switch (Jeu.collection_tri) {
+        case "id":
+            collection_tri_id();
+            break
+        case "nom":
+            collection_tri_nom();
+            break
+        case "cout":
+            collection_tri_cout();
+            break
     }
     collection();
 }
