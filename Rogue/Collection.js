@@ -62,7 +62,7 @@ function collection_tri_nom () {
     Jeu.collection_tri = "nom";
     for (let i=0;i<Jeu.collection.length;i++) {
         let j = i;
-        while (j > 0 && Jeu.collection[j-1].nom > Jeu.collection[j].nom) {
+        while (j > 0 && Jeu.collection[j-1].nom.localeCompare(Jeu.collection[j].nom) > 0) {
             let a = Jeu.collection[j];
             let b = Jeu.collection[j - 1];
             Jeu.collection[j] = b;
@@ -140,6 +140,17 @@ function collection_filtre () {
     }
     afficher("</select>");
     saut(2);
+    afficher("Niveau de boutique : <select id='filtre_boutique'>")
+    afficher("<option value=" + '"Tous"' + ">Tous</option>");
+    for (let n=1;n<=10;n++) {
+        afficher("<option value=" + n);
+        if (Jeu.collection_filtre.boutique == n) {
+            afficher(" selected=" + '"selected"');
+        }
+        afficher(">" + n + "</option>");
+    }
+    afficher("</select>");
+    saut(2);
     fonction("Filtrer","collection_filtre_appliquer()");
     actualiser();
 }
@@ -148,13 +159,14 @@ function collection_filtre_appliquer () {
     let filtre = {
         type : document.getElementById("filtre_type").value,
         famille : document.getElementById("filtre_famille").value,
-        cout : document.getElementById("filtre_cout").value
+        cout : document.getElementById("filtre_cout").value,
+        boutique : document.getElementById("filtre_boutique").value
     }
     Jeu.collection_filtre = filtre;
     Jeu.collection = [];
     for (let n=1;n<=Jeu.NOMBRE_CARTE;n++) {
         let carte = obtenir_carte(n);
-        if ((filtre.type == carte.type || filtre.type == "Tous") && (carte.familles.includes(filtre.famille) || filtre.famille == "Toutes") && (carte.cout[filtre.cout] > 0 || filtre.cout == "Tous")) {
+        if ((filtre.type == carte.type || filtre.type == "Tous") && (carte.familles.includes(filtre.famille) || filtre.famille == "Toutes") && (carte.cout[filtre.cout] > 0 || filtre.cout == "Tous") && (((cout_total(carte) <= filtre.boutique*5 || filtre.boutique == 10) && cout_total(carte) > (filtre.boutique - 1)*5) || filtre.boutique == "Tous")) {
             Jeu.collection.push(obtenir_carte(n));
         }
     }

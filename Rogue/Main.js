@@ -8,7 +8,7 @@ function demarrage () {
             {nom : "Terre"},//4
             {nom : "Air"},//5
             {nom : "Foudre"},//6
-            {nom : "Metal"},//7
+            {nom : "Métal"},//7
             {nom : "Arcane"},//8
             {nom : "Mort"},//9
             {nom : "Lumière"},//10
@@ -17,7 +17,7 @@ function demarrage () {
         ],
         types : ["Créature","Bâtiment","Objet","Action","Région"],
         familles : [],
-        NOMBRE_CARTE : 129,
+        NOMBRE_CARTE : 204,
         combat : {
             auto : true,
             vitesse : 1000,
@@ -33,7 +33,8 @@ function demarrage () {
         collection_filtre : {
             type : "Tous",
             famille : "Toutes",
-            cout : "Tous"
+            cout : "Tous",
+            boutique : "Tous"
         }
     }
     for (let n=1;n<=Jeu.NOMBRE_CARTE;n++) {
@@ -46,7 +47,7 @@ function demarrage () {
     }
     for (let i=0;i<Jeu.familles.length;i++) {
         let j = i;
-        while (j > 0 && Jeu.familles[j-1] > Jeu.familles[j]) {
+        while (j > 0 && Jeu.familles[j-1].localeCompare(Jeu.familles[j]) > 0) {
             let a = Jeu.familles[j];
             let b = Jeu.familles[j - 1];
             Jeu.familles[j] = b;
@@ -83,20 +84,22 @@ function nouvelle_partie () {
         main : [],
         terrain : [],
         defausse : [],
-        regions : [],
+        regions : []
     }
     Jeu.adverse = {
         vie : 10,
         vie_max : 10,
         ressources : [],
+        boutique : [],
         main : [],
         terrain : [],
-        defausse : [],
+        defausse : []
     }
     for (let n=0;n<Jeu.ressources.length;n++) {
         let ressource = {
             courant : 0,
             max : 0,
+            reserve : 0
         }
         Jeu.joueur.ressources.push(ressource);
     }
@@ -104,7 +107,7 @@ function nouvelle_partie () {
     for (let n=0;n<Jeu.ressources.length;n++) {
         let ressource = {
             courant : 0,
-            max : 0,
+            max : 0
         }
         Jeu.adverse.ressources.push(ressource);
     }
@@ -116,7 +119,9 @@ function nouvelle_partie () {
     Jeu.combat.etat = false;
     ajouter(obtenir_carte(78),"joueur","regions");
     ajouter(obtenir_carte(31),"joueur","main");
+    ajouter(obtenir_carte(163),"joueur","main");
     ajouter(obtenir_carte(1),"joueur","terrain");
+    ajouter(obtenir_carte(117),"joueur","terrain");
     adversaire_generer(1);
     adversaire_jouer();
     adversaire_generer(2);
@@ -134,8 +139,11 @@ function menu () {
     afficher("Vie restante : " + Jeu.joueur.vie + " / " + Jeu.joueur.vie_max);
     saut();
     for (let n=0;n<Jeu.ressources.length;n++) {
-        if (Jeu.joueur.ressources[n].max > 0 || Jeu.joueur.ressources[n].courant > 0) {
+        if (Jeu.joueur.ressources[n].max > 0 || Jeu.joueur.ressources[n].courant > 0 || Jeu.joueur.ressources[n].reserve > 0) {
             afficher(Jeu.ressources[n].nom + " : " + Jeu.joueur.ressources[n].courant + " / " + Jeu.joueur.ressources[n].max);
+            if (Jeu.joueur.ressources[n].reserve > 0) {
+                afficher(" + " + Jeu.joueur.ressources[n].reserve);
+            }
             saut();
         }
     }
@@ -339,6 +347,27 @@ function carte_afficher (carte) {
     if (carte.exclusif) {
         texte += "Cette carte ne peut pas être créée dans la boutique. <br/>";
     }
+    if (statistique(carte,"eternite") > 0) {
+        texte += "Eternité";
+        if (Jeu.texte_talent) {
+            texte += " : Ne disparais pas de votre défausse.";
+        }
+        texte += "<br/>";
+    }
+    if (statistique(carte,"temporaire")) {
+        texte += "Temporaire ";
+        if (Jeu.texte_talent) {
+            texte += " : Est banni à la fin de la phase de combat.";
+        }
+        texte += "<br/>";
+    }
+    if (statistique(carte,"ephemere")) {
+        texte += "Ephémère ";
+        if (Jeu.texte_talent) {
+            texte += " : Quand meurt ou est détruit, est banni. (les effets qui se déclenche à la mort de la Créature se déclenche quand même, mais elle ne va pas à la défausse)";
+        }
+        texte += "<br/>";
+    }
     if (["Créature","Bâtiment"].includes(carte.type)) {
         if (statistique(carte,"protection")) {
             texte += "Protection";
@@ -361,6 +390,13 @@ function carte_afficher (carte) {
             }
             texte += "<br/>";
         }
+        else if (statistique(carte,"action_max") == 0) {
+            texte += "Inactif";
+            if (Jeu.texte_talent) {
+                texte += " : Ne joue pas durant la phase de combat.";
+            }
+            texte += "<br/>";
+        }
         if (carte.brulure > 0) {
             texte += "Brûlure " + carte.brulure;
             if (Jeu.texte_talent) {
@@ -371,7 +407,7 @@ function carte_afficher (carte) {
         if (statistique(carte,"sorcellerie") > 0) {
             texte += "Sorcellerie " + statistique(carte,"sorcellerie");
             if (Jeu.texte_talent) {
-                texte += " : Débloque des effets supplémentaires de certaines cartes.";
+                texte += " : Débloque des effets supplémentaires pour les cartes Action Sort.";
             }
             if (carte.camp == "joueur" || carte.camp == "adverse") {
                 texte += " <i>(votre sorcellerie totale est de " + sorcellerie(carte.camp) + ")</i>";
@@ -382,13 +418,6 @@ function carte_afficher (carte) {
             texte += "Résistance " + statistique(carte,"resistance");
             if (Jeu.texte_talent) {
                 texte += " : Quand cette carte subit des dégats, en subis " + statistique(carte,"resistance") + " de moins.";
-            }
-            texte += "<br/>";
-        }
-        if (statistique(carte,"eternite") > 0) {
-            texte += "Eternité";
-            if (Jeu.texte_talent) {
-                texte += " : Ne disparais pas de votre défausse.";
             }
             texte += "<br/>";
         }
@@ -420,24 +449,10 @@ function carte_afficher (carte) {
             }
             texte += "<br/>";
         }
-        if (carte.temporaire > 0) {
-            texte += "Temporaire ";
-            if (Jeu.texte_talent) {
-                texte += " : Est banni à la fin de la phase de combat.";
-            }
-            texte += "<br/>";
-        }
         if (carte.camouflage) {
             texte += "Camouflage ";
             if (Jeu.texte_talent) {
                 texte += " : Ne peut pas être ciblé par une attaque adverse. S'enlève quand joue.";
-            }
-            texte += "<br/>";
-        }
-        if (statistique(carte,"ephemere")) {
-            texte += "Ephémère ";
-            if (Jeu.texte_talent) {
-                texte += " : Quand meurt ou est détruit, est banni. (les effets qui se déclenche à la mort de la Créature se déclenche quand même, mais elle ne va pas à la défausse)";
             }
             texte += "<br/>";
         }
@@ -501,8 +516,8 @@ function carte_afficher (carte) {
             }
             texte += "<br/>";
         }
-        if (carte.maladie > 0) {
-            texte += "Maladie " + carte.maladie;
+        if (carte.contamination > 0) {
+            texte += "Contamination " + carte.contamination;
             if (Jeu.texte_talent) {
                 texte += " : Débloque des effets supplémentaires de certaines cartes.";
             }
@@ -642,13 +657,19 @@ function boutique_verrouiller () {
 function acheter (boutique_slot) {
     let achat = true;
     for (let n=0;n<Jeu.ressources.length;n++) {
-        if (Jeu.joueur.ressources[n].courant < Jeu.joueur.boutique[boutique_slot].cout[n]) {
+        if (Jeu.joueur.ressources[n].courant + Jeu.joueur.ressources[n].reserve < Jeu.joueur.boutique[boutique_slot].cout[n]) {
             achat = false;
         }
     }
     if (achat) {
         for (let n=0;n<Jeu.ressources.length;n++) {
-            Jeu.joueur.ressources[n].courant -= Jeu.joueur.boutique[boutique_slot].cout[n];
+            if (Jeu.joueur.ressources[n].courant > Jeu.joueur.boutique[boutique_slot].cout[n]) {
+                Jeu.joueur.ressources[n].courant -= Jeu.joueur.boutique[boutique_slot].cout[n];
+            }
+            else {
+                Jeu.joueur.ressources[n].reserve -= Jeu.joueur.boutique[boutique_slot].cout[n] - Jeu.joueur.ressources[n].courant;
+                Jeu.joueur.ressources[n].courant = 0;
+            }
         }
         Jeu.joueur.boutique[boutique_slot].verrouillage = false;
         deplacer(Jeu.joueur.boutique[boutique_slot],"joueur","main");
@@ -711,6 +732,13 @@ function etage_fin () {
         Jeu.joueur.ressources[n].courant = Jeu.joueur.ressources[n].max;
     }
     for (let n=0;n<Jeu.joueur.terrain.length;n++) {
+        if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].equipements.length > 0) {
+            for (let i=0;i<Jeu.joueur.terrain[n].equipements.length;i++) {
+                if (Jeu.joueur.terrain[n].equipements[i].temporaire) {
+                    Jeu.joueur.terrain[n].equipements.splice(i,1);
+                }
+            }
+        }
         Jeu.joueur.terrain[n].vie -= Jeu.joueur.terrain[n].stat_etage.vie_max;
         Jeu.joueur.terrain[n].stat_etage = obtenir_carte(0);
         Jeu.joueur.terrain[n].vie -= Jeu.joueur.terrain[n].stat_tour.vie_max;
@@ -721,7 +749,7 @@ function etage_fin () {
                 Jeu.joueur.terrain[n].effet_decompte();
             }
         }
-        if (Jeu.joueur.terrain[n].temporaire && !statistique(Jeu.joueur.terrain[n],"silence")) {
+        if (statistique(Jeu.joueur.terrain[n],"temporaire") && !statistique(Jeu.joueur.terrain[n],"silence")) {
             enlever(Jeu.joueur.terrain[n]);
             n--;
         }
@@ -731,11 +759,18 @@ function etage_fin () {
         }
     }
     for (let n=0;n<Jeu.joueur.main.length;n++) {
+        if (Jeu.joueur.main[n].type == "Créature" && Jeu.joueur.main[n].equipements.length > 0) {
+            for (let i=0;i<Jeu.joueur.main[n].equipements.length;i++) {
+                if (Jeu.joueur.main[n].equipements[i].temporaire) {
+                    Jeu.joueur.main[n].equipements.splice(i,1);
+                }
+            }
+        }
         if (["Créature","Bâtiment"].includes(Jeu.joueur.main[n].type)) {
             Jeu.joueur.main[n].vie -= Jeu.joueur.main[n].stat_etage.vie_max;
             Jeu.joueur.main[n].stat_etage = obtenir_carte(0);
         }
-        if (Jeu.joueur.main[n].temporaire && !statistique(Jeu.joueur.main[n],"silence")) {
+        if (statistique(Jeu.joueur.main[n],"temporaire") && !statistique(Jeu.joueur.main[n],"silence")) {
             enlever(Jeu.joueur.main[n]);
             n--;
         }
@@ -745,6 +780,13 @@ function etage_fin () {
         }
     }
     for (let n=0;n<Jeu.joueur.defausse.length;n++) {
+        if (Jeu.joueur.defausse[n].type == "Créature" && Jeu.joueur.defausse[n].equipements.length > 0) {
+            for (let i=0;i<Jeu.joueur.defausse[n].equipements.length;i++) {
+                if (Jeu.joueur.defausse[n].equipements[i].temporaire) {
+                    Jeu.joueur.defausse[n].equipements.splice(i,1);
+                }
+            }
+        }
         if (["Créature","Bâtiment"].includes(Jeu.joueur.defausse[n].type)) {
             Jeu.joueur.defausse[n].vie -= Jeu.joueur.defausse[n].stat_etage.vie_max;
             Jeu.joueur.defausse[n].stat_etage = obtenir_carte(0);
@@ -753,12 +795,19 @@ function etage_fin () {
             }
         }
         Jeu.joueur.defausse[n].etage_mort++;
-        if ((Jeu.joueur.defausse[n].etage_mort > 1 && !(Jeu.joueur.defausse[n].eternite && !statistique(Jeu.joueur.defausse[n],"silence"))) || (Jeu.joueur.defausse[n].temporaire && !statistique(Jeu.joueur.defausse[n],"silence"))) {
+        if ((Jeu.joueur.defausse[n].etage_mort > 1 && !(Jeu.joueur.defausse[n].eternite && !statistique(Jeu.joueur.defausse[n],"silence"))) || (statistique(Jeu.joueur.defausse[n],"temporaire") && !statistique(Jeu.joueur.defausse[n],"silence"))) {
             enlever(Jeu.joueur.defausse[n]);
             n--;
         }
     }
     for (let n=0;n<Jeu.adverse.terrain.length;n++) {
+        if (Jeu.adverse.terrain[n].type == "Créature" && Jeu.adverse.terrain[n].equipements.length > 0) {
+            for (let i=0;i<Jeu.adverse.terrain[n].equipements.length;i++) {
+                if (Jeu.adverse.terrain[n].equipements[i].temporaire) {
+                    Jeu.adverse.terrain[n].equipements.splice(i,1);
+                }
+            }
+        }
         Jeu.adverse.terrain[n].vie -= Jeu.adverse.terrain[n].stat_etage.vie_max;
         Jeu.adverse.terrain[n].stat_etage = obtenir_carte(0);
         Jeu.adverse.terrain[n].vie -= Jeu.adverse.terrain[n].stat_tour.vie_max;
@@ -769,7 +818,7 @@ function etage_fin () {
                 Jeu.adverse.terrain[n].effet_decompte();
             }
         }
-        if (Jeu.adverse.terrain[n].temporaire && !statistique(Jeu.adverse.terrain[n],"silence")) {
+        if (statistique(Jeu.adverse.terrain[n],"temporaire") && !statistique(Jeu.adverse.terrain[n],"silence")) {
             enlever(Jeu.adverse.terrain[n]);
             n--;
         }
@@ -779,11 +828,18 @@ function etage_fin () {
         }
     }
     for (let n=0;n<Jeu.adverse.main.length;n++) {
+        if (Jeu.adverse.main[n].type == "Créature" && Jeu.adverse.main[n].equipements.length > 0) {
+            for (let i=0;i<Jeu.adverse.main[n].equipements.length;i++) {
+                if (Jeu.adverse.main[n].equipements[i].temporaire) {
+                    Jeu.adverse.main[n].equipements.splice(i,1);
+                }
+            }
+        }
         if (["Créature","Bâtiment"].includes(Jeu.adverse.main[n].type)) {
             Jeu.adverse.main[n].vie -= Jeu.adverse.main[n].stat_etage.vie_max;
             Jeu.adverse.main[n].stat_etage = obtenir_carte(0);
         }
-        if (Jeu.adverse.main[n].temporaire && !statistique(Jeu.adverse.main[n],"silence")) {
+        if (statistique(Jeu.adverse.main[n],"temporaire") && !statistique(Jeu.adverse.main[n],"silence")) {
             enlever(Jeu.adverse.main[n]);
             n--;
         }
@@ -793,6 +849,13 @@ function etage_fin () {
         }
     }
     for (let n=0;n<Jeu.adverse.defausse.length;n++) {
+        if (Jeu.adverse.defausse[n].type == "Créature" && Jeu.adverse.defausse[n].equipements.length > 0) {
+            for (let i=0;i<Jeu.adverse.defausse[n].equipements.length;i++) {
+                if (Jeu.adverse.defausse[n].equipements[i].temporaire) {
+                    Jeu.adverse.defausse[n].equipements.splice(i,1);
+                }
+            }
+        }
         if (["Créature","Bâtiment"].includes(Jeu.adverse.defausse[n].type)) {
             Jeu.adverse.defausse[n].vie -= Jeu.adverse.defausse[n].stat_etage.vie_max;
             Jeu.adverse.defausse[n].stat_etage = obtenir_carte(0);
@@ -801,7 +864,7 @@ function etage_fin () {
             }
         }
         Jeu.adverse.defausse[n].etage_mort++;
-        if ((Jeu.adverse.defausse[n].etage_mort > 1 && (!Jeu.adverse.defausse[n].eternite && !statistique(Jeu.adverse.defausse[n],"silence"))) || (Jeu.adverse.defausse[n].temporaire && !statistique(Jeu.adverse.defausse[n],"silence"))) {
+        if ((Jeu.adverse.defausse[n].etage_mort > 1 && (!Jeu.adverse.defausse[n].eternite && !statistique(Jeu.adverse.defausse[n],"silence"))) || (statistique(Jeu.adverse.defausse[n],"temporaire") && !statistique(Jeu.adverse.defausse[n],"silence"))) {
             enlever(Jeu.adverse.defausse[n]);
             n--;
         }
@@ -906,8 +969,11 @@ function adversaire_voir () {
     afficher("Vie adverse : " + Jeu.adverse.vie + " / " + Jeu.adverse.vie_max);
     saut();
     for (let n=0;n<Jeu.ressources.length;n++) {
-        if (Jeu.adverse.ressources[n].max > 0 || Jeu.adverse.ressources[n].courant > 0) {
+        if (Jeu.adverse.ressources[n].max > 0 || Jeu.adverse.ressources[n].courant > 0 || Jeu.adverse.ressources[n].reserve > 0) {
             afficher(Jeu.ressources[n].nom + " : " + Jeu.adverse.ressources[n].courant + " / " + Jeu.adverse.ressources[n].max);
+            if (Jeu.adverse.ressources[n].reserve > 0) {
+                afficher(" + " + Jeu.adverse.ressources[n].reserve);
+            }
             saut();
         }
     }
@@ -1056,7 +1122,7 @@ function statistique (carte,nom) {
     stat += carte.stat_etage[nom];
     stat += carte.stat_tour[nom];
     for (let n=0;n<carte.equipements.length;n++) {
-        stat += carte.equipements[n][nom];
+        stat += carte.equipements[n].stat_equipement[nom];
     }
     return stat;
 }
@@ -1109,6 +1175,15 @@ function effet_pose (carte) {
     }
 }
 
+function verifier_creature (camp,zone) {
+    for (let n=0;n<Jeu[camp][zone].length;n++) {
+        if (Jeu[camp][zone][n].type == "Créature") {
+            return true;
+        }
+    }
+    return false;
+}
+
 function verifier_soin_creature (camp) {
     for (let n=0;n<Jeu[camp].terrain.length;n++) {
         if (Jeu[camp].terrain[n].vie < Jeu[camp].terrain[n].vie_max && Jeu[camp].terrain[n].type == "Créature") {
@@ -1121,15 +1196,6 @@ function verifier_soin_creature (camp) {
 function verifier_equipement (camp) {
     for (let n=0;n<Jeu[camp].terrain.length;n++) {
         if (Jeu[camp].terrain[n].type == "Créature" && Jeu[camp].terrain[n].equipements.length < Jeu[camp].terrain[n].equipement_max) {
-            return true;
-        }
-    }
-    return false;
-}
-
-function verifier_creature (camp) {
-    for (let n=0;n<Jeu[camp].terrain.length;n++) {
-        if (Jeu[camp].terrain[n].type == "Créature") {
             return true;
         }
     }
