@@ -17,7 +17,7 @@ function demarrage () {
         ],
         types : ["Créature","Bâtiment","Objet","Action","Région"],
         familles : [],
-        NOMBRE_CARTE : 204,
+        NOMBRE_CARTE : 210,
         combat : {
             auto : true,
             vitesse : 1000,
@@ -119,9 +119,7 @@ function nouvelle_partie () {
     Jeu.combat.etat = false;
     ajouter(obtenir_carte(78),"joueur","regions");
     ajouter(obtenir_carte(31),"joueur","main");
-    ajouter(obtenir_carte(163),"joueur","main");
     ajouter(obtenir_carte(1),"joueur","terrain");
-    ajouter(obtenir_carte(117),"joueur","terrain");
     adversaire_generer(1);
     adversaire_jouer();
     adversaire_generer(2);
