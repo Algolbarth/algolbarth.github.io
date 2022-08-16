@@ -1640,7 +1640,7 @@ function obtenir_carte(carte_id) {
                             }
                             break;
                         case 2:
-                            Jeu.joueur.terrain[cible] = 0;
+                            Jeu.joueur.terrain[cible].poison = 0;
                             deplacer(carte, "joueur", "defausse");
                             effet_pose(carte);
                             menu();
@@ -1650,8 +1650,11 @@ function obtenir_carte(carte_id) {
                 else {
                     if (verifier_poison("adverse")) {
                         let best = 0;
+                        while (Jeu.adverse.terrain[best].type != "Créature" || Jeu.adverse.terrain[best].poison == 0) {
+                            best++;
+                        }
                         for (let n = 0; n < Jeu.adverse.terrain.length; n++) {
-                            if (Jeu.adverse.terrain[n].poison > Jeu.adverse.terrain[best].poison) {
+                            if (Jeu.adverse.terrain[n].poison > Jeu.adverse.terrain[best].poison && Jeu.adverse.terrain[n].type == "Créature") {
                                 best = n;
                             }
                         }
@@ -2467,8 +2470,8 @@ function obtenir_carte(carte_id) {
         case 72:
             carte.nom = "Assomer";
             carte.type = "Action";
-            carte.cout[0] = 3;
-            carte.vente[0] = 1;
+            carte.cout[0] = 5;
+            carte.vente[0] = 2;
             carte.texte = "Applique Etourdissement à une Créature adverse sur le terrain.";
             carte.effet_pose = function (step, cible) {
                 if (carte.camp == "joueur") {
@@ -7045,6 +7048,261 @@ function obtenir_carte(carte_id) {
                         degats(Jeu.joueur.terrain[first_creature], statistique(Jeu.joueur.terrain[best1], "attaque"));
                         effet_pose(carte);
                         enlever(carte);
+                        return true;
+                    }
+                    return false;
+                }
+            }
+            break;
+        case 226:
+            carte.nom = "Boisson fraîche";
+            carte.type = "Objet";
+            carte.familles.push("Potion");
+            carte.cout[0] = 4;
+            carte.vente[0] = 2;
+            carte.texte = "Enlève Brûlure à une Créature alliée sur le terrain.";
+            carte.effet_pose = function (step, cible) {
+                if (carte.camp == "joueur") {
+                    switch (step) {
+                        case 1:
+                            if (verifier_brulure("joueur")) {
+                                initialiser();
+                                div("main");
+                                fonction("Annuler", "menu()");
+                                saut(2);
+                                afficher(carte.nom);
+                                saut();
+                                afficher(carte.texte);
+                                saut();
+                                afficher("Choisissez une Créature : ");
+                                saut(2);
+                                for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
+                                    if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].brulure > 0) {
+                                        afficher_carte("joueur", "terrain", n);
+                                        afficher(" ");
+                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
+                                        saut();
+                                    }
+                                }
+                                div_fin();
+                                div("carte");
+                                div_fin();
+                                actualiser();
+                            }
+                            break;
+                        case 2:
+                            Jeu.joueur.terrain[cible].brulure = 0;
+                            deplacer(carte, "joueur", "defausse");
+                            effet_pose(carte);
+                            menu();
+                            break;
+                    }
+                }
+                else {
+                    if (verifier_brulure("adverse")) {
+                        let best = 0;
+                        while (Jeu.adverse.terrain[best].type != "Créature" || Jeu.adverse.terrain[best].brulure == 0) {
+                            best++;
+                        }
+                        for (let n = 0; n < Jeu.adverse.terrain.length; n++) {
+                            if (Jeu.adverse.terrain[n].brulure > Jeu.adverse.terrain[best].brulure && Jeu.adverse.terrain[n].type == "Créature") {
+                                best = n;
+                            }
+                        }
+                        Jeu.adverse.terrain[best].brulure = 0;
+                        deplacer(carte, "adverse", "defausse");
+                        effet_pose(carte);
+                        return true;
+                    }
+                    return false;
+                }
+            }
+            break;
+        case 227:
+            carte.nom = "Boisson chaude";
+            carte.type = "Objet";
+            carte.familles.push("Potion");
+            carte.cout[0] = 6;
+            carte.vente[0] = 3;
+            carte.texte = "Enlève Gel à une Créature alliée sur le terrain.";
+            carte.effet_pose = function (step, cible) {
+                if (carte.camp == "joueur") {
+                    switch (step) {
+                        case 1:
+                            if (verifier_gel("joueur")) {
+                                initialiser();
+                                div("main");
+                                fonction("Annuler", "menu()");
+                                saut(2);
+                                afficher(carte.nom);
+                                saut();
+                                afficher(carte.texte);
+                                saut();
+                                afficher("Choisissez une Créature : ");
+                                saut(2);
+                                for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
+                                    if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].gel > 0) {
+                                        afficher_carte("joueur", "terrain", n);
+                                        afficher(" ");
+                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
+                                        saut();
+                                    }
+                                }
+                                div_fin();
+                                div("carte");
+                                div_fin();
+                                actualiser();
+                            }
+                            break;
+                        case 2:
+                            Jeu.joueur.terrain[cible].gel = 0;
+                            deplacer(carte, "joueur", "defausse");
+                            effet_pose(carte);
+                            menu();
+                            break;
+                    }
+                }
+                else {
+                    if (verifier_gel("adverse")) {
+                        let best = 0;
+                        while (Jeu.adverse.terrain[best].type != "Créature" || Jeu.adverse.terrain[best].gel == 0) {
+                            best++;
+                        }
+                        for (let n = 0; n < Jeu.adverse.terrain.length; n++) {
+                            if (Jeu.adverse.terrain[n].gel > Jeu.adverse.terrain[best].gel && Jeu.adverse.terrain[n].type == "Créature") {
+                                best = n;
+                            }
+                        }
+                        Jeu.adverse.terrain[best].gel = 0;
+                        deplacer(carte, "adverse", "defausse");
+                        effet_pose(carte);
+                        return true;
+                    }
+                    return false;
+                }
+            }
+            break;
+        case 228:
+            carte.nom = "Sels";
+            carte.type = "Objet";
+            carte.familles.push("Potion");
+            carte.cout[0] = 5;
+            carte.vente[0] = 2;
+            carte.texte = "Enlève Etourdissement à une Créature alliée sur le terrain.";
+            carte.effet_pose = function (step, cible) {
+                if (carte.camp == "joueur") {
+                    switch (step) {
+                        case 1:
+                            if (verifier_etourdissement("joueur")) {
+                                initialiser();
+                                div("main");
+                                fonction("Annuler", "menu()");
+                                saut(2);
+                                afficher(carte.nom);
+                                saut();
+                                afficher(carte.texte);
+                                saut();
+                                afficher("Choisissez une Créature : ");
+                                saut(2);
+                                for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
+                                    if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].etourdissement) {
+                                        afficher_carte("joueur", "terrain", n);
+                                        afficher(" ");
+                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
+                                        saut();
+                                    }
+                                }
+                                div_fin();
+                                div("carte");
+                                div_fin();
+                                actualiser();
+                            }
+                            break;
+                        case 2:
+                            Jeu.joueur.terrain[cible].etourdissement = false;
+                            deplacer(carte, "joueur", "defausse");
+                            effet_pose(carte);
+                            menu();
+                            break;
+                    }
+                }
+                else {
+                    if (verifier_etourdissement("adverse")) {
+                        let best = 0;
+                        while (Jeu.adverse.terrain[best].type != "Créature" || !Jeu.adverse.terrain[best].etourdissement) {
+                            best++;
+                        }
+                        for (let n = 0; n < Jeu.adverse.terrain.length; n++) {
+                            if (Jeu.adverse.terrain[n].action > Jeu.adverse.terrain[best].action && Jeu.adverse.terrain[n].etourdissement && Jeu.adverse.terrain[n].type == "Créature") {
+                                best = n;
+                            }
+                        }
+                        Jeu.adverse.terrain[best].etourdissement = false;
+                        deplacer(carte, "adverse", "defausse");
+                        effet_pose(carte);
+                        return true;
+                    }
+                    return false;
+                }
+            }
+            break;
+        case 229:
+            carte.nom = "Pansement";
+            carte.type = "Objet";
+            carte.cout[0] = 3;
+            carte.vente[0] = 1;
+            carte.texte = "Enlève Saignement à une Créature alliée sur le terrain.";
+            carte.effet_pose = function (step, cible) {
+                if (carte.camp == "joueur") {
+                    switch (step) {
+                        case 1:
+                            if (verifier_saignement("joueur")) {
+                                initialiser();
+                                div("main");
+                                fonction("Annuler", "menu()");
+                                saut(2);
+                                afficher(carte.nom);
+                                saut();
+                                afficher(carte.texte);
+                                saut();
+                                afficher("Choisissez une Créature : ");
+                                saut(2);
+                                for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
+                                    if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].saignement > 0) {
+                                        afficher_carte("joueur", "terrain", n);
+                                        afficher(" ");
+                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
+                                        saut();
+                                    }
+                                }
+                                div_fin();
+                                div("carte");
+                                div_fin();
+                                actualiser();
+                            }
+                            break;
+                        case 2:
+                            Jeu.joueur.terrain[cible].saignement = 0;
+                            deplacer(carte, "joueur", "defausse");
+                            effet_pose(carte);
+                            menu();
+                            break;
+                    }
+                }
+                else {
+                    if (verifier_saignement("adverse")) {
+                        let best = 0;
+                        while (Jeu.adverse.terrain[best].type != "Créature" || Jeu.adverse.terrain[best].saignement == 0) {
+                            best++;
+                        }
+                        for (let n = 0; n < Jeu.adverse.terrain.length; n++) {
+                            if (Jeu.adverse.terrain[n].saignement > Jeu.adverse.terrain[best].saignement && Jeu.adverse.terrain[n].type == "Créature") {
+                                best = n;
+                            }
+                        }
+                        Jeu.adverse.terrain[best].saignement = 0;
+                        deplacer(carte, "adverse", "defausse");
+                        effet_pose(carte);
                         return true;
                     }
                     return false;

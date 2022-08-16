@@ -17,7 +17,7 @@ function demarrage() {
         ],
         types: ["Créature", "Bâtiment", "Objet", "Action", "Région"],
         familles: [],
-        NOMBRE_CARTE: 225,
+        NOMBRE_CARTE: 229,
         combat: {
             auto: true,
             vitesse: 1000,
@@ -1043,6 +1043,14 @@ function game_over() {
     actualiser();
 }
 
+function victoire() {
+    initialiser();
+    afficher("Victoire");
+    saut(2);
+    fonction("Ecran titre", "ecran_titre()");
+    actualiser();
+}
+
 function monter(camp, zone, slot) {
     let carte = Jeu[camp][zone][slot];
     let trans = Jeu[camp][zone][slot - 1];
@@ -1252,6 +1260,42 @@ function verifier_poison(camp) {
     return false;
 }
 
+function verifier_brulure(camp) {
+    for (let n = 0; n < Jeu[camp].terrain.length; n++) {
+        if (Jeu[camp].terrain[n].brulure > 0) {
+            return true;
+        }
+    }
+    return false;
+}
+
+function verifier_gel(camp) {
+    for (let n = 0; n < Jeu[camp].terrain.length; n++) {
+        if (Jeu[camp].terrain[n].gel > 0) {
+            return true;
+        }
+    }
+    return false;
+}
+
+function verifier_saignement(camp) {
+    for (let n = 0; n < Jeu[camp].terrain.length; n++) {
+        if (Jeu[camp].terrain[n].saignement > 0) {
+            return true;
+        }
+    }
+    return false;
+}
+
+function verifier_etourdissement(camp) {
+    for (let n = 0; n < Jeu[camp].terrain.length; n++) {
+        if (Jeu[camp].terrain[n].etourdissement) {
+            return true;
+        }
+    }
+    return false;
+}
+
 function verifier_debuff(camp) {
     for (let n = 0; n < Jeu[camp].terrain.length; n++) {
         if (Jeu[camp].terrain[n].poison > 0 || Jeu[camp].terrain[n].brulure > 0 || Jeu[camp].terrain[n].saignement > 0 || Jeu[camp].terrain[n].maladie > 0 || Jeu[camp].terrain[n].gel > 0 || Jeu[camp].terrain[n].etourdissement || Jeu[camp].terrain[n].silence) {
@@ -1259,12 +1303,4 @@ function verifier_debuff(camp) {
         }
     }
     return false;
-}
-
-function victoire() {
-    initialiser();
-    afficher("Victoire");
-    saut(2);
-    fonction("Ecran titre", "ecran_titre()");
-    actualiser();
 }
