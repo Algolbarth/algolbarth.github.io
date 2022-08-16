@@ -314,7 +314,7 @@ function obtenir_carte(carte_id) {
             carte.nom = "Forgeron";
             carte.familles.push("Humain");
             carte.cout[0] = 6;
-            carte.vente[0] = 2;
+            carte.vente[0] = 3;
             carte.attaque = 2;
             carte.vie_max = carte.vie = 2;
             carte.action_max = 1;
@@ -2934,10 +2934,10 @@ function obtenir_carte(carte_id) {
             carte.nom = "Soldat courageux";
             carte.type = "Créature";
             carte.familles.push("Humain");
-            carte.cout[0] = 6;
-            carte.vente[0] = 3;
-            carte.attaque = 2;
-            carte.vie = carte.vie_max = 2;
+            carte.cout[0] = 8;
+            carte.vente[0] = 4;
+            carte.attaque = 3;
+            carte.vie = carte.vie_max = 3;
             carte.action_max = 1;
             carte.equipement_max = 1;
             carte.texte = "Au début d'un tour de combat : se donne 1 attaque pour chaque Créature adverse sur le terrain jusqu'à la fin du tour de combat.";
@@ -6547,6 +6547,32 @@ function obtenir_carte(carte_id) {
             carte.action_max = 1;
             carte.equipement_max = 1;
             carte.mortel = true;
+            break;
+        case 218:
+            carte.nom = "Fermier";
+            carte.familles.push("Humain");
+            carte.cout[0] = 4;
+            carte.vente[0] = 2;
+            carte.attaque = 2;
+            carte.vie_max = carte.vie = 2;
+            carte.action_max = 1;
+            carte.equipement_max = 1;
+            carte.texte = "Au début de la phase de préparation : Donne 1 Or";
+            carte.effet_etage_debut = function () {
+                Jeu[carte.camp].ressources[0].courant++;
+            }
+            break;
+        case 219:
+            carte.nom = "Ferme";
+            carte.type = "Bâtiment";
+            carte.cout[0] = 9;
+            carte.vente[0] = 1;
+            carte.vie_max = carte.vie = 4;
+            carte.equipement_max = 1;
+            carte.texte = "Au début de la phase de préparation : Donne 3 Or";
+            carte.effet_etage_debut = function () {
+                Jeu[carte.camp].ressources[0].courant += 3;
+            }
             break;
     }
     return carte;

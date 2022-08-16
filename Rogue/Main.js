@@ -17,7 +17,7 @@ function demarrage() {
         ],
         types: ["Créature", "Bâtiment", "Objet", "Action", "Région"],
         familles: [],
-        NOMBRE_CARTE: 217,
+        NOMBRE_CARTE: 219,
         combat: {
             auto: true,
             vitesse: 1000,
@@ -120,7 +120,6 @@ function nouvelle_partie() {
     ajouter(obtenir_carte(78), "joueur", "regions");
     ajouter(obtenir_carte(31), "joueur", "main");
     ajouter(obtenir_carte(1), "joueur", "terrain");
-    ajouter(obtenir_carte(21), "joueur", "terrain");
     adversaire_generer(1);
     adversaire_jouer();
     adversaire_generer(2);
@@ -868,12 +867,22 @@ function etage_fin() {
             n--;
         }
     }
-    boutique_actualiser();
+    etage_debut();
     if (Jeu.joueur.vie > 0) {
         menu();
     }
     else {
         game_over();
+    }
+}
+
+function etage_debut () {
+    boutique_actualiser();
+    for (let n=0;n<Jeu.joueur.terrain.length;n++) {
+        Jeu.joueur.terrain[n].effet_etage_debut();
+    }
+    for (let n=0;n<Jeu.adverse.terrain.length;n++) {
+        Jeu.adverse.terrain[n].effet_etage_debut();
     }
 }
 
