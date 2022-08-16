@@ -17,7 +17,7 @@ function demarrage() {
         ],
         types: ["Créature", "Bâtiment", "Objet", "Action", "Région"],
         familles: [],
-        NOMBRE_CARTE: 219,
+        NOMBRE_CARTE: 225,
         combat: {
             auto: true,
             vitesse: 1000,
@@ -880,9 +880,15 @@ function etage_debut () {
     boutique_actualiser();
     for (let n=0;n<Jeu.joueur.terrain.length;n++) {
         Jeu.joueur.terrain[n].effet_etage_debut();
+        for (let i=0;i<Jeu.joueur.terrain[n].equipements.length;i++) {
+            Jeu.joueur.terrain[n].equipements[i].stat_equipement.effet_etage_debut(Jeu.joueur.terrain[n]);
+        }
     }
     for (let n=0;n<Jeu.adverse.terrain.length;n++) {
         Jeu.adverse.terrain[n].effet_etage_debut();
+        for (let i=0;i<Jeu.adverse.terrain[n].equipements.length;i++) {
+            Jeu.adverse.terrain[n].equipements[i].stat_equipement.effet_etage_debut(Jeu.adverse.terrain[n]);
+        }
     }
 }
 
