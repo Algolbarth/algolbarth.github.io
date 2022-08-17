@@ -43,6 +43,7 @@ function obtenir_carte(carte_id) {
         saignement: 0,
         silence: false,
         texte: "Aucun",
+        description : "",
         effet_pose: function () {
             deplacer(carte, carte.camp, "terrain");
             effet_pose(carte);
@@ -92,6 +93,7 @@ function obtenir_carte(carte_id) {
             carte.vie_max = carte.vie = 2;
             carte.action_max = 1;
             carte.equipement_max = 1;
+            carte.description = "Un simple civil humain.";
             break;
         case 2:
             carte.nom = "Plastron de cuir";

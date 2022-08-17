@@ -567,6 +567,7 @@ function carte_afficher(carte) {
             texte += "<a href='javascript:vendre(" + '"' + carte.zone + '",' + carte.slot + ")'>Vendre</a> <br/>";
         }
     }
+    texte += "<div id='description'><span id='contenu'>" + carte.description + "</span></div>";
     div_actualiser("carte", texte);
 }
 

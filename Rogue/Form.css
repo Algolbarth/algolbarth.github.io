@@ -1,21 +1,48 @@
 body {
-    font-size:150%;
+    font-size: 150%;
+    background-color: #AF601A;
 }
 
 a {
-    text-decoration:none;
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+}
+
+a:hover {
+    color: gold;
 }
 
 #main {
-    width:49%;
-    height:50vw;
-    position:absolute;
+    width: 49%;
+    height: 50vw;
+    position: absolute;
 }
 
 #carte {
-    position:fixed;
-    left:50%;
-    top:0px;
-    width:49%;
-    height:50vw;
+    position: fixed;
+    left: 50%;
+    top: 1%;
+    width: 48%;
+    height: 96%;
+    border: double;
+    border-width: 0.4em;
+    background-color: #c0b577;
+}
+
+#description {
+    position: fixed;
+    left: 62%;
+    bottom: 10%;
+    width: 30%;
+    height: 30%;
+    background-color: #bbad5c;
+    font-style: italic;
+    text-align: center;
+    display: table;
+}
+
+#contenu {
+    vertical-align: middle;
+    display: table-cell;
 }
