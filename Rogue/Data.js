@@ -43,7 +43,7 @@ function obtenir_carte(carte_id) {
         saignement: 0,
         silence: false,
         texte: "Aucun",
-        description : "",
+        description: "...",
         effet_pose: function () {
             deplacer(carte, carte.camp, "terrain");
             effet_pose(carte);
@@ -93,7 +93,7 @@ function obtenir_carte(carte_id) {
             carte.vie_max = carte.vie = 2;
             carte.action_max = 1;
             carte.equipement_max = 1;
-            carte.description = "Un simple civil humain.";
+            carte.description = "Les humains ne sont affiliés à aucun des 12 éléments mais se sont servis de cette neutralité pour explorer le monde et s'implanter sur tous les continents.";
             break;
         case 2:
             carte.nom = "Plastron de cuir";
@@ -226,6 +226,7 @@ function obtenir_carte(carte_id) {
                     return false;
                 }
             }
+            carte.description = "Une petite fiole contenant un liquide rouge, à consomner pour se soigner d'éventuelles blessures.";
             break;
         case 4:
             carte.nom = "Épée de cuivre";
@@ -311,6 +312,7 @@ function obtenir_carte(carte_id) {
             carte.vie_max = carte.vie = 10;
             carte.action_max = 1;
             carte.equipement_max = 1;
+            carte.description = "Bien que semblables aux humains dans leur neutralité élémentaire, les géants rencontrent des difficultés à voyager à cause de leurs tailles imposantes.";
             break;
         case 7:
             carte.nom = "Forgeron";
@@ -445,6 +447,7 @@ function obtenir_carte(carte_id) {
                     return true;
                 }
             }
+            carte.description = "De grands reptiles rouges aux larges ailes, les dragons dominent les sommets volcaniques chassant tout ce qui est à leur portée, rampant comme volant.";
             break;
         case 10:
             carte.nom = "Prêtre";
@@ -535,6 +538,7 @@ function obtenir_carte(carte_id) {
                 effet_pose(carte);
                 menu();
             }
+            carte.description = "L'implantation des humains sur un grand nombre de continent leur a permis de devenir les leaders du commerce et de réguler l'économie.";
             break;
         case 12:
             carte.nom = "Garde";
@@ -546,6 +550,7 @@ function obtenir_carte(carte_id) {
             carte.vie_max = carte.vie = 2;
             carte.action_max = 1;
             carte.equipement_max = 1;
+            carte.description = "Les jeunes soldats passent leurs premières années à surveiller les villes et villages afin d'acquérir une expérience suffisante pour partir au front.";
             break;
         case 13:
             carte.nom = "Squelette";
@@ -557,6 +562,7 @@ function obtenir_carte(carte_id) {
             carte.vie_max = carte.vie = 1;
             carte.action_max = 1;
             carte.equipement_max = 1;
+            carte.description = "Simple amas d'os manipulé, ils sont totalement dépourvus d'intelligence.";
             break;
         case 14:
             carte.nom = "Nécromancien";
@@ -575,6 +581,7 @@ function obtenir_carte(carte_id) {
                 nouvelle_carte.vente = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
                 ajouter(nouvelle_carte, carte.camp, carte.zone);
             }
+            carte.description = "La faible masse des squelettes permet aux revenants de les utiliser comme esclave pour des tâches basiques.";
             break;
         case 15:
             carte.nom = "Roi des élements";
@@ -591,6 +598,7 @@ function obtenir_carte(carte_id) {
             carte.rapidite = true;
             carte.percee = 10;
             carte.regeneration = 5;
+            carte.description = "Une hydre légendaire dont chacune de ses 12 têtes maîtrise un élément, lui permettant de contrôler tout son envionnement comme bon lui semble.";
             break;
         case 16:
             carte.nom = "Bombe";
@@ -5469,6 +5477,7 @@ function obtenir_carte(carte_id) {
             carte.action_max = 1;
             carte.equipement_max = 1;
             carte.sorcellerie = 1;
+            carte.description = "Les mages sont habitués à avoir un familier à leurs côtés. Ces derniers peuvent avoir des capacités magiques par nature mais également en dévelloper à force d'expérience ou de s'exposer à son maître.";
             break;
         case 177:
             carte.nom = "Cerf";
@@ -6792,6 +6801,7 @@ function obtenir_carte(carte_id) {
                     return false;
                 }
             }
+            carte.description = "Une cape d'un noir profond, garantissant votre discrétion dans un environnement sombre.";
             break;
         case 223:
             carte.nom = "Frappe";
@@ -7055,6 +7065,7 @@ function obtenir_carte(carte_id) {
                     return false;
                 }
             }
+            carte.description = "Se servir de sa tête est une leçon universelle, surtout si vous avez le crâne dur.";
             break;
         case 226:
             carte.nom = "Boisson fraîche";
@@ -7183,6 +7194,7 @@ function obtenir_carte(carte_id) {
                     return false;
                 }
             }
+            carte.description = "L'autre solution est de lui verser de l'huile bouillante sur le crâne mais les résultats seront moins concluants...";
             break;
         case 228:
             carte.nom = "Sels";
@@ -7303,6 +7315,72 @@ function obtenir_carte(carte_id) {
                             }
                         }
                         Jeu.adverse.terrain[best].saignement = 0;
+                        deplacer(carte, "adverse", "defausse");
+                        effet_pose(carte);
+                        return true;
+                    }
+                    return false;
+                }
+            }
+            break;
+        case 230:
+            carte.nom = "Contrôle mental";
+            carte.type = "Action";
+            carte.familles.push("Illithid");
+            carte.cout[0] = 10;
+            carte.cout[8] = 10;
+            carte.vente[0] = 5;
+            carte.vente[8] = 5;
+            carte.texte = "Place une Créature adverse sur le terrain sur le terrain allié.";
+            carte.effet_pose = function (step, cible) {
+                if (carte.camp == "joueur") {
+                    switch (step) {
+                        case 1:
+                            if (verifier_creature("adverse", "terrain") && !statistique(carte, "silence")) {
+                                initialiser();
+                                div("main");
+                                fonction("Annuler", "menu()");
+                                saut(2);
+                                afficher(carte.nom);
+                                saut();
+                                afficher(carte.texte);
+                                saut();
+                                afficher("Choisissez une Créature adverse : ");
+                                saut(2);
+                                for (let n = 0; n < Jeu.adverse.terrain.length; n++) {
+                                    if (Jeu.adverse.terrain[n].type == "Créature") {
+                                        afficher_carte("adverse", "terrain", n);
+                                        afficher(" ");
+                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
+                                        saut();
+                                    }
+                                }
+                                div_fin();
+                                div("carte");
+                                div_fin();
+                                actualiser();
+                            }
+                            break;
+                        case 2:
+                            deplacer(carte, "joueur", "defausse");
+                            deplacer(Jeu.adverse.terrain[cible], "joueur", "terrain");
+                            effet_pose(carte);
+                            menu();
+                            break;
+                    }
+                }
+                else {
+                    if (verifier_creature("joueur", "terrain") && !statistique(carte, "silence")) {
+                        let best = 0;
+                        while (Jeu.joueur.terrain[best].type != "Créature") {
+                            best++;
+                        }
+                        for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
+                            if (cout_total(Jeu.joueur.terrain[n]) > cout_total(Jeu.joueur.terrain[best]) && Jeu.joueur.terrain[best].type == "Créature") {
+                                best = n;
+                            }
+                        }
+                        deplacer(Jeu.joueur.terrain[best], "adverse", "terrain");
                         deplacer(carte, "adverse", "defausse");
                         effet_pose(carte);
                         return true;
