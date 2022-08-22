@@ -7609,19 +7609,19 @@ function obtenir_carte(carte_id) {
                 else {
                     let verifier1 = false;
                     let verifier2 = false;
-                    for (let n=0;n<Jeu.adverse.terrain.length;n++) {
-                        if (Jeu.adverse.terrain[n].type == "Créature" && Jeu.adverse.terrain[n].vie > 2 && [34,52].includes(Jeu.adverse.terrain[n].id)) {
+                    for (let n = 0; n < Jeu.adverse.terrain.length; n++) {
+                        if (Jeu.adverse.terrain[n].type == "Créature" && Jeu.adverse.terrain[n].vie > 2 && [34, 52].includes(Jeu.adverse.terrain[n].id)) {
                             verifier1 = true;
                         }
                     }
-                    for (let n=0;n<Jeu.joueur.terrain.length;n++) {
+                    for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
                         if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].vie < 2) {
                             verifier2 = true;
                         }
                     }
                     if (verifier1) {
                         let best = 0;
-                        while (Jeu.adverse.terrain[n].type != "Créature" || Jeu.adverse.terrain[n].vie <= 2 || ![34,52].includes(Jeu.adverse.terrain[n].id)) {
+                        while (Jeu.adverse.terrain[n].type != "Créature" || Jeu.adverse.terrain[n].vie <= 2 || ![34, 52].includes(Jeu.adverse.terrain[n].id)) {
                             best++;
                         }
                         degats(Jeu.adverse.terrain[best], 2);
@@ -7890,8 +7890,8 @@ function obtenir_carte(carte_id) {
                             break;
                         case 3:
                             soin(Jeu.joueur.terrain[cible], 2);
+                            deplacer(carte, "joueur", "defausse");
                             effet_pose(carte);
-                            enlever(carte);
                             menu();
                             break;
                         case 4:
@@ -7909,6 +7909,73 @@ function obtenir_carte(carte_id) {
                             best++;
                         }
                         soin(Jeu.adverse.terrain[best], 2);
+                        deplacer(carte, "adverse", "defausse");
+                        effet_pose(carte);
+                        return true;
+                    }
+                    return false;
+                }
+            }
+            break;
+        case 242:
+            carte.nom = "Résurection";
+            carte.type = "Action";
+            carte.cout[0] = 10;
+            carte.cout[10] = 10;
+            carte.vente[0] = 5;
+            carte.vente[10] = 5;
+            carte.texte = "Place une Créature alliée dans la défausse sur le terrain et la soigne totalement.";
+            carte.effet_pose = function (step, cible) {
+                if (carte.camp == "joueur") {
+                    switch (step) {
+                        case 1:
+                            if (verifier_creature("joueur", "defausse")) {
+                                initialiser();
+                                div("main");
+                                fonction("Annuler", "menu()");
+                                saut(2);
+                                afficher(carte.nom);
+                                saut();
+                                afficher(carte.texte);
+                                saut();
+                                afficher("Choisissez une carte : ");
+                                saut(2);
+                                for (let n = 0; n < Jeu.joueur.defausse.length; n++) {
+                                    if (Jeu.joueur.defausse[n].type == "Créature") {
+                                        afficher_carte("joueur", "defausse", n);
+                                        afficher(" ");
+                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
+                                        saut();
+                                    }
+                                }
+                                div_fin();
+                                div("carte");
+                                div_fin();
+                                actualiser();
+                            }
+                            break;
+                        case 2:
+                            Jeu.joueur.defausse[cible].vie = Jeu.joueur.defausse[cible].vie_max;
+                            deplacer(Jeu.joueur.defausse[cible], "joueur", "terrain");
+                            deplacer(carte, "joueur", "defausse");
+                            effet_pose(carte);
+                            menu();
+                            break;
+                    }
+                }
+                else {
+                    if (verifier_creature("adverse", "defausse")) {
+                        let best = 0;
+                        while (Jeu.adverse.defausse[n].type != "Créature") {
+                            best++;
+                        }
+                        for (let n = 0; n < Jeu.adverse.defausse.length; n++) {
+                            if (cout_total(Jeu.adverse.defausse[n]) > cout_total(Jeu.adverse.defausse[best]) && Jeu.adverse.defausse[n].type == "Créature") {
+                                best = n;
+                            }
+                        }
+                        Jeu.adverse.defausse[best].vie = Jeu.adverse.defausse[best].vie_max;
+                        deplacer(Jeu.adverse.defausse[best], "adverse", "terrain");
                         deplacer(carte, "adverse", "defausse");
                         effet_pose(carte);
                         return true;
