@@ -46,3 +46,11 @@ a:hover {
     vertical-align: middle;
     display: table-cell;
 }
+
+option {
+    background-color: #c0b577;
+}
+
+select {
+    background-color: #c0b577;
+}

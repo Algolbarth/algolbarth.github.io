@@ -17,7 +17,7 @@ function demarrage() {
         ],
         types: ["Créature", "Bâtiment", "Objet", "Action", "Région"],
         familles: [],
-        NOMBRE_CARTE: 230,
+        NOMBRE_CARTE: 241,
         combat: {
             auto: true,
             vitesse: 1000,
@@ -346,7 +346,7 @@ function carte_afficher(carte) {
         texte += "Cette carte ne peut pas être créée dans la boutique. <br/>";
     }
     if (statistique(carte, "eternite") > 0) {
-        texte += "Eternité";
+        texte += "Éternité";
         if (Jeu.texte_talent) {
             texte += " : Ne disparais pas de votre défausse.";
         }
@@ -420,7 +420,7 @@ function carte_afficher(carte) {
             texte += "<br/>";
         }
         if (statistique(carte, "epine") > 0) {
-            texte += "Epine " + statistique(carte, "epine");
+            texte += "Épine " + statistique(carte, "epine");
             if (Jeu.texte_talent) {
                 texte += " : Quand est attaquée par une Créature, lui inflige " + statistique(carte, "epine") + " dégâts.";
             }
