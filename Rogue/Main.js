@@ -17,7 +17,7 @@ function demarrage() {
         ],
         types: ["Créature", "Bâtiment", "Objet", "Action", "Région"],
         familles: [],
-        NOMBRE_CARTE: 242,
+        NOMBRE_CARTE: 251,
         combat: {
             auto: true,
             vitesse: 1000,
@@ -1191,9 +1191,14 @@ function poser(slot) {
 }
 
 function effet_pose(carte) {
-    for (let n = 0; n < Jeu[carte.camp].terrain.length; n++) {
-        if (!statistique(Jeu[carte.camp].terrain[n], "silence")) {
-            Jeu[carte.camp].terrain[n].effet_pose_carte(carte);
+    for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
+        if (!statistique(Jeu.joueur.terrain[n], "silence")) {
+            Jeu.joueur.terrain[n].effet_pose_carte(carte);
+        }
+    }
+    for (let n = 0; n < Jeu.adverse.terrain.length; n++) {
+        if (!statistique(Jeu.adverse.terrain[n], "silence")) {
+            Jeu.adverse.terrain[n].effet_pose_carte(carte);
         }
     }
 }

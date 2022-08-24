@@ -155,6 +155,12 @@ function attaque(attaquant, defenseur) {
         Jeu.combat.attaquant_mort = degats(attaquant, 1);
         attaquant.saignement--;
     }
+    if (!statistique(defenseur, "silence")) {
+        defenseur.effet_be_attaque(attaquant);
+        for (let n = 0; n < defenseur.equipements.length; n++) {
+            defenseur.equipements[n].stat_equipement.effet_be_attaque(attaquant);
+        }
+    }
     if (!Jeu.combat.attaquant_mort) {
         let defense = statistique(defenseur, "defense");
         if (!statistique(attaquant, "silence")) {
