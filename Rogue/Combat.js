@@ -143,8 +143,8 @@ function action() {
 }
 
 function attaque(attaquant, defenseur) {
+    let defenseur_slot = defenseur.slot;
     Jeu.combat.defenseur_mort = false;
-    let defenseur_save = dupliquer_objet(defenseur);
     if (!statistique(attaquant, "silence")) {
         attaquant.effet_attaque(defenseur);
         for (let n = 0; n < attaquant.equipements.length; n++) {
@@ -152,7 +152,7 @@ function attaque(attaquant, defenseur) {
         }
     }
     if (attaquant.saignement > 0 && !statistique(attaquant, "silence")) {
-        Jeu.combat.attaquant_mort = degats(attaquant, 1);
+        Jeu.combat.attaquant_mort = degats(attaquant, 2).mort;
         attaquant.saignement--;
     }
     if (!statistique(defenseur, "silence")) {
@@ -173,27 +173,30 @@ function attaque(attaquant, defenseur) {
         if (degats_montant < 0) {
             degats_montant = 0;
         }
-        Jeu.combat.defenseur_mort = degats(defenseur, degats_montant);
-        if (Jeu.combat.defenseur_mort) {
-            defenseur = defenseur_save;
+        let degats_result = degats(defenseur, degats_montant);
+        Jeu.combat.defenseur_mort = degats_result.mort;
+        if (statistique(attaquant, "erosion") > 0 && !statistique(attaquant, "silence")) {
+            defenseur.vie_max -= statistique(attaquant, "erosion");
+            if (defenseur.vie_max < 1) {
+                defenseur.vie_max = 1;
+            }
         }
         if (!statistique(defenseur, "silence")) {
             degats_montant -= defenseur.resistance;
         }
-        if (degats_montant > defenseur.vie) {
-            degats_montant = defenseur.vie;
-        }
         if (Jeu.combat.defenseur_mort && !statistique(attaquant, "silence")) {
+            if (statistique(attaquant, "charge") && Jeu[Jeu.combat.defenseur].terrain.length - 1 >= defenseur_slot) {
+                degats(Jeu[Jeu.combat.defenseur].terrain[defenseur_slot], degats_result.surplus);
+            }
             attaquant.effet_tuer(defenseur);
         }
         else {
-            if (statistique(attaquant, "mortel") && !statistique(attaquant, "silence")) {
+            if (statistique(attaquant, "mortel") && !statistique(attaquant, "silence") && defenseur.type == "Créature") {
                 mort(defenseur);
-                defenseur = defenseur_save;
             }
         }
         if (statistique(defenseur, "epine") > 0 && !statistique(defenseur, "silence")) {
-            Jeu.combat_mort.attaquant_mort = degats(attaquant, statistique(defenseur, "epine"));
+            Jeu.combat_mort.attaquant_mort = degats(attaquant, statistique(defenseur, "epine")).mort;
         }
         if (!Jeu.combat.attaquant_mort && statistique(attaquant, "vol_de_vie") && !statistique(attaquant, "silence")) {
             soin(attaquant, statistique(attaquant, "vol_de_vie"));

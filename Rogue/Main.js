@@ -17,7 +17,7 @@ function demarrage() {
         ],
         types: ["Créature", "Bâtiment", "Objet", "Action", "Région"],
         familles: [],
-        NOMBRE_CARTE: 251,
+        NOMBRE_CARTE: 259,
         combat: {
             auto: true,
             vitesse: 1000,
@@ -415,7 +415,7 @@ function carte_afficher(carte) {
         if (statistique(carte, "resistance") > 0) {
             texte += "Résistance " + statistique(carte, "resistance");
             if (Jeu.texte_talent) {
-                texte += " : Quand cette carte subit des dégats, en subis " + statistique(carte, "resistance") + " de moins.";
+                texte += " : Quand cette carte subit des dégâts, en subis " + statistique(carte, "resistance") + " de moins.";
             }
             texte += "<br/>";
         }
@@ -458,6 +458,13 @@ function carte_afficher(carte) {
             texte += "Silence ";
             if (Jeu.texte_talent) {
                 texte += " : Empêche tous les effets de cette carte de se déclencher.";
+            }
+            texte += "<br/>";
+        }
+        if (carte.esquive > 0) {
+            texte += "Esquive";
+            if (Jeu.texte_talent) {
+                texte += " : Réduits à 0 les dégâts reçus puis s'enlève.";
             }
             texte += "<br/>";
         }
@@ -522,7 +529,7 @@ function carte_afficher(carte) {
             texte += "<br/>";
         }
         if (carte.etourdissement > 0) {
-            texte += "Etourdissement ";
+            texte += "Étourdissement ";
             if (Jeu.texte_talent) {
                 texte += " : Annule les attaques du prochain tour de combat.";
             }
@@ -531,7 +538,21 @@ function carte_afficher(carte) {
         if (carte.saignement > 0) {
             texte += "Saignement " + carte.saignement;
             if (Jeu.texte_talent) {
-                texte += " : Quand attaque (pour les " + carte.saignement + " prochaines attaque), subit 1 dégât.";
+                texte += " : Quand attaque (pour les " + carte.saignement + " prochaines attaque), subit 2 dégâts.";
+            }
+            texte += "<br/>";
+        }
+        if (statistique(carte, "erosion") > 0) {
+            texte += "Érosion " + statistique(carte, "erosion");
+            if (Jeu.texte_talent) {
+                texte += " : Quand attaque diminue de " + statistique(carte, "erosion") + " la vie maximale de la Créature ou du Bâtiment attaqué (la vie maximale ne peut pas descendre en-dessous de 1).";
+            }
+            texte += "<br/>";
+        }
+        if (statistique(carte, "charge")) {
+            texte += "Charge";
+            if (Jeu.texte_talent) {
+                texte += " : Quand tue une Créature ou un Bâtiment inflige le surplus de dégâts à la Créature ou au Bâtiment juste derrière.";
             }
             texte += "<br/>";
         }
@@ -700,6 +721,8 @@ function vendre(zone, slot) {
 function etage_suivant() {
     Jeu.etage++;
     if (Jeu.etage <= 100) {
+        Jeu.joueur.ressources[0].max++;
+        Jeu.ressource_sup = 1;
         etage_fin();
         if (Jeu.boutique_amelioration > 0) {
             Jeu.boutique_amelioration--;
@@ -725,8 +748,6 @@ function etage_suivant() {
 }
 
 function etage_fin() {
-    Jeu.joueur.ressources[0].max++;
-    Jeu.ressource_sup = 1;
     for (let n = 0; n < Jeu.ressources.length; n++) {
         Jeu.joueur.ressources[n].courant = Jeu.joueur.ressources[n].max;
     }
@@ -735,6 +756,7 @@ function etage_fin() {
             for (let i = 0; i < Jeu.joueur.terrain[n].equipements.length; i++) {
                 if (Jeu.joueur.terrain[n].equipements[i].temporaire) {
                     Jeu.joueur.terrain[n].equipements.splice(i, 1);
+                    i--;
                 }
             }
         }
@@ -877,17 +899,17 @@ function etage_fin() {
     }
 }
 
-function etage_debut () {
+function etage_debut() {
     boutique_actualiser();
-    for (let n=0;n<Jeu.joueur.terrain.length;n++) {
+    for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
         Jeu.joueur.terrain[n].effet_etage_debut();
-        for (let i=0;i<Jeu.joueur.terrain[n].equipements.length;i++) {
+        for (let i = 0; i < Jeu.joueur.terrain[n].equipements.length; i++) {
             Jeu.joueur.terrain[n].equipements[i].stat_equipement.effet_etage_debut(Jeu.joueur.terrain[n]);
         }
     }
-    for (let n=0;n<Jeu.adverse.terrain.length;n++) {
+    for (let n = 0; n < Jeu.adverse.terrain.length; n++) {
         Jeu.adverse.terrain[n].effet_etage_debut();
-        for (let i=0;i<Jeu.adverse.terrain[n].equipements.length;i++) {
+        for (let i = 0; i < Jeu.adverse.terrain[n].equipements.length; i++) {
             Jeu.adverse.terrain[n].equipements[i].stat_equipement.effet_etage_debut(Jeu.adverse.terrain[n]);
         }
     }
@@ -1088,31 +1110,46 @@ function soin(carte, montant) {
 }
 
 function degats(carte, montant) {
-    if (carte.resistance > 0 && !statistique(carte, "silence")) {
-        montant -= carte.resistance;
-        if (carte.vie_sup < 0) {
-            carte.vie_sup = 0;
+    let degat_result = {
+        mort: false,
+        degats: 0,
+        surplus: 0,
+    }
+    if (!carte.esquive) {
+        if (carte.resistance > 0 && !statistique(carte, "silence")) {
+            montant -= carte.resistance;
+            if (carte.vie_sup < 0) {
+                carte.vie_sup = 0;
+            }
+        }
+        if (carte.vie_sup > 0) {
+            let trans = montant;
+            montant -= carte.vie_sup;
+            carte.vie_sup -= trans;
+            if (carte.vie_sup < 0) {
+                carte.vie_sup = 0;
+            }
+        }
+        if (montant > 0) {
+            degat_result.degats = montant;
+            if (carte.vie < montant) {
+                degat_result.surplus = montant - carte.vie;
+                degat_result.degats = carte.vie;
+            }
+            carte.vie -= montant;
+            if (!statistique(carte, "silence")) {
+                carte.effet_degat();
+            }
+            if (carte.vie <= 0) {
+                mort(carte);
+                degat_result.mort = true;
+            }
         }
     }
-    if (carte.vie_sup > 0) {
-        let trans = montant;
-        montant -= carte.vie_sup;
-        carte.vie_sup -= trans;
-        if (carte.vie_sup < 0) {
-            carte.vie_sup = 0;
-        }
+    else {
+        carte.esquive = false;
     }
-    if (montant > 0) {
-        carte.vie -= montant;
-        if (!statistique(carte, "silence")) {
-            carte.effet_degat();
-        }
-        if (carte.vie <= 0) {
-            mort(carte);
-            return true;
-        }
-    }
-    return false;
+    return degat_result;
 }
 
 function mort(carte) {
