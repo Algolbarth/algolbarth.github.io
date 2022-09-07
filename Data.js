@@ -92,8 +92,6 @@ function ajouter_sites () {
     ajouter_site("Vero moda","https://www.veromoda.com/fr/fr/home",[5]);
     ajouter_site("RGB color codes","https://htmlcolorcodes.com/fr/",[7]);
 
-    ajouter_site("Site","Site/index.html",[0]);
-    ajouter_site("JsTA","JsTA/index.html",[0]);
     ajouter_site("Dimension","Dimension/index.html",[0]);
     ajouter_site("JsRPG","JsRPG/index.html",[0]);
 
