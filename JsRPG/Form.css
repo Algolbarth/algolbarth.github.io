@@ -1,0 +1,79 @@
+body {
+    font-size: 150%;
+    background-color: #AF601A;
+    cursor: url("Images/Select.cur"), default;
+}
+
+button {
+    font-weight: bold;
+    font-family: inherit;
+    text-decoration: none;
+    color: black;
+    background: none;
+    border: none;
+    font-size: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+button:hover {
+    color: #ffd700;
+    cursor: url("Images/Hand.cur"), pointer;
+}
+
+button.menu {
+    color:black;
+    background: grey;
+    width:10em;
+    height:2em;
+    border:solid;
+    border-color:black;
+}
+
+button.menu:hover {
+    color: #ffd700;
+    cursor: url("Images/Hand.cur"), pointer;
+}
+
+#main {
+    width: 49%;
+    height: 50vw;
+    position: absolute;
+}
+
+#carte {
+    position: fixed;
+    left: 50%;
+    top: 1%;
+    width: 48%;
+    height: 96%;
+    border: double;
+    border-width: 0.4em;
+    background: content-box radial-gradient(#b6ad71, #afa465);
+}
+
+#description {
+    position: fixed;
+    left: 62%;
+    bottom: 10%;
+    width: 30%;
+    height: 30%;
+    background-color: #bbad5c;
+    border: double;
+    font-style: italic;
+    text-align: center;
+    display: table;
+}
+
+#contenu {
+    vertical-align: middle;
+    display: table-cell;
+}
+
+option {
+    background-color: #c0b577;
+}
+
+select {
+    background-color: #c0b577;
+}
