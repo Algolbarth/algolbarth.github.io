@@ -1,41 +1,49 @@
 html {
-    height:99%;
-    width:100%;
-    overflow:hidden;
-	word-wrap:break-word;
+    height: 99%;
+    width: 100%;
+    overflow: hidden;
+    word-wrap: break-word;
 }
 
 body {
-    height:99%;
-    width:100%;
-    overflow:auto;
-    padding-right:15px;
-    background:rgb(67, 68, 68);
-    color:rgb(255, 255, 255);
-    font-size:110%;
+    height: 99%;
+    width: 100%;
+    overflow: auto;
+    padding-right: 15px;
+    background: rgb(67, 68, 68);
+    color: rgb(255, 255, 255);
+    font-size: 110%;
 }
 
+button,
 a {
-    text-decoration:none;
-    color:rgb(255, 255, 255);
+    font-family: inherit;
+    text-decoration: none;
+    color: rgb(255, 255, 255);
+    background: none;
+    border: none;
+    font-size: 100%;
+    margin: 0;
+    padding: 0;
 }
 
+button:hover,
 a:hover {
-    color:rgb(255, 0, 0);
+    color: rgb(255, 0, 0);
 }
 
 .icone {
-    width:1.2%;
+    width: 1.3em;
 }
 
 .title {
-    width:60%;
+    width: 60%;
 }
 
 #site {
-    width:49%;
-    height:50vw;
-    position:absolute;
-    left:50%;
-    top:0px;
+    width: 49%;
+    height: 50vw;
+    position: absolute;
+    left: 50%;
+    top: 0px;
 }

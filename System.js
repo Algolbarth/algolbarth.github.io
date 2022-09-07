@@ -7,7 +7,7 @@ function actualiser () {
 }
 
 function fonction (nom,link,classes="") {
-    Affichage += "<a href='javascript:" + link + "' class='" + classes + "'>" + nom + "</a>";
+    Affichage += "<button onclick='javascript:" + link + "' class='" + classes + "'>" + nom + "</button>";
 }
 
 function lien (nom,link,classes="") {
@@ -38,9 +38,18 @@ function div_actualiser (div,value) {
 
 function dupliquer_objet (a) {
     let b = {};
-    for (i in a)
-    {
+    for (i in a) {
         b[i]=a[i];
     }
     return b;
 }
+
+function telecharger (nom,texte) {
+    var element = document.createElement('a');
+    element.setAttribute('href','data:text/plain;charset=utf-8,' + encodeURIComponent(texte));
+    element.setAttribute('download',nom);
+    element.style.display='none';
+    document.body.appendChild(element)
+    element.click()
+    document.body.removeChild(element)
+  }
