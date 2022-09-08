@@ -254,39 +254,44 @@ function combat_afficher() {
     saut(2);
     afficher("Vie adverse : " + Jeu.adverse.vie + " / " + Jeu.adverse.vie_max);
     saut(2);
+    div("", "zone");
     afficher("<u>Terrain adverse :</u>");
     saut();
     if (Jeu.adverse.terrain.length > 0) {
         for (let n = 0; n < Jeu.adverse.terrain.length; n++) {
+            div("", "carte");
+            div();
             if (Jeu.combat.slot == n && Jeu.combat.attaquant == "adverse") {
-                afficher("<b>");
+                afficher("");
             }
             afficher_carte("adverse", "terrain", n);
-            afficher("</b>");
-            saut();
+            div_fin();
+            div_fin();
         }
     }
     else {
         afficher("<i>Le terrain adverse est vide</i>");
         saut();
     }
+    div_fin();
     saut();
+    div("", "zone");
     afficher("<u>Terrain :</u>");
     saut();
     if (Jeu.joueur.terrain.length > 0) {
         for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
-            if (Jeu.combat.slot == n && Jeu.combat.attaquant == "joueur") {
-                afficher("<b>");
-            }
+            div("", "carte");
+            div();
             afficher_carte("joueur", "terrain", n);
-            afficher("</b>");
-            saut();
+            div_fin();
+            div_fin();
         }
     }
     else {
         afficher("<i>Votre terrain est vide</i>");
         saut();
     }
+    div_fin();
     saut();
     afficher("Vie : " + Jeu.joueur.vie + " / " + Jeu.joueur.vie_max);
     div_fin();

@@ -1,6 +1,6 @@
 body {
     font-size: 150%;
-    background-color: #AF601A;
+    background: #8a4b14;
     cursor: url("Images/Select.cur"), default;
 }
 
@@ -14,6 +14,7 @@ button {
     font-size: 100%;
     margin: 0;
     padding: 0;
+    text-align: left;
 }
 
 button:hover {
@@ -23,16 +24,52 @@ button:hover {
 
 button.menu {
     color:black;
-    background: grey;
+    background: rgb(94, 94, 94);
     width:10em;
     height:2em;
     border:solid;
     border-color:black;
+    text-align: center;
 }
 
 button.menu:hover {
     color: #ffd700;
+    background:rgb(80, 80, 80);
     cursor: url("Images/Hand.cur"), pointer;
+}
+
+.zone {
+    padding:0.4em;
+    border:solid;
+    background-color: #7e430f;
+    border-radius:10px;
+}
+
+.carte {
+    padding:0.2em;
+    margin:0.2em;
+    border:solid;
+    border-radius:10px;
+    background:rgb(94, 94, 94);
+    display: flex;
+    justify-content: space-between;
+}
+
+.carte:hover {
+    background:rgb(80, 80, 80);
+}
+
+.action {
+    position: relative;
+    right: 0;
+}
+
+#boutique {
+    padding:0.2em;
+    margin:0.1em;
+    border:solid;
+    border-radius:10px;
+    background-color: #723d0e;
 }
 
 #main {
@@ -48,15 +85,16 @@ button.menu:hover {
     width: 48%;
     height: 96%;
     border: double;
+    border-color:black;
     border-width: 0.4em;
-    background: content-box radial-gradient(#b6ad71, #afa465);
+    background: radial-gradient(#b6ad71, #afa465);
 }
 
 #description {
     position: fixed;
-    left: 62%;
+    left: 57.5%;
     bottom: 10%;
-    width: 30%;
+    width: 35%;
     height: 30%;
     background-color: #bbad5c;
     border: double;
@@ -75,5 +113,6 @@ option {
 }
 
 select {
+    font-size: 80%;
     background-color: #c0b577;
 }

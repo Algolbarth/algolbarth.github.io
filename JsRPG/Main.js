@@ -153,47 +153,59 @@ function menu() {
         saut();
     }
     saut();
+    div("", "zone");
     afficher("<u>Régions :</u>");
     saut();
     for (let n = 0; n < Jeu.joueur.regions.length; n++) {
+        div("", "carte");
         afficher_carte("joueur", "regions", n);
         if (Jeu.region_active != n) {
             afficher(" ");
             fonction("Choisir", "Jeu.region_active=" + n + ";menu();");
         }
-        saut();
+        div_fin();
     }
+    div_fin();
     saut();
+    div("", "zone");
+    div("boutique");
     afficher("<u>Boutique Nv " + Jeu.boutique_niveau + " :</u> ");
+    if (Jeu.boutique_niveau < 10) {
+        fonction("Améliorer", "boutique_ameliorer()");
+        afficher(" (" + Jeu.boutique_amelioration + " Or) - ");
+    }
     fonction("Actualiser", "boutique_rafraichir()");
     afficher(" (2 Or)");
-    if (Jeu.boutique_niveau < 10) {
-        afficher(" - ");
-        fonction("Améliorer", "boutique_ameliorer()");
-        afficher(" (" + Jeu.boutique_amelioration + " Or)");
-    }
     afficher(" - ");
     fonction("Verrouiller", "boutique_verrouiller()");
-    saut();
+    div_fin();
     if (Jeu.joueur.boutique.length > 0) {
         for (let n = 0; n < Jeu.joueur.boutique.length; n++) {
+            div("", "carte");
+            div();
             afficher_carte("joueur", "boutique", n);
-            afficher(" ");
+            div_fin();
+            div();
             if (Jeu.raccourci_achat) {
-                fonction("Acheter", "acheter(" + n + ")");
+                fonction("Acheter", "acheter(" + n + ")", "action");
             }
-            saut();
+            div_fin();
+            div_fin();
         }
     }
     else {
         afficher("<i>La boutique est vide</i>");
         saut();
     }
+    div_fin();
     saut();
+    div("", "zone");
     afficher("<u>Main :</u>");
     saut();
     if (Jeu.joueur.main.length > 0) {
         for (let n = 0; n < Jeu.joueur.main.length; n++) {
+            div("", "carte");
+            div();
             if (n > 0) {
                 fonction("&#8679", "monter(" + '"joueur","main",' + n + ")");
                 afficher(" ");
@@ -203,7 +215,8 @@ function menu() {
                 afficher(" ");
             }
             afficher_carte("joueur", "main", n);
-            afficher(" ");
+            div_fin();
+            div();
             if (Jeu.raccourci_pose) {
                 fonction("Poser", "poser(" + n + ")");
             }
@@ -211,18 +224,23 @@ function menu() {
             if (Jeu.raccourci_vente) {
                 fonction("Vendre", "vendre(" + '"main",' + n + ")");
             }
-            saut();
+            div_fin();
+            div_fin();
         }
     }
     else {
         afficher("<i>Votre main est vide</i>");
         saut();
     }
+    div_fin();
     saut();
+    div("", "zone");
     afficher("<u>Terrain :</u>");
     saut();
     if (Jeu.joueur.terrain.length > 0) {
         for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
+            div("", "carte");
+            div();
             if (Jeu.joueur.terrain[n].type == "Créature" || (statistique(Jeu.joueur.terrain[n], "mobile") && !statistique(Jeu.joueur.terrain[n], "silence"))) {
                 if (n > 0) {
                     fonction("&#8679", "monter(" + '"joueur","terrain",' + n + ")");
@@ -234,30 +252,36 @@ function menu() {
                 }
             }
             afficher_carte("joueur", "terrain", n);
-            afficher(" ");
+            div_fin();
+            div();
             if (Jeu.raccourci_vente) {
                 fonction("Vendre", "vendre(" + '"terrain",' + n + ")");
             }
-            saut();
+            div_fin();
+            div_fin();
         }
     }
     else {
         afficher("<i>Votre terrain est vide</i>");
         saut();
     }
+    div_fin();
     saut();
+    div("", "zone");
     afficher("<u>Défausse :</u>");
     saut();
     if (Jeu.joueur.defausse.length > 0) {
         for (let n = 0; n < Jeu.joueur.defausse.length; n++) {
+            div("", "carte");
             afficher_carte("joueur", "defausse", n);
-            saut();
+            div_fin();
         }
     }
     else {
         afficher("<i>Votre défausse est vide</i>");
         saut();
     }
+    div_fin();
     saut();
     fonction("Inspecter l'équipe adverse", "adversaire_voir()");
     saut();
@@ -989,9 +1013,45 @@ function adversaire_generer(etage) {
                 Jeu.adverse.ressources[0].courant = Jeu.adverse.ressources[0].max = 10;
                 ajouter(obtenir_carte(6), "adverse", "main");
                 break;
+            case 20:
+                Jeu.adverse.ressources[0].courant = Jeu.adverse.ressources[0].max = 20;
+                ajouter(obtenir_carte(6), "adverse", "main");
+                break;
+            case 30:
+                Jeu.adverse.ressources[0].courant = Jeu.adverse.ressources[0].max = 30;
+                ajouter(obtenir_carte(6), "adverse", "main");
+                break;
+            case 40:
+                Jeu.adverse.ressources[0].courant = Jeu.adverse.ressources[0].max = 40;
+                ajouter(obtenir_carte(6), "adverse", "main");
+                break;
+            case 50:
+                Jeu.adverse.ressources[0].courant = Jeu.adverse.ressources[0].max = 50;
+                ajouter(obtenir_carte(6), "adverse", "main");
+                break;
+            case 60:
+                Jeu.adverse.ressources[0].courant = Jeu.adverse.ressources[0].max = 60;
+                ajouter(obtenir_carte(6), "adverse", "main");
+                break;
+            case 70:
+                Jeu.adverse.ressources[0].courant = Jeu.adverse.ressources[0].max = 70;
+                ajouter(obtenir_carte(6), "adverse", "main");
+                break;
+            case 80:
+                Jeu.adverse.ressources[0].courant = Jeu.adverse.ressources[0].max = 80;
+                ajouter(obtenir_carte(6), "adverse", "main");
+                break;
+            case 90:
+                Jeu.adverse.ressources[0].courant = Jeu.adverse.ressources[0].max = 90;
+                ajouter(obtenir_carte(6), "adverse", "main");
+                break;
+            case 100:
+                Jeu.adverse.ressources[0].courant = Jeu.adverse.ressources[0].max = 100;
+                ajouter(obtenir_carte(6), "adverse", "main");
+                break;
         }
     }
-    for (let n=0;n<Jeu.adverse.main.length;n++) {
+    for (let n = 0; n < Jeu.adverse.main.length; n++) {
         Jeu.adverse.main[n].cache = true;
     }
 }
@@ -1032,53 +1092,68 @@ function adversaire_voir() {
         }
     }
     saut();
+    div("", "zone");
     afficher("<u>Main adverse :</u>");
     saut();
     if (Jeu.adverse.main.length > 0) {
         for (let n = 0; n < Jeu.adverse.main.length; n++) {
+            div("", "carte");
+            div();
             if (!Jeu.adverse.main[n].cache) {
                 afficher_carte("adverse", "main", n);
             }
             else {
                 afficher("???");
             }
-            saut();
+            div_fin();
+            div_fin();
         }
     }
     else {
         afficher("<i>La main adverse est vide</i>");
         saut();
     }
+    div_fin();
     saut();
+    div("", "zone");
     afficher("<u>Terrain adverse :</u>");
     saut();
     if (Jeu.adverse.terrain.length > 0) {
         for (let n = 0; n < Jeu.adverse.terrain.length; n++) {
+            div("", "carte");
+            div();
             if (!Jeu.adverse.terrain[n].cache) {
                 afficher_carte("adverse", "terrain", n);
             }
             else {
                 afficher("???");
             }
-            saut();
+            div_fin();
+            div_fin();
         }
     }
     else {
         afficher("<i>Le terrain adverse est vide</i>");
         saut();
     }
+    div_fin();
     saut();
+    div("", "zone");
     afficher("<u>Défausse adverse :</u>");
     saut();
     if (Jeu.adverse.defausse.length > 0) {
         for (let n = 0; n < Jeu.adverse.defausse.length; n++) {
+            div("", "carte");
+            div();
             afficher_carte("adverse", "defausse", n);
-            saut();
+            div_fin();
+            div_fin();
         }
     }
     else {
         afficher("<i>La défausse adverse est vide</i>");
     }
+    div_fin();
     div_fin();
     div("carte");
     div_fin();
@@ -1375,7 +1450,7 @@ function verifier_debuff(camp) {
     return false;
 }
 
-function equiper (creature, equipement) {
+function equiper(creature, equipement) {
     creature.equipements.push(equipement);
     creature.vie += equipement.stat_equipement.vie_max;
     if (!statistique(creature, "silence")) {

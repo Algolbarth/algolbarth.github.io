@@ -4,7 +4,7 @@ function obtenir_carte(carte_id) {
         verrouillage: false,
         etage_mort: 0,
         exclusif: false,
-        cache : false,
+        cache: false,
         camp: "",
         zone: "",
         slot: 0,
@@ -123,14 +123,22 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher("Choisissez une Créature alliée équipable sur le terrain : ");
                                 saut(2);
+                                div("", "zone");
+                                afficher("<u>Terrain :</u>");
+                                saut();
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
+                                    div("", "carte");
+                                    div();
                                     afficher_carte("joueur", "terrain", n);
+                                    div_fin();
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].equipements.length < Jeu.joueur.terrain[n].equipement_max) {
-                                        afficher(" ");
+                                        div();
                                         fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
+                                        div_fin();
                                     }
-                                    saut();
+                                    div_fin();
                                 }
+                                div_fin();
                                 div_fin();
                                 div("carte");
                                 div_fin();
@@ -182,14 +190,22 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher("Choisissez une Créature alliée blessée sur le terrain : ");
                                 saut(2);
+                                div("", "zone");
+                                afficher("<u>Terrain :</u>");
+                                saut();
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
+                                    div("", "carte");
+                                    div();
                                     afficher_carte("joueur", "terrain", n);
+                                    div_fin();
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].vie < Jeu.joueur.terrain[n].vie_max) {
-                                        afficher(" ");
+                                        div();
                                         fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
+                                        div_fin();
                                     }
-                                    saut();
+                                    div_fin();
                                 }
+                                div_fin();
                                 div_fin();
                                 div("carte");
                                 div_fin();
@@ -248,14 +264,22 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher("Choisissez une Créature alliée équipable sur le terrain : ");
                                 saut(2);
+                                div("", "zone");
+                                afficher("<u>Terrain :</u>");
+                                saut();
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
+                                    div("", "carte");
+                                    div();
                                     afficher_carte("joueur", "terrain", n);
+                                    div_fin();
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].equipements.length < Jeu.joueur.terrain[n].equipement_max) {
-                                        afficher(" ");
+                                        div();
                                         fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
+                                        div_fin();
                                     }
-                                    saut();
+                                    div_fin();
                                 }
+                                div_fin();
                                 div_fin();
                                 div("carte");
                                 div_fin();
@@ -398,12 +422,20 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher("Choisissez une Unité adverse sur le terrain : ");
                                 saut(2);
+                                div("", "zone");
+                                afficher("<u>Terrain adverse :</u>");
+                                saut();
                                 for (let n = 0; n < Jeu.adverse.terrain.length; n++) {
+                                    div("", "carte");
+                                    div();
                                     afficher_carte("adverse", "terrain", n);
-                                    afficher(" ");
+                                    div_fin();
+                                    div();
                                     fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                    saut();
+                                    div_fin();
+                                    div_fin();
                                 }
+                                div_fin();
                                 div_fin();
                                 div("carte");
                                 div_fin();
@@ -465,14 +497,22 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher("Choisissez une Créature alliée blessée sur le terrain : ");
                                 saut(2);
+                                div("", "zone");
+                                afficher("<u>Terrain :</u>");
+                                saut();
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
+                                    div("", "carte");
+                                    div();
                                     afficher_carte("joueur", "terrain", n);
+                                    div_fin();
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].vie < Jeu.joueur.terrain[n].vie_max) {
-                                        afficher(" ");
+                                        div();
                                         fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
+                                        div_fin();
                                     }
-                                    saut();
+                                    div_fin();
                                 }
+                                div_fin();
                                 div_fin();
                                 div("carte");
                                 div_fin();
@@ -614,12 +654,20 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher("Choisissez une Unité adverse sur le terrain : ");
                                 saut(2);
+                                div("", "zone");
+                                afficher("<u>Terrain adverse :</u>");
+                                saut();
                                 for (let n = 0; n < Jeu.adverse.terrain.length; n++) {
+                                    div("", "carte");
+                                    div();
                                     afficher_carte("adverse", "terrain", n);
-                                    afficher(" ");
+                                    div_fin();
+                                    div();
                                     fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                    saut();
+                                    div_fin();
+                                    div_fin();
                                 }
+                                div_fin();
                                 div_fin();
                                 div("carte");
                                 div_fin();
@@ -846,12 +894,20 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher("Choisissez une Unité adverse sur le terrain : ");
                                 saut(2);
+                                div("", "zone");
+                                afficher("<u>Terrain adverse :</u>");
+                                saut();
                                 for (let n = 0; n < Jeu.adverse.terrain.length; n++) {
+                                    div("", "carte");
+                                    div();
                                     afficher_carte("adverse", "terrain", n);
-                                    afficher(" ");
+                                    div_fin();
+                                    div();
                                     fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                    saut();
+                                    div_fin();
+                                    div_fin();
                                 }
+                                div_fin();
                                 div_fin();
                                 div("carte");
                                 div_fin();
@@ -941,14 +997,22 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher("Choisissez une Créature alliée équipable sur le terrain : ");
                                 saut(2);
+                                div("", "zone");
+                                afficher("<u>Terrain :</u>");
+                                saut();
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
+                                    div("", "carte");
+                                    div();
                                     afficher_carte("joueur", "terrain", n);
+                                    div_fin();
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].equipements.length < Jeu.joueur.terrain[n].equipement_max) {
-                                        afficher(" ");
+                                        div();
                                         fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
+                                        div_fin();
                                     }
-                                    saut();
+                                    div_fin();
                                 }
+                                div_fin();
                                 div_fin();
                                 div("carte");
                                 div_fin();
@@ -1085,14 +1149,22 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher("Choisissez une carte dans votre boutique : ");
                                 saut(2);
+                                div("", "zone");
+                                afficher("<u>Boutique :</u>");
+                                saut();
                                 for (let n = 0; n < Jeu.joueur.boutique.length; n++) {
+                                    div("", "carte");
+                                    div();
                                     afficher_carte("joueur", "boutique", n);
+                                    div_fin();
                                     if (Jeu.joueur.boutique[n].cout[0] > 0) {
-                                        afficher(" ");
+                                        div();
                                         fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
+                                        div_fin();
                                     }
-                                    saut();
+                                    div_fin();
                                 }
+                                div_fin();
                                 div_fin();
                                 div("carte");
                                 div_fin();
@@ -1200,12 +1272,20 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher("Choisissez une carte alliée dans la défausse : ");
                                 saut(2);
+                                div("", "zone");
+                                afficher("<u>Défausse :</u>");
+                                saut();
                                 for (let n = 0; n < Jeu.joueur.defausse.length; n++) {
+                                    div("", "carte");
+                                    div();
                                     afficher_carte("joueur", "defausse", n);
-                                    afficher(" ");
+                                    div_fin();
+                                    div();
                                     fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                    saut();
+                                    div_fin();
+                                    div_fin();
                                 }
+                                div_fin();
                                 div_fin();
                                 div("carte");
                                 div_fin();
@@ -1324,14 +1404,22 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher("Choisissez une Créature adverse sur le terrain : ");
                                 saut(2);
+                                div("", "zone");
+                                afficher("<u>Terrain adverse :</u>");
+                                saut();
                                 for (let n = 0; n < Jeu.adverse.terrain.length; n++) {
+                                    div("", "carte");
+                                    div();
                                     afficher_carte("adverse", "terrain", n);
+                                    div_fin();
                                     if (Jeu.adverse.terrain[n].type == "Créature") {
-                                        afficher(" ");
+                                        div();
                                         fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
+                                        div_fin();
                                     }
-                                    saut();
+                                    div_fin();
                                 }
+                                div_fin();
                                 div_fin();
                                 div("carte");
                                 div_fin();
@@ -1527,14 +1615,22 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher("Choisissez une Créature alliée équipable sur le terrain : ");
                                 saut(2);
+                                div("", "zone");
+                                afficher("<u>Terrain :</u>");
+                                saut();
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
+                                    div("", "carte");
+                                    div();
                                     afficher_carte("joueur", "terrain", n);
-                                    if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].equipements.length < Jeu.joueur.terrain[n].equipement_max) {   
-                                        afficher(" ");
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(3," + n + ")");
+                                    div_fin();
+                                    if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].equipements.length < Jeu.joueur.terrain[n].equipement_max) {
+                                        div();
+                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
+                                        div_fin();
                                     }
-                                    saut();
+                                    div_fin();
                                 }
+                                div_fin();
                                 div_fin();
                                 div("carte");
                                 div_fin();
@@ -1559,14 +1655,22 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher("Choisissez une Créature adverse sur le terrain : ");
                                 saut(2);
+                                div("", "zone");
+                                afficher("<u>Terrain adverse :</u>");
+                                saut();
                                 for (let n = 0; n < Jeu.adverse.terrain.length; n++) {
+                                    div("", "carte");
+                                    div();
                                     afficher_carte("adverse", "terrain", n);
+                                    div_fin();
                                     if (Jeu.adverse.terrain[n].type == "Créature") {
-                                        afficher(" ");
+                                        div();
                                         fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(5," + n + ")");
-                                        saut();
+                                        div_fin();
                                     }
+                                    div_fin();
                                 }
+                                div_fin();
                                 div_fin();
                                 div("carte");
                                 div_fin();
@@ -1628,14 +1732,22 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher("Choisissez une Créature alliée avec Poison sur le terrain : ");
                                 saut(2);
+                                div("", "zone");
+                                afficher("<u>Terrain :</u>");
+                                saut();
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
+                                    div("", "carte");
+                                    div();
                                     afficher_carte("joueur", "terrain", n);
+                                    div_fin();
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].poison > 0) {
-                                        afficher(" ");
+                                        div();
                                         fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
+                                        div_fin();
                                     }
-                                    saut();
+                                    div_fin();
                                 }
+                                div_fin();
                                 div_fin();
                                 div("carte");
                                 div_fin();
@@ -1698,12 +1810,20 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher("Choisissez une Unité adverse sur le terrain : ");
                                 saut(2);
+                                div("", "zone");
+                                afficher("<u>Terrain adverse :</u>");
+                                saut();
                                 for (let n = 0; n < Jeu.adverse.terrain.length; n++) {
+                                    div("", "carte");
+                                    div();
                                     afficher_carte("adverse", "terrain", n);
-                                    afficher(" ");
+                                    div_fin();
+                                    div();
                                     fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                    saut();
+                                    div_fin();
+                                    div_fin();
                                 }
+                                div_fin();
                                 div_fin();
                                 div("carte");
                                 div_fin();
@@ -1786,7 +1906,7 @@ function obtenir_carte(carte_id) {
             carte.vie_max = carte.vie = 10;
             carte.action_max = 1;
             carte.equipement_max = 1;
-            carte.texte = "Quand posé : Place une carte dans la boutique à la défausse et se donne 1 attaque et 1 vie.";
+            carte.texte = "Quand posé : Bannis une carte dans la boutique et se donne 1 attaque et 1 vie.";
             carte.effet_pose = function (step, cible) {
                 if (carte.camp == "joueur") {
                     switch (step) {
@@ -1802,12 +1922,20 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher("Choisissez une carte dans la boutique : ");
                                 saut(2);
+                                div("", "zone");
+                                afficher("<u>Boutique :</u>");
+                                saut();
                                 for (let n = 0; n < Jeu.joueur.boutique.length; n++) {
+                                    div("", "carte");
+                                    div();
                                     afficher_carte("joueur", "boutique", n);
-                                    afficher(" ");
+                                    div_fin();
+                                    div();
                                     fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                    saut();
+                                    div_fin();
+                                    div_fin();
                                 }
+                                div_fin();
                                 div_fin();
                                 div("carte");
                                 div_fin();
@@ -1860,14 +1988,22 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher("Choisissez une Créature alliée sur le terrain : ");
                                 saut(2);
+                                div("", "zone");
+                                afficher("<u>Terrain :</u>");
+                                saut();
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
+                                    div("", "carte");
+                                    div();
                                     afficher_carte("joueur", "terrain", n);
+                                    div_fin();
                                     if (Jeu.joueur.terrain[n].type == "Créature" && (Jeu.joueur.terrain[n].poison > 0 || Jeu.joueur.terrain[n].brulure > 0 || Jeu.joueur.terrain[n].saignement > 0 || Jeu.joueur.terrain[n].contamination > 0 || Jeu.joueur.terrain[n].etourdissement || Jeu.joueur.terrain[n].silence)) {
-                                        afficher(" ");
+                                        div();
                                         fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
+                                        div_fin();
                                     }
-                                    saut();
+                                    div_fin();
                                 }
+                                div_fin();
                                 div_fin();
                                 div("carte");
                                 div_fin();
@@ -1953,7 +2089,7 @@ function obtenir_carte(carte_id) {
             }
             break;
         case 58:
-            carte.nom = "Dague";
+            carte.nom = "Dague de cuivre";
             carte.type = "Objet";
             carte.familles.push("Équipement", "Arme");
             carte.cout[0] = 2;
@@ -1998,14 +2134,22 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher("Choisissez une Créature alliée équipable sur le terrain : ");
                                 saut(2);
+                                div("", "zone");
+                                afficher("<u>Terrain :</u>");
+                                saut();
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
+                                    div("", "carte");
+                                    div();
+                                    afficher_carte("joueur", "terrain", n);
+                                    div_fin();
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].equipements.length < Jeu.joueur.terrain[n].equipement_max) {
-                                        afficher_carte("joueur", "terrain", n);
-                                        afficher(" ");
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(3," + n + ")");
-                                        saut();
+                                        div();
+                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
+                                        div_fin();
                                     }
+                                    div_fin();
                                 }
+                                div_fin();
                                 div_fin();
                                 div("carte");
                                 div_fin();
@@ -2030,13 +2174,20 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher("Choisissez une Créature adverse sur le terrain : ");
                                 saut(2);
+                                div("", "zone");
+                                afficher("<u>Terrain adverse :</u>");
+                                saut();
                                 for (let n = 0; n < Jeu.adverse.terrain.length; n++) {
+                                    div("", "carte");
+                                    div();
                                     afficher_carte("adverse", "terrain", n);
+                                    div_fin();
                                     if (Jeu.adverse.terrain[n].type == "Créature") {
-                                        afficher(" ");
+                                        div();
                                         fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(5," + n + ")");
+                                        div_fin();
                                     }
-                                    saut();
+                                    div_fin();
                                 }
                                 div_fin();
                                 div("carte");
@@ -2321,12 +2472,20 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher("Choisissez une Unité adverse sur le terrain : ");
                                 saut(2);
+                                div("", "zone");
+                                afficher("<u>Terrain adverse :</u>");
+                                saut();
                                 for (let n = 0; n < Jeu.adverse.terrain.length; n++) {
+                                    div("", "carte");
+                                    div();
                                     afficher_carte("adverse", "terrain", n);
-                                    afficher(" ");
+                                    div_fin();
+                                    div();
                                     fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                    saut();
+                                    div_fin();
+                                    div_fin();
                                 }
+                                div_fin();
                                 div_fin();
                                 div("carte");
                                 div_fin();
@@ -2387,14 +2546,22 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher("Choisissez une Créature adverse sur le terrain : ");
                                 saut(2);
+                                div("", "zone");
+                                afficher("<u>Terrain adverse :</u>");
+                                saut();
                                 for (let n = 0; n < Jeu.adverse.terrain.length; n++) {
+                                    div("", "carte");
+                                    div();
                                     afficher_carte("adverse", "terrain", n);
+                                    div_fin();
                                     if (Jeu.adverse.terrain[n].type == "Créature") {
-                                        afficher(" ");
+                                        div();
                                         fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
+                                        div_fin();
                                     }
-                                    saut();
+                                    div_fin();
                                 }
+                                div_fin();
                                 div_fin();
                                 div("carte");
                                 div_fin();
@@ -2486,14 +2653,22 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher("Choisissez une Créature adverse sur le terrain : ");
                                 saut(2);
+                                div("", "zone");
+                                afficher("<u>Terrain adverse :</u>");
+                                saut();
                                 for (let n = 0; n < Jeu.adverse.terrain.length; n++) {
+                                    div("", "carte");
+                                    div();
                                     afficher_carte("adverse", "terrain", n);
+                                    div_fin();
                                     if (Jeu.adverse.terrain[n].type == "Créature" && !Jeu.adverse.terrain[n].etourdissement) {
-                                        afficher(" ");
+                                        div();
                                         fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
+                                        div_fin();
                                     }
-                                    saut();
+                                    div_fin();
                                 }
+                                div_fin();
                                 div_fin();
                                 div("carte");
                                 div_fin();
@@ -2551,25 +2726,41 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher("Choisissez une Créature sur le terrain : ");
                                 saut(2);
+                                div("", "zone");
+                                afficher("<u>Terrain :</u>");
+                                saut();
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
+                                    div("","carte");
+                                    div();
                                     afficher_carte("joueur", "terrain", n);
+                                    div_fin();
                                     if (Jeu.joueur.terrain[n].type == "Créature") {
-                                        afficher(" ");
+                                        div();
                                         fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + '"joueur",' + n + ")");
+                                        div_fin();
                                     }
-                                    saut();
+                                    div_fin();
                                 }
+                                div_fin();
                                 saut();
                                 afficher("Choisissez une Créature adverse sur le terrain : ");
                                 saut(2);
+                                div("", "zone");
+                                afficher("<u>Terrain adverse :</u>");
+                                saut();
                                 for (let n = 0; n < Jeu.adverse.terrain.length; n++) {
+                                    div("", "carte");
+                                    div();
                                     afficher_carte("adverse", "terrain", n);
+                                    div_fin();
                                     if (Jeu.adverse.terrain[n].type == "Créature") {
-                                        afficher(" ");
+                                        div();
                                         fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + '"adverse",' + n + ")");
+                                        div_fin();
                                     }
-                                    saut();
+                                    div_fin();
                                 }
+                                div_fin();
                                 div_fin();
                                 div("carte");
                                 div_fin();
@@ -2761,14 +2952,22 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher("Choisissez une Créature adverse sur le terrain : ");
                                 saut(2);
+                                div("", "zone");
+                                afficher("<u>Terrain adverse :</u>");
+                                saut();
                                 for (let n = 0; n < Jeu.adverse.terrain.length; n++) {
+                                    div("", "carte");
+                                    div();
                                     afficher_carte("adverse", "terrain", n);
+                                    div_fin();
                                     if (Jeu.adverse.terrain[n].type == "Créature") {
-                                        afficher(" ");
+                                        div();
                                         fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
+                                        div_fin();
                                     }
-                                    saut();
+                                    div_fin();
                                 }
+                                div_fin();
                                 div_fin();
                                 div("carte");
                                 div_fin();
@@ -2824,14 +3023,22 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher("Choisissez une Créature alliée sur le terrain : ");
                                 saut(2);
+                                div("", "zone");
+                                afficher("<u>Terrain :</u>");
+                                saut();
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
+                                    div("", "carte");
+                                    div();
                                     afficher_carte("joueur", "terrain", n);
+                                    div_fin();
                                     if (Jeu.joueur.terrain[n].type == "Créature") {
-                                        afficher(" ");
+                                        div();
                                         fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
+                                        div_fin();
                                     }
-                                    saut();
+                                    div_fin();
                                 }
+                                div_fin();
                                 div_fin();
                                 div("carte");
                                 div_fin();
@@ -2886,25 +3093,41 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher("Choisissez une Créature alliée sur le terrain : ");
                                 saut(2);
+                                div("", "zone");
+                                afficher("<u>Terrain :</u>");
+                                saut();
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
+                                    div("", "carte");
+                                    div();
                                     afficher_carte("joueur", "terrain", n);
+                                    div_fin();
                                     if (Jeu.joueur.terrain[n].type == "Créature") {
-                                        afficher(" ");
+                                        div();
                                         fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + '"joueur",' + n + ")");
+                                        div_fin();
                                     }
-                                    saut();
+                                    div_fin();
                                 }
+                                div_fin();
                                 saut();
                                 afficher("Choisissez une Créature adverse sur le terrain : ");
                                 saut(2);
+                                div("", "zone");
+                                afficher("<u>Terrain adverse :</u>");
+                                saut();
                                 for (let n = 0; n < Jeu.adverse.terrain.length; n++) {
+                                    div("", "carte");
+                                    div();
                                     afficher_carte("adverse", "terrain", n);
+                                    div_fin();
                                     if (Jeu.adverse.terrain[n].type == "Créature") {
-                                        afficher(" ");
+                                        div();
                                         fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + '"adverse",' + n + ")");
+                                        div_fin();
                                     }
-                                    saut();
+                                    div_fin();
                                 }
+                                div_fin();
                                 div_fin();
                                 div("carte");
                                 div_fin();
@@ -3381,14 +3604,22 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher("Choisissez une Créature alliée équipable sur le terrain : ");
                                 saut(2);
+                                div("", "zone");
+                                afficher("<u>Terrain :</u>");
+                                saut();
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
+                                    div("", "carte");
+                                    div();
                                     afficher_carte("joueur", "terrain", n);
+                                    div_fin();
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].equipements.length < Jeu.joueur.terrain[n].equipement_max) {
-                                        afficher(" ");
+                                        div();
                                         fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
+                                        div_fin();
                                     }
-                                    saut();
+                                    div_fin();
                                 }
+                                div_fin();
                                 div_fin();
                                 div("carte");
                                 div_fin();
@@ -3442,14 +3673,22 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher("Choisissez une Créature alliée équipable sur le terrain : ");
                                 saut(2);
+                                div("", "zone");
+                                afficher("<u>Terrain :</u>");
+                                saut();
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
+                                    div("", "carte");
+                                    div();
                                     afficher_carte("joueur", "terrain", n);
+                                    div_fin();
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].equipements.length < Jeu.joueur.terrain[n].equipement_max) {
-                                        afficher(" ");
+                                        div();
                                         fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
+                                        div_fin();
                                     }
-                                    saut();
+                                    div_fin();
                                 }
+                                div_fin();
                                 div_fin();
                                 div("carte");
                                 div_fin();
@@ -3503,14 +3742,22 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher("Choisissez une Créature alliée équipable sur le terrain : ");
                                 saut(2);
+                                div("", "zone");
+                                afficher("<u>Terrain :</u>");
+                                saut();
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
+                                    div("", "carte");
+                                    div();
                                     afficher_carte("joueur", "terrain", n);
+                                    div_fin();
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].equipements.length < Jeu.joueur.terrain[n].equipement_max) {
-                                        afficher(" ");
+                                        div();
                                         fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
+                                        div_fin();
                                     }
-                                    saut();
+                                    div_fin();
                                 }
+                                div_fin();
                                 div_fin();
                                 div("carte");
                                 div_fin();
@@ -3564,14 +3811,22 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher("Choisissez une Créature alliée équipable sur le terrain : ");
                                 saut(2);
+                                div("", "zone");
+                                afficher("<u>Terrain :</u>");
+                                saut();
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
+                                    div("", "carte");
+                                    div();
                                     afficher_carte("joueur", "terrain", n);
+                                    div_fin();
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].equipements.length < Jeu.joueur.terrain[n].equipement_max) {
-                                        afficher(" ");
+                                        div();
                                         fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
+                                        div_fin();
                                     }
-                                    saut();
+                                    div_fin();
                                 }
+                                div_fin();
                                 div_fin();
                                 div("carte");
                                 div_fin();
@@ -3624,14 +3879,22 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher("Choisissez une Créature alliée équipable sur le terrain : ");
                                 saut(2);
+                                div("", "zone");
+                                afficher("<u>Terrain :</u>");
+                                saut();
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
+                                    div("", "carte");
+                                    div();
                                     afficher_carte("joueur", "terrain", n);
+                                    div_fin();
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].equipements.length < Jeu.joueur.terrain[n].equipement_max) {
-                                        afficher(" ");
+                                        div();
                                         fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
+                                        div_fin();
                                     }
-                                    saut();
+                                    div_fin();
                                 }
+                                div_fin();
                                 div_fin();
                                 div("carte");
                                 div_fin();
@@ -3806,12 +4069,20 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher("Choisissez une Unité adverse : ");
                                 saut(2);
+                                div("", "zone");
+                                afficher("<u>Terrain adverse :</u>");
+                                saut();
                                 for (let n = 0; n < Jeu.adverse.terrain.length; n++) {
+                                    div("", "carte");
+                                    div();
                                     afficher_carte("adverse", "terrain", n);
-                                    afficher(" ");
+                                    div_fin();
+                                    div();
                                     fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                    saut();
+                                    div_fin();
+                                    div_fin();
                                 }
+                                div_fin();
                                 div_fin();
                                 div("carte");
                                 div_fin();
@@ -3968,14 +4239,22 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher("Choisissez une Créature alliée équipable sur le terrain : ");
                                 saut(2);
+                                div("", "zone");
+                                afficher("<u>Terrain :</u>");
+                                saut();
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
+                                    div("", "carte");
+                                    div();
                                     afficher_carte("joueur", "terrain", n);
+                                    div_fin();
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].equipements.length < Jeu.joueur.terrain[n].equipement_max) {
-                                        afficher(" ");
+                                        div();
                                         fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
+                                        div_fin();
                                     }
-                                    saut();
+                                    div_fin();
                                 }
+                                div_fin();
                                 div_fin();
                                 div("carte");
                                 div_fin();
@@ -4289,14 +4568,22 @@ function obtenir_carte(carte_id) {
                             saut(2);
                             afficher("Choisissez une carte dans la boutique non-verrouillée : ");
                             saut(2);
+                            div("", "zone");
+                            afficher("<u>Boutique :</u>");
+                            saut();
                             for (let n = 0; n < Jeu.joueur.boutique.length; n++) {
+                                div("", "carte");
+                                div();
                                 afficher_carte("joueur", "boutique", n);
+                                div_fin();
                                 if (!Jeu.joueur.boutique.verrouillage) {
-                                    afficher(" ");
+                                    div();
                                     fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
+                                    div_fin();
                                 }
-                                saut();
+                                div_fin();
                             }
+                            div_fin();
                             div_fin();
                             div("carte");
                             div_fin();
@@ -4523,14 +4810,22 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher("Choisissez une Créature adverse sur le terrain : ");
                                 saut(2);
+                                div("", "zone");
+                                afficher("<u>Terrain adverse :</u>");
+                                saut();
                                 for (let n = 0; n < Jeu.adverse.terrain.length; n++) {
+                                    div("", "carte");
+                                    div();
                                     afficher_carte("adverse", "terrain", n);
+                                    div_fin();
                                     if (Jeu.adverse.terrain[n].type == "Créature") {
-                                        afficher(" ");
+                                        div();
                                         fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
+                                        div_fin();
                                     }
-                                    saut();
+                                    div_fin();
                                 }
+                                div_fin();
                                 div_fin();
                                 div("carte");
                                 div_fin();
@@ -4628,14 +4923,22 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher("Choisissez une Créature adverse sur le terrain : ");
                                 saut(2);
+                                div("", "zone");
+                                afficher("<u>Terrain adverse :</u>");
+                                saut();
                                 for (let n = 0; n < Jeu.adverse.terrain.length; n++) {
+                                    div("", "carte");
+                                    div();
                                     afficher_carte("adverse", "terrain", n);
+                                    div_fin();
                                     if (Jeu.adverse.terrain[n].type == "Créature") {
-                                        afficher(" ");
+                                        div();
                                         fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
+                                        div_fin();
                                     }
-                                    saut();
+                                    div_fin();
                                 }
+                                div_fin();
                                 div_fin();
                                 div("carte");
                                 div_fin();
@@ -4739,14 +5042,22 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher("Choisissez une Créature alliée sur le terrain : ");
                                 saut(2);
+                                div("", "zone");
+                                afficher("<u>Terrain :</u>");
+                                saut();
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
+                                    div("", "carte");
+                                    div();
                                     afficher_carte("joueur", "terrain", n);
+                                    div_fin();
                                     if (Jeu.joueur.terrain[n].type == "Créature") {
-                                        afficher(" ");
+                                        div();
                                         fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
+                                        div_fin();
                                     }
-                                    saut();
+                                    div_fin();
                                 }
+                                div_fin();
                                 div_fin();
                                 div("carte");
                                 div_fin();
@@ -4809,12 +5120,20 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher("Choisissez une première Unité adverse sur le terrain : ");
                                 saut(2);
+                                div("", "zone");
+                                afficher("<u>Terrain adverse :</u>");
+                                saut();
                                 for (let n = 0; n < Jeu.adverse.terrain.length; n++) {
+                                    div("", "carte");
+                                    div();
                                     afficher_carte("adverse", "terrain", n);
-                                    afficher(" ");
+                                    div_fin();
+                                    div();
                                     fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                    saut();
+                                    div_fin();
+                                    div_fin();
                                 }
+                                div_fin();
                                 div_fin();
                                 div("carte");
                                 div_fin();
@@ -4833,12 +5152,20 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher("Choisissez une deuxième Unité adverse sur le terrain : ");
                                 saut(2);
+                                div("", "zone");
+                                afficher("<u>Terrain adverse :</u>");
+                                saut();
                                 for (let n = 0; n < Jeu.adverse.terrain.length; n++) {
+                                    div("", "carte");
+                                    div();
                                     afficher_carte("adverse", "terrain", n);
-                                    afficher(" ");
+                                    div_fin();
+                                    div();
                                     fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(3," + cible1 + "," + n + ")");
-                                    saut();
+                                    div_fin();
+                                    div_fin();
                                 }
+                                div_fin();
                                 div_fin();
                                 div("carte");
                                 div_fin();
@@ -4914,14 +5241,22 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher("Choisissez une Créature alliée dans la défausse : ");
                                 saut(2);
+                                div("", "zone");
+                                afficher("<u>Défausse :</u>");
+                                saut();
                                 for (let n = 0; n < Jeu.joueur.defausse.length; n++) {
+                                    div("", "carte");
+                                    div();
                                     afficher_carte("joueur", "defausse", n);
+                                    div_fin();
                                     if (Jeu.joueur.defausse[n].type == "Créature") {
-                                        afficher(" ");
+                                        div();
                                         fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
+                                        div_fin();
                                     }
-                                    saut();
+                                    div_fin();
                                 }
+                                div_fin();
                                 div_fin();
                                 div("carte");
                                 div_fin();
@@ -5006,14 +5341,22 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher("Choisissez une Créature alliée sur le terrain : ");
                                 saut(2);
+                                div("", "zone");
+                                afficher("<u>Terrain :</u>");
+                                saut();
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
+                                    div("", "carte");
+                                    div();
                                     afficher_carte("joueur", "terrain", n);
+                                    div_fin();
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].vie < Jeu.joueur.terrain[n].vie_max) {
-                                        afficher(" ");
+                                        div();
                                         fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(3," + n + ")");
+                                        div_fin();
                                     }
-                                    saut();
+                                    div_fin();
                                 }
+                                div_fin();
                                 div_fin();
                                 div("carte");
                                 div_fin();
@@ -5048,14 +5391,22 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher("Choisissez une Créature adverse sur le terrain : ");
                                 saut(2);
+                                div("", "zone");
+                                afficher("<u>Terrain adverse :</u>");
+                                saut();
                                 for (let n = 0; n < Jeu.adverse.terrain.length; n++) {
+                                    div("", "carte");
+                                    div();
                                     afficher_carte("adverse", "terrain", n);
+                                    div_fin();
                                     if (Jeu.adverse.terrain[n].type == "Créature") {
-                                        afficher(" ");
+                                        div();
                                         fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(5," + n + ")");
+                                        div_fin();
                                     }
-                                    saut();
+                                    div_fin();
                                 }
+                                div_fin();
                                 div_fin();
                                 div("carte");
                                 div_fin();
@@ -5138,14 +5489,22 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher("Choisissez une Créature adverse sur le terrain : ");
                                 saut(2);
+                                div("", "zone");
+                                afficher("<u>Terrain adverse :</u>");
+                                saut();
                                 for (let n = 0; n < Jeu.adverse.terrain.length; n++) {
+                                    div("", "carte");
+                                    div();
                                     afficher_carte("adverse", "terrain", n);
+                                    div_fin();
                                     if (Jeu.adverse.terrain[n].type == "Créature") {
-                                        afficher(" ");
+                                        div();
                                         fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
+                                        div_fin();
                                     }
-                                    saut();
+                                    div_fin();
                                 }
+                                div_fin();
                                 div_fin();
                                 div("carte");
                                 div_fin();
@@ -5164,14 +5523,22 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher("Choisissez une Créature alliée sur le terrain : ");
                                 saut(2);
+                                div("", "zone");
+                                afficher("<u>Terrain :</u>");
+                                saut();
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
+                                    div("", "carte");
+                                    div();
                                     afficher_carte("joueur", "terrain", n);
+                                    div_fin();
                                     if (Jeu.joueur.terrain[n].type == "Créature") {
-                                        afficher(" ");
+                                        div();
                                         fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(3," + cible1 + "," + n + ")");
+                                        div_fin();
                                     }
-                                    saut();
+                                    div_fin();
                                 }
+                                div_fin();
                                 div_fin();
                                 div("carte");
                                 div_fin();
@@ -5269,12 +5636,20 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher("Choisissez une Unité adverse sur le terrain : ");
                                 saut(2);
+                                div("", "zone");
+                                afficher("<u>Terrain adverse :</u>");
+                                saut();
                                 for (let n = 0; n < Jeu.adverse.terrain.length; n++) {
+                                    div("", "carte");
+                                    div();
                                     afficher_carte("adverse", "terrain", n);
-                                    afficher(" ");
+                                    div_fin();
+                                    div();
                                     fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                    saut();
+                                    div_fin();
+                                    div_fin();
                                 }
+                                div_fin();
                                 div_fin();
                                 div("carte");
                                 div_fin();
@@ -5779,14 +6154,22 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher("Choisissez une Créature adverse sur le terrain dont le coût total est de 4 ou moins : ");
                                 saut(2);
+                                div("", "zone");
+                                afficher("<u>Terrain adverse :</u>");
+                                saut();
                                 for (let n = 0; n < Jeu.adverse.terrain.length; n++) {
+                                    div("", "carte");
+                                    div();
                                     afficher_carte("adverse", "terrain", n);
+                                    div_fin();
                                     if (Jeu.adverse.terrain[n].type == "Créature" && cout_total(Jeu.adverse.terrain[n]) <= 4) {
-                                        afficher(" ");
+                                        div();
                                         fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
+                                        div_fin()
                                     }
-                                    saut();
+                                    div_fin();
                                 }
+                                div_fin();
                                 div_fin();
                                 div("carte");
                                 div_fin();
@@ -5855,14 +6238,22 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher("Choisissez une Créature alliée équipable sur le terrain : ");
                                 saut(2);
+                                div("", "zone");
+                                afficher("<u>Terrain :</u>");
+                                saut();
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
+                                    div("", "carte");
+                                    div();
                                     afficher_carte("joueur", "terrain", n);
+                                    div_fin();
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].equipements.length < Jeu.joueur.terrain[n].equipement_max) {
-                                        afficher(" ");
+                                        div();
                                         fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
+                                        div_fin();
                                     }
-                                    saut();
+                                    div_fin();
                                 }
+                                div_fin();
                                 div_fin();
                                 div("carte");
                                 div_fin();
@@ -6110,7 +6501,7 @@ function obtenir_carte(carte_id) {
             carte.vie_max = carte.vie = 10;
             carte.action_max = 1;
             carte.equipement_max = 1;
-            carte.texte = "Quand posé : Place une Créature alliée sur le terrain à la défausse et se donne 1 attaque et 1 vie.";
+            carte.texte = "Quand posé : Détruis Créature alliée sur le terrain et se donne 1 attaque et 1 vie.";
             carte.effet_pose = function (step, cible) {
                 if (carte.camp == "joueur") {
                     switch (step) {
@@ -6126,14 +6517,22 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher("Choisissez une Créature alliée sur le terrain : ");
                                 saut(2);
+                                div("", "zone");
+                                afficher("<u>Terrain :</u>");
+                                saut();
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
+                                    div("", "carte");
+                                    div();
                                     afficher_carte("joueur", "terrain", n);
+                                    div_fin();
                                     if (Jeu.joueur.terrain[n].type == "Créature") {
-                                        afficher(" ");
+                                        div();
                                         fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
+                                        div_fin();
                                     }
-                                    saut();
+                                    div_fin();
                                 }
+                                div_fin();
                                 div_fin();
                                 div("carte");
                                 div_fin();
@@ -6149,6 +6548,7 @@ function obtenir_carte(carte_id) {
                             carte.attaque++;
                             carte.vie++;
                             carte.vie_max++;
+                            Jeu.joueur.terrain[cible].vie = Jeu.joueur.terrain[cible].vie_sup = 0;
                             deplacer(Jeu.joueur.terrain[cible], "joueur", "defausse");
                             deplacer(carte, "joueur", "terrain");
                             effet_pose(carte);
@@ -6170,6 +6570,7 @@ function obtenir_carte(carte_id) {
                         carte.attaque++;
                         carte.vie++;
                         carte.vie_max++;
+                        Jeu.adverse.terrain[best].vie = Jeu.adverse.terrain[best].vie_sup = 0;
                         deplacer(Jeu.adverse.terrain[best], "adverse", "defausse");
                     }
                     deplacer(carte, "adverse", "terrain");
@@ -6199,14 +6600,22 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher("Choisissez une Créature adverse sur le terrain : ");
                                 saut(2);
+                                div("", "zone");
+                                afficher("<u>Terrain adverse :</u>");
+                                saut();
                                 for (let n = 0; n < Jeu.adverse.terrain.length; n++) {
+                                    div("", "carte");
+                                    div();
                                     afficher_carte("adverse", "terrain", n);
+                                    div_fin();
                                     if (Jeu.adverse.terrain[n].type == "Créature") {
-                                        afficher(" ");
+                                        div();
                                         fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
+                                        div_fin();
                                     }
-                                    saut();
+                                    div_fin();
                                 }
+                                div_fin();
                                 div_fin();
                                 div("carte");
                                 div_fin();
@@ -6263,14 +6672,22 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher("Choisissez une Créature adverse sur le terrain dont la vie est de 10 ou moins : ");
                                 saut(2);
+                                div("", "zone");
+                                afficher("<u>Terrain adverse :</u>");
+                                saut();
                                 for (let n = 0; n < Jeu.adverse.terrain.length; n++) {
+                                    div("", "carte");
+                                    div();
                                     afficher_carte("adverse", "terrain", n);
+                                    div_fin();
                                     if (Jeu.adverse.terrain[n].type == "Créature" && Jeu.adverse.terrain[n].vie <= 10) {
-                                        afficher(" ");
+                                        div();
                                         fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
+                                        div_fin();
                                     }
-                                    saut();
+                                    div_fin();
                                 }
+                                div_fin();
                                 div_fin();
                                 div("carte");
                                 div_fin();
@@ -6332,14 +6749,22 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher("Choisissez un Bâtiment allié blessé sur le terrain : ");
                                 saut(2);
+                                div("", "zone");
+                                afficher("<u>Terrain :</u>");
+                                saut();
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
+                                    div("", "carte");
+                                    div();
                                     afficher_carte("joueur", "terrain", n);
+                                    div_fin();
                                     if (Jeu.joueur.terrain[n].type == "Bâtiment" && Jeu.joueur.terrain[n].vie < Jeu.joueur.terrain[n].vie_max) {
-                                        afficher(" ");
+                                        div();
                                         fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
+                                        div_fin();
                                     }
-                                    saut();
+                                    div_fin();
                                 }
+                                div_fin();
                                 div_fin();
                                 div("carte");
                                 div_fin();
@@ -6395,14 +6820,22 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher("Choisissez un Bâtiment allié sur le terrain : ");
                                 saut(2);
+                                div("", "zone");
+                                afficher("<u>Terrain :</u>");
+                                saut();
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
+                                    div("", "carte");
+                                    div();
                                     afficher_carte("joueur", "terrain", n);
+                                    div_fin();
                                     if (Jeu.joueur.terrain[n].type == "Bâtiment") {
-                                        afficher(" ");
+                                        div();
                                         fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
+                                        div_fin();
                                     }
-                                    saut();
+                                    div_fin();
                                 }
+                                div_fin();
                                 div_fin();
                                 div("carte");
                                 div_fin();
@@ -6574,14 +7007,22 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher("Choisissez une Créature alliée sur le terrain : ");
                                 saut(2);
+                                div("", "zone");
+                                afficher("<u>Terrain :</u>");
+                                saut();
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
+                                    div("", "carte");
+                                    div();
                                     afficher_carte("joueur", "terrain", n);
+                                    div_fin();
                                     if (Jeu.joueur.terrain[n].type == "Créature") {
-                                        afficher(" ");
+                                        div();
                                         fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
+                                        div_fin();
                                     }
-                                    saut();
+                                    div_fin();
                                 }
+                                div_fin();
                                 div_fin();
                                 div("carte");
                                 div_fin();
@@ -6648,14 +7089,22 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher("Choisissez une Créature alliée sur le terrain : ");
                                 saut(2);
+                                div("", "zone");
+                                afficher("<u>Terrain :</u>");
+                                saut();
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
+                                    div("", "carte");
+                                    div();
                                     afficher_carte("joueur", "terrain", n);
+                                    div_fin();
                                     if (Jeu.joueur.terrain[n].type == "Créature") {
-                                        afficher(" ");
+                                        div();
                                         fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
+                                        div_fin();
                                     }
-                                    saut();
+                                    div_fin();
                                 }
+                                div_fin();
                                 div_fin();
                                 div("carte");
                                 div_fin();
@@ -6722,14 +7171,22 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher("Choisissez une Créature alliée équipable sur le terrain : ");
                                 saut(2);
+                                div("", "zone");
+                                afficher("<u>Terrain :</u>");
+                                saut();
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
+                                    div("", "carte");
+                                    div();
                                     afficher_carte("joueur", "terrain", n);
+                                    div_fin();
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].equipements.length < Jeu.joueur.terrain[n].equipement_max) {
-                                        afficher(" ");
+                                        div();
                                         fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
+                                        div_fin();
                                     }
-                                    saut();
+                                    div_fin();
                                 }
+                                div_fin();
                                 div_fin();
                                 div("carte");
                                 div_fin();
@@ -6737,7 +7194,7 @@ function obtenir_carte(carte_id) {
                             }
                             break;
                         case 2:
-                            equipement(Jeu.joueur.terrain[cible], carte);
+                            equiper(Jeu.joueur.terrain[cible], carte);
                             effet_pose(carte);
                             enlever(carte);
                             menu();
@@ -6781,14 +7238,22 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher("Choisissez une Créature alliée sur le terrain : ");
                                 saut(2);
+                                div("", "zone");
+                                afficher("<u>Terrain :</u>");
+                                saut();
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
+                                    div("", "carte");
+                                    div();
                                     afficher_carte("joueur", "terrain", n);
+                                    div_fin();
                                     if (Jeu.joueur.terrain[n].type == "Créature") {
-                                        afficher(" ");
+                                        div();
                                         fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
+                                        div_fin();
                                     }
-                                    saut();
+                                    div_fin();
                                 }
+                                div_fin();
                                 div_fin();
                                 div("carte");
                                 div_fin();
@@ -6806,12 +7271,20 @@ function obtenir_carte(carte_id) {
                             saut(2);
                             afficher("Choisissez une Unité adverse sur le terrain : ");
                             saut(2);
+                            div("", "zone");
+                            afficher("<u>Terrain adverse :</u>");
+                            saut();
                             for (let n = 0; n < Jeu.adverse.terrain.length; n++) {
+                                div("", "carte");
+                                div();
                                 afficher_carte("adverse", "terrain", n);
-                                afficher(" ");
+                                div_fin();
+                                div();
                                 fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(3," + cible1 + "," + n + ")");
-                                saut();
+                                div_fin();
+                                div_fin();
                             }
+                            div_fin();
                             div_fin();
                             div("carte");
                             div_fin();
@@ -6872,14 +7345,22 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher("Choisissez une Créature alliée sur le terrain : ");
                                 saut(2);
+                                div("", "zone");
+                                afficher("<u>Terrain :</u>");
+                                saut();
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
+                                    div("", "carte");
+                                    div();
                                     afficher_carte("joueur", "terrain", n);
+                                    div_fin();
                                     if (Jeu.joueur.terrain[n].type == "Créature") {
-                                        afficher(" ");
+                                        div();
                                         fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
+                                        div_fin();
                                     }
-                                    saut();
+                                    div_fin();
                                 }
+                                div_fin();
                                 div_fin();
                                 div("carte");
                                 div_fin();
@@ -6897,12 +7378,20 @@ function obtenir_carte(carte_id) {
                             saut(2);
                             afficher("Choisissez une Unité adverse sur le terrain : ");
                             saut(2);
+                            div("", "zone");
+                            afficher("<u>Terrain adverse :</u>");
+                            saut();
                             for (let n = 0; n < Jeu.adverse.terrain.length; n++) {
+                                div("", "carte");
+                                div();
                                 afficher_carte("adverse", "terrain", n);
-                                afficher(" ");
+                                div_fin();
+                                div();
                                 fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(3," + cible1 + "," + n + ")");
-                                saut();
+                                div_fin();
+                                div_fin();
                             }
+                            div_fin();
                             div_fin();
                             div("carte");
                             div_fin();
@@ -6947,7 +7436,7 @@ function obtenir_carte(carte_id) {
             carte.type = "Action";
             carte.cout[0] = 5;
             carte.vente[0] = 2;
-            carte.texte = "Inflige autant de dégâts à l'Unité adverse sur le terrain en première position que l'attaque d'une Créature alliée sur le terrain";
+            carte.texte = "Inflige autant de dégâts à l'Unité adverse sur le terrain en première position que l'attaque d'une Créature alliée sur le terrain.";
             carte.effet_pose = function (step, cible) {
                 if (carte.camp == "joueur") {
                     switch (step) {
@@ -6963,14 +7452,22 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher("Choisissez une Créature alliée sur le terrain : ");
                                 saut(2);
+                                div("", "zone");
+                                afficher("<u>Terrain :</u>");
+                                saut();
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
+                                    div("","carte");
+                                    div();
                                     afficher_carte("joueur", "terrain", n);
+                                    div_fin();
                                     if (Jeu.joueur.terrain[n].type == "Créature") {
-                                        afficher(" ");
+                                        div();
                                         fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
+                                        div_fin();
                                     }
-                                    saut();
+                                    div_fin();
                                 }
+                                div_fin();
                                 div_fin();
                                 div("carte");
                                 div_fin();
@@ -7028,14 +7525,22 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher("Choisissez une Créature alliée avec Brûlure sur le terrain : ");
                                 saut(2);
+                                div("", "zone");
+                                afficher("<u>Terrain :</u>");
+                                saut();
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
+                                    div("", "carte");
+                                    div();
                                     afficher_carte("joueur", "terrain", n);
+                                    div_fin();
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].brulure > 0) {
-                                        afficher(" ");
+                                        div();
                                         fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
+                                        div_fin();
                                     }
-                                    saut();
+                                    div_fin();
                                 }
+                                div_fin();
                                 div_fin();
                                 div("carte");
                                 div_fin();
@@ -7092,14 +7597,22 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher("Choisissez une Créature alliée avec Gel sur le terrain : ");
                                 saut(2);
+                                div("", "zone");
+                                afficher("<u>Terrain :</u>");
+                                saut();
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
+                                    div("", "carte");
+                                    div();
                                     afficher_carte("joueur", "terrain", n);
+                                    div_fin();
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].gel > 0) {
-                                        afficher(" ");
+                                        div();
                                         fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
+                                        div_fin();
                                     }
-                                    saut();
+                                    div_fin();
                                 }
+                                div_fin();
                                 div_fin();
                                 div("carte");
                                 div_fin();
@@ -7157,14 +7670,22 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher("Choisissez une Créature alliée avec Étourdissement sur le terrain : ");
                                 saut(2);
+                                div("", "zone");
+                                afficher("<u>Terrain :</u>");
+                                saut();
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
+                                    div("","carte");
+                                    div();
                                     afficher_carte("joueur", "terrain", n);
+                                    div_fin();
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].etourdissement) {
-                                        afficher(" ");
+                                        div();
                                         fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
+                                        div_fin();
                                     }
-                                    saut();
+                                    div_fin();
                                 }
+                                div_fin();
                                 div_fin();
                                 div("carte");
                                 div_fin();
@@ -7220,14 +7741,22 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher("Choisissez une Créature alliée avec Pansement sur le terrain : ");
                                 saut(2);
+                                div("", "zone");
+                                afficher("<u>Terrain :</u>");
+                                saut();
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
+                                    div("", "carte");
+                                    div();
                                     afficher_carte("joueur", "terrain", n);
+                                    div_fin();
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].saignement > 0) {
-                                        afficher(" ");
+                                        div();
                                         fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
+                                        div_fin();
                                     }
-                                    saut();
+                                    div_fin();
                                 }
+                                div_fin();
                                 div_fin();
                                 div("carte");
                                 div_fin();
@@ -7286,14 +7815,22 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher("Choisissez une Créature adverse sur le terrain : ");
                                 saut(2);
+                                div("", "zone");
+                                afficher("<u>Terrain adverse :</u>");
+                                saut();
                                 for (let n = 0; n < Jeu.adverse.terrain.length; n++) {
+                                    div("", "carte");
+                                    div();
                                     afficher_carte("adverse", "terrain", n);
+                                    div_fin();
                                     if (Jeu.adverse.terrain[n].type == "Créature") {
-                                        afficher(" ");
+                                        div();
                                         fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
+                                        div_fin();
                                     }
-                                    saut();
+                                    div_fin();
                                 }
+                                div_fin();
                                 div_fin();
                                 div("carte");
                                 div_fin();
@@ -7495,25 +8032,41 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher("Choisissez une Créature alliée sur le terrain : ");
                                 saut(2);
+                                div("", "zone");
+                                afficher("<u>Terrain :</u>");
+                                saut();
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
+                                    div("", "carte");
+                                    div();
                                     afficher_carte("joueur", "terrain", n);
+                                    div_fin();
                                     if (Jeu.joueur.terrain[n].type == "Créature") {
-                                        afficher(" ");
+                                        div();
                                         fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + '"joueur",' + n + ")");
+                                        div_fin();
                                     }
-                                    saut();
+                                    div_fin();
                                 }
+                                div_fin();
                                 saut();
                                 afficher("Choisissez une Créature adverse sur le terrain : ");
                                 saut(2);
+                                div("", "zone");
+                                afficher("<u>Terrain adverse :</u>");
+                                saut();
                                 for (let n = 0; n < Jeu.adverse.terrain.length; n++) {
+                                    div("", "carte");
+                                    div();
                                     afficher_carte("adverse", "terrain", n);
+                                    div_fin();
                                     if (Jeu.adverse.terrain[n].type == "Créature") {
-                                        afficher(" ");
+                                        div();
                                         fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + '"adverse",' + n + ")");
+                                        div_fin();
                                     }
-                                    saut();
+                                    div_fin();
                                 }
+                                div_fin();
                                 div_fin();
                                 div("carte");
                                 div_fin();
@@ -7599,14 +8152,22 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher("Choisissez une Créature alliée équipable sur le terrain : ");
                                 saut(2);
+                                div("", "zone");
+                                afficher("<u>Terrain :</u>");
+                                saut();
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
+                                    div("", "carte");
+                                    div();
                                     afficher_carte("joueur", "terrain", n);
+                                    div_fin();
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].equipements.length < Jeu.joueur.terrain[n].equipement_max) {
-                                        afficher(" ");
+                                        div();
                                         fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
+                                        div_fin();
                                     }
-                                    saut();
+                                    div_fin();
                                 }
+                                div_fin();
                                 div_fin();
                                 div("carte");
                                 div_fin();
@@ -7659,14 +8220,22 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher("Choisissez une Créature alliée équipable sur le terrain : ");
                                 saut(2);
+                                div("", "zone");
+                                afficher("<u>Terrain :</u>");
+                                saut();
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
+                                    div("", "carte");
+                                    div();
                                     afficher_carte("joueur", "terrain", n);
+                                    div_fin();
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].equipements.length < Jeu.joueur.terrain[n].equipement_max) {
-                                        afficher(" ");
+                                        div();
                                         fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
+                                        div_fin();
                                     }
-                                    saut();
+                                    div_fin();
                                 }
+                                div_fin();
                                 div_fin();
                                 div("carte");
                                 div_fin();
@@ -7783,14 +8352,22 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher("Choisissez une Créature alliée sur le terrain : ");
                                 saut(2);
+                                div("", "zone");
+                                afficher("<u>Terrain :</u>");
+                                saut();
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
+                                    div("", "carte");
+                                    div();
                                     afficher_carte("joueur", "terrain", n);
+                                    div_fin();
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].vie < Jeu.joueur.terrain[n].vie_max) {
-                                        afficher(" ");
+                                        div();
                                         fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(3," + n + ")");
+                                        div_fin();
                                     }
-                                    saut();
+                                    div_fin();
                                 }
+                                div_fin();
                                 div_fin();
                                 div("carte");
                                 div_fin();
@@ -7849,14 +8426,22 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher("Choisissez une Créature alliée dans la défausse : ");
                                 saut(2);
+                                div("", "zone");
+                                afficher("<u>Défausse :</u>");
+                                saut();
                                 for (let n = 0; n < Jeu.joueur.defausse.length; n++) {
+                                    div("", "carte");
+                                    div();
                                     afficher_carte("joueur", "defausse", n);
+                                    div_fin();
                                     if (Jeu.joueur.defausse[n].type == "Créature") {
-                                        afficher(" ");
+                                        div();
                                         fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
+                                        div_fin();
                                     }
-                                    saut();
+                                    div_fin();
                                 }
+                                div_fin();
                                 div_fin();
                                 div("carte");
                                 div_fin();
@@ -8046,14 +8631,22 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher("Choisissez une Créature alliée sur le terrain : ");
                                 saut(2);
+                                div("", "zone");
+                                afficher("<u>Terrain :</u>");
+                                saut();
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
+                                    div("", "carte");
+                                    div();
                                     afficher_carte("joueur", "terrain", n);
+                                    div_fin();
                                     if (Jeu.joueur.terrain[n].type == "Créature") {
-                                        afficher(" ");
+                                        div();
                                         fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
+                                        div_fin();
                                     }
-                                    saut();
+                                    div_fin();
                                 }
+                                div_fin();
                                 div_fin();
                                 div("carte");
                                 div_fin();
@@ -8113,14 +8706,22 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher("Choisissez une Créature alliée sur le terrain : ");
                                 saut(2);
+                                div("", "zone");
+                                afficher("<u>Terrain :</u>");
+                                saut();
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
+                                    div("", "carte");
+                                    div();
                                     afficher_carte("joueur", "terrain", n);
+                                    div_fin();
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].vie_max > 2) {
-                                        afficher(" ");
+                                        div();
                                         fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
+                                        div_fin();
                                     }
-                                    saut();
+                                    div_fin();
                                 }
+                                div_fin();
                                 div_fin();
                                 div("carte");
                                 div_fin();
@@ -8202,14 +8803,22 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher("Choisissez une carte Plante dans la boutique : ");
                                 saut(2);
+                                div("", "zone");
+                                afficher("<u>Boutique :</u>");
+                                saut();
                                 for (let n = 0; n < Jeu.joueur.boutique.length; n++) {
+                                    div("", "carte");
+                                    div();
                                     afficher_carte("joueur", "boutique", n);
+                                    div_fin();
                                     if (Jeu.joueur.boutique[n].familles.includes("Plante") && Jeu.joueur.boutique[n].cout[3] > 0) {
-                                        afficher(" ");
+                                        div();
                                         fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
+                                        div_fin();
                                     }
-                                    saut();
+                                    div_fin();
                                 }
+                                div_fin();
                                 div_fin();
                                 div("carte");
                                 div_fin();
@@ -8261,14 +8870,22 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher("Choisissez une Unité alliée Plante sur le terrain : ");
                                 saut(2);
+                                div("", "zone");
+                                afficher("<u>Terrain :</u>");
+                                saut();
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
+                                    div("", "carte");
+                                    div();
                                     afficher_carte("joueur", "terrain", n);
+                                    div_fin();
                                     if (["Créature", "Bâtiment"].includes(Jeu.joueur.terrain[n].type) && Jeu.joueur.terrain[n].familles.includes("Plante")) {
-                                        afficher(" ");
+                                        div();
                                         fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
+                                        div_fin();
                                     }
-                                    saut();
+                                    div_fin();
                                 }
+                                div_fin();
                                 div_fin();
                                 div("carte");
                                 div_fin();
@@ -8396,14 +9013,22 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher("Choisissez une Créature alliée non-Vampire sur le terrain : ");
                                 saut(2);
+                                div("", "zone");
+                                afficher("<u>Terrain :</u>");
+                                saut();
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
+                                    div("", "carte");
+                                    div();
                                     afficher_carte("joueur", "terrain", n);
+                                    div_fin();
                                     if (Jeu.joueur.terrain[n].type == "Créature" && !Jeu.joueur.terrain[n].familles.includes("Vampire")) {
-                                        afficher(" ");
+                                        div();
                                         fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
+                                        div_fin();
                                     }
-                                    saut();
+                                    div_fin();
                                 }
+                                div_fin();
                                 div_fin();
                                 div("carte");
                                 div_fin();
@@ -8468,14 +9093,22 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher("Choisissez une Créature alliée sur le terrain : ");
                                 saut(2);
+                                div("", "zone");
+                                afficher("<u>Terrain :</u>");
+                                saut();
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
+                                    div("", "carte");
+                                    div();
                                     afficher_carte("joueur", "terrain", n);
+                                    div_fin();
                                     if (Jeu.joueur.terrain[n].type == "Créature" && !Jeu.joueur.terrain[n].esquive) {
-                                        afficher(" ");
+                                        div();
                                         fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
+                                        div_fin();
                                     }
-                                    saut();
+                                    div_fin();
                                 }
+                                div_fin();
                                 div_fin();
                                 div("carte");
                                 div_fin();
@@ -8529,14 +9162,22 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher("Choisissez une Créature alliée équipable sur le terrain : ");
                                 saut(2);
+                                div("", "zone");
+                                afficher("<u>Terrain :</u>");
+                                saut();
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
+                                    div("", "carte");
+                                    div();
                                     afficher_carte("joueur", "terrain", n);
+                                    div_fin();
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].equipements.length < Jeu.joueur.terrain[n].equipement_max) {
-                                        afficher(" ");
+                                        div();
                                         fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
+                                        div_fin();
                                     }
-                                    saut();
+                                    div_fin();
                                 }
+                                div_fin();
                                 div_fin();
                                 div("carte");
                                 div_fin();
@@ -8590,14 +9231,22 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher("Choisissez une Créature alliée équipable sur le terrain : ");
                                 saut(2);
+                                div("", "zone");
+                                afficher("<u>Terrain :</u>");
+                                saut();
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
+                                    div("", "carte");
+                                    div();
                                     afficher_carte("joueur", "terrain", n);
+                                    div_fin();
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].equipements.length < Jeu.joueur.terrain[n].equipement_max) {
-                                        afficher(" ");
+                                        div();
                                         fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
+                                        div_fin();
                                     }
-                                    saut();
+                                    div_fin();
                                 }
+                                div_fin();
                                 div_fin();
                                 div("carte");
                                 div_fin();
