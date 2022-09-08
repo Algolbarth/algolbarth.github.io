@@ -59,6 +59,10 @@ button.menu:hover {
     background:rgb(80, 80, 80);
 }
 
+.attaquant {
+    background:rgb(99, 21, 21);
+}
+
 .action {
     position: relative;
     right: 0;

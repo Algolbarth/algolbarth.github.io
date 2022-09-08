@@ -23,9 +23,6 @@ function demarrage() {
             vitesse: 1000,
         },
         afficher_stat: true,
-        raccourci_achat: true,
-        raccourci_vente: true,
-        raccourci_pose: true,
         texte_talent: true,
         collection: [],
         collection_tri: "nom",
@@ -69,8 +66,10 @@ function verifier_famille(famille) {
 
 function ecran_titre() {
     initialiser();
-    afficher("<center><img src='Images/Title.png' style='width:20%;'/>");
-    saut(2);
+    afficher("<center><img src='Images/Title.png' style='width:30em;border:solid;border-width:5px;'/>");
+    saut();
+    afficher("Version BETA");
+    saut(3);
     fonction("Jouer", "nouvelle_partie()", "menu");
     saut(2);
     fonction("Bibliothèque", "collection_init();collection()", "menu");
@@ -122,6 +121,7 @@ function nouvelle_partie() {
     Jeu.combat.etat = false;
     ajouter(obtenir_carte(78), "joueur", "regions");
     ajouter(obtenir_carte(31), "joueur", "main");
+    ajouter(obtenir_carte(2), "joueur", "main");
     ajouter(obtenir_carte(1), "joueur", "terrain");
     adversaire_generer(1);
     adversaire_jouer();
@@ -186,9 +186,7 @@ function menu() {
             afficher_carte("joueur", "boutique", n);
             div_fin();
             div();
-            if (Jeu.raccourci_achat) {
-                fonction("Acheter", "acheter(" + n + ")", "action");
-            }
+            fonction("Acheter", "acheter(" + n + ")", "action");
             div_fin();
             div_fin();
         }
@@ -217,13 +215,9 @@ function menu() {
             afficher_carte("joueur", "main", n);
             div_fin();
             div();
-            if (Jeu.raccourci_pose) {
-                fonction("Poser", "poser(" + n + ")");
-            }
+            fonction("Poser", "poser(" + n + ")");
             afficher(" ");
-            if (Jeu.raccourci_vente) {
-                fonction("Vendre", "vendre(" + '"main",' + n + ")");
-            }
+            fonction("Vendre", "vendre(" + '"main",' + n + ")");
             div_fin();
             div_fin();
         }
@@ -254,9 +248,7 @@ function menu() {
             afficher_carte("joueur", "terrain", n);
             div_fin();
             div();
-            if (Jeu.raccourci_vente) {
-                fonction("Vendre", "vendre(" + '"terrain",' + n + ")");
-            }
+            fonction("Vendre", "vendre(" + '"terrain",' + n + ")");
             div_fin();
             div_fin();
         }
@@ -597,22 +589,11 @@ function carte_afficher(carte) {
         texte += "<u>Équipements :</u> <br/>";
         if (carte.equipements.length > 0) {
             for (let n = 0; n < carte.equipements.length; n++) {
-                texte += carte.equipements[n].nom + " : " + carte.equipements[n].texte + "<br/>";
+                texte += "<button onclick='javascript:carte_afficher(Jeu[" + '"' + carte.camp + '"' + "][" + '"' + carte.zone + '"' + "][" + '"' + carte.slot + '"' + "].equipements[" + n + "])'>" + carte.equipements[n].nom + "</button> <br/>";
             }
         }
         else {
             texte += "Aucun <br/>";
-        }
-    }
-    if (!Jeu.combat.etat && carte.camp == "joueur") {
-        if (carte.zone == "main") {
-            texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(" + carte.slot + ",1)'>Poser</button> <br/>";
-        }
-        if (carte.zone == "boutique") {
-            texte += "<button onclick='javascript:acheter(" + carte.slot + ")'>Acheter</button> <br/>";
-        }
-        else if (carte.zone == "main" || carte.zone == "terrain") {
-            texte += "<button onclick='javascript:vendre(" + '"' + carte.zone + '",' + carte.slot + ")'>Vendre</button> <br/>";
         }
     }
     texte += "<div id='description'><span id='contenu'>" + carte.description + "</span></div>";

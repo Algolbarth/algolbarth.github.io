@@ -259,11 +259,13 @@ function combat_afficher() {
     saut();
     if (Jeu.adverse.terrain.length > 0) {
         for (let n = 0; n < Jeu.adverse.terrain.length; n++) {
-            div("", "carte");
-            div();
             if (Jeu.combat.slot == n && Jeu.combat.attaquant == "adverse") {
-                afficher("");
+                div("", "carte attaquant");
             }
+            else {
+                div("", "carte");
+            }
+            div();
             afficher_carte("adverse", "terrain", n);
             div_fin();
             div_fin();
@@ -280,7 +282,12 @@ function combat_afficher() {
     saut();
     if (Jeu.joueur.terrain.length > 0) {
         for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
-            div("", "carte");
+            if (Jeu.combat.slot == n && Jeu.combat.attaquant == "joueur") {
+                div("", "carte attaquant");
+            }
+            else {
+                div("", "carte");
+            }
             div();
             afficher_carte("joueur", "terrain", n);
             div_fin();

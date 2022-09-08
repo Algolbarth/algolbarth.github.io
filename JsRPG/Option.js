@@ -27,36 +27,6 @@ function option() {
         afficher(" Désactivé");
     }
     saut();
-    afficher("Raccourci d'achat : ");
-    if (Jeu.raccourci_achat) {
-        afficher("Activé ");
-        fonction("Désactivé", "Jeu.raccourci_achat=false;option()");
-    }
-    else {
-        fonction("Activé", "Jeu.raccourci_achat=true;option()");
-        afficher(" Désactivé");
-    }
-    saut();
-    afficher("Raccourci de vente : ");
-    if (Jeu.raccourci_vente) {
-        afficher("Activé ");
-        fonction("Désactivé", "Jeu.raccourci_vente=false;option()");
-    }
-    else {
-        fonction("Activé", "Jeu.raccourci_vente=true;option()");
-        afficher(" Désactivé");
-    }
-    saut();
-    afficher("Raccourci de pose : ");
-    if (Jeu.raccourci_pose) {
-        afficher("Activé ");
-        fonction("Désactivé", "Jeu.raccourci_pose=false;option()");
-    }
-    else {
-        fonction("Activé", "Jeu.raccourci_pose=true;option()");
-        afficher(" Désactivé");
-    }
-    saut();
     afficher("Description des talents : ");
     if (Jeu.texte_talent) {
         afficher("Activé ");
