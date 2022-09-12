@@ -2,7 +2,7 @@ function option() {
     initialiser();
     fonction("Continuer", "menu()");
     saut(2);
-    afficher("Mode automatique : ");
+    afficher("Combat automatique : ");
     if (Jeu.combat.auto) {
         afficher("Activé ");
         fonction("Désactivé", "Jeu.combat.auto=false;option()");
@@ -17,7 +17,7 @@ function option() {
     option_vitesse("Normal", 1000);
     option_vitesse("Rapide", 500);
     saut();
-    afficher("Afficher les statistiques des créatures et des bâtiments : ");
+    afficher("Afficher les statistiques des créatures et des bâtiments hors combat : ");
     if (Jeu.afficher_stat) {
         afficher("Activé ");
         fonction("Désactivé", "Jeu.afficher_stat=false;option()");

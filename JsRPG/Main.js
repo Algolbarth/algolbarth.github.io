@@ -292,7 +292,7 @@ function afficher_carte(camp, zone, slot) {
     if (carte.verrouillage) {
         afficher("]");
     }
-    if (Jeu.afficher_stat && ["Créature", "Bâtiment"].includes(carte.type)) {
+    if ((Jeu.afficher_stat || Jeu.combat.etat) && ["Créature", "Bâtiment"].includes(carte.type)) {
         if (carte.type == "Créature") {
             afficher(" " + statistique(carte, "attaque") + " ATT");
         }
