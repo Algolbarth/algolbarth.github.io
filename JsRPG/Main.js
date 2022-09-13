@@ -1322,6 +1322,15 @@ function effet_pose(carte) {
     }
 }
 
+function verifier_cible(camp, zone) {
+    for (let n = 0; n < Jeu[camp][zone].length; n++) {
+        if (!Jeu[camp][zone][n].camouflage) {
+            return true;
+        }
+    }
+    return false;
+}
+
 function verifier_creature(camp, zone) {
     for (let n = 0; n < Jeu[camp][zone].length; n++) {
         if (Jeu[camp][zone][n].type == "Créature") {
@@ -1334,6 +1343,15 @@ function verifier_creature(camp, zone) {
 function verifier_batiment(camp, zone) {
     for (let n = 0; n < Jeu[camp][zone].length; n++) {
         if (Jeu[camp][zone][n].type == "Bâtiment") {
+            return true;
+        }
+    }
+    return false;
+}
+
+function verifier_cible_creature(camp, zone) {
+    for (let n = 0; n < Jeu[camp][zone].length; n++) {
+        if (Jeu[camp][zone][n].type == "Créature" && !Jeu[camp][zone][n].camouflage) {
             return true;
         }
     }

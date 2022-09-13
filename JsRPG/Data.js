@@ -411,7 +411,7 @@ function obtenir_carte(carte_id) {
                 if (carte.camp == "joueur") {
                     switch (step) {
                         case 1:
-                            if (Jeu.adverse.terrain.length > 0 && !statistique(carte, "silence")) {
+                            if (verifier_cible("adverse", "terrain") && !statistique(carte, "silence")) {
                                 initialiser();
                                 div("main");
                                 fonction("Annuler", "menu()");
@@ -463,10 +463,13 @@ function obtenir_carte(carte_id) {
                     }
                 }
                 else {
-                    if (Jeu.joueur.terrain.length > 0 && !statistique(carte, "silence")) {
+                    if (verifier_cible("joueur", "terrain") && !statistique(carte, "silence")) {
                         let best = 0;
+                        while (Jeu.joueur.terrain[best].camouflage) {
+                            best++;
+                        }
                         for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
-                            if ((Jeu.joueur.terrain[n].vie <= 4 && Jeu.joueur.terrain[best].vie > 4) || Jeu.joueur.terrain[n].vie > Jeu.joueur.terrain[best].vie) {
+                            if ((Jeu.joueur.terrain[n].vie <= 4 && Jeu.joueur.terrain[best].vie > 4) || Jeu.joueur.terrain[n].vie > Jeu.joueur.terrain[best].vie && !Jeu.joueur.terrain[n].camouflage) {
                                 best = n;
                             }
                         }
@@ -650,7 +653,7 @@ function obtenir_carte(carte_id) {
                 if (carte.camp == "joueur") {
                     switch (step) {
                         case 1:
-                            if (Jeu.adverse.terrain.length > 0) {
+                            if (verifier_cible("adverse", "terrain")) {
                                 initialiser();
                                 div("main");
                                 fonction("Annuler", "menu()");
@@ -697,10 +700,13 @@ function obtenir_carte(carte_id) {
                     }
                 }
                 else {
-                    if (Jeu.joueur.terrain.length > 0) {
+                    if (verifier_cible("joueur", "terrain")) {
                         let best = 0;
+                        while (Jeu.joueur.terrain[best].camouflage) {
+                            best++;
+                        }
                         for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
-                            if ((Jeu.joueur.terrain[n].vie <= 3 && Jeu.joueur.terrain[best].vie > 3) || Jeu.joueur.terrain[n].vie > Jeu.joueur.terrain[best].vie) {
+                            if ((Jeu.joueur.terrain[n].vie <= 3 && Jeu.joueur.terrain[best].vie > 3) || Jeu.joueur.terrain[n].vie > Jeu.joueur.terrain[best].vie && !Jeu.joueur.terrain[n].camouflage) {
                                 best = n;
                             }
                         }
@@ -897,7 +903,7 @@ function obtenir_carte(carte_id) {
                 if (carte.camp == "joueur") {
                     switch (step) {
                         case 1:
-                            if (Jeu.adverse.terrain.length > 0) {
+                            if (verifier_cible("adverse", "terrain")) {
                                 initialiser();
                                 div("main");
                                 fonction("Annuler", "menu()");
@@ -950,11 +956,14 @@ function obtenir_carte(carte_id) {
                     }
                 }
                 else {
-                    if (Jeu.joueur.terrain.length > 0) {
+                    if (verifier_cible("joueur", "terrain")) {
                         let best = 0;
+                        while (Jeu.joueur.terrain[best].camouflage) {
+                            best++;
+                        }
                         if (sorcellerie("adverse") >= 2) {
                             for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
-                                if ((Jeu.joueur.terrain[n].vie <= 5 && Jeu.joueur.terrain[best].vie > 5) || Jeu.joueur.terrain[n].vie > Jeu.joueur.terrain[best].vie) {
+                                if ((Jeu.joueur.terrain[n].vie <= 5 && Jeu.joueur.terrain[best].vie > 5) || Jeu.joueur.terrain[n].vie > Jeu.joueur.terrain[best].vie && !Jeu.joueur.terrain[n].camouflage) {
                                     best = n;
                                 }
                             }
@@ -962,7 +971,7 @@ function obtenir_carte(carte_id) {
                         }
                         else {
                             for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
-                                if ((Jeu.joueur.terrain[n].vie <= 3 && Jeu.joueur.terrain[best].vie > 3) || Jeu.joueur.terrain[n].vie > Jeu.joueur.terrain[best].vie) {
+                                if ((Jeu.joueur.terrain[n].vie <= 3 && Jeu.joueur.terrain[best].vie > 3) || Jeu.joueur.terrain[n].vie > Jeu.joueur.terrain[best].vie && !Jeu.joueur.terrain[n].camouflage) {
                                     best = n;
                                 }
                             }
@@ -1414,7 +1423,7 @@ function obtenir_carte(carte_id) {
                 if (carte.camp == "joueur") {
                     switch (step) {
                         case 1:
-                            if (verifier_creature("adverse", "terrain") && !statistique(carte, "silence")) {
+                            if (verifier_cible_creature("adverse", "terrain") && !statistique(carte, "silence")) {
                                 initialiser();
                                 div("main");
                                 fonction("Annuler", "menu()");
@@ -1467,13 +1476,13 @@ function obtenir_carte(carte_id) {
                     }
                 }
                 else {
-                    if (verifier_creature("joueur", "terrain") && !statistique(carte, "silence")) {
+                    if (verifier_cible_creature("joueur", "terrain") && !statistique(carte, "silence")) {
                         let best = 0;
-                        while (Jeu.joueur.terrain[best].type != "Créature") {
+                        while (Jeu.joueur.terrain[best].type != "Créature" && Jeu.joueur.terrain[best].camouflage) {
                             best++;
                         }
                         for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
-                            if (Jeu.joueur.terrain[n].vie > Jeu.joueur.terrain[best].vie && Jeu.joueur.terrain[best].type == "Créature") {
+                            if (Jeu.joueur.terrain[n].vie > Jeu.joueur.terrain[best].vie && Jeu.joueur.terrain[best].type == "Créature" && !Jeu.joueur.terrain[n].camouflage) {
                                 best = n;
                             }
                         }
@@ -1670,7 +1679,7 @@ function obtenir_carte(carte_id) {
                             menu();
                             break;
                         case 4:
-                            if (verifier_creature("adverse", "terrain")) {
+                            if (verifier_cible_creature("adverse", "terrain")) {
                                 initialiser();
                                 div("main");
                                 fonction("Retour", "Jeu.joueur.main[" + carte.slot + "].effet_pose(1)");
@@ -1727,9 +1736,9 @@ function obtenir_carte(carte_id) {
                         enlever(carte);
                         return true;
                     }
-                    else if (verifier_creature("joueur", "terrain")) {
+                    else if (verifier_cible_creature("joueur", "terrain")) {
                         let best = 0;
-                        while (Jeu.joueur.terrain[best].type != "Créature") {
+                        while (Jeu.joueur.terrain[best].type != "Créature" || Jeu.joueur.terrain[best].camouflage) {
                             best++;
                         }
                         Jeu.joueur.terrain[best].poison += 6;
@@ -1830,7 +1839,7 @@ function obtenir_carte(carte_id) {
                 if (carte.camp == "joueur") {
                     switch (step) {
                         case 1:
-                            if (Jeu.adverse.terrain.length > 0 && !statistique(carte, "silence")) {
+                            if (verifier_cible("adverse", "terrain") && !statistique(carte, "silence")) {
                                 initialiser();
                                 div("main");
                                 fonction("Annuler", "menu()");
@@ -1884,10 +1893,13 @@ function obtenir_carte(carte_id) {
                     }
                 }
                 else {
-                    if (Jeu.joueur.terrain.length > 0 && !statistique(carte, "silence")) {
+                    if (verifier_cible("joueur", "terrain") && !statistique(carte, "silence")) {
                         let best = 0;
+                        while (Jeu.joueur.terrain[best].camouflage) {
+                            best++;
+                        }
                         for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
-                            if (Jeu.joueur.terrain[n].brulure < 2 && Jeu.joueur.terrain[n].brulure < Jeu.joueur.terrain[best].brulure) {
+                            if (Jeu.joueur.terrain[n].brulure < 2 && Jeu.joueur.terrain[n].brulure < Jeu.joueur.terrain[best].brulure && !Jeu.joueur.terrain[n].camouflage) {
                                 best = n;
                             }
                         }
@@ -2201,7 +2213,7 @@ function obtenir_carte(carte_id) {
                             menu();
                             break;
                         case 4:
-                            if (verifier_creature("adverse", "terrain")) {
+                            if (verifier_cible_creature("adverse", "terrain")) {
                                 initialiser();
                                 div("main");
                                 fonction("Retour", "Jeu.joueur.main[" + carte.slot + "].effet_pose(1)");
@@ -2257,13 +2269,13 @@ function obtenir_carte(carte_id) {
                         enlever(carte);
                         return true;
                     }
-                    else if (verifier_creature("joueur", "terrain")) {
+                    else if (verifier_cible_creature("joueur", "terrain")) {
                         let best = 0;
-                        while (Jeu.joueur.terrain[best].type != "Créature") {
+                        while (Jeu.joueur.terrain[best].type != "Créature" || Jeu.joueur.terrain[best].camouflage) {
                             best++;
                         }
                         for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
-                            if (Jeu.joueur.terrain[n].vie == 1 && Jeu.joueur.terrain[n].type == "Créature") {
+                            if (Jeu.joueur.terrain[n].vie == 1 && Jeu.joueur.terrain[n].type == "Créature" && !Jeu.joueur.terrain[n].camouflage) {
                                 best = n;
                             }
                         }
@@ -2504,7 +2516,7 @@ function obtenir_carte(carte_id) {
                 if (carte.camp == "joueur") {
                     switch (step) {
                         case 1:
-                            if (Jeu.adverse.terrain.length > 0 && !statistique(carte, "silence")) {
+                            if (verifier_cible("adverse", "terrain") && !statistique(carte, "silence")) {
                                 initialiser();
                                 div("main");
                                 fonction("Annuler", "menu()");
@@ -2558,15 +2570,18 @@ function obtenir_carte(carte_id) {
                     }
                 }
                 else {
-                    if (Jeu.joueur.terrain.length > 0 && !statistique(carte, "silence")) {
+                    if (verifier_cible("joueur", "terrain") && !statistique(carte, "silence")) {
                         let best = 0;
+                        while (Jeu.joueur.terrain[best].camouflage) {
+                            best++;
+                        }
                         for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
-                            if (Jeu.joueur.terrain[n].gel < 1) {
+                            if (Jeu.joueur.terrain[n].gel < 1 && !Jeu.joueur.terrain[n].camouflage) {
                                 best = n;
                             }
                         }
-                        if (Jeu.adverse.terrain[cible].gel < 1) {
-                            Jeu.adverse.terrain[cible].gel = 1;
+                        if (Jeu.joueur.terrain[best].gel < 1) {
+                            Jeu.joueur.terrain[best].gel = 1;
                         }
                     }
                     deplacer(carte, "adverse", "terrain");
@@ -2585,7 +2600,7 @@ function obtenir_carte(carte_id) {
                 if (carte.camp == "joueur") {
                     switch (step) {
                         case 1:
-                            if (verifier_creature("adverse", "terrain")) {
+                            if (verifier_cible_creature("adverse", "terrain")) {
                                 initialiser();
                                 div("main");
                                 fonction("Annuler", "menu()");
@@ -2637,13 +2652,13 @@ function obtenir_carte(carte_id) {
                     }
                 }
                 else {
-                    if (verifier_creature("joueur", "terrain")) {
+                    if (verifier_cible_creature("joueur", "terrain")) {
                         let best = 0;
-                        while (Jeu.joueur.terrain[best].type != "Créature") {
+                        while (Jeu.joueur.terrain[best].type != "Créature" || Jeu.joueur.terrain[best].camouflage) {
                             best++;
                         }
                         for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
-                            if (Jeu.joueur.terrain[n].vie < Jeu.joueur.terrain[best].vie && Jeu.joueur.terrain[n].type == "Créature") {
+                            if (Jeu.joueur.terrain[n].vie < Jeu.joueur.terrain[best].vie && Jeu.joueur.terrain[n].type == "Créature" && !Jeu.joueur.terrain[n].camouflage) {
                                 best = n;
                             }
                         }
@@ -2697,7 +2712,7 @@ function obtenir_carte(carte_id) {
                 if (carte.camp == "joueur") {
                     switch (step) {
                         case 1:
-                            if (verifier_creature("adverse", "terrain")) {
+                            if (verifier_cible_creature("adverse", "terrain")) {
                                 initialiser();
                                 div("main");
                                 fonction("Annuler", "menu()");
@@ -2744,13 +2759,13 @@ function obtenir_carte(carte_id) {
                     }
                 }
                 else {
-                    if (verifier_creature("joueur", "terrain")) {
+                    if (verifier_cible_creature("joueur", "terrain")) {
                         let best = 0;
-                        while (Jeu.joueur.terrain[best].type != "Créature") {
+                        while (Jeu.joueur.terrain[best].type != "Créature" || Jeu.joueur.terrain[best].camouflage) {
                             best++;
                         }
                         for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
-                            if (!Jeu.joueur.terrain[n].etourdissement && Jeu.joueur.terrain[n].action_max > Jeu.joueur.terrain[best].action_max && Jeu.joueur.terrain[n].type == "Créature") {
+                            if (!Jeu.joueur.terrain[n].etourdissement && Jeu.joueur.terrain[n].action_max > Jeu.joueur.terrain[best].action_max && Jeu.joueur.terrain[n].type == "Créature" && !Jeu.joueur.terrain[n].camouflage) {
                                 best = n;
                             }
                         }
@@ -2775,7 +2790,7 @@ function obtenir_carte(carte_id) {
                 if (carte.camp == "joueur") {
                     switch (step) {
                         case 1:
-                            if (verifier_creature("joueur", "terrain") || verifier_creature("adverse", "terrain")) {
+                            if (verifier_cible_creature("joueur", "terrain") || verifier_creature("adverse", "terrain")) {
                                 initialiser();
                                 div("main");
                                 fonction("Annuler", "menu()");
@@ -2841,13 +2856,13 @@ function obtenir_carte(carte_id) {
                     }
                 }
                 else {
-                    if (verifier_creature("joueur", "terrain")) {
+                    if (verifier_cible_creature("joueur", "terrain")) {
                         let best = 0;
-                        while (Jeu.joueur.terrain[best].type != "Créature") {
+                        while (Jeu.joueur.terrain[best].type != "Créature" || Jeu.joueur.terrain[best].camouflage) {
                             best++;
                         }
                         for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
-                            if (cout_total(Jeu.joueur.terrain[n]) > cout_total(Jeu.joueur.terrain[best]) && Jeu.joueur.terrain[n].type == "Créature") {
+                            if (cout_total(Jeu.joueur.terrain[n]) > cout_total(Jeu.joueur.terrain[best]) && Jeu.joueur.terrain[n].type == "Créature" && !Jeu.joueur.terrain[n].camouflage) {
                                 best = n;
                             }
                         }
@@ -3006,7 +3021,7 @@ function obtenir_carte(carte_id) {
                 if (carte.camp == "joueur") {
                     switch (step) {
                         case 1:
-                            if (verifier_creature("adverse", "terrain")) {
+                            if (verifier_cible_creature("adverse", "terrain")) {
                                 initialiser();
                                 div("main");
                                 fonction("Annuler", "menu()");
@@ -3053,13 +3068,13 @@ function obtenir_carte(carte_id) {
                     }
                 }
                 else {
-                    if (verifier_creature("joueur", "terrain")) {
+                    if (verifier_cible_creature("joueur", "terrain")) {
                         let best = 0;
-                        while (Jeu.joueur.terrain[best].type != "Créature") {
+                        while (Jeu.joueur.terrain[best].type != "Créature" || Jeu.joueur.terrain[best].camouflage) {
                             best++;
                         }
                         for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
-                            if (Jeu.joueur.terrain[n].action_max > Jeu.joueur.terrain[best].action_max && Jeu.joueur.terrain[n].type == "Créature") {
+                            if (Jeu.joueur.terrain[n].action_max > Jeu.joueur.terrain[best].action_max && Jeu.joueur.terrain[n].type == "Créature" && !Jeu.joueur.terrain[n].camouflage) {
                                 best = n;
                             }
                         }
@@ -3152,7 +3167,7 @@ function obtenir_carte(carte_id) {
                 if (carte.camp == "joueur") {
                     switch (step) {
                         case 1:
-                            if (verifier_creature("joueur", "terrain") || verifier_creature("adverse", "terrain")) {
+                            if (verifier_creature("joueur", "terrain") || verifier_cible_creature("adverse", "terrain")) {
                                 initialiser();
                                 div("main");
                                 fonction("Annuler", "menu()");
@@ -3195,7 +3210,7 @@ function obtenir_carte(carte_id) {
                                         afficher("???");
                                     }
                                     div_fin();
-                                    if (Jeu.adverse.terrain[n].type == "Créature" && !Jeu.adverse.terrain[n].cache) {
+                                    if (Jeu.adverse.terrain[n].type == "Créature") {
                                         div();
                                         fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + '"adverse",' + n + ")");
                                         div_fin();
@@ -3218,9 +3233,9 @@ function obtenir_carte(carte_id) {
                     }
                 }
                 else {
-                    if (verifier_creature("joueur", "terrain")) {
+                    if (verifier_cible_creature("joueur", "terrain")) {
                         let best = 0;
-                        while (Jeu.joueur.terrain[best].type != "Créature") {
+                        while (Jeu.joueur.terrain[best].type != "Créature" || Jeu.joueur.terrain[best].silence) {
                             best++;
                         }
                         Jeu.joueur.terrain[best].silence = true;
@@ -4133,7 +4148,7 @@ function obtenir_carte(carte_id) {
                 if (carte.camp == "joueur") {
                     switch (step) {
                         case 1:
-                            if (Jeu.adverse.terrain.length > 0) {
+                            if (verifier_cible("adverse", "terrain")) {
                                 initialiser();
                                 div("main");
                                 fonction("Annuler", "menu()");
@@ -4180,10 +4195,13 @@ function obtenir_carte(carte_id) {
                     }
                 }
                 else {
-                    if (Jeu.joueur.terrain.length > 0) {
+                    if (verifier_cible("joueur", "terrain")) {
                         let best = 0;
+                        while (Jeu.joueur.terrain[best].camouflage) {
+                            best++;
+                        }
                         for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
-                            if (Jeu.joueur.terrain[n].vie == 1) {
+                            if (Jeu.joueur.terrain[n].vie == 1 && !Jeu.joueur.terrain[n].camouflage) {
                                 best = n;
                             }
                         }
@@ -4881,7 +4899,7 @@ function obtenir_carte(carte_id) {
                 if (carte.camp == "joueur") {
                     switch (step) {
                         case 1:
-                            if (verifier_creature("adverse", "terrain")) {
+                            if (verifier_cible_creature("adverse", "terrain")) {
                                 initialiser();
                                 div("main");
                                 fonction("Retour", "Jeu.joueur.main[" + carte.slot + "].effet_pose(1)");
@@ -4933,9 +4951,9 @@ function obtenir_carte(carte_id) {
                     }
                 }
                 else {
-                    if (verifier_creature("joueur", "terrain")) {
+                    if (verifier_cible_creature("joueur", "terrain")) {
                         let best = 0;
-                        while (Jeu.joueur.terrain[best].type != "Créature") {
+                        while (Jeu.joueur.terrain[best].type != "Créature" || Jeu.joueur.terrain[best].camouflage) {
                             best++;
                         }
                         if (sorcellerie("adverse") >= 2) {
@@ -4999,7 +5017,7 @@ function obtenir_carte(carte_id) {
                 if (carte.camp == "joueur") {
                     switch (step) {
                         case 1:
-                            if (verifier_creature("adverse", "terrain")) {
+                            if (verifier_cible_creature("adverse", "terrain")) {
                                 initialiser();
                                 div("main");
                                 fonction("Annuler", "menu()");
@@ -5050,13 +5068,13 @@ function obtenir_carte(carte_id) {
                     }
                 }
                 else {
-                    if (verifier_creature("joueur", "terrain")) {
+                    if (verifier_cible_creature("joueur", "terrain")) {
                         let best = 0;
-                        while (Jeu.joueur.terrain[best].type != "Créature") {
+                        while (Jeu.joueur.terrain[best].type != "Créature" || Jeu.joueur.terrain[best].camouflage) {
                             best++;
                         }
                         for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
-                            if (cout_total(Jeu.joueur.terrain[n]) > cout_total(Jeu.joueur.terrain[best]) && Jeu.joueur.terrain[n].type == "Créature") {
+                            if (cout_total(Jeu.joueur.terrain[n]) > cout_total(Jeu.joueur.terrain[best]) && Jeu.joueur.terrain[n].type == "Créature" && !Jeu.joueur.terrain[n].camouflage) {
                                 best = n;
                             }
                         }
@@ -5201,7 +5219,7 @@ function obtenir_carte(carte_id) {
                 if (carte.camp == "joueur") {
                     switch (step) {
                         case 1:
-                            if (Jeu.adverse.terrain.length > 0) {
+                            if (verifier_cible("adverse", "terrain")) {
                                 initialiser();
                                 div("main");
                                 fonction("Annuler", "menu()");
@@ -5299,18 +5317,24 @@ function obtenir_carte(carte_id) {
                     }
                 }
                 else {
-                    if (Jeu.joueur.terrain.length > 0) {
+                    if (verifier_cible("joueur", "terrain")) {
                         let best = 0;
+                        while (Jeu.joueur.terrain[best].camouflage) {
+                            best++;
+                        }
                         for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
-                            if ((Jeu.joueur.terrain[n].vie <= 2 && Jeu.joueur.terrain[best].vie > 2) || Jeu.joueur.terrain[n].vie > Jeu.joueur.terrain[best].vie) {
+                            if ((Jeu.joueur.terrain[n].vie <= 2 && Jeu.joueur.terrain[best].vie > 2) || Jeu.joueur.terrain[n].vie > Jeu.joueur.terrain[best].vie && !Jeu.joueur.terrain[n].camouflage) {
                                 best = n;
                             }
                         }
                         degats(Jeu.joueur.terrain[best], 2);
                         if (sorcellerie("adverse") >= 2 && Jeu.joueur.terrain.length > 0) {
                             best = 0;
+                            while (Jeu.joueur.terrain[best].camouflage) {
+                                best++;
+                            }
                             for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
-                                if ((Jeu.joueur.terrain[n].vie <= 2 && Jeu.joueur.terrain[best].vie > 2) || Jeu.joueur.terrain[n].vie > Jeu.joueur.terrain[best].vie) {
+                                if ((Jeu.joueur.terrain[n].vie <= 2 && Jeu.joueur.terrain[best].vie > 2) || Jeu.joueur.terrain[n].vie > Jeu.joueur.terrain[best].vie && !Jeu.joueur.terrain[n].camouflage) {
                                     best = n;
                                 }
                             }
@@ -5481,7 +5505,7 @@ function obtenir_carte(carte_id) {
                             menu();
                             break;
                         case 4:
-                            if (verifier_creature("adverse", "terrain")) {
+                            if (verifier_cible_creature("adverse", "terrain")) {
                                 initialiser();
                                 div("main");
                                 fonction("Retour", "Jeu.joueur.main[" + carte.slot + "].effet_pose(1)");
@@ -5553,13 +5577,13 @@ function obtenir_carte(carte_id) {
                         effet_pose(carte);
                         return true;
                     }
-                    else if (verifier_creature("joueur", "terrain")) {
+                    else if (verifier_cible_creature("joueur", "terrain")) {
                         let best = 0;
-                        while (Jeu.joueur.terrain[best].type != "Créature") {
+                        while (Jeu.joueur.terrain[best].type != "Créature" || Jeu.joueur.terrain[best].camouflage) {
                             best++;
                         }
                         for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
-                            if ((Jeu.joueur.terrain[n].vie <= 4 && sorcellerie("adverse") >= 2) || (Jeu.joueur.terrain[n].vie <= 2 && sorcellerie("adverse") < 2) && Jeu.joueur.terrain[n].type == "Créature") {
+                            if ((Jeu.joueur.terrain[n].vie <= 4 && sorcellerie("adverse") >= 2) || (Jeu.joueur.terrain[n].vie <= 2 && sorcellerie("adverse") < 2) && Jeu.joueur.terrain[n].type == "Créature" && !Jeu.joueur.terrain[n].camouflage) {
                                 best = n;
                             }
                         }
@@ -5589,7 +5613,7 @@ function obtenir_carte(carte_id) {
                 if (carte.camp == "joueur") {
                     switch (step) {
                         case 1:
-                            if (verifier_creature("adverse", "terrain")) {
+                            if (verifier_cible_creature("adverse", "terrain")) {
                                 initialiser();
                                 div("main");
                                 fonction("Annuler", "menu()");
@@ -5688,13 +5712,13 @@ function obtenir_carte(carte_id) {
                     }
                 }
                 else {
-                    if (verifier_creature("joueur", "terrain")) {
+                    if (verifier_cible_creature("joueur", "terrain")) {
                         let best = 0;
-                        while (Jeu.joueur.terrain[best].type != "Créature") {
+                        while (Jeu.joueur.terrain[best].type != "Créature" || Jeu.joueur.terrain[best].camouflage) {
                             best++;
                         }
                         for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
-                            if (Jeu.joueur.terrain[n].vie <= 2 && Jeu.joueur.terrain[best].type == "Créature") {
+                            if (Jeu.joueur.terrain[n].vie <= 2 && Jeu.joueur.terrain[best].type == "Créature" && !Jeu.joueur.terrain[n].camouflage) {
                                 best = n;
                             }
                         }
@@ -5741,7 +5765,7 @@ function obtenir_carte(carte_id) {
                 if (carte.camp == "joueur") {
                     switch (step) {
                         case 1:
-                            if (verifier_creature("adverse", "terrain")) {
+                            if (verifier_cible("adverse", "terrain")) {
                                 initialiser();
                                 div("main");
                                 fonction("Annuler", "menu()");
@@ -5793,10 +5817,13 @@ function obtenir_carte(carte_id) {
                     }
                 }
                 else {
-                    if (Jeu.joueur.terrain.length > 0) {
+                    if (verifier_cible("joueur", "terrain")) {
                         let best = 0;
+                        while (Jeu.joueur.terrain[best].camouflage) {
+                            best++;
+                        }
                         for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
-                            if (!Jeu.joueur.terrain[n].etourdissement && Jeu.joueur.terrain[n].gel < 1 && Jeu.joueur.terrain[n].action_max > 0) {
+                            if (!Jeu.joueur.terrain[n].etourdissement && Jeu.joueur.terrain[n].gel < 1 && Jeu.joueur.terrain[n].action_max > 0 && !Jeu.joueur.terrain[n].camouflage) {
                                 best = n;
                             }
                         }
@@ -6262,7 +6289,7 @@ function obtenir_carte(carte_id) {
                         case 1:
                             let verifier = false;
                             for (let n = 0; n < Jeu.adverse.terrain.length; n++) {
-                                if (cout_total(Jeu.adverse.terrain[n]) <= 5 && Jeu.adverse.terrain[n].type == "Créature") {
+                                if (cout_total(Jeu.adverse.terrain[n]) <= 5 && Jeu.adverse.terrain[n].type == "Créature" && !Jeu.adverse.terrain[n].camouflage) {
                                     verifier = true;
                                 }
                             }
@@ -6321,17 +6348,17 @@ function obtenir_carte(carte_id) {
                     deplacer(carte, "adverse", "terrain");
                     let verifier = false;
                     for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
-                        if (cout_total(Jeu.joueur.terrain[n]) <= 4 && Jeu.joueur.terrain[n].type == "Créature") {
+                        if (cout_total(Jeu.joueur.terrain[n]) <= 4 && Jeu.joueur.terrain[n].type == "Créature" && !Jeu.joueur.terrain[n].camouflage) {
                             verifier = true;
                         }
                     }
                     if (verifier && !statistique(carte, "silence")) {
                         let best = 0;
-                        while (Jeu.joueur.terrain[best].type != "Créature" && cout_total(Jeu.joueur.terrain[best]) <= 4) {
+                        while (Jeu.joueur.terrain[best].type != "Créature" && cout_total(Jeu.joueur.terrain[best]) <= 4 && !Jeu.joueur.terrain[n].camouflage) {
                             best++;
                         }
                         for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
-                            if (cout_total(Jeu.joueur.terrain[n]) > cout_total(Jeu.joueur.terrain[best]) && cout_total(Jeu.joueur.terrain[best]) <= 4 && Jeu.joueur.terrain[best].type == "Créature") {
+                            if (cout_total(Jeu.joueur.terrain[n]) > cout_total(Jeu.joueur.terrain[best]) && cout_total(Jeu.joueur.terrain[best]) <= 4 && Jeu.joueur.terrain[best].type == "Créature" && !Jeu.joueur.terrain[n].camouflage) {
                                 best = n;
                             }
                         }
@@ -6717,7 +6744,7 @@ function obtenir_carte(carte_id) {
                 if (carte.camp == "joueur") {
                     switch (step) {
                         case 1:
-                            if (verifier_creature("adverse", "terrain") && !statistique(carte, "silence")) {
+                            if (verifier_cible_creature("adverse", "terrain") && !statistique(carte, "silence")) {
                                 initialiser();
                                 div("main");
                                 fonction("Annuler", "menu()");
@@ -6765,13 +6792,13 @@ function obtenir_carte(carte_id) {
                     }
                 }
                 else {
-                    if (verifier_creature("joueur", "terrain") && !statistique(carte, "silence")) {
+                    if (verifier_cible_creature("joueur", "terrain") && !statistique(carte, "silence")) {
                         let best = 0;
-                        while (Jeu.joueur.terrain[best].type != "Créature") {
+                        while (Jeu.joueur.terrain[best].type != "Créature" || Jeu.joueur.terrain[best].camouflage) {
                             best++;
                         }
                         for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
-                            if (Jeu.joueur.terrain[n].vie > Jeu.joueur.terrain[best].vie && Jeu.joueur.terrain[best].type == "Créature") {
+                            if (Jeu.joueur.terrain[n].vie > Jeu.joueur.terrain[best].vie && Jeu.joueur.terrain[best].type == "Créature" && !Jeu.joueur.terrain[n].camouflage) {
                                 best = n;
                             }
                         }
@@ -6794,7 +6821,7 @@ function obtenir_carte(carte_id) {
                 if (carte.camp == "joueur") {
                     switch (step) {
                         case 1:
-                            if (verifier_creature("adverse", "terrain") && !statistique(carte, "silence")) {
+                            if (verifier_cible_creature("adverse", "terrain") && !statistique(carte, "silence")) {
                                 initialiser();
                                 div("main");
                                 fonction("Annuler", "menu()");
@@ -6843,13 +6870,13 @@ function obtenir_carte(carte_id) {
                     }
                 }
                 else {
-                    if (verifier_creature("joueur", "terrain") && !statistique(carte, "silence")) {
+                    if (verifier_cible_creature("joueur", "terrain") && !statistique(carte, "silence")) {
                         let best = 0;
-                        while (Jeu.joueur.terrain[best].type != "Créature") {
+                        while (Jeu.joueur.terrain[best].type != "Créature" || Jeu.joueur.terrain[best].camouflage) {
                             best++;
                         }
                         for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
-                            if (Jeu.joueur.terrain[n].vie > Jeu.joueur.terrain[best].vie && Jeu.joueur.terrain[best].type == "Créature") {
+                            if (Jeu.joueur.terrain[n].vie > Jeu.joueur.terrain[best].vie && Jeu.joueur.terrain[best].type == "Créature" && !Jeu.joueur.terrain[n].camouflage) {
                                 best = n;
                             }
                         }
@@ -7365,7 +7392,7 @@ function obtenir_carte(carte_id) {
                 if (carte.camp == "joueur") {
                     switch (step) {
                         case 1:
-                            if (verifier_creature("joueur", "terrain") && verifier_creature("adverse", "terrain")) {
+                            if (verifier_creature("joueur", "terrain") && verifier_cible_creature("adverse", "terrain")) {
                                 initialiser();
                                 div("main");
                                 fonction("Annuler", "menu()");
@@ -7444,11 +7471,14 @@ function obtenir_carte(carte_id) {
                     }
                 }
                 else {
-                    if (verifier_creature("joueur", "terrain") && verifier_creature("adverse", "terrain")) {
+                    if (verifier_cible_creature("joueur", "terrain") && verifier_creature("adverse", "terrain")) {
                         let best1 = 0;
                         let best2 = 0;
                         while (Jeu.adverse.terrain[best1].type != "Créature") {
                             best1++;
+                        }
+                        while (Jeu.joueur.terrain[best2].camouflage) {
+                            best2++;
                         }
                         for (let n = 0; n < Jeu.adverse.terrain.length; n++) {
                             if (statistique(Jeu.adverse.terrain[n], "attaque") > statistique(Jeu.adverse.terrain[best1], "attaque") && Jeu.adverse.terrain[n].type == "Créature") {
@@ -7456,11 +7486,11 @@ function obtenir_carte(carte_id) {
                             }
                         }
                         for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
-                            if (Jeu.joueur.terrain[n].vie > Jeu.joueur.terrain[best2].vie) {
+                            if (Jeu.joueur.terrain[n].vie > Jeu.joueur.terrain[best2].vie && !Jeu.joueur.terrain[n].camouflage) {
                                 best2 = n;
                             }
                         }
-                        degats(Jeu.adverse.terrain[best2], statistique(Jeu.joueur.terrain[best1], "attaque"));
+                        degats(Jeu.joueur.terrain[best2], statistique(Jeu.adverse.terrain[best1], "attaque"));
                         effet_pose(carte);
                         enlever(carte);
                         return true;
@@ -7479,7 +7509,7 @@ function obtenir_carte(carte_id) {
                 if (carte.camp == "joueur") {
                     switch (step) {
                         case 1:
-                            if (verifier_creature("joueur", "terrain") && verifier_creature("adverse", "terrain")) {
+                            if (verifier_creature("joueur", "terrain") && verifier_cible_creature("adverse", "terrain")) {
                                 initialiser();
                                 div("main");
                                 fonction("Annuler", "menu()");
@@ -7558,11 +7588,14 @@ function obtenir_carte(carte_id) {
                     }
                 }
                 else {
-                    if (verifier_creature("joueur", "terrain") && verifier_creature("adverse", "terrain")) {
+                    if (verifier_cible_creature("joueur", "terrain") && verifier_creature("adverse", "terrain")) {
                         let best1 = 0;
                         let best2 = 0;
                         while (Jeu.adverse.terrain[best1].type != "Créature") {
                             best1++;
+                        }
+                        while (Jeu.joueur.terrain[best2].camouflage) {
+                            best2++;
                         }
                         for (let n = 0; n < Jeu.adverse.terrain.length; n++) {
                             if (statistique(Jeu.adverse.terrain[n], "vie_max") > statistique(Jeu.adverse.terrain[best1], "vie_max") && Jeu.adverse.terrain[n].type == "Créature") {
@@ -7570,11 +7603,11 @@ function obtenir_carte(carte_id) {
                             }
                         }
                         for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
-                            if (Jeu.joueur.terrain[n].vie > Jeu.joueur.terrain[best2].vie) {
+                            if (Jeu.joueur.terrain[n].vie > Jeu.joueur.terrain[best2].vie && !Jeu.joueur.terrain[n].camouflage) {
                                 best2 = n;
                             }
                         }
-                        degats(Jeu.adverse.terrain[best2], statistique(Jeu.joueur.terrain[best1], "vie_max"));
+                        degats(Jeu.joueur.terrain[best2], statistique(Jeu.adverse.terrain[best1], "vie_max"));
                         effet_pose(carte);
                         enlever(carte);
                         return true;
@@ -7593,7 +7626,7 @@ function obtenir_carte(carte_id) {
                 if (carte.camp == "joueur") {
                     switch (step) {
                         case 1:
-                            if (verifier_creature("joueur", "terrain") && verifier_creature("adverse", "terrain")) {
+                            if (verifier_creature("joueur", "terrain") && Jeu.adverse.terrain.length > 0) {
                                 initialiser();
                                 div("main");
                                 fonction("Annuler", "menu()");
@@ -7635,17 +7668,17 @@ function obtenir_carte(carte_id) {
                     }
                 }
                 else {
-                    if (verifier_creature("joueur", "terrain") && verifier_creature("adverse", "terrain")) {
+                    if (Jeu.joueur.terrain.length > 0 && verifier_creature("adverse", "terrain")) {
                         let best = 0;
-                        while (Jeu.adverse.terrain[best1].type != "Créature") {
+                        while (Jeu.adverse.terrain[best].type != "Créature") {
                             best++;
                         }
                         for (let n = 0; n < Jeu.adverse.terrain.length; n++) {
-                            if (statistique(Jeu.adverse.terrain[n], "attaque") > statistique(Jeu.adverse.terrain[best1], "attaque") && Jeu.adverse.terrain[n].type == "Créature") {
+                            if (statistique(Jeu.adverse.terrain[n], "attaque") > statistique(Jeu.adverse.terrain[best], "attaque") && Jeu.adverse.terrain[n].type == "Créature") {
                                 best = n;
                             }
                         }
-                        degats(Jeu.joueur.terrain[0], statistique(Jeu.joueur.terrain[best1], "attaque"));
+                        degats(Jeu.joueur.terrain[0], statistique(Jeu.adverse.terrain[best], "attaque"));
                         effet_pose(carte);
                         enlever(carte);
                         return true;
@@ -7956,7 +7989,7 @@ function obtenir_carte(carte_id) {
                 if (carte.camp == "joueur") {
                     switch (step) {
                         case 1:
-                            if (verifier_creature("adverse", "terrain") && !statistique(carte, "silence")) {
+                            if (verifier_cible_creature("adverse", "terrain")) {
                                 initialiser();
                                 div("main");
                                 fonction("Annuler", "menu()");
@@ -8003,13 +8036,13 @@ function obtenir_carte(carte_id) {
                     }
                 }
                 else {
-                    if (verifier_creature("joueur", "terrain") && !statistique(carte, "silence")) {
+                    if (verifier_cible_creature("joueur", "terrain")) {
                         let best = 0;
-                        while (Jeu.joueur.terrain[best].type != "Créature") {
+                        while (Jeu.joueur.terrain[best].type != "Créature" || Jeu.joueur.terrain[best].camouflage) {
                             best++;
                         }
                         for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
-                            if (cout_total(Jeu.joueur.terrain[n]) > cout_total(Jeu.joueur.terrain[best]) && Jeu.joueur.terrain[best].type == "Créature") {
+                            if (cout_total(Jeu.joueur.terrain[n]) > cout_total(Jeu.joueur.terrain[best]) && Jeu.joueur.terrain[best].type == "Créature" && !Jeu.joueur.terrain[n].camouflage) {
                                 best = n;
                             }
                         }
@@ -8178,7 +8211,7 @@ function obtenir_carte(carte_id) {
                 if (carte.camp == "joueur") {
                     switch (step) {
                         case 1:
-                            if (Jeu.adverse.terrain.length > 0) {
+                            if (verifier_creature("joueur", "terrain") || verifier_cible_creature("adverse", "terrain")) {
                                 initialiser();
                                 div("main");
                                 fonction("Annuler", "menu()");
@@ -8250,18 +8283,18 @@ function obtenir_carte(carte_id) {
                     let verifier1 = false;
                     let verifier2 = false;
                     for (let n = 0; n < Jeu.adverse.terrain.length; n++) {
-                        if (Jeu.adverse.terrain[n].type == "Créature" && Jeu.adverse.terrain[n].vie > 2 && [52].includes(Jeu.adverse.terrain[n].id)) {
+                        if (Jeu.adverse.terrain[n].vie > 2 && [52].includes(Jeu.adverse.terrain[n].id)) {
                             verifier1 = true;
                         }
                     }
                     for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
-                        if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].vie < 2) {
+                        if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].vie < 2 && !Jeu.joueur.terrain[n].camouflage) {
                             verifier2 = true;
                         }
                     }
                     if (verifier1) {
                         let best = 0;
-                        while (Jeu.adverse.terrain[best].type != "Créature" || Jeu.adverse.terrain[best].vie <= 2 || ![52].includes(Jeu.adverse.terrain[best].id)) {
+                        while (Jeu.adverse.terrain[best].vie <= 2 || ![52].includes(Jeu.adverse.terrain[best].id)) {
                             best++;
                         }
                         degats(Jeu.adverse.terrain[best], 2);
@@ -8272,11 +8305,11 @@ function obtenir_carte(carte_id) {
                     }
                     else if (verifier2) {
                         let best = 0;
-                        while (Jeu.joueur.terrain[best].type != "Créature" || Jeu.joueur.terrain[best].vie > 2) {
+                        while (Jeu.joueur.terrain[best].type != "Créature" || Jeu.joueur.terrain[best].vie > 2 || Jeu.joueur.terrain[n].camouflage) {
                             best++;
                         }
                         for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
-                            if (Jeu.joueur.terrain[n].vie > Jeu.joueur.terrain[best].vie && Jeu.joueur.terrain[n].vie <= 2 && Jeu.joueur.terrain[n].type == "Créature") {
+                            if (Jeu.joueur.terrain[n].vie > Jeu.joueur.terrain[best].vie && Jeu.joueur.terrain[n].vie <= 2 && Jeu.joueur.terrain[n].type == "Créature" && !Jeu.joueur.terrain[n].camouflage) {
                                 best = n;
                             }
                         }
