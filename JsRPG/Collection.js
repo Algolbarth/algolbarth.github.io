@@ -68,8 +68,13 @@ function collection_init() {
     Jeu.collection_ordre = "croissant";
 }
 
-function collection_tri() {
+function collection_tri_appliquer() {
     Jeu.collection_tri = document.getElementById("tri").value;
+    collection_tri();
+    collection();
+}
+
+function collection_tri() {
     switch (Jeu.collection_tri) {
         case "nom":
             for (let i = 0; i < Jeu.collection.length; i++) {
@@ -108,7 +113,6 @@ function collection_tri() {
             }
             break;
     }
-    collection();
 }
 
 function collection_filtre() {
@@ -178,5 +182,6 @@ function collection_filtre_appliquer() {
             Jeu.collection.push(obtenir_carte(n));
         }
     }
+    collection_tri();
     collection();
 }

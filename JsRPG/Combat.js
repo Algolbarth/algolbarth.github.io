@@ -132,7 +132,6 @@ function action() {
         if (!statistique(attaquant, "silence")) {
             attaquant.effet_action();
             if (attaquant.camouflage) {
-                attaquant.cache = false;
                 attaquant.camouflage = false;
             }
         }
@@ -197,7 +196,7 @@ function attaque(attaquant, defenseur) {
             }
         }
         if (statistique(defenseur, "epine") > 0 && !statistique(defenseur, "silence")) {
-            Jeu.combat_mort.attaquant_mort = degats(attaquant, statistique(defenseur, "epine")).mort;
+            Jeu.combat.attaquant_mort = degats(attaquant, statistique(defenseur, "epine")).mort;
         }
         if (!Jeu.combat.attaquant_mort && statistique(attaquant, "vol_de_vie") && !statistique(attaquant, "silence")) {
             soin(attaquant, statistique(attaquant, "vol_de_vie"));

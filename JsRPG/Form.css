@@ -23,44 +23,44 @@ button:hover {
 }
 
 button.menu {
-    color:black;
+    color: black;
     background: rgb(94, 94, 94);
-    width:10em;
-    height:2em;
-    border:solid;
-    border-color:black;
+    width: 10em;
+    height: 2em;
+    border: solid;
+    border-color: black;
     text-align: center;
 }
 
 button.menu:hover {
     color: #ffd700;
-    background:rgb(80, 80, 80);
+    background: rgb(80, 80, 80);
     cursor: url("Images/Hand.cur"), pointer;
 }
 
 .zone {
-    padding:0.4em;
-    border:solid;
+    padding: 0.4em;
+    border: solid;
     background-color: #7e430f;
-    border-radius:10px;
+    border-radius: 10px;
 }
 
 .carte {
-    padding:0.2em;
-    margin:0.2em;
-    border:solid;
-    border-radius:10px;
-    background:rgb(94, 94, 94);
+    padding: 0.2em;
+    margin: 0.2em;
+    border: solid;
+    border-radius: 10px;
+    background: rgb(94, 94, 94);
     display: flex;
     justify-content: space-between;
 }
 
 .carte:hover {
-    background:rgb(80, 80, 80);
+    background: rgb(80, 80, 80);
 }
 
 .attaquant {
-    background:rgb(99, 21, 21);
+    background: rgb(99, 21, 21);
 }
 
 .action {
@@ -69,10 +69,10 @@ button.menu:hover {
 }
 
 #boutique {
-    padding:0.2em;
-    margin:0.1em;
-    border:solid;
-    border-radius:10px;
+    padding: 0.2em;
+    margin: 0.1em;
+    border: solid;
+    border-radius: 10px;
     background-color: #723d0e;
 }
 
@@ -89,7 +89,7 @@ button.menu:hover {
     width: 48%;
     height: 96%;
     border: double;
-    border-color:black;
+    border-color: black;
     border-width: 0.4em;
     background: radial-gradient(#b6ad71, #afa465);
 }
