@@ -45,7 +45,7 @@ function collection() {
         }
     }
     div_fin();
-    div("carte");
+    div("side", "affichage");
     div_fin();
     actualiser();
 }

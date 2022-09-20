@@ -140,7 +140,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("carte");
+                                div("side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -207,7 +207,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("carte");
+                                div("side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -281,7 +281,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("carte");
+                                div("side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -370,10 +370,10 @@ function obtenir_carte(carte_id) {
         case 8:
             carte.nom = "Roi";
             carte.familles.push("Humain");
-            carte.cout[0] = 43;
-            carte.vente[0] = 21;
-            carte.attaque = 2;
-            carte.vie_max = carte.vie = 2;
+            carte.cout[0] = 45;
+            carte.vente[0] = 22;
+            carte.attaque = 3;
+            carte.vie_max = carte.vie = 3;
             carte.action_max = 1;
             carte.equipement_max = 1;
             carte.texte = "Quand posé : Donne 2 attaque et 2 vie à toutes les Créatures alliées sur le terrain.";
@@ -444,7 +444,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("carte");
+                                div("side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -524,7 +524,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("carte");
+                                div("side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -686,7 +686,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("carte");
+                                div("side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -937,7 +937,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("carte");
+                                div("side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -1045,7 +1045,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("carte");
+                                div("side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -1197,7 +1197,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("carte");
+                                div("side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -1318,7 +1318,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("carte");
+                                div("side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -1457,7 +1457,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("carte");
+                                div("side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -1632,7 +1632,7 @@ function obtenir_carte(carte_id) {
                                 saut();
                                 fonction("Applique Poison 8 à une Créature adverse sur le terrain", "Jeu.joueur.main[" + carte.slot + "].effet_pose(4)");
                                 div_fin();
-                                div("carte");
+                                div("side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -1666,7 +1666,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("carte");
+                                div("side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -1711,7 +1711,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("carte");
+                                div("side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -1788,7 +1788,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("carte");
+                                div("side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -1871,7 +1871,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("carte");
+                                div("side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -1986,7 +1986,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("carte");
+                                div("side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -2054,7 +2054,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("carte");
+                                div("side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -2166,7 +2166,7 @@ function obtenir_carte(carte_id) {
                                 saut();
                                 fonction("Inflige 1 dégât à une Créature adverse sur le terrain", "Jeu.joueur.main[" + carte.slot + "].effet_pose(4)");
                                 div_fin();
-                                div("carte");
+                                div("side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -2200,7 +2200,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("carte");
+                                div("side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -2244,7 +2244,7 @@ function obtenir_carte(carte_id) {
                                     div_fin();
                                 }
                                 div_fin();
-                                div("carte");
+                                div("side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -2548,7 +2548,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("carte");
+                                div("side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -2632,7 +2632,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("carte");
+                                div("side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -2744,7 +2744,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("carte");
+                                div("side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -2853,7 +2853,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("carte");
+                                div("side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -3065,7 +3065,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("carte");
+                                div("side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -3136,7 +3136,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("carte");
+                                div("side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -3242,7 +3242,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("carte");
+                                div("side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -3725,7 +3725,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("carte");
+                                div("side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -3794,7 +3794,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("carte");
+                                div("side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -3863,7 +3863,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("carte");
+                                div("side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -3932,7 +3932,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("carte");
+                                div("side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -4000,7 +4000,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("carte");
+                                div("side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -4195,7 +4195,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("carte");
+                                div("side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -4372,7 +4372,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("carte");
+                                div("side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -4701,7 +4701,7 @@ function obtenir_carte(carte_id) {
                             }
                             div_fin();
                             div_fin();
-                            div("carte");
+                            div("side", "affichage");
                             div_fin();
                             actualiser();
                             break;
@@ -4949,7 +4949,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("carte");
+                                div("side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -5069,7 +5069,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("carte");
+                                div("side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -5189,7 +5189,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("carte");
+                                div("side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -5272,7 +5272,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("carte");
+                                div("side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -5311,7 +5311,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("carte");
+                                div("side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -5409,7 +5409,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("carte");
+                                div("side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -5472,7 +5472,7 @@ function obtenir_carte(carte_id) {
                                 fonction("Inflige 2 dégâts à une Créature adverse sur le terrain", "Jeu.joueur.main[" + carte.slot + "].effet_pose(4)");
                             }
                             div_fin();
-                            div("carte");
+                            div("side", "affichage");
                             div_fin();
                             actualiser();
                             break;
@@ -5510,7 +5510,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("carte");
+                                div("side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -5565,7 +5565,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("carte");
+                                div("side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -5668,7 +5668,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("carte");
+                                div("side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -5702,7 +5702,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("carte");
+                                div("side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -5821,7 +5821,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("carte");
+                                div("side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -6341,7 +6341,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("carte");
+                                div("side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -6425,7 +6425,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("carte");
+                                div("side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -6704,7 +6704,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("carte");
+                                div("side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -6790,7 +6790,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("carte");
+                                div("side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -6865,7 +6865,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("carte");
+                                div("side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -6940,7 +6940,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("carte");
+                                div("side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -7011,7 +7011,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("carte");
+                                div("side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -7198,7 +7198,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("carte");
+                                div("side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -7280,7 +7280,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("carte");
+                                div("side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -7362,7 +7362,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("carte");
+                                div("side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -7429,7 +7429,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("carte");
+                                div("side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -7467,7 +7467,7 @@ function obtenir_carte(carte_id) {
                             }
                             div_fin();
                             div_fin();
-                            div("carte");
+                            div("side", "affichage");
                             div_fin();
                             actualiser();
                             break;
@@ -7546,7 +7546,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("carte");
+                                div("side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -7584,7 +7584,7 @@ function obtenir_carte(carte_id) {
                             }
                             div_fin();
                             div_fin();
-                            div("carte");
+                            div("side", "affichage");
                             div_fin();
                             actualiser();
                             break;
@@ -7663,7 +7663,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("carte");
+                                div("side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -7736,7 +7736,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("carte");
+                                div("side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -7808,7 +7808,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("carte");
+                                div("side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -7881,7 +7881,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("carte");
+                                div("side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -7952,7 +7952,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("carte");
+                                div("side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -8031,7 +8031,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("carte");
+                                div("side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -8284,7 +8284,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("carte");
+                                div("side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -8389,7 +8389,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("carte");
+                                div("side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -8457,7 +8457,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("carte");
+                                div("side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -8556,7 +8556,7 @@ function obtenir_carte(carte_id) {
                             saut();
                             fonction("Pioche 1 carte", "Jeu.joueur.main[" + carte.slot + "].effet_pose(4)");
                             div_fin();
-                            div("carte");
+                            div("side", "affichage");
                             div_fin();
                             actualiser();
                             break;
@@ -8589,7 +8589,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("carte");
+                                div("side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -8663,7 +8663,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("carte");
+                                div("side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -8869,7 +8869,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("carte");
+                                div("side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -8944,7 +8944,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("carte");
+                                div("side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -9041,7 +9041,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("carte");
+                                div("side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -9108,7 +9108,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("carte");
+                                div("side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -9251,7 +9251,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("carte");
+                                div("side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -9331,7 +9331,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("carte");
+                                div("side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -9400,7 +9400,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("carte");
+                                div("side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -9468,7 +9468,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("carte");
+                                div("side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -9545,7 +9545,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("carte");
+                                div("side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -9632,7 +9632,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("carte");
+                                div("side", "affichage");
                                 div_fin();
                                 actualiser();
                             }

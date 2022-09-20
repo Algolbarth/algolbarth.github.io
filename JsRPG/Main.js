@@ -283,7 +283,7 @@ function menu() {
     saut();
     fonction("Combattre", "combat_nouveau()");
     div_fin();
-    div("carte");
+    div("side", "affichage");
     div_fin();
     actualiser();
 }
@@ -293,7 +293,12 @@ function afficher_carte(camp, zone, slot) {
     if (carte.verrouillage) {
         afficher("[");
     }
-    fonction(carte.nom, "carte_voir(" + '"' + camp + '","' + zone + '",' + slot + ")");
+    if (!Jeu.combat.etat || !Jeu.combat.auto) {
+        fonction(carte.nom, "carte_voir(" + '"' + camp + '","' + zone + '",' + slot + ")");
+    }
+    else {
+        afficher(carte.nom);
+    }
     if (carte.verrouillage) {
         afficher("]");
     }
@@ -320,9 +325,12 @@ function carte_voir_id(carte_id) {
 function carte_afficher(carte) {
     let texte = "";
     texte += "<div style='display: flex;justify-content: space-between;'><div><u>Nom :</u> " + carte.nom + "</div>";
-    if (carte.camp == "joueur") {
+    if (Jeu.combat.etat) {
+        texte += "<button onclick='javascript:fermer_carte(" + '"' + carte.camp + '"' + ")'>Fermer</button>";
+    }
+    else if (carte.camp == "joueur") {
         texte += "<div><i>";
-        if (carte.cache) {
+        if (carte.cache || (carte.camouflage && !carte.silence)) {
             texte += "Caché";
         }
         else {
@@ -612,7 +620,20 @@ function carte_afficher(carte) {
         }
     }
     texte += "<div id='description'><span id='contenu'>" + carte.description + "</span></div>";
-    div_actualiser("carte", texte);
+    if (Jeu.combat.etat) {
+        if (carte.camp == "adverse") {
+            main.classList.add("affichage");
+            div_actualiser("main", texte);
+            document.getElementById("description").style.left = '7.5%';
+        }
+        else {
+            side.classList.add("affichage");
+            div_actualiser("side", texte);
+        }
+    }
+    else {
+        div_actualiser("side", texte);
+    }
 }
 
 function ressource_choisir() {
@@ -951,101 +972,117 @@ function adversaire_generer(etage) {
     if (etage % 10 != 0) {
         switch (Math.trunc(etage / 10)) {
             case 0:
-                Jeu.adverse.ressources[0].courant = Jeu.adverse.ressources[0].max = 10;
                 Jeu.adverse.ressources[9].courant = Jeu.adverse.ressources[9].max = 2;
                 ajouter(obtenir_carte(5), "adverse", "boutique");
                 ajouter(obtenir_carte(5), "adverse", "boutique");
                 break;
             case 1:
-                Jeu.adverse.ressources[0].courant = Jeu.adverse.ressources[0].max = 15;
+                Jeu.adverse.ressources[0].courant = Jeu.adverse.ressources[0].max = 2;
+                Jeu.adverse.ressources[9].courant = Jeu.adverse.ressources[9].max = 2;
                 ajouter(obtenir_carte(13), "adverse", "boutique");
                 ajouter(obtenir_carte(13), "adverse", "boutique");
                 break;
             case 2:
-                Jeu.adverse.ressources[0].courant = Jeu.adverse.ressources[0].max = 25;
+                Jeu.adverse.ressources[0].courant = Jeu.adverse.ressources[0].max = 2;
+                Jeu.adverse.ressources[9].courant = Jeu.adverse.ressources[9].max = 2;
                 ajouter(obtenir_carte(60), "adverse", "boutique");
                 ajouter(obtenir_carte(60), "adverse", "boutique");
                 break;
             case 3:
-                Jeu.adverse.ressources[0].courant = Jeu.adverse.ressources[0].max = 35;
-                ajouter(obtenir_carte(12), "adverse", "boutique");
-                ajouter(obtenir_carte(12), "adverse", "boutique");
+                Jeu.adverse.ressources[0].courant = Jeu.adverse.ressources[0].max = 12;
+                Jeu.adverse.ressources[9].courant = Jeu.adverse.ressources[9].max = 10;
+                ajouter(obtenir_carte(14), "adverse", "boutique");
+                ajouter(obtenir_carte(14), "adverse", "boutique");
                 break;
             case 4:
-                Jeu.adverse.ressources[0].courant = Jeu.adverse.ressources[0].max = 45;
-                ajouter(obtenir_carte(34), "adverse", "boutique");
-                ajouter(obtenir_carte(34), "adverse", "boutique");
+                Jeu.adverse.ressources[0].courant = Jeu.adverse.ressources[0].max = 22;
+                Jeu.adverse.ressources[1].courant = Jeu.adverse.ressources[1].max = 8;
+                Jeu.adverse.ressources[5].courant = Jeu.adverse.ressources[5].max = 8;
+                ajouter(obtenir_carte(9), "adverse", "boutique");
+                ajouter(obtenir_carte(9), "adverse", "boutique");
                 break;
             case 5:
-                Jeu.adverse.ressources[0].courant = Jeu.adverse.ressources[0].max = 55;
-                ajouter(obtenir_carte(62), "adverse", "boutique");
-                ajouter(obtenir_carte(62), "adverse", "boutique");
-                ajouter(obtenir_carte(2), "adverse", "boutique");
+                Jeu.adverse.ressources[0].courant = Jeu.adverse.ressources[0].max = 20;
+                Jeu.adverse.ressources[0].courant = Jeu.adverse.ressources[0].max = 18;
+                ajouter(obtenir_carte(56), "adverse", "boutique");
+                ajouter(obtenir_carte(57), "adverse", "boutique");
                 break;
             case 6:
-                Jeu.adverse.ressources[0].courant = Jeu.adverse.ressources[0].max = 65;
-                ajouter(obtenir_carte(69), "adverse", "boutique");
-                ajouter(obtenir_carte(69), "adverse", "boutique");
+                Jeu.adverse.ressources[0].courant = Jeu.adverse.ressources[0].max = 22;
+                Jeu.adverse.ressources[8].courant = Jeu.adverse.ressources[8].max = 8;
+                Jeu.adverse.ressources[9].courant = Jeu.adverse.ressources[9].max = 10;
+                ajouter(obtenir_carte(13), "adverse", "boutique");
+                ajouter(obtenir_carte(13), "adverse", "boutique");
+                ajouter(obtenir_carte(208), "adverse", "boutique");
+                ajouter(obtenir_carte(208), "adverse", "boutique");
                 break;
             case 7:
-                Jeu.adverse.ressources[0].courant = Jeu.adverse.ressources[0].max = 75;
-                ajouter(obtenir_carte(5), "adverse", "boutique");
-                ajouter(obtenir_carte(5), "adverse", "boutique");
+                Jeu.adverse.ressources[0].courant = Jeu.adverse.ressources[0].max = 40;
+                Jeu.adverse.ressources[8].courant = Jeu.adverse.ressources[8].max = 10;
+                Jeu.adverse.ressources[9].courant = Jeu.adverse.ressources[9].max = 19;
+                ajouter(obtenir_carte(46), "adverse", "boutique");
+                ajouter(obtenir_carte(42), "adverse", "boutique");
+                ajouter(obtenir_carte(17), "adverse", "boutique");
                 break;
             case 8:
-                Jeu.adverse.ressources[0].courant = Jeu.adverse.ressources[0].max = 85;
-                ajouter(obtenir_carte(9), "adverse", "boutique");
-                ajouter(obtenir_carte(9), "adverse", "boutique");
-                ajouter(obtenir_carte(28), "adverse", "boutique");
+                Jeu.adverse.ressources[0].courant = Jeu.adverse.ressources[0].max = 44;
+                Jeu.adverse.ressources[1].courant = Jeu.adverse.ressources[1].max = 8;
+                Jeu.adverse.ressources[5].courant = Jeu.adverse.ressources[5].max = 8;
+                Jeu.adverse.ressources[9].courant = Jeu.adverse.ressources[9].max = 8;
+                Jeu.adverse.ressources[10].courant = Jeu.adverse.ressources[10].max = 8;
+                ajouter(obtenir_carte(37), "adverse", "boutique");
+                ajouter(obtenir_carte(37), "adverse", "boutique");
+                ajouter(obtenir_carte(65), "adverse", "boutique");
+                ajouter(obtenir_carte(65), "adverse", "boutique");
                 break;
             case 9:
-                Jeu.adverse.ressources[0].courant = Jeu.adverse.ressources[0].max = 85;
-                ajouter(obtenir_carte(37), "adverse", "boutique");
-                ajouter(obtenir_carte(37), "adverse", "boutique");
-                ajouter(obtenir_carte(28), "adverse", "boutique");
+                for (let n=1;n<Jeu.ressources.length;n++) {
+                    Jeu.adverse.ressources[n].courant = Jeu.adverse.ressources[n].max = 10;
+                }
+                ajouter(obtenir_carte(15), "adverse", "boutique");
                 break;
         }
     }
     else {
         switch (etage) {
             case 10:
-                Jeu.adverse.ressources[0].courant = Jeu.adverse.ressources[0].max = 10;
+                Jeu.adverse.ressources[0].courant = Jeu.adverse.ressources[0].max = 19;
                 ajouter(obtenir_carte(6), "adverse", "boutique");
                 break;
             case 20:
-                Jeu.adverse.ressources[0].courant = Jeu.adverse.ressources[0].max = 20;
+                Jeu.adverse.ressources[0].courant = Jeu.adverse.ressources[0].max = 19;
                 ajouter(obtenir_carte(6), "adverse", "boutique");
                 break;
             case 30:
-                Jeu.adverse.ressources[0].courant = Jeu.adverse.ressources[0].max = 30;
+                Jeu.adverse.ressources[0].courant = Jeu.adverse.ressources[0].max = 19;
                 ajouter(obtenir_carte(6), "adverse", "boutique");
                 break;
             case 40:
-                Jeu.adverse.ressources[0].courant = Jeu.adverse.ressources[0].max = 40;
+                Jeu.adverse.ressources[0].courant = Jeu.adverse.ressources[0].max = 19;
                 ajouter(obtenir_carte(6), "adverse", "boutique");
                 break;
             case 50:
-                Jeu.adverse.ressources[0].courant = Jeu.adverse.ressources[0].max = 50;
+                Jeu.adverse.ressources[0].courant = Jeu.adverse.ressources[0].max = 19;
                 ajouter(obtenir_carte(6), "adverse", "boutique");
                 break;
             case 60:
-                Jeu.adverse.ressources[0].courant = Jeu.adverse.ressources[0].max = 60;
+                Jeu.adverse.ressources[0].courant = Jeu.adverse.ressources[0].max = 19;
                 ajouter(obtenir_carte(6), "adverse", "boutique");
                 break;
             case 70:
-                Jeu.adverse.ressources[0].courant = Jeu.adverse.ressources[0].max = 70;
+                Jeu.adverse.ressources[0].courant = Jeu.adverse.ressources[0].max = 19;
                 ajouter(obtenir_carte(6), "adverse", "boutique");
                 break;
             case 80:
-                Jeu.adverse.ressources[0].courant = Jeu.adverse.ressources[0].max = 80;
+                Jeu.adverse.ressources[0].courant = Jeu.adverse.ressources[0].max = 19;
                 ajouter(obtenir_carte(6), "adverse", "boutique");
                 break;
             case 90:
-                Jeu.adverse.ressources[0].courant = Jeu.adverse.ressources[0].max = 90;
+                Jeu.adverse.ressources[0].courant = Jeu.adverse.ressources[0].max = 19;
                 ajouter(obtenir_carte(6), "adverse", "boutique");
                 break;
             case 100:
-                Jeu.adverse.ressources[0].courant = Jeu.adverse.ressources[0].max = 100;
+                Jeu.adverse.ressources[0].courant = Jeu.adverse.ressources[0].max = 19;
                 ajouter(obtenir_carte(6), "adverse", "boutique");
                 break;
         }
@@ -1182,7 +1219,7 @@ function adversaire_voir() {
     }
     div_fin();
     div_fin();
-    div("carte");
+    div("side", "affichage");
     div_fin();
     actualiser();
 }

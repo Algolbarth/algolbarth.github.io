@@ -68,6 +68,13 @@ button.menu:hover {
     right: 0;
 }
 
+.affichage {
+    border: double;
+    border-color: black;
+    border-width: 0.4em;
+    background: radial-gradient(#b6ad71, #afa465);
+}
+
 #boutique {
     padding: 0.2em;
     margin: 0.1em;
@@ -77,21 +84,18 @@ button.menu:hover {
 }
 
 #main {
-    width: 49%;
-    height: 50vw;
+    top: 1%;
+    width: 48%;
+    height: 96%;
     position: absolute;
 }
 
-#carte {
+#side {
     position: fixed;
     left: 50%;
     top: 1%;
     width: 48%;
     height: 96%;
-    border: double;
-    border-color: black;
-    border-width: 0.4em;
-    background: radial-gradient(#b6ad71, #afa465);
 }
 
 #description {

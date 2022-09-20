@@ -2,7 +2,7 @@ function option() {
     initialiser();
     fonction("Continuer", "menu()");
     saut(2);
-    afficher("Combat automatique : ");
+    afficher("<u>Combat automatique :</u> ");
     if (Jeu.combat.auto) {
         afficher("Activé ");
         fonction("Désactivé", "Jeu.combat.auto=false;option()");
@@ -12,12 +12,12 @@ function option() {
         afficher(" Désactivé");
     }
     saut();
-    afficher("Vitesse de combat automatique : ");
+    afficher("<u>Vitesse de combat automatique :</u> ");
     option_vitesse("Lente", 3000);
     option_vitesse("Normal", 1000);
     option_vitesse("Rapide", 500);
     saut();
-    afficher("Afficher les statistiques des créatures et des bâtiments hors combat : ");
+    afficher("<u>Afficher les statistiques des créatures et des bâtiments hors combat :</u> ");
     if (Jeu.afficher_stat) {
         afficher("Activé ");
         fonction("Désactivé", "Jeu.afficher_stat=false;option()");
@@ -27,7 +27,7 @@ function option() {
         afficher(" Désactivé");
     }
     saut();
-    afficher("Description des talents : ");
+    afficher("<u>Description des talents :</u> ");
     if (Jeu.texte_talent) {
         afficher("Activé ");
         fonction("Désactivé", "Jeu.texte_talent=false;option()");

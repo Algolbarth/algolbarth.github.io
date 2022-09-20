@@ -251,6 +251,33 @@ function combat_afficher() {
         fonction("Action suivante", "combat_continuer()");
     }
     saut(2);
+    afficher("Vie : " + Jeu.joueur.vie + " / " + Jeu.joueur.vie_max);
+    saut(2);
+    div("", "zone");
+    afficher("<u>Terrain :</u>");
+    saut();
+    if (Jeu.joueur.terrain.length > 0) {
+        for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
+            if (Jeu.combat.slot == n && Jeu.combat.attaquant == "joueur") {
+                div("", "carte attaquant");
+            }
+            else {
+                div("", "carte");
+            }
+            div();
+            afficher_carte("joueur", "terrain", n);
+            div_fin();
+            div_fin();
+        }
+    }
+    else {
+        afficher("<i>Votre terrain est vide</i>");
+        saut();
+    }
+    div_fin();
+    div_fin();
+    div("side");
+    saut(2);
     afficher("Vie adverse : " + Jeu.adverse.vie + " / " + Jeu.adverse.vie_max);
     saut(2);
     div("", "zone");
@@ -275,35 +302,19 @@ function combat_afficher() {
         saut();
     }
     div_fin();
-    saut();
-    div("", "zone");
-    afficher("<u>Terrain :</u>");
-    saut();
-    if (Jeu.joueur.terrain.length > 0) {
-        for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
-            if (Jeu.combat.slot == n && Jeu.combat.attaquant == "joueur") {
-                div("", "carte attaquant");
-            }
-            else {
-                div("", "carte");
-            }
-            div();
-            afficher_carte("joueur", "terrain", n);
-            div_fin();
-            div_fin();
-        }
-    }
-    else {
-        afficher("<i>Votre terrain est vide</i>");
-        saut();
-    }
-    div_fin();
-    saut();
-    afficher("Vie : " + Jeu.joueur.vie + " / " + Jeu.joueur.vie_max);
-    div_fin();
-    div("carte");
     div_fin();
     actualiser();
+}
+
+function fermer_carte (camp) {
+    texte = "";
+    if (camp == "joueur") {
+        side.classList.remove("affichage");
+    }
+    else {
+        main.classList.remove("affichage");
+    }
+    combat_afficher();
 }
 
 function combat_auto_off() {
