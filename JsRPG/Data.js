@@ -1077,7 +1077,7 @@ function obtenir_carte(carte_id) {
             carte.type = "Action";
             carte.cout[0] = 6;
             carte.vente[0] = 3;
-            carte.texte = "Actualise la boutique.";
+            carte.texte = "Actualise la boutique alliée.";
             carte.effet_pose = function () {
                 if (carte.camp == "joueur") {
                     boutique_actualiser();
@@ -9608,16 +9608,16 @@ function obtenir_carte(carte_id) {
                                 saut();
                                 afficher(carte.texte);
                                 saut(2);
-                                afficher("Choisissez une carte adverse sur la main : ");
+                                afficher("Choisissez une carte adverse dans la main : ");
                                 saut(2);
                                 div("", "zone");
                                 afficher("<u>Main adverse :</u>");
                                 saut();
-                                for (let n = 0; n < Jeu.adverse.terrain.length; n++) {
+                                for (let n = 0; n < Jeu.adverse.main.length; n++) {
                                     div("", "carte");
                                     div();
                                     if (!Jeu.adverse.main[n].cache) {
-                                        afficher_carte("adverse", "terrain", n);
+                                        afficher_carte("adverse", "main", n);
                                     }
                                     else {
                                         afficher("???");
@@ -9643,7 +9643,7 @@ function obtenir_carte(carte_id) {
                             }
                             break;
                         case 2:
-                            Jeu.adverse.main[cible].cache = false;
+                            Jeu.adverse.main[cible].cache = Jeu.adverse.main[cible].camouflage = false;
                             deplacer(carte, "joueur", "terrain");
                             effet_pose(carte);
                             menu();
@@ -9662,11 +9662,304 @@ function obtenir_carte(carte_id) {
                         while (!Jeu.joueur.main[best].cache) {
                             best++;
                         }
-                        Jeu.joueur.main[best].cache = false;
+                        Jeu.joueur.main[best].cache = Jeu.joueur.main[best].camouflage = false;
                     }
                     deplacer(carte, "adverse", "terrain");
                     effet_pose(carte);
                     return true;
+                }
+            }
+            break;
+        case 262:
+            carte.nom = "Voyante";
+            carte.familles.push("Kalashtar");
+            carte.cout[0] = 2;
+            carte.cout[8] = 2;
+            carte.vente[0] = 1;
+            carte.vente[8] = 1;
+            carte.attaque = 2;
+            carte.vie_max = carte.vie = 2;
+            carte.action_max = 1;
+            carte.equipement_max = 1;
+            carte.texte = "Quand posé : Révèle une carte adverse dans la boutique.";
+            carte.effet_pose = function (step, cible) {
+                if (carte.camp == "joueur") {
+                    switch (step) {
+                        case 1:
+                            let verifier = false;
+                            for (let n = 0; n < Jeu.adverse.boutique.length; n++) {
+                                if (Jeu.adverse.boutique[n].cache) {
+                                    verifier = true;
+                                }
+                            }
+                            if (verifier) {
+                                initialiser();
+                                div("main");
+                                fonction("Annuler", "menu()");
+                                saut(2);
+                                afficher(carte.nom);
+                                saut();
+                                afficher(carte.texte);
+                                saut(2);
+                                afficher("Choisissez une carte adverse dans la boutique : ");
+                                saut(2);
+                                div("", "zone");
+                                afficher("<u>Boutique adverse :</u>");
+                                saut();
+                                for (let n = 0; n < Jeu.adverse.boutique.length; n++) {
+                                    div("", "carte");
+                                    div();
+                                    if (!Jeu.adverse.boutique[n].cache) {
+                                        afficher_carte("adverse", "boutique", n);
+                                    }
+                                    else {
+                                        afficher("???");
+                                    }
+                                    div_fin();
+                                    if (Jeu.adverse.boutique[n].cache) {
+                                        div();
+                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
+                                        div_fin();
+                                    }
+                                    div_fin();
+                                }
+                                div_fin();
+                                div_fin();
+                                div("side", "affichage");
+                                div_fin();
+                                actualiser();
+                            }
+                            else {
+                                deplacer(carte, "joueur", "terrain");
+                                effet_pose(carte);
+                                menu();
+                            }
+                            break;
+                        case 2:
+                            Jeu.adverse.boutique[cible].cache = Jeu.adverse.boutique[cible].camouflage = false;
+                            deplacer(carte, "joueur", "terrain");
+                            effet_pose(carte);
+                            menu();
+                            break;
+                    }
+                }
+                else {
+                    let verifier = false;
+                    for (let n = 0; n < Jeu.joueur.boutique.length; n++) {
+                        if (Jeu.joueur.boutique[n].cache) {
+                            verifier = true;
+                        }
+                    }
+                    if (verifier) {
+                        let best = 0;
+                        while (!Jeu.joueur.boutique[best].cache) {
+                            best++;
+                        }
+                        Jeu.joueur.boutique[best].cache = Jeu.joueur.boutique[best].camouflage = false;
+                    }
+                    deplacer(carte, "adverse", "terrain");
+                    effet_pose(carte);
+                    return true;
+                }
+            }
+            break;
+        case 263:
+            carte.nom = "Prédiction";
+            carte.type = "Action";
+            carte.cout[0] = 3;
+            carte.cout[8] = 3;
+            carte.vente[0] = 2;
+            carte.vente[8] = 1;
+            carte.texte = "Révèle 3 cartes adverses dans la boutique.";
+            carte.effet_pose = function () {
+                let verifier = false;
+                for (let n=0;n<Jeu[camp_oppose(carte.camp)].boutique.length;n++) {
+                    if (Jeu[camp_oppose(carte.camp)].boutique[n].cache) {
+                        verifier = true;
+                    }
+                }
+                if (verifier) {
+                    let compteur = 3;
+                    for (let n=0;n<Jeu[camp_oppose(carte.camp)].boutique.length;n++) {
+                        if (Jeu[camp_oppose(carte.camp)].boutique[n].cache && compteur > 0) {
+                            Jeu[camp_oppose(carte.camp)].boutique[n].cache = Jeu[camp_oppose(carte.camp)].boutique[n].camouflage = false;
+                            compteur--;
+                        }
+                    }
+                    deplacer(carte, carte.camp, "defausse");
+                    effet_pose(carte);
+                    menu();
+                    return true;
+                }
+                return false;
+            }
+            break;
+        case 264:
+            carte.nom = "Écouter aux portes";
+            carte.type = "Action";
+            carte.cout[0] = 6;
+            carte.vente[0] = 3;
+            carte.texte = "Révèle 3 cartes adverses dans la main.";
+            carte.effet_pose = function () {
+                let verifier = false;
+                for (let n=0;n<Jeu[camp_oppose(carte.camp)].main.length;n++) {
+                    if (Jeu[camp_oppose(carte.camp)].main[n].cache) {
+                        verifier = true;
+                    }
+                }
+                if (verifier) {
+                    let compteur = 3;
+                    for (let n=0;n<Jeu[camp_oppose(carte.camp)].main.length;n++) {
+                        if (Jeu[camp_oppose(carte.camp)].main[n].cache && compteur > 0) {
+                            Jeu[camp_oppose(carte.camp)].main[n].cache = Jeu[camp_oppose(carte.camp)].main[n].camouflage = false;
+                            compteur--;
+                        }
+                    }
+                    deplacer(carte, carte.camp, "defausse");
+                    effet_pose(carte);
+                    menu();
+                    return true;
+                }
+                return false;
+            }
+            break;
+        case 265:
+            carte.nom = "Espionnage";
+            carte.type = "Action";
+            carte.cout[0] = 20;
+            carte.vente[0] = 10;
+            carte.texte = "Révèle toutes les cartes adverses dans la main.";
+            carte.effet_pose = function () {
+                let verifier = false;
+                for (let n=0;n<Jeu[camp_oppose(carte.camp)].main.length;n++) {
+                    if (Jeu[camp_oppose(carte.camp)].main[n].cache) {
+                        verifier = true;
+                    }
+                }
+                if (verifier) {
+                    for (let n=0;n<Jeu[camp_oppose(carte.camp)].main.length;n++) {
+                        if (Jeu[camp_oppose(carte.camp)].main[n].cache) {
+                            Jeu[camp_oppose(carte.camp)].main[n].cache = Jeu[camp_oppose(carte.camp)].main[n].camouflage = false;
+                        }
+                    }
+                    deplacer(carte, carte.camp, "defausse");
+                    effet_pose(carte);
+                    menu();
+                    return true;
+                }
+                return false;
+            }
+            break;
+        case 266:
+            carte.nom = "Visions de l'avenir";
+            carte.type = "Action";
+            carte.cout[0] = 10;
+            carte.cout[8] = 10;
+            carte.vente[0] = 5;
+            carte.vente[8] = 5;
+            carte.texte = "Révèle toutes les cartes adverses dans la boutique.";
+            carte.effet_pose = function () {
+                let verifier = false;
+                for (let n=0;n<Jeu[camp_oppose(carte.camp)].boutique.length;n++) {
+                    if (Jeu[camp_oppose(carte.camp)].boutique[n].cache) {
+                        verifier = true;
+                    }
+                }
+                if (verifier) {
+                    for (let n=0;n<Jeu[camp_oppose(carte.camp)].boutique.length;n++) {
+                        if (Jeu[camp_oppose(carte.camp)].boutique[n].cache) {
+                            Jeu[camp_oppose(carte.camp)].boutique[n].cache = Jeu[camp_oppose(carte.camp)].boutique[n].camouflage = false;
+                        }
+                    }
+                    deplacer(carte, carte.camp, "defausse");
+                    effet_pose(carte);
+                    menu();
+                    return true;
+                }
+                return false;
+            }
+            break;
+        case 267:
+            carte.nom = "Révélation";
+            carte.type = "Action";
+            carte.cout[0] = 1;
+            carte.cout[10] = 1;
+            carte.vente[0] = 1;
+            carte.texte = "Enlève Camouflage à une Unité adverse sur le terrain.";
+            carte.effet_pose = function (step, cible) {
+                if (carte.camp == "joueur") {
+                    switch (step) {
+                        case 1:
+                            let verifier = false;
+                            for (let n = 0; n < Jeu.adverse.terrain.length; n++) {
+                                if (Jeu.adverse.terrain[n].camouflage) {
+                                    verifier = true;
+                                }
+                            }
+                            if (verifier) {
+                                initialiser();
+                                div("main");
+                                fonction("Annuler", "menu()");
+                                saut(2);
+                                afficher(carte.nom);
+                                saut();
+                                afficher(carte.texte);
+                                saut(2);
+                                afficher("Choisissez une Unité adverse sur le terrain : ");
+                                saut(2);
+                                div("", "zone");
+                                afficher("<u>Terrain adverse :</u>");
+                                saut();
+                                for (let n = 0; n < Jeu.adverse.terrain.length; n++) {
+                                    div("", "carte");
+                                    div();
+                                    if (!Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
+                                        afficher_carte("adverse", "terrain", n);
+                                    }
+                                    else {
+                                        afficher("???");
+                                    }
+                                    div_fin();
+                                    if (Jeu.adverse.terrain[n].camouflage) {
+                                        div();
+                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
+                                        div_fin();
+                                    }
+                                    div_fin();
+                                }
+                                div_fin();
+                                div_fin();
+                                div("side", "affichage");
+                                div_fin();
+                                actualiser();
+                            }
+                            break;
+                        case 2:
+                            Jeu.adverse.terrain[cible].camouflage = false;
+                            deplacer(carte, "joueur", "defausse");
+                            effet_pose(carte);
+                            menu();
+                            break;
+                    }
+                }
+                else {
+                    let verifier = false;
+                    for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
+                        if (Jeu.joueur.terrain[n].camouflage) {
+                            verifier = true;
+                        }
+                    }
+                    if (verifier) {
+                        let best = 0;
+                        while (!Jeu.joueur.terrain[best].camouflage) {
+                            best++;
+                        }
+                        Jeu.joueur.terrain[best].camouflage = false;
+                        deplacer(carte, "adverse", "defausse");
+                        effet_pose(carte);
+                        return true;
+                    }
+                    return false;
                 }
             }
             break;

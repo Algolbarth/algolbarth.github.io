@@ -4,7 +4,7 @@ function collection() {
     fonction("Retour", "ecran_titre()");
     saut(2);
     fonction("Filtrer", "collection_filtre()");
-    afficher(" Trier par <select id='tri' onchange='collection_tri()'>")
+    afficher(" Trier par <select id='tri' onchange='collection_tri_appliquer()'>")
     afficher("<option value='nom'");
     if (Jeu.collection_tri == "nom") {
         afficher(" selected=" + '"selected"');

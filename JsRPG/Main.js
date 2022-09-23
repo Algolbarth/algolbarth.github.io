@@ -17,7 +17,7 @@ function demarrage() {
         ],
         types: ["Créature", "Bâtiment", "Objet", "Action", "Région"],
         familles: [],
-        NOMBRE_CARTE: 261,
+        NOMBRE_CARTE: 267,
         combat: {
             auto: true,
             vitesse: 1000,
@@ -120,17 +120,18 @@ function nouvelle_partie() {
     Jeu.region_active = 0;
     Jeu.combat.etat = false;
     ajouter(obtenir_carte(78), "joueur", "regions");
-    let nouvelle_carte = obtenir_carte(31);
-    nouvelle_carte.cache = true;
-    ajouter(nouvelle_carte, "joueur", "main");
+    ajouter(obtenir_carte(31), "joueur", "main");
     ajouter(obtenir_carte(1), "joueur", "terrain");
+    for (let n=0;n<Jeu.joueur.main.length;n++) {
+        Jeu.joueur.main[n].cache = true;
+    }
+    boutique_actualiser();
     adversaire_generer(1);
     adversaire_acheter();
     adversaire_generer(2);
     adversaire_jouer();
     adversaire_acheter();
     adversaire_generer(3);
-    boutique_actualiser();
     menu();
 }
 
@@ -972,9 +973,13 @@ function adversaire_generer(etage) {
     if (etage % 10 != 0) {
         switch (Math.trunc(etage / 10)) {
             case 0:
+                Jeu.adverse.ressources[0].courant = Jeu.adverse.ressources[0].max = 9;
                 Jeu.adverse.ressources[9].courant = Jeu.adverse.ressources[9].max = 2;
+                Jeu.adverse.ressources[8].courant = Jeu.adverse.ressources[8].max = 3;
                 ajouter(obtenir_carte(5), "adverse", "boutique");
                 ajouter(obtenir_carte(5), "adverse", "boutique");
+                ajouter(obtenir_carte(263), "adverse", "boutique");
+                ajouter(obtenir_carte(264), "adverse", "boutique");
                 break;
             case 1:
                 Jeu.adverse.ressources[0].courant = Jeu.adverse.ressources[0].max = 2;
@@ -1141,7 +1146,7 @@ function adversaire_voir() {
             div("", "carte");
             div();
             if (!Jeu.adverse.boutique[n].cache) {
-                afficher_carte("adverse", "main", n);
+                afficher_carte("adverse", "boutique", n);
             }
             else {
                 afficher("???");
@@ -1151,7 +1156,7 @@ function adversaire_voir() {
         }
     }
     else {
-        afficher("<i>La main adverse est vide</i>");
+        afficher("<i>La boutique adverse est vide</i>");
         saut();
     }
     div_fin();
