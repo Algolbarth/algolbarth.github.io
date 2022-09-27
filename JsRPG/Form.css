@@ -116,11 +116,11 @@ button.menu:hover {
     display: table-cell;
 }
 
-option {
+select {
     background-color: #c0b577;
+    font-size: 80%;
 }
 
-select {
-    font-size: 80%;
+option {
     background-color: #c0b577;
 }
