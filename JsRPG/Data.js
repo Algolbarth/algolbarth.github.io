@@ -1941,7 +1941,7 @@ function obtenir_carte(carte_id) {
             carte.vie_max = carte.vie = 10;
             carte.action_max = 1;
             carte.equipement_max = 1;
-            carte.vie_sup = 2;
+            carte.vie_sup = 4;
             break;
         case 54:
             carte.nom = "Serpent de mer";
@@ -2339,7 +2339,7 @@ function obtenir_carte(carte_id) {
             carte.texte = "Quand est équipé d'un Objet Équipement Arme : Se donne 4 attaque.";
             carte.effet_equiper = function (equipement) {
                 if (equipement.familles.includes("Arme")) {
-                    carte.attaque++;
+                    carte.attaque += 4;
                 }
             }
             break;
@@ -8424,7 +8424,7 @@ function obtenir_carte(carte_id) {
             carte.cout[0] = 6;
             carte.vente[0] = 3;
             carte.stat_equipement.vie_max = 4;
-            carte.texte = "Donne 4 vie et 2 vie supplémentaires à la Créature équipée.";
+            carte.texte = "Donne 4 vie et 4 vie supplémentaires à la Créature équipée.";
             carte.effet_pose = function (step, cible) {
                 if (carte.camp == "joueur") {
                     switch (step) {
@@ -8463,7 +8463,7 @@ function obtenir_carte(carte_id) {
                             }
                             break;
                         case 2:
-                            Jeu.joueur.terrain[cible].vie_sup += 2;
+                            Jeu.joueur.terrain[cible].vie_sup += 4;
                             equiper(Jeu.joueur.terrain[cible], carte);
                             effet_pose(carte);
                             enlever(carte);
@@ -8477,7 +8477,7 @@ function obtenir_carte(carte_id) {
                         while (Jeu.adverse.terrain[best].type != "Créature" || Jeu.adverse.terrain[best].equipements.length >= Jeu.adverse.terrain[best].equipement_max) {
                             best++;
                         }
-                        Jeu.adverse.terrain[best].vie_sup += 2;
+                        Jeu.adverse.terrain[best].vie_sup += 4;
                         equiper(Jeu.adverse.terrain[best], carte);
                         effet_pose(carte);
                         enlever(carte);
@@ -10279,9 +10279,7 @@ function obtenir_carte(carte_id) {
                     effet_pose(carte);
                     menu();
                 }
-                else {
-                    return false;
-                }
+                return false;
             }
             break;
         case 281:
@@ -10436,8 +10434,744 @@ function obtenir_carte(carte_id) {
                         deplacer(Jeu.joueur.main[best], "adverse", "main");
                         deplacer(carte, "adverse", "defausse");
                         effet_pose(carte);
+                        return true;
                     }
+                    return false;
+                }
+            }
+            break;
+        case 283:
+            carte.nom = "Éclosion";
+            carte.type = "Action";
+            carte.familles.push("Oeuf");
+            carte.cout[0] = 6;
+            carte.vente[0] = 3;
+            carte.texte = "Met le décompte d'un Bâtiment allié Oeuf sur le terrain à 0.";
+            carte.effet_pose = function (step, cible) {
+                if (carte.camp == "joueur") {
+                    switch (step) {
+                        case 1:
+                            let verifier = false;
+                            for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
+                                if (Jeu.joueur.terrain[n].type == "Bâtiment" && Jeu.joueur.terrain[n].familles.includes("Oeuf")) {
+                                    verifier = true;
+                                }
+                            }
+                            if (verifier) {
+                                initialiser();
+                                div("main");
+                                fonction("Annuler", "menu()");
+                                saut(2);
+                                afficher(carte.nom);
+                                saut();
+                                afficher(carte.texte);
+                                saut(2);
+                                afficher("Choisissez un Bâtiment allié Oeuf sur le terrain : ");
+                                saut(2);
+                                div("", "zone");
+                                afficher("<u>Terrain :</u>");
+                                saut();
+                                for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
+                                    div("", "carte");
+                                    div();
+                                    afficher_carte("joueur", "terrain", n);
+                                    div_fin();
+                                    if (Jeu.joueur.terrain[n].type == "Bâtiment" && Jeu.joueur.terrain[n].familles.includes("Oeuf")) {
+                                        div();
+                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
+                                        div_fin();
+                                    }
+                                    div_fin();
+                                }
+                                div_fin();
+                                div_fin();
+                                div("side", "affichage");
+                                div_fin();
+                                actualiser();
+                            }
+                            break;
+                        case 2:
+                            Jeu.joueur.terrain[cible].decompte = 0;
+                            Jeu.joueur.terrain[cible].effet_decompte();
+                            if (Jeu.joueur.terrain[cible].vie == 0) {
+                                mort(Jeu.joueur.terrain[cible]);
+                            }
+                            deplacer(carte, "joueur", "defausse");
+                            effet_pose(carte);
+                            menu();
+                            break;
+                    }
+                }
+                else {
+                    let verifier = false;
+                    for (let n = 0; n < Jeu.adverse.terrain.length; n++) {
+                        if (Jeu.adverse.terrain[n].type == "Bâtiment" && Jeu.adverse.terrain[n].familles.includes("Oeuf")) {
+                            verifier = true;
+                        }
+                    }
+                    if (verifier) {
+                        let best = 0;
+                        while (Jeu.adverse.terrain[best].type != "Bâtiment" || !Jeu.adverse.terrain[best].familles.includes("Oeuf")) {
+                            best++;
+                        }
+                        Jeu.adverse.terrain[best].decompte = 0;
+                        Jeu.adverse.terrain[best].effet_decompte();
+                        if (Jeu.adverse.terrain[best].vie == 0) {
+                            mort(Jeu.adverse.terrain[best]);
+                        }
+                        deplacer(carte, "adverse", "defausse");
+                        effet_pose(carte);
+                        return true;
+                    }
+                    return false;
+                }
+            }
+            break;
+        case 284:
+            carte.nom = "Potion d'attaque";
+            carte.type = "Objet";
+            carte.familles.push("Potion");
+            carte.cout[0] = 3;
+            carte.vente[0] = 1;
+            carte.texte = "Donne 6 attaque à une Créature alliée sur le terrain jusqu'à la fin de la phase de combat.";
+            carte.effet_pose = function (step, cible) {
+                if (carte.camp == "joueur") {
+                    switch (step) {
+                        case 1:
+                            if (Jeu.joueur.terrain.length > 0) {
+                                initialiser();
+                                div("main");
+                                fonction("Annuler", "menu()");
+                                saut(2);
+                                afficher(carte.nom);
+                                saut();
+                                afficher(carte.texte);
+                                saut(2);
+                                afficher("Choisissez une Créature alliée blessée sur le terrain : ");
+                                saut(2);
+                                div("", "zone");
+                                afficher("<u>Terrain :</u>");
+                                saut();
+                                for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
+                                    div("", "carte");
+                                    div();
+                                    afficher_carte("joueur", "terrain", n);
+                                    div_fin();
+                                    if (Jeu.joueur.terrain[n].type == "Créature") {
+                                        div();
+                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
+                                        div_fin();
+                                    }
+                                    div_fin();
+                                }
+                                div_fin();
+                                div_fin();
+                                div("side", "affichage");
+                                div_fin();
+                                actualiser();
+                            }
+                            break;
+                        case 2:
+                            Jeu.joueur.terrain[cible].stat_etage.attaque = 6;
+                            deplacer(carte, "joueur", "defausse");
+                            effet_pose(carte);
+                            menu();
+                            break;
+                    }
+                }
+                else {
+                    if (Jeu.adverse.terrain.lengt > 0) {
+                        let best = 0;
+                        while (Jeu.adverse.terrain[best].type != "Créature") {
+                            best++;
+                        }
+                        Jeu.adverse.terrain[best].stat_etage.attaque = 6;
+                        deplacer(carte, "adverse", "defausse");
+                        effet_pose(carte);
+                        return true;
+                    }
+                    return false;
+                }
+            }
+            break;
+        case 285:
+            carte.nom = "Potion de défense";
+            carte.type = "Objet";
+            carte.familles.push("Potion");
+            carte.cout[0] = 4;
+            carte.vente[0] = 2;
+            carte.texte = "Donne 4 défense à une Créature alliée sur le terrain jusqu'à la fin de la phase de combat.";
+            carte.effet_pose = function (step, cible) {
+                if (carte.camp == "joueur") {
+                    switch (step) {
+                        case 1:
+                            if (Jeu.joueur.terrain.length > 0) {
+                                initialiser();
+                                div("main");
+                                fonction("Annuler", "menu()");
+                                saut(2);
+                                afficher(carte.nom);
+                                saut();
+                                afficher(carte.texte);
+                                saut(2);
+                                afficher("Choisissez une Créature alliée blessée sur le terrain : ");
+                                saut(2);
+                                div("", "zone");
+                                afficher("<u>Terrain :</u>");
+                                saut();
+                                for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
+                                    div("", "carte");
+                                    div();
+                                    afficher_carte("joueur", "terrain", n);
+                                    div_fin();
+                                    if (Jeu.joueur.terrain[n].type == "Créature") {
+                                        div();
+                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
+                                        div_fin();
+                                    }
+                                    div_fin();
+                                }
+                                div_fin();
+                                div_fin();
+                                div("side", "affichage");
+                                div_fin();
+                                actualiser();
+                            }
+                            break;
+                        case 2:
+                            Jeu.joueur.terrain[cible].stat_etage.defense = 4;
+                            deplacer(carte, "joueur", "defausse");
+                            effet_pose(carte);
+                            menu();
+                            break;
+                    }
+                }
+                else {
+                    if (Jeu.adverse.terrain.lengt > 0) {
+                        let best = 0;
+                        while (Jeu.adverse.terrain[best].type != "Créature") {
+                            best++;
+                        }
+                        Jeu.adverse.terrain[best].stat_etage.defense = 4;
+                        deplacer(carte, "adverse", "defausse");
+                        effet_pose(carte);
+                        return true;
+                    }
+                    return false;
+                }
+            }
+            break;
+        case 286:
+            carte.nom = "Potion de vitalité";
+            carte.type = "Objet";
+            carte.familles.push("Potion");
+            carte.cout[0] = 3;
+            carte.vente[0] = 1;
+            carte.texte = "Donne 6 vie à une Créature alliée sur le terrain jusqu'à la fin de la phase de combat.";
+            carte.effet_pose = function (step, cible) {
+                if (carte.camp == "joueur") {
+                    switch (step) {
+                        case 1:
+                            if (Jeu.joueur.terrain.length > 0) {
+                                initialiser();
+                                div("main");
+                                fonction("Annuler", "menu()");
+                                saut(2);
+                                afficher(carte.nom);
+                                saut();
+                                afficher(carte.texte);
+                                saut(2);
+                                afficher("Choisissez une Créature alliée blessée sur le terrain : ");
+                                saut(2);
+                                div("", "zone");
+                                afficher("<u>Terrain :</u>");
+                                saut();
+                                for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
+                                    div("", "carte");
+                                    div();
+                                    afficher_carte("joueur", "terrain", n);
+                                    div_fin();
+                                    if (Jeu.joueur.terrain[n].type == "Créature") {
+                                        div();
+                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
+                                        div_fin();
+                                    }
+                                    div_fin();
+                                }
+                                div_fin();
+                                div_fin();
+                                div("side", "affichage");
+                                div_fin();
+                                actualiser();
+                            }
+                            break;
+                        case 2:
+                            Jeu.joueur.terrain[cible].stat_etage.vie_max = 6;
+                            Jeu.joueur.terrain[cible].vie += 6;
+                            deplacer(carte, "joueur", "defausse");
+                            effet_pose(carte);
+                            menu();
+                            break;
+                    }
+                }
+                else {
+                    if (Jeu.adverse.terrain.lengt > 0) {
+                        let best = 0;
+                        while (Jeu.adverse.terrain[best].type != "Créature") {
+                            best++;
+                        }
+                        Jeu.adverse.terrain[best].stat_etage.vie_max = 6;
+                        Jeu.adverse.terrain[best].vie += 6;
+                        deplacer(carte, "adverse", "defausse");
+                        effet_pose(carte);
+                        return true;
+                    }
+                    return false;
+                }
+            }
+            break;
+        case 287:
+            carte.nom = "Alchimiste";
+            carte.familles.push("Humain");
+            carte.cout[0] = 6;
+            carte.vente[0] = 3;
+            carte.attaque = 2;
+            carte.vie_max = carte.vie = 2;
+            carte.action_max = 1;
+            carte.equipement_max = 1;
+            carte.texte = "Quand posé : Pioche un Objet Potion.";
+            carte.effet_pose = function () {
+                if (carte.camp == "joueur") {
+                    if (!statistique(carte, "silence")) {
+                        let verifier = false;
+                        for (let n = 0; n < Jeu.NOMBRE_CARTE; n++) {
+                            if (Jeu.joueur.regions[Jeu.region_active].boutique_generer(obtenir_carte(n)) && obtenir_carte(n).familles.includes("Potion")) {
+                                verifier = true;
+                            }
+                        }
+                        if (verifier) {
+                            let nouvelle_carte = boutique_generer();
+                            while (!nouvelle_carte.familles.includes("Potion")) {
+                                nouvelle_carte = boutique_generer();
+                            }
+                            pioche("joueur", nouvelle_carte);
+                        }
+                    }
+                    deplacer(carte, "joueur", "terrain");
+                    effet_pose(carte);
+                    menu();
+                }
+                else {
+                    deplacer(carte, "adverse", "terrain");
+                    effet_pose(carte);
                     return true;
+                }
+            }
+            break;
+        case 288:
+            carte.nom = "Vendeur";
+            carte.type = "Créature";
+            carte.familles.push("Humain");
+            carte.cout[0] = 3;
+            carte.attaque = 2;
+            carte.vie_max = carte.vie = 2;
+            carte.action_max = 1;
+            carte.equipement_max = 1;
+            carte.texte = "Quand vendu : Pioche une carte.";
+            carte.effet_vente = function () {
+                pioche("joueur");
+            }
+            break;
+        case 289:
+            carte.nom = "Vendeur de potion";
+            carte.type = "Créature";
+            carte.familles.push("Humain");
+            carte.cout[0] = 4;
+            carte.attaque = 2;
+            carte.vie_max = carte.vie = 2;
+            carte.action_max = 1;
+            carte.equipement_max = 1;
+            carte.texte = "Quand vendu : Pioche un Objet Potion.";
+            carte.effet_vente = function () {
+                let verifier = false;
+                for (let n = 0; n < Jeu.NOMBRE_CARTE; n++) {
+                    if (Jeu.joueur.regions[Jeu.region_active].boutique_generer(obtenir_carte(n)) && obtenir_carte(n).familles.includes("Potion")) {
+                        verifier = true;
+                    }
+                }
+                if (verifier) {
+                    let nouvelle_carte = boutique_generer();
+                    while (!nouvelle_carte.familles.includes("Potion")) {
+                        nouvelle_carte = boutique_generer();
+                    }
+                    pioche("joueur", nouvelle_carte);
+                }
+            }
+            break;
+        case 290:
+            carte.nom = "Grimoire d'apprenti";
+            carte.type = "Objet";
+            carte.familles.push("Équipement", "Arme");
+            carte.cout[0] = 4;
+            carte.vente[0] = 2;
+            carte.stat_equipement.effet_etage_debut = function () {
+                if (carte.camp == "joueur") {
+                    let verifier = false;
+                    for (let n = 0; n < Jeu.NOMBRE_CARTE; n++) {
+                        if (Jeu.joueur.regions[Jeu.region_active].boutique_generer(obtenir_carte(n)) && obtenir_carte(n).familles.includes("Sort")) {
+                            verifier = true;
+                        }
+                    }
+                    let nouvelle_carte = boutique_generer();
+                    while (!nouvelle_carte.familles.includes("Sort")) {
+                        nouvelle_carte = boutique_generer();
+                    }
+                    pioche("joueur", nouvelle_carte);
+                }
+            }
+            carte.texte = "Applique l'effet suivant à la Créature équipée : Au début de la phase de préparation : Pioche 1 Action Sort.";
+            carte.effet_pose = function (step, cible) {
+                if (carte.camp == "joueur") {
+                    switch (step) {
+                        case 1:
+                            if (verifier_equipement("joueur")) {
+                                initialiser();
+                                div("main");
+                                fonction("Annuler", "menu()");
+                                saut(2);
+                                afficher(carte.nom);
+                                saut();
+                                afficher(carte.texte);
+                                saut(2);
+                                afficher("Choisissez une Créature alliée équipable sur le terrain : ");
+                                saut(2);
+                                div("", "zone");
+                                afficher("<u>Terrain :</u>");
+                                saut();
+                                for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
+                                    div("", "carte");
+                                    div();
+                                    afficher_carte("joueur", "terrain", n);
+                                    div_fin();
+                                    if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].equipements.length < Jeu.joueur.terrain[n].equipement_max) {
+                                        div();
+                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
+                                        div_fin();
+                                    }
+                                    div_fin();
+                                }
+                                div_fin();
+                                div_fin();
+                                div("side", "affichage");
+                                div_fin();
+                                actualiser();
+                            }
+                            break;
+                        case 2:
+                            equiper(Jeu.joueur.terrain[cible], carte);
+                            effet_pose(carte);
+                            enlever(carte);
+                            menu();
+                            break;
+                    }
+                }
+                else {
+                    if (verifier_equipement("adverse")) {
+                        let best = 0;
+                        while (Jeu.adverse.terrain[best].type != "Créature" || Jeu.adverse.terrain[best].equipements.length >= Jeu.adverse.terrain[best].equipement_max) {
+                            best++;
+                        }
+                        equiper(Jeu.adverse.terrain[best], carte);
+                        effet_pose(carte);
+                        enlever(carte);
+                        return true;
+                    }
+                    return false;
+                }
+            }
+            break;
+        case 291:
+            carte.nom = "Fouet de cuir";
+            carte.type = "Objet";
+            carte.familles.push("Équipement", "Arme");
+            carte.cout[0] = 8;
+            carte.vente[0] = 4;
+            carte.stat_equipement.effet_attaque = function (defenseur) {
+                if (defenseur.slot > 0) {
+                    degats(Jeu[defenseur.camp].terrain[defenseur.slot - 1], 1);
+                }
+                if (defenseur.slot < Jeu[defenseur.camp].terrain.length) {
+                    degats(Jeu[defenseur.camp].terrain[defenseur.slot + 1], 1);
+                }
+            }
+            carte.texte = "Applique l'effet suivant à la Créature équipée : Inflige 1 dégât aux Unités en avant et en arrière de l'Unité attaquée.";
+            carte.effet_pose = function (step, cible) {
+                if (carte.camp == "joueur") {
+                    switch (step) {
+                        case 1:
+                            if (verifier_equipement("joueur")) {
+                                initialiser();
+                                div("main");
+                                fonction("Annuler", "menu()");
+                                saut(2);
+                                afficher(carte.nom);
+                                saut();
+                                afficher(carte.texte);
+                                saut(2);
+                                afficher("Choisissez une Créature alliée équipable sur le terrain : ");
+                                saut(2);
+                                div("", "zone");
+                                afficher("<u>Terrain :</u>");
+                                saut();
+                                for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
+                                    div("", "carte");
+                                    div();
+                                    afficher_carte("joueur", "terrain", n);
+                                    div_fin();
+                                    if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].equipements.length < Jeu.joueur.terrain[n].equipement_max) {
+                                        div();
+                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
+                                        div_fin();
+                                    }
+                                    div_fin();
+                                }
+                                div_fin();
+                                div_fin();
+                                div("side", "affichage");
+                                div_fin();
+                                actualiser();
+                            }
+                            break;
+                        case 2:
+                            equiper(Jeu.joueur.terrain[cible], carte);
+                            effet_pose(carte);
+                            enlever(carte);
+                            menu();
+                            break;
+                    }
+                }
+                else {
+                    if (verifier_equipement("adverse")) {
+                        let best = 0;
+                        while (Jeu.adverse.terrain[best].type != "Créature" || Jeu.adverse.terrain[best].equipements.length >= Jeu.adverse.terrain[best].equipement_max) {
+                            best++;
+                        }
+                        equiper(Jeu.adverse.terrain[best], carte);
+                        effet_pose(carte);
+                        enlever(carte);
+                        return true;
+                    }
+                    return false;
+                }
+            }
+            break;
+        case 292:
+            carte.nom = "Casque en cuir";
+            carte.type = "Objet";
+            carte.familles.push("Équipement", "Armure");
+            carte.cout[0] = 2;
+            carte.vente[0] = 1;
+            carte.texte = "Donne 4 vie supplémentaires à la Créature équipée.";
+            carte.effet_pose = function (step, cible) {
+                if (carte.camp == "joueur") {
+                    switch (step) {
+                        case 1:
+                            if (verifier_equipement("joueur")) {
+                                initialiser();
+                                div("main");
+                                fonction("Annuler", "menu()");
+                                saut(2);
+                                afficher(carte.nom);
+                                saut();
+                                afficher(carte.texte);
+                                saut(2);
+                                afficher("Choisissez une Créature alliée équipable sur le terrain : ");
+                                saut(2);
+                                div("", "zone");
+                                afficher("<u>Terrain :</u>");
+                                saut();
+                                for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
+                                    div("", "carte");
+                                    div();
+                                    afficher_carte("joueur", "terrain", n);
+                                    div_fin();
+                                    if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].equipements.length < Jeu.joueur.terrain[n].equipement_max) {
+                                        div();
+                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
+                                        div_fin();
+                                    }
+                                    div_fin();
+                                }
+                                div_fin();
+                                div_fin();
+                                div("side", "affichage");
+                                div_fin();
+                                actualiser();
+                            }
+                            break;
+                        case 2:
+                            Jeu.joueur.terrain[cible].vie_sup += 4;
+                            equiper(Jeu.joueur.terrain[cible], carte);
+                            effet_pose(carte);
+                            enlever(carte);
+                            menu();
+                            break;
+                    }
+                }
+                else {
+                    if (verifier_equipement("adverse")) {
+                        let best = 0;
+                        while (Jeu.adverse.terrain[best].type != "Créature" || Jeu.adverse.terrain[best].equipements.length >= Jeu.adverse.terrain[best].equipement_max) {
+                            best++;
+                        }
+                        Jeu.adverse.terrain[best].vie_sup += 4;
+                        equiper(Jeu.adverse.terrain[best], carte);
+                        effet_pose(carte);
+                        enlever(carte);
+                        return true;
+                    }
+                    return false;
+                }
+            }
+            break;
+        case 293:
+            carte.nom = "Pistolet en cuivre";
+            carte.type = "Objet";
+            carte.familles.push("Équipement", "Arme");
+            carte.cout[0] = 5;
+            carte.vente[0] = 2;
+            carte.stat_equipement.portee = true;
+            carte.stat_equipement.effet_attaque = function (defenseur) {
+                degats(defenseur, 1);
+            }
+            carte.texte = "Applique Portée et l'effet suivant à la Créature équipée : Inflige 1 dégât à l'unité attaquée.";
+            carte.effet_pose = function (step, cible) {
+                if (carte.camp == "joueur") {
+                    switch (step) {
+                        case 1:
+                            if (verifier_equipement("joueur")) {
+                                initialiser();
+                                div("main");
+                                fonction("Annuler", "menu()");
+                                saut(2);
+                                afficher(carte.nom);
+                                saut();
+                                afficher(carte.texte);
+                                saut(2);
+                                afficher("Choisissez une Créature alliée équipable sur le terrain : ");
+                                saut(2);
+                                div("", "zone");
+                                afficher("<u>Terrain :</u>");
+                                saut();
+                                for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
+                                    div("", "carte");
+                                    div();
+                                    afficher_carte("joueur", "terrain", n);
+                                    div_fin();
+                                    if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].equipements.length < Jeu.joueur.terrain[n].equipement_max) {
+                                        div();
+                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
+                                        div_fin();
+                                    }
+                                    div_fin();
+                                }
+                                div_fin();
+                                div_fin();
+                                div("side", "affichage");
+                                div_fin();
+                                actualiser();
+                            }
+                            break;
+                        case 2:
+                            equiper(Jeu.joueur.terrain[cible], carte);
+                            effet_pose(carte);
+                            enlever(carte);
+                            menu();
+                            break;
+                    }
+                }
+                else {
+                    if (verifier_equipement("adverse")) {
+                        let best = 0;
+                        while (Jeu.adverse.terrain[best].type != "Créature" || Jeu.adverse.terrain[best].equipements.length >= Jeu.adverse.terrain[best].equipement_max) {
+                            best++;
+                        }
+                        equiper(Jeu.adverse.terrain[best], carte);
+                        effet_pose(carte);
+                        enlever(carte);
+                        return true;
+                    }
+                    return false;
+                }
+            }
+            break;
+        case 294:
+            carte.nom = "Arbalète en bois";
+            carte.type = "Objet";
+            carte.familles.push("Équipement", "Arme");
+            carte.cout[0] = 4;
+            carte.vente[0] = 2;
+            carte.stat_equipement.portee = true;
+            carte.stat_equipement.percee = 2;
+            carte.stat_equipement.attaque = 2;
+            carte.texte = "Donne 2 attaque et applique Portée et Percée 2 à la créature équipée.";
+            carte.effet_pose = function (step, cible) {
+                if (carte.camp == "joueur") {
+                    switch (step) {
+                        case 1:
+                            if (verifier_equipement("joueur")) {
+                                initialiser();
+                                div("main");
+                                fonction("Annuler", "menu()");
+                                saut(2);
+                                afficher(carte.nom);
+                                saut();
+                                afficher(carte.texte);
+                                saut(2);
+                                afficher("Choisissez une Créature alliée équipable sur le terrain : ");
+                                saut(2);
+                                div("", "zone");
+                                afficher("<u>Terrain :</u>");
+                                saut();
+                                for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
+                                    div("", "carte");
+                                    div();
+                                    afficher_carte("joueur", "terrain", n);
+                                    div_fin();
+                                    if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].equipements.length < Jeu.joueur.terrain[n].equipement_max) {
+                                        div();
+                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
+                                        div_fin();
+                                    }
+                                    div_fin();
+                                }
+                                div_fin();
+                                div_fin();
+                                div("side", "affichage");
+                                div_fin();
+                                actualiser();
+                            }
+                            break;
+                        case 2:
+                            equiper(Jeu.joueur.terrain[cible], carte);
+                            effet_pose(carte);
+                            enlever(carte);
+                            menu();
+                            break;
+                    }
+                }
+                else {
+                    if (verifier_equipement("adverse")) {
+                        let best = 0;
+                        while (Jeu.adverse.terrain[best].type != "Créature" || Jeu.adverse.terrain[best].equipements.length >= Jeu.adverse.terrain[best].equipement_max) {
+                            best++;
+                        }
+                        equiper(Jeu.adverse.terrain[best], carte);
+                        effet_pose(carte);
+                        enlever(carte);
+                        return true;
+                    }
+                    return false;
                 }
             }
             break;

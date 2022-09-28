@@ -17,7 +17,7 @@ function demarrage() {
         ],
         types: ["Créature", "Bâtiment", "Objet", "Action", "Région"],
         familles: [],
-        NOMBRE_CARTE: 282,
+        NOMBRE_CARTE: 294,
         combat: {
             auto: true,
             vitesse: 1000,
@@ -1004,7 +1004,7 @@ function adversaire_generer(etage) {
                 break;
             case 5:
                 Jeu.adverse.ressources[0].courant = Jeu.adverse.ressources[0].max = 20;
-                Jeu.adverse.ressources[0].courant = Jeu.adverse.ressources[0].max = 18;
+                Jeu.adverse.ressources[11].courant = Jeu.adverse.ressources[11].max = 18;
                 ajouter(obtenir_carte(56), "adverse", "boutique");
                 ajouter(obtenir_carte(57), "adverse", "boutique");
                 break;
