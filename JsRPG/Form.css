@@ -116,6 +116,10 @@ button.menu:hover {
     display: table-cell;
 }
 
+input {
+    cursor: url("Images/Hand.cur"), pointer;
+}
+
 select {
     background-color: #c0b577;
     font-size: 80%;

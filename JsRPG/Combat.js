@@ -191,7 +191,7 @@ function attaque(attaquant, defenseur) {
             attaquant.effet_tuer(defenseur);
         }
         else {
-            if (statistique(attaquant, "mortel") && !statistique(attaquant, "silence") && defenseur.type == "Créature") {
+            if (statistique(attaquant, "letalite") && !statistique(attaquant, "silence") && defenseur.type == "Créature") {
                 mort(defenseur);
             }
         }

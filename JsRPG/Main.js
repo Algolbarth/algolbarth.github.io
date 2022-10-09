@@ -17,7 +17,7 @@ function demarrage() {
         ],
         types: ["Créature", "Bâtiment", "Objet", "Action", "Région"],
         familles: [],
-        NOMBRE_CARTE: 294,
+        NOMBRE_CARTE: 300,
         combat: {
             auto: true,
             vitesse: 1000,
@@ -115,7 +115,7 @@ function nouvelle_partie() {
     }
     Jeu.etage = 1;
     Jeu.boutique_niveau = 1;
-    Jeu.boutique_amelioration = 10;
+    Jeu.boutique_amelioration = 5;
     Jeu.ressource_sup = 1;
     Jeu.region_active = 0;
     Jeu.combat.etat = false;
@@ -175,7 +175,7 @@ function menu() {
     div("", "zone");
     div("boutique");
     afficher("<u>Boutique Nv " + Jeu.boutique_niveau + " :</u> ");
-    if (Jeu.boutique_niveau < 10) {
+    if (Jeu.boutique_niveau < 20) {
         fonction("Améliorer", "boutique_ameliorer()");
         afficher(" (" + Jeu.boutique_amelioration + " Or) - ");
     }
@@ -550,10 +550,10 @@ function carte_afficher(carte) {
             }
             texte += "<br/>";
         }
-        if (statistique(carte, "mortel")) {
-            texte += "Mortel";
+        if (statistique(carte, "letalite")) {
+            texte += "Létalité";
             if (Jeu.texte_talent) {
-                texte += " : Quand attaque une Créature, l'envoie à la défausse.";
+                texte += " : Quand attaque une Créature : envoie la Créature attaquée à la défausse.";
             }
             texte += "<br/>";
         }
@@ -673,7 +673,7 @@ function boutique_rafraichir() {
 }
 
 function boutique_actualiser() {
-    let nombre_actualisation = 2 + Jeu.boutique_niveau;
+    let nombre_actualisation = 3 + parseInt((Jeu.boutique_niveau-1)/2);
     for (let n = 0; n < Jeu.joueur.boutique.length; n++) {
         if (Jeu.joueur.boutique[n].verrouillage) {
             nombre_actualisation--;
@@ -705,7 +705,7 @@ function boutique_ameliorer() {
             Jeu.joueur.ressources[0].reserve -= Jeu.boutique_amelioration;
         }
         Jeu.boutique_niveau++;
-        Jeu.boutique_amelioration = Jeu.boutique_niveau * 10;
+        Jeu.boutique_amelioration = Jeu.boutique_niveau * 5;
         menu();
     }
 }
@@ -1536,7 +1536,6 @@ function verifier_debuff(camp) {
 
 function equiper(creature, equipement) {
     creature.equipements.push(equipement);
-    creature.vie += equipement.stat_equipement.vie_max;
     if (!statistique(creature, "silence")) {
         creature.effet_equiper(equipement);
     }

@@ -154,7 +154,7 @@ function collection_filtre() {
     saut(2);
     afficher("Niveau de boutique : <select id='filtre_boutique'>")
     afficher("<option value=" + '"Tous"' + ">Tous</option>");
-    for (let n = 1; n <= 10; n++) {
+    for (let n = 1; n <= 20; n++) {
         afficher("<option value=" + n);
         if (Jeu.collection_filtre.boutique == n) {
             afficher(" selected=" + '"selected"');
@@ -178,7 +178,7 @@ function collection_filtre_appliquer() {
     Jeu.collection = [];
     for (let n = 1; n <= Jeu.NOMBRE_CARTE; n++) {
         let carte = obtenir_carte(n);
-        if ((filtre.type == carte.type || filtre.type == "Tous") && (carte.familles.includes(filtre.famille) || filtre.famille == "Toutes") && (carte.cout[filtre.cout] > 0 || filtre.cout == "Tous") && (((cout_total(carte) <= filtre.boutique * 5 || filtre.boutique == 10) && cout_total(carte) > (filtre.boutique - 1) * 5) || filtre.boutique == "Tous")) {
+        if ((filtre.type == carte.type || filtre.type == "Tous") && (carte.familles.includes(filtre.famille) || filtre.famille == "Toutes") && (carte.cout[filtre.cout] > 0 || filtre.cout == "Tous") && (((cout_total(carte) <= filtre.boutique * 5 || filtre.boutique == 20) && cout_total(carte) > (filtre.boutique - 1) * 5) || filtre.boutique == "Tous")) {
             Jeu.collection.push(obtenir_carte(n));
         }
     }
