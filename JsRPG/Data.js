@@ -10856,8 +10856,8 @@ function obtenir_carte(carte_id) {
             carte.nom = "Fouet de cuir";
             carte.type = "Objet";
             carte.familles.push("Équipement", "Arme");
-            carte.cout[0] = 8;
-            carte.vente[0] = 4;
+            carte.cout[0] = 4;
+            carte.vente[0] = 2;
             carte.stat_equipement.effet_attaque = function (defenseur) {
                 if (defenseur.slot > 0) {
                     degats(Jeu[defenseur.camp].terrain[defenseur.slot - 1], 1);
@@ -11007,7 +11007,7 @@ function obtenir_carte(carte_id) {
             carte.stat_equipement.effet_attaque = function (defenseur) {
                 degats(defenseur, 1);
             }
-            carte.texte = "Applique Portée et l'effet suivant à la Créature équipée : Quand attaque : Inflige 1 dégât à l'unité attaquée.";
+            carte.texte = "Applique Portée et l'effet suivant à la Créature équipée : Quand attaque : Inflige 2 dégât à l'unité attaquée.";
             carte.effet_pose = function (step, cible) {
                 if (carte.camp == "joueur") {
                     switch (step) {
