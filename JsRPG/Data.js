@@ -726,10 +726,12 @@ function obtenir_carte(carte_id) {
             carte.texte = "Inflige 1 dégât à toutes les Unités adverses sur le terrain.";
             carte.effet_pose = function () {
                 if (Jeu[camp_oppose(carte.camp)].terrain.length > 0) {
+                    let array = [];
                     for (let n = 0; n < Jeu[camp_oppose(carte.camp)].terrain.length; n++) {
-                        if (degats(Jeu[camp_oppose(carte.camp)].terrain[n], 1).mort) {
-                            n--;
-                        }
+                        array.push(Jeu[camp_oppose(carte.camp)].terrain[n]);
+                    }
+                    for (let n = 0; n < array.length; n++) {
+                        degats(array[n], 1);
                     }
                     deplacer(carte, carte.camp, "defausse");
                     effet_pose(carte);
@@ -10857,11 +10859,18 @@ function obtenir_carte(carte_id) {
             carte.cout[0] = 4;
             carte.vente[0] = 2;
             carte.stat_equipement.effet_attaque = function (defenseur) {
+                let cible_1, cible_2;
                 if (defenseur.slot > 0) {
-                    degats(Jeu[defenseur.camp].terrain[defenseur.slot - 1], 1);
+                    cible_1 = Jeu[defenseur.camp].terrain[defenseur.slot - 1];
                 }
                 if (defenseur.slot < Jeu[defenseur.camp].terrain.length) {
-                    degats(Jeu[defenseur.camp].terrain[defenseur.slot + 1], 1);
+                    cible_2 = Jeu[defenseur.camp].terrain[defenseur.slot + 1];
+                }
+                if (defenseur.slot > 0) {
+                    degats(cible_1, 1);
+                }
+                if (defenseur.slot < Jeu[defenseur.camp].terrain.length) {
+                    degats(cible_2, 1);
                 }
             }
             carte.texte = "Applique l'effet suivant à la Créature équipée : Inflige 1 dégât aux Unités en avant et en arrière de l'Unité attaquée.";
@@ -11148,17 +11157,21 @@ function obtenir_carte(carte_id) {
             carte.effet_pose = function () {
                 if (Jeu[camp_oppose(carte.camp)].terrain.length > 0) {
                     if (sorcellerie(carte.camp) >= 10) {
+                        let array = [];
                         for (let n = 0; n < Jeu[camp_oppose(carte.camp)].terrain.length; n++) {
-                            if (degats(Jeu[camp_oppose(carte.camp)].terrain[n], 3).mort) {
-                                n--;
-                            }
+                            array.push(Jeu[camp_oppose(carte.camp)].terrain[n]);
+                        }
+                        for (let n = 0; n < array.length; n++) {
+                            degats(array[n], 3);
                         }
                     }
                     else {
+                        let array = [];
                         for (let n = 0; n < Jeu[camp_oppose(carte.camp)].terrain.length; n++) {
-                            if (degats(Jeu[camp_oppose(carte.camp)].terrain[n], 2).mort) {
-                                n--;
-                            }
+                            array.push(Jeu[camp_oppose(carte.camp)].terrain[n]);
+                        }
+                        for (let n = 0; n < array.length; n++) {
+                            degats(array[n], 2);
                         }
                     }
                     deplacer(carte, carte.camp, "defausse");
@@ -11353,10 +11366,12 @@ function obtenir_carte(carte_id) {
             carte.texte = "Inflige 2 dégâts à toutes les Unités adverses sur le terrain.";
             carte.effet_pose = function () {
                 if (Jeu[camp_oppose(carte.camp)].terrain.length > 0) {
+                    let array = [];
                     for (let n = 0; n < Jeu[camp_oppose(carte.camp)].terrain.length; n++) {
-                        if (degats(Jeu[camp_oppose(carte.camp)].terrain[n], 2).mort) {
-                            n--;
-                        }
+                        array.push(Jeu[camp_oppose(carte.camp)].terrain[n]);
+                    }
+                    for (let n = 0; n < array.length; n++) {
+                        degats(array[n], 2);
                     }
                     deplacer(carte, carte.camp, "defausse");
                     effet_pose(carte);
@@ -11480,11 +11495,13 @@ function obtenir_carte(carte_id) {
             carte.texte = "Inflige 2 dégâts à toutes les Unités adverses qui ont un cout nul en Air sur le terrain.";
             carte.effet_pose = function () {
                 if (Jeu[camp_oppose(carte.camp)].terrain.length > 0) {
+                    let array = [];
                     for (let n = 0; n < Jeu[camp_oppose(carte.camp)].terrain.length; n++) {
-                        if (Jeu[camp_oppose(carte.camp)].terrain[n].cout[5] == 0) {
-                            if (degats(Jeu[camp_oppose(carte.camp)].terrain[n], 2).mort) {
-                                n--;
-                            }
+                        array.push(Jeu[camp_oppose(carte.camp)].terrain[n]);
+                    }
+                    for (let n = 0; n < array.length; n++) {
+                        if (array[n].cout[5] == 0) {
+                            degats(array[n], 2);
                         }
                     }
                     deplacer(carte, carte.camp, "defausse");

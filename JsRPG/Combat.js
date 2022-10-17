@@ -135,15 +135,14 @@ function action() {
                 attaquant.camouflage = false;
             }
         }
-        let defenseur_slot = trouver_defenseur();
-        if (attaquant.type == "Créature" && defenseur_slot !== false) {
-            attaque(attaquant, Jeu[Jeu.combat.defenseur].terrain[defenseur_slot]);
+        let defenseur = trouver_defenseur();
+        if (attaquant.type == "Créature" && defenseur !== false) {
+            attaque(attaquant, defenseur);
         }
     }
 }
 
 function attaque(attaquant, defenseur) {
-    let defenseur_slot = defenseur.slot;
     Jeu.combat.defenseur_mort = false;
     if (!statistique(attaquant, "silence")) {
         attaquant.effet_attaque(defenseur);
@@ -185,8 +184,8 @@ function attaque(attaquant, defenseur) {
             degats_montant -= defenseur.resistance;
         }
         if (Jeu.combat.defenseur_mort && !statistique(attaquant, "silence")) {
-            if (statistique(attaquant, "charge") && Jeu[Jeu.combat.defenseur].terrain.length - 1 >= defenseur_slot) {
-                degats(Jeu[Jeu.combat.defenseur].terrain[defenseur_slot], degats_result.surplus);
+            if (statistique(attaquant, "charge") && Jeu[Jeu.combat.defenseur].terrain.length - 1 >= defenseur.slot) {
+                degats(Jeu[Jeu.combat.defenseur].terrain[defenseur.slot], degats_result.surplus);
             }
             attaquant.effet_tuer(defenseur);
         }
@@ -236,7 +235,7 @@ function trouver_defenseur() {
             }
         }
     }
-    return defenseur_slot;
+    return Jeu[Jeu.combat.defenseur].terrain[defenseur_slot];
 }
 
 function combat_afficher() {
