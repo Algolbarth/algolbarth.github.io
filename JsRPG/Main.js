@@ -17,7 +17,7 @@ function demarrage() {
         ],
         types: ["Créature", "Bâtiment", "Objet", "Action", "Région"],
         familles: [],
-        NOMBRE_CARTE: 304,
+        NOMBRE_CARTE: 309,
         combat: {
             auto: true,
             vitesse: 1000,
@@ -121,6 +121,7 @@ function nouvelle_partie() {
     Jeu.combat.etat = false;
     ajouter(obtenir_carte(78), "joueur", "regions");
     ajouter(obtenir_carte(31), "joueur", "main");
+    ajouter(obtenir_carte(306), "joueur", "main");
     ajouter(obtenir_carte(1), "joueur", "terrain");
     for (let n=0;n<Jeu.joueur.main.length;n++) {
         Jeu.joueur.main[n].cache = true;
@@ -325,7 +326,6 @@ function carte_voir_id(carte_id) {
 
 function carte_afficher(carte) {
     let texte = "";
-    texte += carte.slot + "</br>";
     texte += "<div style='display: flex;justify-content: space-between;'><div><u>Nom :</u> " + carte.nom + "</div>";
     if (Jeu.combat.etat) {
         texte += "<button onclick='javascript:fermer_carte(" + '"' + carte.camp + '"' + ")'>Fermer</button>";
