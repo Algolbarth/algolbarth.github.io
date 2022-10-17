@@ -17,7 +17,7 @@ function demarrage() {
         ],
         types: ["Créature", "Bâtiment", "Objet", "Action", "Région"],
         familles: [],
-        NOMBRE_CARTE: 300,
+        NOMBRE_CARTE: 304,
         combat: {
             auto: true,
             vitesse: 1000,
@@ -325,6 +325,7 @@ function carte_voir_id(carte_id) {
 
 function carte_afficher(carte) {
     let texte = "";
+    texte += carte.slot + "</br>";
     texte += "<div style='display: flex;justify-content: space-between;'><div><u>Nom :</u> " + carte.nom + "</div>";
     if (Jeu.combat.etat) {
         texte += "<button onclick='javascript:fermer_carte(" + '"' + carte.camp + '"' + ")'>Fermer</button>";
