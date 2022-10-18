@@ -1507,7 +1507,7 @@ function obtenir_carte(carte_id) {
             carte.nom = "Hérisson";
             carte.type = "Créature";
             carte.familles.push("Bête");
-            carte.cout[0] = 2;
+            carte.cout[0] = 1;
             carte.cout[3] = 1;
             carte.vente[0] = 1;
             carte.attaque = 1;
@@ -2478,7 +2478,7 @@ function obtenir_carte(carte_id) {
         case 68:
             carte.nom = "Tigre";
             carte.type = "Créature";
-            carte.familles.push("Bête", "Félin");
+            carte.familles.push("Bête");
             carte.cout[0] = 7;
             carte.cout[3] = 6;
             carte.vente[0] = 3;
@@ -5848,7 +5848,7 @@ function obtenir_carte(carte_id) {
             break;
         case 167:
             carte.nom = "Lion";
-            carte.familles.push("Bête", "Félin");
+            carte.familles.push("Bête");
             carte.cout[0] = 17;
             carte.cout[1] = 16;
             carte.vente[0] = 8;
@@ -5958,7 +5958,7 @@ function obtenir_carte(carte_id) {
             break;
         case 175:
             carte.nom = "Chat";
-            carte.familles.push("Bête", "Félin");
+            carte.familles.push("Bête");
             carte.cout[0] = 2;
             carte.vente[0] = 1;
             carte.attaque = 1;
@@ -5968,7 +5968,7 @@ function obtenir_carte(carte_id) {
             break;
         case 176:
             carte.nom = "Chat du mage";
-            carte.familles.push("Bête", "Félin");
+            carte.familles.push("Bête");
             carte.cout[0] = 4;
             carte.vente[0] = 2;
             carte.attaque = 1;
@@ -7092,10 +7092,10 @@ function obtenir_carte(carte_id) {
             carte.nom = "Grande faucheuse";
             carte.type = "Créature";
             carte.familles.push("Faucheuse");
-            carte.cout[0] = 25;
-            carte.cout[9] = 25;
-            carte.vente[0] = 13;
-            carte.vente[9] = 12;
+            carte.cout[0] = 15;
+            carte.cout[9] = 15;
+            carte.vente[0] = 8;
+            carte.vente[9] = 7;
             carte.attaque = 1;
             carte.vie_max = carte.vie = 10;
             carte.action_max = 1;
@@ -8318,8 +8318,8 @@ function obtenir_carte(carte_id) {
             carte.nom = "Plastron de pique";
             carte.type = "Objet";
             carte.familles.push("Équipement", "Armure");
-            carte.cout[0] = 8;
-            carte.vente[0] = 4;
+            carte.cout[0] = 6;
+            carte.vente[0] = 3;
             carte.stat_equipement.vie_max = 4;
             carte.stat_equipement.epine = 2;
             carte.texte = "Donne 4 vie max et applique Épine 2 à la Créature équipée.";
@@ -11943,6 +11943,7 @@ function obtenir_carte(carte_id) {
         case 308:
             carte.nom = "Automatisme";
             carte.type = "Action";
+            carte.familles.push("Machine", "Automate");
             carte.cout[0] = 5;
             carte.cout[7] = 4;
             carte.vente[0] = 2;
@@ -12012,6 +12013,119 @@ function obtenir_carte(carte_id) {
                     return true;
                 }
                 return false;
+            }
+            break;
+        case 311:
+            carte.nom = "Amas d'os";
+            carte.type = "Action";
+            carte.familles.push("Sort", "Squelette");
+            carte.cout[0] = 4;
+            carte.cout[9] = 3;
+            carte.vente[0] = 2;
+            carte.vente[9] = 1;
+            carte.texte = "Crée 3 <button onclick='javascript:carte_voir_id(13)'>Squelette</button> sur le terrain.<br/>Sorcellerie 4 : Crée 5 <button onclick='javascript:carte_voir_id(13)'>Squelette</button> sur le terrain.";
+            carte.effet_pose = function () {
+                let nombre = 3;
+                if (sorcellerie(carte.camp)) {
+                    nombre = 5;
+                }
+                for (let n = 0; n < nombre; n++) {
+                    let nouvelle_carte = obtenir_carte(13);
+                    nouvelle_carte.vente = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+                    ajouter(nouvelle_carte, carte.camp, "terrain");
+                }
+                deplacer(carte, carte.camp, "defausse");
+                effet_pose(carte);
+                menu();
+                return true;
+            }
+            break;
+        case 312:
+            carte.nom = "Reconstitution";
+            carte.type = "Action";
+            carte.familles.push("Sort", "Zombie");
+            carte.cout[0] = 16;
+            carte.cout[9] = 16;
+            carte.vente[0] = 8;
+            carte.vente[9] = 8;
+            carte.texte = "Place une Créature alliée Zombie dans la défausse sur le terrain et la soigne totalement.";
+            carte.effet_pose = function (step, cible) {
+                if (carte.camp == "joueur") {
+                    switch (step) {
+                        case 1:
+                            let verifier = false;
+                            for (let n=0;n<Jeu.joueur.defausse.length;n++) {
+                                if (Jeu.joueur.defausse[n].type == "Créature" && Jeu.joueur.defausse[n].familles.includes("Zombie")) {
+                                    verifier = true;
+                                }
+                            }
+                            if (verifier) {
+                                initialiser();
+                                div("main");
+                                fonction("Annuler", "menu()");
+                                saut(2);
+                                afficher(carte.nom);
+                                saut();
+                                afficher(carte.texte);
+                                saut(2);
+                                afficher("Choisissez une Créature alliée dans la défausse : ");
+                                saut(2);
+                                div("", "zone");
+                                afficher("<u>Défausse :</u>");
+                                saut();
+                                for (let n = 0; n < Jeu.joueur.defausse.length; n++) {
+                                    div("", "carte");
+                                    div();
+                                    afficher_carte("joueur", "defausse", n);
+                                    div_fin();
+                                    if (Jeu.joueur.defausse[n].type == "Créature" && Jeu.joueur.defausse[n].familles.includes("Zombie")) {
+                                        div();
+                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
+                                        div_fin();
+                                    }
+                                    div_fin();
+                                }
+                                div_fin();
+                                div_fin();
+                                div("side", "affichage");
+                                div_fin();
+                                actualiser();
+                            }
+                            break;
+                        case 2:
+                            Jeu.joueur.defausse[cible].vie = Jeu.joueur.defausse[cible].vie_max;
+                            deplacer(Jeu.joueur.defausse[cible], "joueur", "terrain");
+                            deplacer(carte, "joueur", "defausse");
+                            effet_pose(carte);
+                            menu();
+                            break;
+                    }
+                }
+                else {
+                    let verifier = false;
+                    for (let n=0;n<Jeu.adverse.defausse.length;n++) {
+                        if (Jeu.adverse.defausse[n].type == "Créature" && Jeu.adverse.defausse[n].familles.includes("Zombie")) {
+                            verifier = true;
+                        }
+                    }
+                    if (verifier) {
+                        let best = 0;
+                        while (Jeu.adverse.defausse[best].type != "Créature" || !Jeu.joueur.defausse[n].familles.includes("Zombie")) {
+                            best++;
+                        }
+                        for (let n = 0; n < Jeu.adverse.defausse.length; n++) {
+                            if (cout_total(Jeu.adverse.defausse[n]) > cout_total(Jeu.adverse.defausse[best]) && Jeu.adverse.defausse[n].type == "Créature" && Jeu.joueur.defausse[n].familles.includes("Zombie")) {
+                                best = n;
+                            }
+                        }
+                        Jeu.adverse.defausse[best].vie = Jeu.adverse.defausse[best].vie_max;
+                        deplacer(Jeu.adverse.defausse[best], "adverse", "terrain");
+                        deplacer(carte, "adverse", "defausse");
+                        effet_pose(carte);
+                        return true;
+                    }
+                    return false;
+                }
             }
             break;
     }
