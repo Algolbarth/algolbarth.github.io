@@ -6102,11 +6102,18 @@ function obtenir_carte(carte_id) {
             carte.equipement_max = 1;
             carte.texte = "Quand attaque : Inflige 2 dégât aux Unités en avant et en arrière de l'Unité attaquée.";
             carte.effet_attaque = function (defenseur) {
+                let cible_1, cible_2;
                 if (defenseur.slot > 0) {
-                    degats(Jeu[defenseur.camp].terrain[defenseur.slot - 1], 1);
+                    cible_1 = Jeu[defenseur.camp].terrain[defenseur.slot - 1];
                 }
-                if (defenseur.slot < Jeu[defenseur.camp].terrain.length) {
-                    degats(Jeu[defenseur.camp].terrain[defenseur.slot + 1], 1);
+                if (defenseur.slot < Jeu[defenseur.camp].terrain.length - 1) {
+                    cible_2 = Jeu[defenseur.camp].terrain[defenseur.slot + 1];
+                }
+                if (defenseur.slot > 0) {
+                    degats(cible_1, 1);
+                }
+                if (defenseur.slot < Jeu[defenseur.camp].terrain.length - 1) {
+                    degats(cible_2, 1);
                 }
             }
             break;
@@ -10863,13 +10870,13 @@ function obtenir_carte(carte_id) {
                 if (defenseur.slot > 0) {
                     cible_1 = Jeu[defenseur.camp].terrain[defenseur.slot - 1];
                 }
-                if (defenseur.slot < Jeu[defenseur.camp].terrain.length) {
+                if (defenseur.slot < Jeu[defenseur.camp].terrain.length - 1) {
                     cible_2 = Jeu[defenseur.camp].terrain[defenseur.slot + 1];
                 }
                 if (defenseur.slot > 0) {
                     degats(cible_1, 1);
                 }
-                if (defenseur.slot < Jeu[defenseur.camp].terrain.length) {
+                if (defenseur.slot < Jeu[defenseur.camp].terrain.length - 1) {
                     degats(cible_2, 1);
                 }
             }
@@ -11831,31 +11838,31 @@ function obtenir_carte(carte_id) {
                             }
                             break;
                         case 2:
-                            if (sorcellerie("joueur") >= 9) {
-                                degats(Jeu.adverse.terrain[cible], 5);
-                                if (cible > 0) {
-                                    if (Jeu.adverse.terrain[cible - 1].type == "Créature") {
-                                        degats(Jeu.adverse.terrain[cible - 1], 5);
-                                    }
-                                }
-                                if (cible < Jeu.adverse.terrain.length - 1) {
-                                    if (Jeu.adverse.terrain[cible + 1].type == "Créature") {
-                                        degats(Jeu.adverse.terrain[cible + 1], 5);
-                                    }
+                            let cible_1, cible_2, cible_3 = false;
+                            cible_1 = Jeu.adverse.terrain[cible];
+                            if (cible > 0) {
+                                if (Jeu.adverse.terrain[cible - 1].type == "Créature") {
+                                    cible_2 = Jeu.adverse.terrain[cible - 1];
                                 }
                             }
+                            if (cible < Jeu.adverse.terrain.length - 1) {
+                                if (Jeu.adverse.terrain[cible + 1].type == "Créature") {
+                                    cible_3 = Jeu.adverse.terrain[cible + 1];
+                                }
+                            }
+                            let damage;
+                            if (sorcellerie("joueur") >= 9) {
+                                damage = 5;
+                            }
                             else {
-                                degats(Jeu.adverse.terrain[cible], 2);
-                                if (cible > 0) {
-                                    if (Jeu.adverse.terrain[cible - 1].type == "Créature") {
-                                        degats(Jeu.adverse.terrain[cible - 1], 2);
-                                    }
-                                }
-                                if (cible < Jeu.adverse.terrain.length - 1) {
-                                    if (Jeu.adverse.terrain[cible + 1].type == "Créature") {
-                                        degats(Jeu.adverse.terrain[cible + 1], 2);
-                                    }
-                                }
+                                damage = 2;
+                            }
+                            degats(cible_1, damage);
+                            if (cible_2) {
+                                degats(cible_2, damage);
+                            }
+                            if (cible_3) {
+                                degats(cible_3, damage);
                             }
                             deplacer(carte, "joueur", "defausse");
                             effet_pose(carte);
