@@ -4100,10 +4100,10 @@ function obtenir_carte(carte_id) {
             carte.familles.push("Humain", "Mage");
             carte.cout[0] = 19;
             carte.vente[0] = 9;
-            carte.attaque = 8;
-            carte.vie_max = carte.vie = 8;
+            carte.attaque = 5;
+            carte.vie_max = carte.vie = 5;
             carte.action_max = 1;
-            carte.sorcellerie = 2;
+            carte.sorcellerie = 5;
             carte.equipement_max = 1;
             break;
         case 118:
@@ -5361,7 +5361,7 @@ function obtenir_carte(carte_id) {
             carte.cout[9] = 2;
             carte.vente[0] = 1;
             carte.vente[9] = 1;
-            carte.texte = "Place une Créature alliée dans la défausse dans la boutique et la soigne de 1.<br/>Sorcellerie 2 : Place une Créature alliée dans la défausse dans la boutique et la soigne de 1 et diminue son coût en Or de 2.";
+            carte.texte = "Place une Créature alliée dans la défausse dans la boutique et la soigne de 1.<br/>Sorcellerie 10 : Place une Créature alliée dans la défausse dans la boutique et la soigne totalement.";
             carte.effet_pose = function (step, cible) {
                 if (carte.camp == "joueur") {
                     switch (step) {
@@ -5400,13 +5400,10 @@ function obtenir_carte(carte_id) {
                             }
                             break;
                         case 2:
-                            if (sorcellerie("joueur") >= 2) {
-                                Jeu.joueur.defausse[cible].cout[0] -= 2;
-                                if (Jeu.joueur.defausse[cible].cout[0] < 0) {
-                                    Jeu.joueur.defausse[cible].cout[0] = 0;
-                                }
-                            }
                             Jeu.joueur.defausse[cible].vie = 1;
+                            if (sorcellerie("joueur") >= 2) {
+                                Jeu.joueur.defausse[cible].vie = Jeu.joueur.defausse[cible].vie_max;
+                            }
                             deplacer(Jeu.joueur.defausse[cible], "joueur", "boutique");
                             deplacer(carte, "joueur", "defausse");
                             effet_pose(carte);
@@ -11966,6 +11963,7 @@ function obtenir_carte(carte_id) {
         case 309:
             carte.nom = "Bribes arcaniques";
             carte.type = "Action";
+            carte.familles.push("Sort");
             carte.cout[0] = 2;
             carte.cout[8] = 2;
             carte.vente[0] = 1;
@@ -11981,6 +11979,32 @@ function obtenir_carte(carte_id) {
                         n--;
                         let cible = Jeu[camp_oppose(carte.camp)].terrain[parseInt(Math.random() * Jeu[camp_oppose(carte.camp)].terrain.length)];
                         degats(cible, 2);
+                    }
+                    deplacer(carte, carte.camp, "defausse");
+                    effet_pose(carte);
+                    menu();
+                    return true;
+                }
+                return false;
+            }
+            break;
+        case 310:
+            carte.nom = "Explosion arcanique";
+            carte.type = "Action";
+            carte.familles.push("Sort");
+            carte.cout[0] = 15;
+            carte.cout[8] = 15;
+            carte.vente[0] = 8;
+            carte.vente[8] = 7;
+            carte.texte = "Inflige 1 dégât à toutes les Unités adverses sur le terrain. Inflige 1 dégat supplémentaire pour chaque 10 de Sorcellerie que vous avez.";
+            carte.effet_pose = function () {
+                if (Jeu[camp_oppose(carte.camp)].terrain.length > 0) {
+                    let array = [];
+                    for (let n = 0; n < Jeu[camp_oppose(carte.camp)].terrain.length; n++) {
+                        array.push(Jeu[camp_oppose(carte.camp)].terrain[n]);
+                    }
+                    for (let n = 0; n < array.length; n++) {
+                        degats(array[n], 1 + parseInt(sorcellerie(carte.camp)/10));
                     }
                     deplacer(carte, carte.camp, "defausse");
                     effet_pose(carte);
