@@ -102,6 +102,7 @@ function ajouter_sites () {
     ajouter_site("Dimension","Dimension/index.html",[0]);
     ajouter_site("JsRPG","JsRPG/index.html",[0]);
     ajouter_site("Projet","Projet/index.html",[0]);
+    ajouter_site("Cryptage","Cryptage/index.html",[0]);
 
     ajouter_dossier("Local");//0
     ajouter_dossier("Favoris");//1
