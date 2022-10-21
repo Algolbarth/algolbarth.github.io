@@ -12,7 +12,7 @@ input {
     text-align:center;
 }
 
-a {
+button {
     outline:none;
     text-decoration:none;
     display:inline-block;
