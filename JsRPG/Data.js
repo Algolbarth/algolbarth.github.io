@@ -621,7 +621,7 @@ function obtenir_carte(carte_id) {
             carte.effet_action = function () {
                 let nouvelle_carte = obtenir_carte(13);
                 nouvelle_carte.vente = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-                ajouter(nouvelle_carte, carte.camp, carte.zone);
+                ajouter(nouvelle_carte, carte.camp, "terrain");
             }
             carte.description = "La faible masse des squelettes permet aux revenants de les utiliser comme esclave pour des tâches basiques.";
             break;
@@ -12835,6 +12835,65 @@ function obtenir_carte(carte_id) {
                     }
                     return false;
                 }
+            }
+            break;
+        case 321:
+            carte.nom = "Os solides";
+            carte.type = "Action";
+            carte.familles.push("Mort-vivant", "Squelette");
+            carte.cout[0] = 4;
+            carte.cout[9] = 4;
+            carte.vente[0] = 2;
+            carte.vente[9] = 2;
+            carte.texte = "Donne 2 vie supplémentaire à toutes les Créatures alliées Squelette sur le terrain.";
+            carte.effet_pose = function () {
+                let verifier = false;
+                for (let n=0;n<Jeu[carte.camp].terrain.length;n++) {
+                    if (Jeu[carte.camp].terrain[n].type == "Créature" && Jeu[carte.camp].terrain[n].familles.includes("Squelette")) {
+                        verifier = true;
+                    }
+                }
+                if (verifier) {
+                    for (let n = 0; n < Jeu[carte.camp].terrain.length; n++) {
+                        if (Jeu[carte.camp].terrain[n].type == "Créature" && Jeu[carte.camp].terrain[n].familles.includes("Squelette")) {
+                            if (Jeu[carte.camp].terrain[n].vie_sup < 2) {
+                                Jeu[carte.camp].terrain[n].vie_sup = 2;
+                            }
+                        }
+                    }
+                    deplacer(carte, carte.camp, "defausse");
+                    effet_pose(carte);
+                    menu();
+                    return true;
+                }
+            }
+            break;
+        case 322:
+            carte.nom = "Réveiller les morts";
+            carte.type = "Action";
+            carte.familles.push("Mort-vivant", "Squelette");
+            carte.cout[0] = 10;
+            carte.cout[9] = 10;
+            carte.vente[0] = 5;
+            carte.vente[9] = 5;
+            carte.texte = "Crée <button onclick='javascript:carte_voir_id(13)'>Squelette</button> sur le terrain pour chaque Créature dans la Défausse et bannis toutes les Créatures dans la Défausse.";
+            carte.effet_pose = function () {
+                if (verifier_creature(carte.camp, "defausse")) {
+                    for (let n = 0; n < Jeu[carte.camp].defausse.length; n++) {
+                        if (Jeu[carte.camp].defausse[n].type == "Créature") {
+                            let nouvelle_carte = obtenir_carte(13);
+                            nouvelle_carte.vente = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+                            ajouter(nouvelle_carte, carte.camp, "terrain");
+                            enlever(Jeu[carte.camp].defausse[n]);
+                            n--;
+                        }
+                    }
+                    deplacer(carte, carte.camp, "defausse");
+                    effet_pose(carte);
+                    menu();
+                    return true;
+                }
+                return false;
             }
             break;
     }
