@@ -17,7 +17,7 @@ function demarrage() {
         ],
         types: ["Créature", "Bâtiment", "Objet", "Action", "Région"],
         familles: [],
-        NOMBRE_CARTE: 322,
+        NOMBRE_CARTE: 327,
         combat: {
             auto: true,
             vitesse: 1000,
