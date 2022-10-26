@@ -395,7 +395,7 @@ function obtenir_carte(carte_id) {
             break;
         case 9:
             carte.nom = "Dragon";
-            carte.familles.push("Dragon");
+            carte.familles.push("Reptile", "Dragon");
             carte.cout[0] = 11;
             carte.cout[1] = 4;
             carte.cout[5] = 4;
@@ -2337,7 +2337,7 @@ function obtenir_carte(carte_id) {
         case 63:
             carte.nom = "Oeuf de dragon";
             carte.type = "Bâtiment";
-            carte.familles.push("Dragon", "Oeuf");
+            carte.familles.push("Reptile", "Dragon", "Oeuf");
             carte.cout[0] = 7;
             carte.cout[1] = 3;
             carte.cout[5] = 3;
@@ -13207,6 +13207,38 @@ function obtenir_carte(carte_id) {
                     enlever(Jeu[carte.camp].defausse[best]);
                     Jeu[carte.camp].ressources[9].courant += 2;
                 }
+            }
+            break;
+        case 328:
+            carte.nom = "Chimère";
+            carte.familles.push("Bête", "Oiseau", "Reptile");
+            carte.cout[0] = 35;
+            carte.vente[0] = 17;
+            carte.attaque = 10;
+            carte.vie_max = carte.vie = 10;
+            carte.action_max = 1;
+            carte.equipement_max = 1;
+            carte.texte = "Quand posé : Se donne 1 attaque et 1 vie pour chaque famille différente parmis les Créatures alliées sur le terrain.";
+            carte.effet_pose = function () {
+                if (!statistique(carte, "silence")) {
+                    let array = [];
+                    for (let n = 0; n < Jeu[carte.camp].terrain.length; n++) {
+                        if (Jeu[carte.camp].terrain[n].type == "Créature") {
+                            for (let i = 0; i < Jeu[carte.camp].terrain[n].familles.length; i++) {
+                                if (!array.includes(Jeu[carte.camp].terrain[n].familles[i])) {
+                                    array.push(Jeu[carte.camp].terrain[n].familles[i]);
+                                }
+                            }
+                        }
+                    }
+                    carte.attaque += array.length;
+                    carte.vie_max += array.length;
+                    carte.vie += array.length;
+                }
+                deplacer(carte, carte.camp, "terrain");
+                effet_pose(carte);
+                menu();
+                return true;
             }
             break;
     }
