@@ -188,6 +188,9 @@ function attaque(attaquant, defenseur) {
                 degats(Jeu[Jeu.combat.defenseur].terrain[defenseur.slot], degats_result.surplus);
             }
             attaquant.effet_tuer(defenseur);
+            for (let n=0;n<attaquant.equipements.length;n++) {
+                attaquant.equipements[n].stat_equipement.effet_tuer(attaquant, defenseur);
+            }
         }
         else {
             if (statistique(attaquant, "letalite") && !statistique(attaquant, "silence") && defenseur.type == "Créature") {
