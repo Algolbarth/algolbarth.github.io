@@ -11966,7 +11966,7 @@ function obtenir_carte(carte_id) {
             carte.texte = "Crée 3 <button onclick='javascript:carte_voir_id(13)'>Squelette</button> sur le terrain.<br/>Sorcellerie 4 : Crée 5 <button onclick='javascript:carte_voir_id(13)'>Squelette</button> sur le terrain.";
             carte.effet_pose = function () {
                 let nombre = 3;
-                if (sorcellerie(carte.camp)) {
+                if (sorcellerie(carte.camp) >= 2) {
                     nombre = 5;
                 }
                 for (let n = 0; n < nombre; n++) {
