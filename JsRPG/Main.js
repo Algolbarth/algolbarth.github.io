@@ -17,7 +17,7 @@ function demarrage() {
         ],
         types: ["Créature", "Bâtiment", "Objet", "Action", "Région"],
         familles: [],
-        NOMBRE_CARTE: 362,
+        NOMBRE_CARTE: 363,
         combat: {
             auto: true,
             vitesse: 1000,
@@ -52,6 +52,7 @@ function demarrage() {
             j--;
         }
     }
+    console.log(Jeu.familles.length);
     ecran_titre();
 }
 
@@ -122,7 +123,7 @@ function nouvelle_partie() {
     ajouter(obtenir_carte(78), "joueur", "regions");
     ajouter(obtenir_carte(31), "joueur", "main");
     ajouter(obtenir_carte(1), "joueur", "terrain");
-    for (let n=0;n<Jeu.joueur.main.length;n++) {
+    for (let n = 0; n < Jeu.joueur.main.length; n++) {
         Jeu.joueur.main[n].cache = true;
     }
     boutique_actualiser();
@@ -673,7 +674,7 @@ function boutique_rafraichir() {
 }
 
 function boutique_actualiser() {
-    let nombre_actualisation = 3 + parseInt((Jeu.boutique_niveau-1)/2);
+    let nombre_actualisation = 3 + parseInt((Jeu.boutique_niveau - 1) / 2);
     for (let n = 0; n < Jeu.joueur.boutique.length; n++) {
         if (Jeu.joueur.boutique[n].verrouillage) {
             nombre_actualisation--;
@@ -1044,7 +1045,7 @@ function adversaire_generer(etage) {
                 ajouter(obtenir_carte(65), "adverse", "boutique");
                 break;
             case 9:
-                for (let n=1;n<Jeu.ressources.length;n++) {
+                for (let n = 1; n < Jeu.ressources.length; n++) {
                     Jeu.adverse.ressources[n].courant = Jeu.adverse.ressources[n].max = 10;
                 }
                 ajouter(obtenir_carte(15), "adverse", "boutique");

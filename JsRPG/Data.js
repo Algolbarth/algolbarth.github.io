@@ -10453,7 +10453,7 @@ function obtenir_carte(carte_id) {
                                 saut();
                                 afficher(carte.texte);
                                 saut(2);
-                                afficher("Choisissez une Créature alliée blessée sur le terrain : ");
+                                afficher("Choisissez une Créature alliée sur le terrain : ");
                                 saut(2);
                                 div("", "zone");
                                 afficher("<u>Terrain :</u>");
@@ -10478,7 +10478,7 @@ function obtenir_carte(carte_id) {
                             }
                             break;
                         case 2:
-                            Jeu.joueur.terrain[cible].stat_etage.attaque = 6;
+                            Jeu.joueur.terrain[cible].stat_etage.attaque += 6;
                             deplacer(carte, "joueur", "defausse");
                             effet_pose(carte);
                             menu();
@@ -10491,7 +10491,7 @@ function obtenir_carte(carte_id) {
                         while (Jeu.adverse.terrain[best].type != "Créature") {
                             best++;
                         }
-                        Jeu.adverse.terrain[best].stat_etage.attaque = 6;
+                        Jeu.adverse.terrain[best].stat_etage.attaque += 6;
                         deplacer(carte, "adverse", "defausse");
                         effet_pose(carte);
                         return true;
@@ -10520,7 +10520,7 @@ function obtenir_carte(carte_id) {
                                 saut();
                                 afficher(carte.texte);
                                 saut(2);
-                                afficher("Choisissez une Créature alliée blessée sur le terrain : ");
+                                afficher("Choisissez une Créature alliée sur le terrain : ");
                                 saut(2);
                                 div("", "zone");
                                 afficher("<u>Terrain :</u>");
@@ -10545,7 +10545,7 @@ function obtenir_carte(carte_id) {
                             }
                             break;
                         case 2:
-                            Jeu.joueur.terrain[cible].stat_etage.defense = 4;
+                            Jeu.joueur.terrain[cible].stat_etage.defense += 4;
                             deplacer(carte, "joueur", "defausse");
                             effet_pose(carte);
                             menu();
@@ -10558,7 +10558,7 @@ function obtenir_carte(carte_id) {
                         while (Jeu.adverse.terrain[best].type != "Créature") {
                             best++;
                         }
-                        Jeu.adverse.terrain[best].stat_etage.defense = 4;
+                        Jeu.adverse.terrain[best].stat_etage.defense += 4;
                         deplacer(carte, "adverse", "defausse");
                         effet_pose(carte);
                         return true;
@@ -10573,7 +10573,7 @@ function obtenir_carte(carte_id) {
             carte.familles.push("Potion");
             carte.cout[0] = 3;
             carte.vente[0] = 1;
-            carte.texte = "Donne 6 vie à une Créature alliée sur le terrain jusqu'à la fin de la phase de combat.";
+            carte.texte = "Donne 3 vie à une Créature alliée sur le terrain jusqu'à la fin de la phase de combat.";
             carte.effet_pose = function (step, cible) {
                 if (carte.camp == "joueur") {
                     switch (step) {
@@ -10612,8 +10612,8 @@ function obtenir_carte(carte_id) {
                             }
                             break;
                         case 2:
-                            Jeu.joueur.terrain[cible].stat_etage.vie_max = 6;
-                            Jeu.joueur.terrain[cible].vie += 6;
+                            Jeu.joueur.terrain[cible].stat_etage.vie_max += 3;
+                            Jeu.joueur.terrain[cible].vie += 3;
                             deplacer(carte, "joueur", "defausse");
                             effet_pose(carte);
                             menu();
@@ -10626,8 +10626,8 @@ function obtenir_carte(carte_id) {
                         while (Jeu.adverse.terrain[best].type != "Créature") {
                             best++;
                         }
-                        Jeu.adverse.terrain[best].stat_etage.vie_max = 6;
-                        Jeu.adverse.terrain[best].vie += 6;
+                        Jeu.adverse.terrain[best].stat_etage.vie_max += 3;
+                        Jeu.adverse.terrain[best].vie += 3;
                         deplacer(carte, "adverse", "defausse");
                         effet_pose(carte);
                         return true;
@@ -15322,6 +15322,84 @@ function obtenir_carte(carte_id) {
                     deplacer(carte, "adverse", "terrain");
                     effet_pose(carte);
                     return true;
+                }
+            }
+            break;
+        case 363:
+            carte.nom = "Visée";
+            carte.type = "Action";
+            carte.cout[0] = 5;
+            carte.vente[0] = 2;
+            carte.texte = "Donne 10 attaque à une Créature alliée sur le terrain avec Portée jusqu'à la fin de la phase de combat.";
+            carte.effet_pose = function (step, cible) {
+                if (carte.camp == "joueur") {
+                    switch (step) {
+                        case 1:
+                            let verifier = false;
+                            for (let n=0;n<Jeu.joueur.terrain.length;n++) {
+                                if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].portee) {
+                                    verifier = true;
+                                }
+                            }
+                            if (verifier) {
+                                initialiser();
+                                div("main");
+                                fonction("Annuler", "menu()");
+                                saut(2);
+                                afficher(carte.nom);
+                                saut();
+                                afficher(carte.texte);
+                                saut(2);
+                                afficher("Choisissez une Créature alliée sur le terrain avec Portée : ");
+                                saut(2);
+                                div("", "zone");
+                                afficher("<u>Terrain :</u>");
+                                saut();
+                                for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
+                                    div("", "carte");
+                                    div();
+                                    afficher_carte("joueur", "terrain", n);
+                                    div_fin();
+                                    if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].portee) {
+                                        div();
+                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
+                                        div_fin();
+                                    }
+                                    div_fin();
+                                }
+                                div_fin();
+                                div_fin();
+                                div("side", "affichage");
+                                div_fin();
+                                actualiser();
+                            }
+                            break;
+                        case 2:
+                            Jeu.joueur.terrain[cible].stat_etage.attaque += 10;
+                            deplacer(carte, "joueur", "defausse");
+                            effet_pose(carte);
+                            menu();
+                            break;
+                    }
+                }
+                else {
+                    let verifier = false;
+                    for (let n=0;n<Jeu.adverse.terrain.length;n++) {
+                        if (Jeu.adverse.terrain[n].type == "Créature" && Jeu.adverse.terrain[n].portee) {
+                            verifier = true;
+                        }
+                    }
+                    if (Jeu.adverse.terrain.length > 0) {
+                        let best = 0;
+                        while (Jeu.adverse.terrain[best].type != "Créature" || !Jeu.adverse.terrain[n].portee) {
+                            best++;
+                        }
+                        Jeu.adverse.terrain[best].stat_etage.attaque += 10;
+                        deplacer(carte, "adverse", "defausse");
+                        effet_pose(carte);
+                        return true;
+                    }
+                    return false;
                 }
             }
             break;
