@@ -17,7 +17,7 @@ function demarrage() {
         ],
         types: ["Créature", "Bâtiment", "Objet", "Action", "Région"],
         familles: [],
-        NOMBRE_CARTE: 363,
+        NOMBRE_CARTE: 366,
         combat: {
             auto: true,
             vitesse: 1000,
@@ -32,7 +32,8 @@ function demarrage() {
             famille: "Toutes",
             cout: "Tous",
             boutique: "Tous"
-        }
+        },
+        en_jeu: false
     }
     for (let n = 1; n <= Jeu.NOMBRE_CARTE; n++) {
         let carte = obtenir_carte(n);
@@ -52,7 +53,6 @@ function demarrage() {
             j--;
         }
     }
-    console.log(Jeu.familles.length);
     ecran_titre();
 }
 
@@ -79,6 +79,7 @@ function ecran_titre() {
 }
 
 function nouvelle_partie() {
+    Jeu.en_jeu = true;
     Jeu.joueur = {
         vie: 30,
         vie_max: 30,
@@ -296,7 +297,15 @@ function afficher_carte(camp, zone, slot) {
         afficher("[");
     }
     if (!Jeu.combat.etat || !Jeu.combat.auto) {
-        fonction(carte.nom, "carte_voir(" + '"' + camp + '","' + zone + '",' + slot + ")");
+        let string = "carte_voir(" + '"' + camp + '","' + zone + '",' + slot;
+        if (Jeu.combat.etat && camp == "adverse") {
+            string += ',"main"';
+        }
+        else {
+            string += ',"side"';
+        }
+        string += ")";
+        fonction(carte.nom, string);
     }
     else {
         afficher(carte.nom);
@@ -316,15 +325,15 @@ function afficher_carte(camp, zone, slot) {
     }
 }
 
-function carte_voir(camp, zone, slot) {
-    carte_afficher(Jeu[camp][zone][slot]);
+function carte_voir(camp, zone, slot, div) {
+    carte_afficher(Jeu[camp][zone][slot], div);
 }
 
-function carte_voir_id(carte_id) {
-    carte_afficher(obtenir_carte(carte_id));
+function carte_voir_id(carte_id, div) {
+    carte_afficher(obtenir_carte(carte_id), div);
 }
 
-function carte_afficher(carte) {
+function carte_afficher(carte, div) {
     let texte = "";
     texte += "<div style='display: flex;justify-content: space-between;'><div><u>Nom :</u> " + carte.nom + "</div>";
     if (Jeu.combat.etat) {
@@ -385,220 +394,101 @@ function carte_afficher(carte) {
         texte += "Aucune";
     }
     texte += "<br/>";
-    texte += "<u>Effet :</u> " + carte.texte + "<br/>";
+    texte += "<u>Effet :</u> " + carte.texte() + "<br/>";
     if (carte.exclusif) {
-        texte += "Cette carte ne peut pas être créée dans la boutique. <br/>";
+        texte += "Cette carte ne peut pas être piochée. <br/>";
     }
     if (statistique(carte, "eternite") > 0) {
-        texte += "Éternité";
-        if (Jeu.texte_talent) {
-            texte += " : Ne disparais pas de votre défausse.";
-        }
-        texte += "<br/>";
+        texte += effet_talent_voir("Éternité", carte) + "<br/>";
     }
     if (statistique(carte, "temporaire")) {
-        texte += "Temporaire ";
-        if (Jeu.texte_talent) {
-            texte += " : Est banni à la fin de la phase de combat.";
-        }
-        texte += "<br/>";
+        texte += effet_talent_voir("Temporaire", carte) + "<br/>";
     }
     if (statistique(carte, "ephemere")) {
-        texte += "Ephémère ";
-        if (Jeu.texte_talent) {
-            texte += " : Quand meurt ou est détruit, est banni. (les effets qui se déclenche à la mort de la Créature se déclenche quand même, mais elle ne va pas à la défausse)";
-        }
-        texte += "<br/>";
+        texte += effet_talent_voir("Éphémère", carte) + "<br/>";
     }
     if (["Créature", "Bâtiment"].includes(carte.type)) {
         if (statistique(carte, "protection")) {
-            texte += "Protection";
-            if (Jeu.texte_talent) {
-                texte += " : Les attaques adverses ciblent cette carte en priorité.";
-            }
-            texte += "<br/>";
+            texte += effet_talent_voir("Protection", carte) + "<br/>";
         }
         if (statistique(carte, "rapidite")) {
-            texte += "Rapidité";
-            if (Jeu.texte_talent) {
-                texte += " : Joue avant les autres Créatures lors d'un tour de combat.";
-            }
-            texte += "<br/>";
+            texte += effet_talent_voir("Rapidité", carte) + "<br/>";
         }
         if (statistique(carte, "action_max") > 1) {
-            texte += "Action " + statistique(carte, "action_max");
-            if (Jeu.texte_talent) {
-                texte += " : Peut jouer " + statistique(carte, "action_max") + " fois par tour de combat.";
-            }
-            texte += "<br/>";
+            texte += effet_talent_voir("Action", carte, statistique(carte, "action_max")) + "<br/>";
         }
         else if (statistique(carte, "action_max") == 0) {
-            texte += "Inactif";
-            if (Jeu.texte_talent) {
-                texte += " : Ne joue pas durant la phase de combat.";
-            }
-            texte += "<br/>";
+            texte += effet_talent_voir("Inactif", carte) + "<br/>";
         }
         if (carte.brulure > 0) {
-            texte += "Brûlure " + carte.brulure;
-            if (Jeu.texte_talent) {
-                texte += " : Au début du prochain tour de combat, cette carte subit " + carte.brulure + " dégât(s).";
-            }
-            texte += "<br/>";
+            texte += effet_talent_voir("Brûlure", carte, carte.brulure) + "<br/>";
         }
         if (statistique(carte, "sorcellerie") > 0) {
-            texte += "Sorcellerie " + statistique(carte, "sorcellerie");
-            if (Jeu.texte_talent) {
-                texte += " : Débloque des effets supplémentaires pour les cartes Action Sort.";
-            }
-            if (carte.camp == "joueur" || carte.camp == "adverse") {
-                texte += " <i>(votre sorcellerie totale est de " + sorcellerie(carte.camp) + ")</i>";
-            }
-            texte += "<br/>";
+            texte += effet_talent_voir("Sorcellerie", carte, statistique(carte, "sorcellerie")) + "<br/>";
         }
         if (statistique(carte, "resistance") > 0) {
-            texte += "Résistance " + statistique(carte, "resistance");
-            if (Jeu.texte_talent) {
-                texte += " : Quand cette carte subit des dégâts, en subis " + statistique(carte, "resistance") + " de moins.";
-            }
-            texte += "<br/>";
+            texte += effet_talent_voir("Résistance", carte, statistique(carte, "resistance")) + "<br/>";
         }
         if (statistique(carte, "epine") > 0) {
-            texte += "Épine " + statistique(carte, "epine");
-            if (Jeu.texte_talent) {
-                texte += " : Quand est attaquée par une Créature, lui inflige " + statistique(carte, "epine") + " dégâts.";
-            }
-            texte += "<br/>";
+            texte += effet_talent_voir("Épine", carte, statistique(carte, "epine")) + "<br/>";
         }
         if (statistique(carte, "regeneration") > 0) {
-            texte += "Régénération " + statistique(carte, "regeneration");
-            if (Jeu.texte_talent) {
-                texte += " : Au début de chaque tour de combat, se soigne de " + statistique(carte, "regeneration") + ".";
-            }
-            texte += "<br/>";
+            texte += effet_talent_voir("Régénération", carte, statistique(carte, "regeneration")) + "<br/>";
         }
         if (carte.decompte > 0) {
-            texte += "Décompte " + carte.decompte;
-            if (Jeu.texte_talent) {
-                texte += " : Diminue de 1 à la fin de la phase de combat.";
-            }
-            texte += "<br/>";
+            texte += effet_talent_voir("Décompte", carte, carte.decompte) + "<br/>";
         }
         if (carte.gel > 0) {
-            texte += "Gel " + carte.gel;
-            if (Jeu.texte_talent) {
-                texte += " : Annule les " + carte.gel + " prochaines attaques.";
-            }
-            texte += "<br/>";
+            texte += effet_talent_voir("Gel", carte, carte.gel) + "<br/>";
         }
         if (carte.camouflage) {
-            texte += "Camouflage ";
-            if (Jeu.texte_talent) {
-                texte += " : Ne peut pas être ciblé par une attaque adverse. S'enlève quand joue.";
-            }
-            texte += "<br/>";
+            texte += effet_talent_voir("Camouflage", carte) + "<br/>";
         }
         if (statistique(carte, "silence")) {
-            texte += "Silence ";
-            if (Jeu.texte_talent) {
-                texte += " : Empêche tous les effets de cette carte de se déclencher.";
-            }
-            texte += "<br/>";
+            texte += effet_talent_voir("Silence", carte) + "<br/>";
         }
         if (carte.esquive > 0) {
-            texte += "Esquive";
-            if (Jeu.texte_talent) {
-                texte += " : Réduits à 0 les dégâts reçus puis s'enlève.";
-            }
-            texte += "<br/>";
+            texte += effet_talent_voir("Esquive", carte) + "<br/>";
         }
     }
     if (carte.type == "Bâtiment") {
         if (carte.mobile) {
-            texte += "Mobile";
-            if (Jeu.texte_talent) {
-                texte += " : Peut être déplacé sur le terrain.";
-            }
-            texte += "<br/>";
+            texte += effet_talent_voir("Mobile", carte) + "<br/>";
         }
     }
     if (carte.type == "Créature") {
         if (statistique(carte, "equipement_max") > 1) {
-            texte += "Maniement " + statistique(carte, "equipement_max");
-            if (Jeu.texte_talent) {
-                texte += " : Peut porter " + statistique(carte, "equipement_max") + " équipements.";
-            }
-            texte += "<br/>";
+            texte += effet_talent_voir("Maniement", carte, statistique(carte, "equipement_max")) + "<br/>";
         }
         if (statistique(carte, "vol_de_vie")) {
-            texte += "Vol de vie " + statistique(carte, "vol_de_vie");
-            if (Jeu.texte_talent) {
-                texte += " : Quand attaque une Créature, se soigne de " + statistique(carte, "vol_de_vie");
-            }
-            texte += "<br/>";
+            texte += effet_talent_voir("Vol de vie", carte, statistique(carte, "vol_de_vie")) + "<br/>";
         }
         if (statistique(carte, "percee") > 0) {
-            texte += "Percée " + statistique(carte, "percee");
-            if (Jeu.texte_talent) {
-                texte += " : Ignore " + statistique(carte, "percee") + " défense quand attaque.";
-            }
-            texte += "<br/>";
+            texte += effet_talent_voir("Percée", carte, statistique(carte, "percee")) + "<br/>";
         }
         if (statistique(carte, "portee") > 0) {
-            texte += "Portée";
-            if (Jeu.texte_talent) {
-                texte += " : Attaque en priorité la dernière Créature ou Bâtiment au lieu de la première.";
-            }
-            texte += "<br/>";
+            texte += effet_talent_voir("Portée", carte) + "<br/>";
         }
         if (statistique(carte, "letalite")) {
-            texte += "Létalité";
-            if (Jeu.texte_talent) {
-                texte += " : Quand attaque une Créature : envoie la Créature attaquée à la défausse.";
-            }
-            texte += "<br/>";
+            texte += effet_talent_voir("Létalité", carte) + "<br/>";
         }
         if (carte.poison > 0) {
-            texte += "Poison " + carte.poison;
-            if (Jeu.texte_talent) {
-                texte += " : Au début de chaque tour de combat pendant " + carte.poison + " tour(s), subit 1 dégât.";
-            }
-            texte += "<br/>";
+            texte += effet_talent_voir("Poison", carte, carte.poison) + "<br/>";
         }
         if (carte.contamination > 0) {
-            texte += "Contamination " + carte.contamination;
-            if (Jeu.texte_talent) {
-                texte += " : Débloque des effets supplémentaires de certaines cartes.";
-            }
-            texte += "<br/>";
+            texte += effet_talent_voir("Contamination", carte, carte.contamination) + "<br/>";
         }
         if (carte.etourdissement > 0) {
-            texte += "Étourdissement ";
-            if (Jeu.texte_talent) {
-                texte += " : Annule les attaques du prochain tour de combat.";
-            }
-            texte += "<br/>";
+            texte += effet_talent_voir("Étourdissement", carte) + "<br/>";
         }
         if (carte.saignement > 0) {
-            texte += "Saignement " + carte.saignement;
-            if (Jeu.texte_talent) {
-                texte += " : Quand attaque (pour les " + carte.saignement + " prochaines attaque), subit 2 dégâts.";
-            }
-            texte += "<br/>";
+            texte += effet_talent_voir("Saignement", carte, carte.saignement) + "<br/>";
         }
         if (statistique(carte, "erosion") > 0) {
-            texte += "Érosion " + statistique(carte, "erosion");
-            if (Jeu.texte_talent) {
-                texte += " : Quand attaque diminue de " + statistique(carte, "erosion") + " la vie maximale de la Créature ou du Bâtiment attaqué (la vie maximale ne peut pas descendre en-dessous de 1).";
-            }
-            texte += "<br/>";
+            texte += effet_talent_voir("Érosion", carte, statistique(carte, "erosion")) + "<br/>";
         }
         if (statistique(carte, "charge")) {
-            texte += "Charge";
-            if (Jeu.texte_talent) {
-                texte += " : Quand tue une Créature ou un Bâtiment inflige le surplus de dégâts à la Créature ou au Bâtiment juste derrière.";
-            }
-            texte += "<br/>";
+            texte += effet_talent_voir("Charge", carte) + "<br/>";
         }
         texte += "<u>Attaque :</u> " + statistique(carte, "attaque") + "<br/>";
     }
@@ -622,19 +512,13 @@ function carte_afficher(carte) {
         }
     }
     texte += "<div id='description'><span id='contenu'>" + carte.description + "</span></div>";
-    if (Jeu.combat.etat) {
-        if (carte.camp == "adverse") {
-            main.classList.add("affichage");
-            div_actualiser("main", texte);
-            document.getElementById("description").style.left = '7.5%';
-        }
-        else {
-            side.classList.add("affichage");
-            div_actualiser("side", texte);
-        }
+    div_actualiser(div, texte);
+    if (div == "main") {
+        main.classList.add("affichage");
+        document.getElementById("description").style.left = '7.5%';
     }
     else {
-        div_actualiser("side", texte);
+        side.classList.add("affichage");
     }
 }
 
@@ -802,143 +686,162 @@ function etage_fin() {
     for (let n = 0; n < Jeu.ressources.length; n++) {
         Jeu.joueur.ressources[n].courant = Jeu.joueur.ressources[n].max;
     }
+    let array = [];
     for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
-        if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].equipements.length > 0) {
-            for (let i = 0; i < Jeu.joueur.terrain[n].equipements.length; i++) {
-                if (Jeu.joueur.terrain[n].equipements[i].temporaire) {
-                    Jeu.joueur.terrain[n].equipements.splice(i, 1);
+        array.push(Jeu.joueur.terrain[n]);
+    }
+    for (let n = 0; n < array.length; n++) {
+        if (array[n].type == "Créature" && array[n].equipements.length > 0) {
+            for (let i = 0; i < array[n].equipements.length; i++) {
+                if (array[n].equipements[i].temporaire) {
+                    array[n].equipements.splice(i, 1);
                     i--;
                 }
             }
         }
-        Jeu.joueur.terrain[n].vie -= Jeu.joueur.terrain[n].stat_etage.vie_max;
-        Jeu.joueur.terrain[n].stat_etage = obtenir_carte(0);
-        Jeu.joueur.terrain[n].vie -= Jeu.joueur.terrain[n].stat_tour.vie_max;
-        Jeu.joueur.terrain[n].stat_tour = obtenir_carte(0);
-        if (Jeu.joueur.terrain[n].decompte > 0 && !statistique(Jeu.joueur.terrain[n], "silence")) {
-            Jeu.joueur.terrain[n].decompte--;
-            if (Jeu.joueur.terrain[n].decompte == 0) {
-                Jeu.joueur.terrain[n].effet_decompte();
+        array[n].vie -= array[n].stat_etage.vie_max;
+        array[n].stat_etage = obtenir_carte(0);
+        array[n].vie -= array[n].stat_tour.vie_max;
+        array[n].stat_tour = obtenir_carte(0);
+        if (array[n].decompte > 0 && !statistique(array[n], "silence")) {
+            array[n].decompte--;
+            if (array[n].decompte == 0) {
+                array[n].effet_decompte();
             }
         }
-        if (statistique(Jeu.joueur.terrain[n], "temporaire") && !statistique(Jeu.joueur.terrain[n], "silence")) {
-            enlever(Jeu.joueur.terrain[n]);
-            n--;
+        if (statistique(array[n], "temporaire") && !statistique(array[n], "silence")) {
+            enlever(array[n]);
         }
-        else if (Jeu.joueur.terrain[n].vie <= 0) {
-            mort(Jeu.joueur.terrain[n]);
-            n--;
+        else if (array[n].vie <= 0) {
+            mort(array[n]);
         }
     }
+    array = [];
     for (let n = 0; n < Jeu.joueur.main.length; n++) {
-        if (Jeu.joueur.main[n].type == "Créature" && Jeu.joueur.main[n].equipements.length > 0) {
-            for (let i = 0; i < Jeu.joueur.main[n].equipements.length; i++) {
-                if (Jeu.joueur.main[n].equipements[i].temporaire) {
-                    Jeu.joueur.main[n].equipements.splice(i, 1);
+        array.push(Jeu.joueur.main[n]);
+    }
+    for (let n = 0; n < array.length; n++) {
+        if (array[n].type == "Créature" && array[n].equipements.length > 0) {
+            for (let i = 0; i < array[n].equipements.length; i++) {
+                if (array[n].equipements[i].temporaire) {
+                    array[n].equipements.splice(i, 1);
+                    i--;
                 }
             }
         }
-        if (["Créature", "Bâtiment"].includes(Jeu.joueur.main[n].type)) {
-            Jeu.joueur.main[n].vie -= Jeu.joueur.main[n].stat_etage.vie_max;
-            Jeu.joueur.main[n].stat_etage = obtenir_carte(0);
+        if (["Créature", "Bâtiment"].includes(array[n].type)) {
+            array[n].vie -= array[n].stat_etage.vie_max;
+            array[n].stat_etage = obtenir_carte(0);
         }
-        if (statistique(Jeu.joueur.main[n], "temporaire") && !statistique(Jeu.joueur.main[n], "silence")) {
-            enlever(Jeu.joueur.main[n]);
-            n--;
+        if (statistique(array[n], "temporaire") && !statistique(array[n], "silence")) {
+            enlever(array[n]);
         }
-        else if (["Créature", "Bâtiment"].includes(Jeu.joueur.main[n].type) && Jeu.joueur.main[n].vie <= 0) {
-            mort(Jeu.joueur.main[n]);
-            n--;
+        else if (["Créature", "Bâtiment"].includes(array[n].type) && array[n].vie <= 0) {
+            mort(array[n]);
         }
     }
+    array = [];
     for (let n = 0; n < Jeu.joueur.defausse.length; n++) {
-        if (Jeu.joueur.defausse[n].type == "Créature" && Jeu.joueur.defausse[n].equipements.length > 0) {
-            for (let i = 0; i < Jeu.joueur.defausse[n].equipements.length; i++) {
-                if (Jeu.joueur.defausse[n].equipements[i].temporaire) {
-                    Jeu.joueur.defausse[n].equipements.splice(i, 1);
+        array.push(Jeu.joueur.defausse[n]);
+    }
+    for (let n = 0; n < array.length; n++) {
+        if (array[n].type == "Créature" && array[n].equipements.length > 0) {
+            for (let i = 0; i < array[n].equipements.length; i++) {
+                if (array[n].equipements[i].temporaire) {
+                    array[n].equipements.splice(i, 1);
+                    i--;
                 }
             }
         }
-        if (["Créature", "Bâtiment"].includes(Jeu.joueur.defausse[n].type)) {
-            Jeu.joueur.defausse[n].vie -= Jeu.joueur.defausse[n].stat_etage.vie_max;
-            Jeu.joueur.defausse[n].stat_etage = obtenir_carte(0);
-            if (Jeu.joueur.defausse[n].vie < 0) {
-                Jeu.joueur.defausse[n].vie = 0;
+        if (["Créature", "Bâtiment"].includes(array[n].type)) {
+            array[n].vie -= array[n].stat_etage.vie_max;
+            array[n].stat_etage = obtenir_carte(0);
+            if (array[n].vie < 0) {
+                array[n].vie = 0;
             }
         }
-        Jeu.joueur.defausse[n].etage_mort++;
-        if ((Jeu.joueur.defausse[n].etage_mort > 1 && !(Jeu.joueur.defausse[n].eternite && !statistique(Jeu.joueur.defausse[n], "silence"))) || (statistique(Jeu.joueur.defausse[n], "temporaire") && !statistique(Jeu.joueur.defausse[n], "silence"))) {
-            enlever(Jeu.joueur.defausse[n]);
-            n--;
+        array[n].etage_mort++;
+        if ((array[n].etage_mort > 1 && !(array[n].eternite && !statistique(array[n], "silence"))) || (statistique(array[n], "temporaire") && !statistique(array[n], "silence"))) {
+            enlever(array[n]);
         }
     }
+    array = [];
     for (let n = 0; n < Jeu.adverse.terrain.length; n++) {
-        if (Jeu.adverse.terrain[n].type == "Créature" && Jeu.adverse.terrain[n].equipements.length > 0) {
-            for (let i = 0; i < Jeu.adverse.terrain[n].equipements.length; i++) {
-                if (Jeu.adverse.terrain[n].equipements[i].temporaire) {
-                    Jeu.adverse.terrain[n].equipements.splice(i, 1);
+        array.push(Jeu.adverse.terrain[n]);
+    }
+    for (let n = 0; n < array.length; n++) {
+        if (array[n].type == "Créature" && array[n].equipements.length > 0) {
+            for (let i = 0; i < array[n].equipements.length; i++) {
+                if (array[n].equipements[i].temporaire) {
+                    array[n].equipements.splice(i, 1);
+                    i--;
                 }
             }
         }
-        Jeu.adverse.terrain[n].vie -= Jeu.adverse.terrain[n].stat_etage.vie_max;
-        Jeu.adverse.terrain[n].stat_etage = obtenir_carte(0);
-        Jeu.adverse.terrain[n].vie -= Jeu.adverse.terrain[n].stat_tour.vie_max;
-        Jeu.adverse.terrain[n].stat_tour = obtenir_carte(0);
-        if (Jeu.adverse.terrain[n].decompte > 0 && !statistique(Jeu.adverse.terrain[n], "silence")) {
-            Jeu.adverse.terrain[n].decompte--;
-            if (Jeu.adverse.terrain[n].decompte == 0) {
-                Jeu.adverse.terrain[n].effet_decompte();
+        array[n].vie -= array[n].stat_etage.vie_max;
+        array[n].stat_etage = obtenir_carte(0);
+        array[n].vie -= array[n].stat_tour.vie_max;
+        array[n].stat_tour = obtenir_carte(0);
+        if (array[n].decompte > 0 && !statistique(array[n], "silence")) {
+            array[n].decompte--;
+            if (array[n].decompte == 0) {
+                array[n].effet_decompte();
             }
         }
-        if (statistique(Jeu.adverse.terrain[n], "temporaire") && !statistique(Jeu.adverse.terrain[n], "silence")) {
-            enlever(Jeu.adverse.terrain[n]);
-            n--;
+        if (statistique(array[n], "temporaire") && !statistique(array[n], "silence")) {
+            enlever(array[n]);
         }
-        else if (Jeu.adverse.terrain[n].vie <= 0) {
-            mort(Jeu.adverse.terrain[n]);
-            n--;
+        else if (array[n].vie <= 0) {
+            mort(array[n]);
         }
     }
+    array = [];
     for (let n = 0; n < Jeu.adverse.main.length; n++) {
-        if (Jeu.adverse.main[n].type == "Créature" && Jeu.adverse.main[n].equipements.length > 0) {
-            for (let i = 0; i < Jeu.adverse.main[n].equipements.length; i++) {
-                if (Jeu.adverse.main[n].equipements[i].temporaire) {
-                    Jeu.adverse.main[n].equipements.splice(i, 1);
+        array.push(Jeu.adverse.main[n]);
+    }
+    for (let n = 0; n < array.length; n++) {
+        if (array[n].type == "Créature" && array[n].equipements.length > 0) {
+            for (let i = 0; i < array[n].equipements.length; i++) {
+                if (array[n].equipements[i].temporaire) {
+                    array[n].equipements.splice(i, 1);
+                    i--;
                 }
             }
         }
-        if (["Créature", "Bâtiment"].includes(Jeu.adverse.main[n].type)) {
-            Jeu.adverse.main[n].vie -= Jeu.adverse.main[n].stat_etage.vie_max;
-            Jeu.adverse.main[n].stat_etage = obtenir_carte(0);
+        if (["Créature", "Bâtiment"].includes(array[n].type)) {
+            array[n].vie -= array[n].stat_etage.vie_max;
+            array[n].stat_etage = obtenir_carte(0);
         }
-        if (statistique(Jeu.adverse.main[n], "temporaire") && !statistique(Jeu.adverse.main[n], "silence")) {
-            enlever(Jeu.adverse.main[n]);
-            n--;
+        if (statistique(array[n], "temporaire") && !statistique(array[n], "silence")) {
+            enlever(array[n]);
         }
-        else if (["Créature", "Bâtiment"].includes(Jeu.adverse.main[n].type) && Jeu.adverse.main[n].vie <= 0) {
-            mort(Jeu.adverse.main[n]);
-            n--;
+        else if (["Créature", "Bâtiment"].includes(array[n].type) && array[n].vie <= 0) {
+            mort(array[n]);
         }
     }
+    array = [];
     for (let n = 0; n < Jeu.adverse.defausse.length; n++) {
-        if (Jeu.adverse.defausse[n].type == "Créature" && Jeu.adverse.defausse[n].equipements.length > 0) {
-            for (let i = 0; i < Jeu.adverse.defausse[n].equipements.length; i++) {
-                if (Jeu.adverse.defausse[n].equipements[i].temporaire) {
-                    Jeu.adverse.defausse[n].equipements.splice(i, 1);
+        array.push(Jeu.adverse.defausse[n]);
+    }
+    for (let n = 0; n < array.length; n++) {
+        if (array[n].type == "Créature" && array[n].equipements.length > 0) {
+            for (let i = 0; i < array[n].equipements.length; i++) {
+                if (array[n].equipements[i].temporaire) {
+                    array[n].equipements.splice(i, 1);
+                    i--;
                 }
             }
         }
-        if (["Créature", "Bâtiment"].includes(Jeu.adverse.defausse[n].type)) {
-            Jeu.adverse.defausse[n].vie -= Jeu.adverse.defausse[n].stat_etage.vie_max;
-            Jeu.adverse.defausse[n].stat_etage = obtenir_carte(0);
-            if (Jeu.adverse.defausse[n].vie < 0) {
-                Jeu.adverse.defausse[n].vie = 0;
+        if (["Créature", "Bâtiment"].includes(array[n].type)) {
+            array[n].vie -= array[n].stat_etage.vie_max;
+            array[n].stat_etage = obtenir_carte(0);
+            if (array[n].vie < 0) {
+                array[n].vie = 0;
             }
         }
-        Jeu.adverse.defausse[n].etage_mort++;
-        if ((Jeu.adverse.defausse[n].etage_mort > 1 && (!Jeu.adverse.defausse[n].eternite && !statistique(Jeu.adverse.defausse[n], "silence"))) || (statistique(Jeu.adverse.defausse[n], "temporaire") && !statistique(Jeu.adverse.defausse[n], "silence"))) {
-            enlever(Jeu.adverse.defausse[n]);
-            n--;
+        array[n].etage_mort++;
+        if ((array[n].etage_mort > 1 && !(array[n].eternite && !statistique(array[n], "silence"))) || (statistique(array[n], "temporaire") && !statistique(array[n], "silence"))) {
+            enlever(array[n]);
         }
     }
     etage_debut();
@@ -952,16 +855,24 @@ function etage_fin() {
 
 function etage_debut() {
     boutique_actualiser();
+    let array = [];
     for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
-        Jeu.joueur.terrain[n].effet_etage_debut();
-        for (let i = 0; i < Jeu.joueur.terrain[n].equipements.length; i++) {
-            Jeu.joueur.terrain[n].equipements[i].stat_equipement.effet_etage_debut(Jeu.joueur.terrain[n]);
+        array.push(Jeu.joueur.terrain[n]);
+    }
+    for (let n = 0; n < array.length; n++) {
+        array[n].effet_etage_debut();
+        for (let i = 0; i < array[n].equipements.length; i++) {
+            array[n].equipements[i].stat_equipement.effet_etage_debut(array[n]);
         }
     }
+    array = [];
     for (let n = 0; n < Jeu.adverse.terrain.length; n++) {
-        Jeu.adverse.terrain[n].effet_etage_debut();
-        for (let i = 0; i < Jeu.adverse.terrain[n].equipements.length; i++) {
-            Jeu.adverse.terrain[n].equipements[i].stat_equipement.effet_etage_debut(Jeu.adverse.terrain[n]);
+        array.push(Jeu.adverse.terrain[n]);
+    }
+    for (let n = 0; n < array.length; n++) {
+        array[n].effet_etage_debut();
+        for (let i = 0; i < array[n].equipements.length; i++) {
+            array[n].equipements[i].stat_equipement.effet_etage_debut(array[n]);
         }
     }
 }
@@ -1564,5 +1475,149 @@ function pioche(camp, carte = boutique_generer()) {
 function pioches(camp, nombre) {
     for (let n = 0; n < nombre; n++) {
         pioche(camp);
+    }
+}
+
+function effet_carte_voir_id(id, carte) {
+    let string = "<button onclick='javascript:carte_voir_id(" + id + ", ";
+    if (Jeu.combat.etat && carte.camp == "adverse") {
+        string += '"main"';
+    }
+    else {
+        string += '"side"';
+    }
+    string += ")'>" + obtenir_carte(id).nom + "</button>";
+    return string;
+}
+
+function effet_talent_voir(talent, carte, stack = false) {
+    let string = "<button onclick='javascript:talent_voir(" + '"' + talent + '", ';
+    if (Jeu.combat.etat && carte.camp == "adverse") {
+        string += '"main"';
+    }
+    else {
+        string += '"side"';
+    }
+    if (stack !== false) {
+        string += "," + stack;
+    }
+    string += ")'>" + talent;
+    if (stack !== false) {
+        string += " " + stack;
+    }
+    string += "</button>";
+    return string;
+}
+
+function talent_voir(talent, div, stack = false) {
+    let texte = talent;
+    if (stack !== false) {
+        texte += " " + stack;
+    }
+    texte += "<br/>";
+    switch (talent) {
+        case "Éternité":
+            texte += "Ne disparais pas de votre défausse.";
+            break;
+        case "Temporaire":
+            texte += "Est banni à la fin de la phase de combat.";
+            break;
+        case "Éphémère":
+            texte += "Quand meurt ou est détruit, est banni. (les effets qui se déclenche à la mort de la Créature se déclenche quand même, mais elle ne va pas à la défausse).";
+            break;
+        case "Protection":
+            texte += "Les attaques adverses ciblent cette carte en priorité.";
+            break;
+        case "Rapidité":
+            texte += "Joue avant les autres Créatures lors d'un tour de combat.";
+            break;
+        case "Action":
+            texte += "Peut jouer " + stack + " fois par tour de combat.";
+            break;
+        case "Inactif":
+            texte += "Ne joue pas durant la phase de combat.";
+            break;
+        case "Brûlure":
+            texte += "Au début du prochain tour de combat, cette carte subit " + stack + " dégât(s).";
+            break;
+        case "Sorcellerie":
+            texte += "Débloque des effets supplémentaires pour les cartes Action Sort. <br/>";
+            if (Jeu.en_jeu) {
+                if (sorcellerie("joueur") > 0) {
+                    texte += "<i>Votre sorcellerie totale est de " + sorcellerie("joueur") + ".</i><br/>";
+                }
+                if (sorcellerie("adverse") > 0) {
+                    texte += "<i>La sorcellerie adverse totale est de " + sorcellerie("adverse") + ".</i>";
+                }
+            }
+            break;
+        case "Résistance":
+            texte += "Quand cette carte subit des dégâts, en subis " + stack + " de moins.";
+            break;
+        case "Épine":
+            texte += "Quand est attaquée par une Créature, lui inflige " + stack + " dégât(s).";
+            break;
+        case "Régénération":
+            texte += "Au début de chaque tour de combat, se soigne de " + stack + ".";
+            break;
+        case "Décompte":
+            texte += "Diminue de 1 à la fin de la phase de combat.";
+            break;
+        case "Gel":
+            texte += "Annule les " + stack + " prochaines attaques.";
+            break;
+        case "Camouflage":
+            texte += "Ne peut pas être ciblé par une attaque adverse. S'enlève quand joue.";
+            break;
+        case "Silence":
+            texte += "Empêche tous les effets de cette carte de se déclencher.";
+            break;
+        case "Esquive":
+            texte += "Réduits à 0 les dégâts reçus puis s'enlève.";
+            break;
+        case "Mobile":
+            texte += "Peut être déplacé sur le terrain.";
+            break;
+        case "Maniement":
+            texte += "Peut porter " + stack + " équipements.";
+            break;
+        case "Vol de vie":
+            texte += "Quand attaque une Créature, se soigne de " + stack + ".";
+            break;
+        case "Percée":
+            texte += "Ignore " + stack + " défense quand attaque.";
+            break;
+        case "Portée":
+            texte += "Attaque en priorité la dernière Créature ou Bâtiment au lieu de la première.";
+            break;
+        case "Létalité":
+            texte += "Quand attaque une Créature : envoie la Créature attaquée à la défausse.";
+            break;
+        case "Poison":
+            texte += "Au début de chaque tour de combat pendant " + stack + " tour(s), subit 1 dégât.";
+            break;
+        case "Contamination":
+            texte += "Débloque des effets supplémentaires de certaines cartes.";
+            break;
+        case "Étourdissement":
+            texte += "Annule les attaques du prochain tour de combat.";
+            break;
+        case "Saignement":
+            texte += "Quand attaque (pour les " + stack + " prochaines attaque), subit 2 dégâts.";
+            break;
+        case "Érosion":
+            texte += "Quand attaque diminue de " + stack + " la vie maximale de la Créature ou du Bâtiment attaqué (la vie maximale ne peut pas descendre en-dessous de 1).";
+            break;
+        case "Charge":
+            texte += "Quand tue une Créature ou un Bâtiment inflige le surplus de dégâts à la Créature ou au Bâtiment juste derrière.";
+            break;
+    }
+    div_actualiser(div, texte);
+    if (div == "main") {
+        main.classList.add("affichage");
+        document.getElementById("description").style.left = '7.5%';
+    }
+    else {
+        side.classList.add("affichage");
     }
 }

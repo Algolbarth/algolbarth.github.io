@@ -33,14 +33,14 @@ function collection() {
     if (Jeu.collection_ordre == "croissant") {
         for (let n = 0; n < Jeu.collection.length; n++) {
             div("", "carte");
-            fonction(Jeu.collection[n].nom, "carte_voir_id(" + Jeu.collection[n].id + ")");
+            fonction(Jeu.collection[n].nom, "carte_voir_id(" + Jeu.collection[n].id + ',"side")');
             div_fin();
         }
     }
     else if (Jeu.collection_ordre == "decroissant") {
         for (let n = Jeu.collection.length - 1; n >= 0; n--) {
             div("", "carte");
-            fonction(Jeu.collection[n].nom, "carte_voir_id(" + Jeu.collection[n].id + ")");
+            fonction(Jeu.collection[n].nom, "carte_voir_id(" + Jeu.collection[n].id + ',"side")');
             div_fin();
         }
     }

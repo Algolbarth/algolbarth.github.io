@@ -37,7 +37,7 @@ function option() {
         afficher(" Désactivé");
     }
     saut(2);
-    fonction("Retour à l'écran titre", "ecran_titre()");
+    fonction("Retour à l'écran titre", "Jeu.en_jeu = false;ecran_titre()");
     actualiser();
 }
 
