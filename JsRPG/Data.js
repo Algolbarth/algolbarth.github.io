@@ -15487,8 +15487,8 @@ function obtenir_carte(carte_id) {
                 return "Quand posé : Dépense 3 eau et se donne 1 attaque et 1 vie.";
             }
             carte.effet_pose = function () {
-                if (Jeu[carte.camp].ressources[2].actuel >= 3) {
-                    Jeu[carte.camp].ressources[2].actuel -= 3;
+                if (Jeu[carte.camp].ressources[2].courant >= 3) {
+                    Jeu[carte.camp].ressources[2].courant -= 3;
                     carte.attaque++;
                     carte.vie++;
                     carte.vie_max++;
