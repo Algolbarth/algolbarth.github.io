@@ -94,10 +94,10 @@ function obtenir_carte(carte_id) {
         case 1:
             carte.nom = "Humain";
             carte.familles.push("Humain");
-            carte.cout[0] = 3;
-            carte.vente[0] = 1;
-            carte.attaque = 2;
-            carte.vie_max = carte.vie = 2;
+            carte.cout[0] = 5;
+            carte.vente[0] = 2;
+            carte.attaque = 3;
+            carte.vie_max = carte.vie = 3;
             carte.action_max = 1;
             carte.equipement_max = 1;
             carte.description = "Les humains ne sont affiliés à aucun des 12 éléments mais se sont servis de cette neutralité pour explorer le monde et s'implanter sur tous les continents.";
@@ -329,10 +329,10 @@ function obtenir_carte(carte_id) {
         case 6:
             carte.nom = "Géant";
             carte.familles.push("Géant");
-            carte.cout[0] = 19;
-            carte.vente[0] = 9;
-            carte.attaque = 10;
-            carte.vie_max = carte.vie = 10;
+            carte.cout[0] = 39;
+            carte.vente[0] = 19;
+            carte.attaque = 20;
+            carte.vie_max = carte.vie = 20;
             carte.action_max = 1;
             carte.equipement_max = 1;
             carte.description = "Bien que semblables aux humains dans leur neutralité élémentaire, les géants rencontrent des difficultés à voyager à cause de leurs tailles imposantes.";
@@ -340,10 +340,10 @@ function obtenir_carte(carte_id) {
         case 7:
             carte.nom = "Forgeron";
             carte.familles.push("Humain");
-            carte.cout[0] = 6;
-            carte.vente[0] = 3;
-            carte.attaque = 2;
-            carte.vie_max = carte.vie = 2;
+            carte.cout[0] = 8;
+            carte.vente[0] = 4;
+            carte.attaque = 3;
+            carte.vie_max = carte.vie = 3;
             carte.action_max = 1;
             carte.equipement_max = 1;
             carte.texte = function () {
@@ -408,14 +408,14 @@ function obtenir_carte(carte_id) {
         case 9:
             carte.nom = "Dragon";
             carte.familles.push("Reptile", "Dragon");
-            carte.cout[0] = 11;
-            carte.cout[1] = 4;
-            carte.cout[5] = 4;
-            carte.vente[0] = 5;
-            carte.vente[1] = 2;
-            carte.vente[5] = 2;
-            carte.attaque = 8;
-            carte.vie_max = carte.vie = 8;
+            carte.cout[0] = 19;
+            carte.cout[1] = 10;
+            carte.cout[5] = 10;
+            carte.vente[0] = 9;
+            carte.vente[1] = 5;
+            carte.vente[5] = 5;
+            carte.attaque = 18;
+            carte.vie_max = carte.vie = 18;
             carte.action_max = 1;
             carte.equipement_max = 1;
             carte.texte = function () {
@@ -499,10 +499,10 @@ function obtenir_carte(carte_id) {
         case 10:
             carte.nom = "Prêtre";
             carte.familles.push("Humain");
-            carte.cout[0] = 6;
-            carte.vente[0] = 3;
-            carte.attaque = 2;
-            carte.vie_max = carte.vie = 2;
+            carte.cout[0] = 8;
+            carte.vente[0] = 4;
+            carte.attaque = 3;
+            carte.vie_max = carte.vie = 3;
             carte.action_max = 1;
             carte.equipement_max = 1;
             carte.texte = function () {
@@ -580,10 +580,10 @@ function obtenir_carte(carte_id) {
         case 11:
             carte.nom = "Marchand";
             carte.familles.push("Humain");
-            carte.cout[0] = 6;
-            carte.vente[0] = 3;
-            carte.attaque = 2;
-            carte.vie_max = carte.vie = 2;
+            carte.cout[0] = 8;
+            carte.vente[0] = 4;
+            carte.attaque = 3;
+            carte.vie_max = carte.vie = 3;
             carte.action_max = 1;
             carte.equipement_max = 1;
             carte.texte = function () {
@@ -603,11 +603,11 @@ function obtenir_carte(carte_id) {
         case 12:
             carte.nom = "Garde";
             carte.familles.push("Humain");
-            carte.cout[0] = 5;
-            carte.vente[0] = 2;
-            carte.attaque = 2;
+            carte.cout[0] = 7;
+            carte.vente[0] = 3;
+            carte.attaque = 3;
             carte.defense = 1;
-            carte.vie_max = carte.vie = 2;
+            carte.vie_max = carte.vie = 3;
             carte.action_max = 1;
             carte.equipement_max = 1;
             carte.description = "Les jeunes soldats passent leurs premières années à surveiller les villes et villages afin d'acquérir une expérience suffisante pour partir au front.";
@@ -627,12 +627,12 @@ function obtenir_carte(carte_id) {
         case 14:
             carte.nom = "Nécromancien";
             carte.familles.push("Mort-vivant", "Revenant");
-            carte.cout[0] = 6;
-            carte.cout[9] = 5;
+            carte.cout[0] = 7;
+            carte.cout[9] = 6;
             carte.vente[0] = 3;
-            carte.vente[9] = 2;
-            carte.attaque = 2;
-            carte.vie_max = carte.vie = 2;
+            carte.vente[9] = 3;
+            carte.attaque = 3;
+            carte.vie_max = carte.vie = 3;
             carte.action_max = 1;
             carte.equipement_max = 1;
             carte.texte = function () {
@@ -650,16 +650,13 @@ function obtenir_carte(carte_id) {
             carte.familles.push("Hydre");
             carte.cout = [0, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10];
             carte.vente = [0, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5];
-            carte.attaque = 35;
-            carte.defense = 7;
-            carte.vie_max = carte.vie = 35;
+            carte.attaque = 30;
+            carte.vie_max = carte.vie = 30;
             carte.action_max = 5;
             carte.equipement_max = 1;
-            carte.percee = 10;
-            carte.sorcellerie = 2;
-            carte.rapidite = true;
-            carte.percee = 10;
             carte.regeneration = 5;
+            carte.percee = 10;
+            carte.charge = true;
             carte.description = "Une hydre légendaire dont chacune de ses 12 têtes maîtrise un élément, lui permettant de contrôler tout son envionnement comme bon lui semble.";
             break;
         case 16:
@@ -769,10 +766,10 @@ function obtenir_carte(carte_id) {
             carte.nom = "Lancier";
             carte.type = "Créature";
             carte.familles.push("Humain");
-            carte.cout[0] = 4;
-            carte.vente[0] = 2;
-            carte.attaque = 2;
-            carte.vie_max = carte.vie = 2;
+            carte.cout[0] = 8;
+            carte.vente[0] = 4;
+            carte.attaque = 5;
+            carte.vie_max = carte.vie = 3;
             carte.action_max = 1;
             carte.equipement_max = 1;
             carte.percee = 2;
@@ -781,10 +778,10 @@ function obtenir_carte(carte_id) {
             carte.nom = "Cheval";
             carte.type = "Créature";
             carte.familles.push("Bête");
-            carte.cout[0] = 6;
-            carte.vente[0] = 3;
-            carte.attaque = 2;
-            carte.vie_max = carte.vie = 2;
+            carte.cout[0] = 8;
+            carte.vente[0] = 4;
+            carte.attaque = 3;
+            carte.vie_max = carte.vie = 3;
             carte.action_max = 1;
             carte.equipement_max = 1;
             carte.rapidite = true;
@@ -793,10 +790,10 @@ function obtenir_carte(carte_id) {
             carte.nom = "Gardien";
             carte.type = "Créature";
             carte.familles.push("Humain");
-            carte.cout[0] = 5;
-            carte.vente[0] = 2;
-            carte.attaque = 1;
-            carte.vie_max = carte.vie = 3;
+            carte.cout[0] = 9;
+            carte.vente[0] = 4;
+            carte.attaque = 3;
+            carte.vie_max = carte.vie = 5;
             carte.action_max = 1;
             carte.equipement_max = 1;
             carte.protection = true;
@@ -805,27 +802,27 @@ function obtenir_carte(carte_id) {
             carte.nom = "Vampire";
             carte.type = "Créature";
             carte.familles.push("Vampire");
-            carte.cout[0] = 10;
-            carte.cout[11] = 9;
+            carte.cout[0] = 20;
+            carte.cout[11] = 19;
             carte.vente[0] = 5;
             carte.vente[11] = 4;
-            carte.attaque = 8;
-            carte.vie_max = carte.vie = 8;
+            carte.attaque = 15;
+            carte.vie_max = carte.vie = 15;
             carte.action_max = 1;
             carte.equipement_max = 1;
-            carte.vol_de_vie = 2;
+            carte.vol_de_vie = 5;
             carte.description = "Habitués à vivre la nuit, les vampires ont dévelloppés la capacité de voler le sang de leurs proies pour ne pas les réveiller dans leur sommeil et sans les tuer.";
             break;
         case 22:
             carte.nom = "Automate embarqué";
             carte.type = "Créature";
             carte.familles.push("Machine", "Automate");
-            carte.cout[0] = 3;
-            carte.cout[7] = 3;
-            carte.vente[0] = 2;
-            carte.vente[7] = 1;
-            carte.attaque = 2;
-            carte.vie_max = carte.vie = 2;
+            carte.cout[0] = 5;
+            carte.cout[7] = 5;
+            carte.vente[0] = 3;
+            carte.vente[7] = 2;
+            carte.attaque = 3;
+            carte.vie_max = carte.vie = 3;
             carte.action_max = 1;
             carte.equipement_max = 1;
             carte.texte = function () {
@@ -850,11 +847,11 @@ function obtenir_carte(carte_id) {
             carte.nom = "Automate";
             carte.type = "Créature";
             carte.familles.push("Machine", "Automate");
-            carte.cout[0] = 2;
-            carte.cout[7] = 1;
+            carte.cout[0] = 3;
+            carte.cout[7] = 2;
             carte.vente[0] = 1;
-            carte.attaque = 2;
-            carte.vie_max = carte.vie = 2;
+            carte.attaque = 3;
+            carte.vie_max = carte.vie = 3;
             carte.action_max = 1;
             carte.equipement_max = 1;
             carte.description = "Les gnomes ne pouvant effectuer des tâches particulièrement physique, ils ont préférés concevoir des outils puis des automate pour s'en occuper.";
@@ -863,19 +860,19 @@ function obtenir_carte(carte_id) {
             carte.nom = "Barricade";
             carte.type = "Bâtiment";
             carte.familles.push("Mur");
-            carte.cout[0] = 5;
+            carte.cout[0] = 4;
             carte.vente[0] = 2;
-            carte.vie_max = carte.vie = 6;
+            carte.vie_max = carte.vie = 5;
             break;
         case 25:
             carte.nom = "Bateau pirate";
             carte.type = "Bâtiment";
             carte.familles.push("Bateau", "Pirate");
-            carte.cout[0] = 8;
-            carte.cout[2] = 8;
-            carte.vente[0] = 4;
-            carte.vente[2] = 4;
-            carte.vie_max = carte.vie = 4;
+            carte.cout[0] = 13;
+            carte.cout[2] = 12;
+            carte.vente[0] = 6;
+            carte.vente[2] = 6;
+            carte.vie_max = carte.vie = 10;
             carte.action_max = 1;
             carte.mobile = true;
             carte.texte = function () {
@@ -891,11 +888,12 @@ function obtenir_carte(carte_id) {
             carte.nom = "Pirate";
             carte.type = "Créature";
             carte.familles.push("Humain", "Pirate");
-            carte.cout[0] = 2;
-            carte.cout[2] = 1;
+            carte.cout[0] = 3;
+            carte.cout[2] = 2;
             carte.vente[0] = 1;
-            carte.attaque = 2;
-            carte.vie_max = carte.vie = 2;
+            carte.vente[2] = 1;
+            carte.attaque = 3;
+            carte.vie_max = carte.vie = 3;
             carte.action_max = 1;
             carte.equipement_max = 1;
             break;
@@ -903,13 +901,13 @@ function obtenir_carte(carte_id) {
             carte.nom = "Mage";
             carte.type = "Créature";
             carte.familles.push("Humain", "Mage");
-            carte.cout[0] = 5;
-            carte.vente[0] = 2;
-            carte.attaque = 2;
-            carte.vie_max = carte.vie = 2;
+            carte.cout[0] = 14;
+            carte.vente[0] = 7;
+            carte.attaque = 5;
+            carte.vie_max = carte.vie = 5;
             carte.action_max = 1;
             carte.sorcellerie = 1;
-            carte.equipement_max = 1;
+            carte.equipement_max = 2;
             break;
         case 28:
             carte.nom = "Boule de feu";
@@ -1123,13 +1121,13 @@ function obtenir_carte(carte_id) {
             carte.nom = "Usine robotique";
             carte.type = "Bâtiment";
             carte.familles.push("Machine", "Robot");
-            carte.cout[0] = 6;
-            carte.cout[6] = 3;
-            carte.cout[7] = 3;
-            carte.vente[0] = 4;
-            carte.vente[6] = 1;
-            carte.vente[7] = 1;
-            carte.vie_max = carte.vie = 4;
+            carte.cout[0] = 12;
+            carte.cout[6] = 6;
+            carte.cout[7] = 6;
+            carte.vente[0] = 6;
+            carte.vente[6] = 3;
+            carte.vente[7] = 3;
+            carte.vie_max = carte.vie = 10;
             carte.mobile = false;
             carte.texte = function () {
                 return "Au début d'un tour de combat : Crée " + effet_carte_voir_id(33, carte) + " sur le terrain.";
@@ -1145,12 +1143,13 @@ function obtenir_carte(carte_id) {
             carte.nom = "Robot";
             carte.type = "Créature";
             carte.familles.push("Machine", "Robot");
-            carte.cout[0] = 1;
+            carte.cout[0] = 3;
             carte.cout[6] = 1;
             carte.cout[7] = 1;
-            carte.vente[0] = 1;
-            carte.attaque = 2;
-            carte.vie_max = carte.vie = 2;
+            carte.vente[6] = 1;
+            carte.vente[7] = 1;
+            carte.attaque = 3;
+            carte.vie_max = carte.vie = 3;
             carte.action_max = 1;
             carte.equipement_max = 1;
             carte.description = "Contrairement aux automates, les robots ont dévellopé un semblant de conscience grâce à leurs circuits électroniques.";
@@ -1159,12 +1158,12 @@ function obtenir_carte(carte_id) {
             carte.nom = "Berserker";
             carte.type = "Créature";
             carte.familles.push("Goliath");
-            carte.cout[0] = 5;
-            carte.cout[12] = 4;
-            carte.vente[0] = 2;
-            carte.vente[12] = 2;
-            carte.attaque = 4;
-            carte.vie_max = carte.vie = 4;
+            carte.cout[0] = 10;
+            carte.cout[12] = 10;
+            carte.vente[0] = 5;
+            carte.vente[12] = 5;
+            carte.attaque = 10;
+            carte.vie_max = carte.vie = 10;
             carte.action_max = 1;
             carte.equipement_max = 1;
             carte.texte = function () {
@@ -1179,8 +1178,8 @@ function obtenir_carte(carte_id) {
             carte.nom = "Maître d'armes";
             carte.type = "Créature";
             carte.familles.push("Humain");
-            carte.cout[0] = 10;
-            carte.vente[0] = 5;
+            carte.cout[0] = 15;
+            carte.vente[0] = 7;
             carte.attaque = 3;
             carte.vie_max = carte.vie = 3;
             carte.action_max = 1;
@@ -1190,10 +1189,10 @@ function obtenir_carte(carte_id) {
             carte.nom = "Négociant";
             carte.type = "Créature";
             carte.familles.push("Humain");
-            carte.cout[0] = 5;
-            carte.vente[0] = 2;
-            carte.attaque = 2;
-            carte.vie_max = carte.vie = 2;
+            carte.cout[0] = 7;
+            carte.vente[0] = 3;
+            carte.attaque = 3;
+            carte.vie_max = carte.vie = 3;
             carte.action_max = 1;
             carte.equipement_max = 1;
             carte.texte = function () {
@@ -1265,18 +1264,18 @@ function obtenir_carte(carte_id) {
             carte.nom = "Démon";
             carte.type = "Créature";
             carte.familles.push("Démon");
-            carte.cout[0] = 11;
-            carte.cout[1] = 4;
-            carte.cout[9] = 4;
-            carte.vente[0] = 5;
-            carte.vente[1] = 2;
-            carte.vente[9] = 2;
-            carte.attaque = 13;
-            carte.vie_max = carte.vie = 13;
+            carte.cout[0] = 19;
+            carte.cout[1] = 10;
+            carte.cout[9] = 10;
+            carte.vente[0] = 9;
+            carte.vente[1] = 5;
+            carte.vente[9] = 5;
+            carte.attaque = 25;
+            carte.vie_max = carte.vie = 25;
             carte.action_max = 1;
             carte.equipement_max = 1;
             carte.texte = function () {
-                return "Quand posé : Inflige 3 dégâts au Meneur allié.";
+                return "Quand posé : Inflige 5 dégâts au Meneur allié.";
             }
             carte.effet_pose = function () {
                 if (carte.camp == "joueur") {
@@ -1310,10 +1309,10 @@ function obtenir_carte(carte_id) {
             carte.nom = "Archer";
             carte.type = "Créature";
             carte.familles.push("Humain");
-            carte.cout[0] = 4;
-            carte.vente[0] = 2;
-            carte.attaque = 2;
-            carte.vie_max = carte.vie = 2;
+            carte.cout[0] = 8;
+            carte.vente[0] = 4;
+            carte.attaque = 5;
+            carte.vie_max = carte.vie = 3;
             carte.action_max = 1;
             carte.equipement_max = 1;
             carte.portee = true;
@@ -1396,12 +1395,12 @@ function obtenir_carte(carte_id) {
             carte.nom = "Cadavre éternel";
             carte.type = "Créature";
             carte.familles.push("Mort-vivant", "Zombie");
-            carte.cout[0] = 3;
-            carte.cout[9] = 3;
-            carte.vente[0] = 2;
-            carte.vente[9] = 1;
-            carte.attaque = 2;
-            carte.vie_max = carte.vie = 2;
+            carte.cout[0] = 6;
+            carte.cout[9] = 6;
+            carte.vente[0] = 3;
+            carte.vente[9] = 3;
+            carte.attaque = 5;
+            carte.vie_max = carte.vie = 5;
             carte.action_max = 1;
             carte.equipement_max = 1;
             carte.eternite = true;
@@ -1410,14 +1409,14 @@ function obtenir_carte(carte_id) {
             carte.nom = "Phoenix";
             carte.type = "Créature";
             carte.familles.push("Phoenix");
-            carte.cout[0] = 11;
-            carte.cout[1] = 4;
-            carte.cout[5] = 4;
-            carte.vente[0] = 5;
-            carte.vente[1] = 2;
-            carte.vente[5] = 2;
-            carte.attaque = 7;
-            carte.vie_max = carte.vie = 8;
+            carte.cout[0] = 19;
+            carte.cout[1] = 10;
+            carte.cout[5] = 10;
+            carte.vente[0] = 9;
+            carte.vente[1] = 5;
+            carte.vente[5] = 5;
+            carte.attaque = 15;
+            carte.vie_max = carte.vie = 20;
             carte.action_max = 1;
             carte.equipement_max = 1;
             carte.texte = function () {
@@ -1443,16 +1442,16 @@ function obtenir_carte(carte_id) {
             carte.nom = "Faucheuse";
             carte.type = "Créature";
             carte.familles.push("Faucheuse");
-            carte.cout[0] = 10;
-            carte.cout[9] = 9;
-            carte.vente[0] = 5;
-            carte.vente[9] = 4;
-            carte.attaque = 5;
-            carte.vie_max = carte.vie = 5;
+            carte.cout[0] = 20;
+            carte.cout[9] = 19;
+            carte.vente[0] = 10;
+            carte.vente[9] = 9;
+            carte.attaque = 10;
+            carte.vie_max = carte.vie = 10;
             carte.action_max = 1;
             carte.equipement_max = 1;
             carte.texte = function () {
-                return "Quand posé : Détruit une Créature adverse dont la vie est inférieure ou égale à 10.";
+                return "Quand posé : Détruit une Créature adverse sur le terrain.";
             }
             carte.effet_pose = function (step, cible) {
                 if (carte.camp == "joueur") {
@@ -1467,7 +1466,7 @@ function obtenir_carte(carte_id) {
                                 saut();
                                 afficher(carte.texte);
                                 saut(2);
-                                afficher("Choisissez une Créature adverse sur le terrain dont la vie est inférieure ou égale à 10 : ");
+                                afficher("Choisissez une Créature adverse sur le terrain : ");
                                 saut(2);
                                 div("", "zone");
                                 afficher("<u>Terrain adverse :</u>");
@@ -1482,7 +1481,7 @@ function obtenir_carte(carte_id) {
                                         afficher("???");
                                     }
                                     div_fin();
-                                    if (Jeu.adverse.terrain[n].type == "Créature" && Jeu.adverse.terrain[n].vie <= 10 && !Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
+                                    if (Jeu.adverse.terrain[n].type == "Créature" && !Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
                                         div();
                                         fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
                                         div_fin();
@@ -1532,19 +1531,19 @@ function obtenir_carte(carte_id) {
             carte.nom = "Ogre";
             carte.type = "Créature";
             carte.familles.push("Ogre");
-            carte.cout[0] = 10;
-            carte.cout[9] = 9;
-            carte.vente[0] = 5;
-            carte.vente[9] = 4;
-            carte.attaque = 8;
-            carte.vie_max = carte.vie = 8;
+            carte.cout[0] = 20;
+            carte.cout[9] = 19;
+            carte.vente[0] = 10;
+            carte.vente[9] = 9;
+            carte.attaque = 15;
+            carte.vie_max = carte.vie = 20;
             carte.action_max = 1;
             carte.equipement_max = 1;
             carte.texte = function () {
-                return "Quand tue une Créature : Se soigne de 2.";
+                return "Quand tue une Créature : Se soigne de 5.";
             }
             carte.effet_tuer = function (defenseur) {
-                soin(carte, 2);
+                soin(carte, 5);
             }
             break;
         case 44:
@@ -1564,10 +1563,10 @@ function obtenir_carte(carte_id) {
             carte.nom = "Héros";
             carte.type = "Créature";
             carte.familles.push("Humain");
-            carte.cout[0] = 35;
-            carte.vente[0] = 17;
-            carte.attaque = 3;
-            carte.vie_max = carte.vie = 3;
+            carte.cout[0] = 39;
+            carte.vente[0] = 19;
+            carte.attaque = 5;
+            carte.vie_max = carte.vie = 5;
             carte.action_max = 1;
             carte.equipement_max = 1;
             carte.texte = function () {
@@ -1585,14 +1584,14 @@ function obtenir_carte(carte_id) {
             carte.nom = "Mangeur d'âme";
             carte.type = "Créature";
             carte.familles.push("Mort-vivant", "Liche");
-            carte.cout[0] = 19;
-            carte.cout[8] = 15;
-            carte.cout[9] = 15;
-            carte.vente[0] = 10;
-            carte.vente[8] = 7;
-            carte.vente[9] = 7;
-            carte.attaque = 10;
-            carte.vie_max = carte.vie = 10;
+            carte.cout[0] = 36;
+            carte.cout[8] = 17;
+            carte.cout[9] = 17;
+            carte.vente[0] = 17;
+            carte.vente[8] = 9;
+            carte.vente[9] = 9;
+            carte.attaque = 20;
+            carte.vie_max = carte.vie = 20;
             carte.action_max = 1;
             carte.equipement_max = 1;
             carte.texte = function () {
@@ -1610,15 +1609,15 @@ function obtenir_carte(carte_id) {
             carte.nom = "Tréant";
             carte.type = "Créature";
             carte.familles.push("Plante", "Tréant");
-            carte.cout[0] = 10;
-            carte.cout[3] = 9;
-            carte.vente[0] = 5;
-            carte.vente[3] = 4;
-            carte.attaque = 6;
-            carte.vie_max = carte.vie = 10;
+            carte.cout[0] = 20;
+            carte.cout[3] = 19;
+            carte.vente[0] = 10;
+            carte.vente[3] = 9;
+            carte.attaque = 15;
+            carte.vie_max = carte.vie = 20;
             carte.action_max = 1;
             carte.equipement_max = 1;
-            carte.regeneration = 2;
+            carte.regeneration = 5;
             break;
         case 48:
             carte.nom = "Araignée empoisonnée";
@@ -1871,12 +1870,12 @@ function obtenir_carte(carte_id) {
             carte.nom = "Ifrit";
             carte.type = "Créature";
             carte.familles.push("Ifrit");
-            carte.cout[0] = 10;
-            carte.cout[1] = 9;
-            carte.vente[0] = 5;
-            carte.vente[1] = 4;
-            carte.attaque = 7;
-            carte.vie_max = carte.vie = 7;
+            carte.cout[0] = 20;
+            carte.cout[1] = 19;
+            carte.vente[0] = 10;
+            carte.vente[1] = 9;
+            carte.attaque = 17;
+            carte.vie_max = carte.vie = 17;
             carte.action_max = 1;
             carte.equipement_max = 1;
             carte.texte = function () {
@@ -1892,11 +1891,11 @@ function obtenir_carte(carte_id) {
             carte.nom = "Martyr";
             carte.type = "Créature";
             carte.familles.push("Aasimar", "Église");
-            carte.cout[0] = 5;
-            carte.cout[10] = 4;
-            carte.vente[0] = 2;
+            carte.cout[0] = 6;
+            carte.cout[10] = 5;
+            carte.vente[0] = 3;
             carte.vente[10] = 2;
-            carte.attaque = 1;
+            carte.attaque = 3;
             carte.vie_max = carte.vie = 3;
             carte.action_max = 1;
             carte.equipement_max = 1;
@@ -1913,26 +1912,26 @@ function obtenir_carte(carte_id) {
             carte.nom = "Paladin";
             carte.type = "Créature";
             carte.familles.push("Aasimar", "Paladin");
-            carte.cout[0] = 10;
-            carte.cout[10] = 9;
-            carte.vente[0] = 5;
-            carte.vente[10] = 4;
-            carte.attaque = 8;
-            carte.vie_max = carte.vie = 10;
+            carte.cout[0] = 20;
+            carte.cout[10] = 19;
+            carte.vente[0] = 10;
+            carte.vente[10] = 9;
+            carte.attaque = 15;
+            carte.vie_max = carte.vie = 20;
             carte.action_max = 1;
             carte.equipement_max = 1;
-            carte.vie_sup = 4;
+            carte.vie_sup = 10;
             break;
         case 54:
             carte.nom = "Serpent de mer";
             carte.type = "Créature";
             carte.familles.push("Poisson", "Serpent de mer");
-            carte.cout[0] = 10;
-            carte.cout[2] = 9;
-            carte.vente[0] = 5;
-            carte.vente[2] = 4;
-            carte.attaque = 10;
-            carte.vie_max = carte.vie = 10;
+            carte.cout[0] = 20;
+            carte.cout[2] = 19;
+            carte.vente[0] = 10;
+            carte.vente[2] = 9;
+            carte.attaque = 20;
+            carte.vie_max = carte.vie = 20;
             carte.action_max = 1;
             carte.equipement_max = 1;
             carte.texte = function () {
@@ -2084,20 +2083,20 @@ function obtenir_carte(carte_id) {
             carte.nom = "Oni";
             carte.type = "Créature";
             carte.familles.push("Oni");
-            carte.cout[0] = 10;
-            carte.cout[11] = 9;
-            carte.vente[0] = 5;
-            carte.vente[11] = 4;
-            carte.attaque = 9;
-            carte.vie_max = carte.vie = 9;
+            carte.cout[0] = 20;
+            carte.cout[11] = 19;
+            carte.vente[0] = 10;
+            carte.vente[11] = 9;
+            carte.attaque = 18;
+            carte.vie_max = carte.vie = 18;
             carte.action_max = 1;
             carte.equipement_max = 1;
             carte.texte = function () {
-                return "Quand attaque : Applique " + effet_talent_voir("Contamination", carte, 1) + " à la Créature attaquée.";
+                return "Quand attaque : Applique " + effet_talent_voir("Contamination", carte, 2) + " à la Créature attaquée.";
             }
             carte.effet_attaque = function (defenseur) {
                 if (defenseur.type == "Créature") {
-                    defenseur.contamination++;
+                    defenseur.contamination += 2;
                 }
             }
             break;
@@ -2105,12 +2104,12 @@ function obtenir_carte(carte_id) {
             carte.nom = "Mangeur de miasme";
             carte.type = "Créature";
             carte.familles.push("Oni");
-            carte.cout[0] = 10;
-            carte.cout[11] = 9;
-            carte.vente[0] = 5;
-            carte.vente[11] = 4;
-            carte.attaque = 10;
-            carte.vie_max = carte.vie = 10;
+            carte.cout[0] = 20;
+            carte.cout[11] = 19;
+            carte.vente[0] = 10;
+            carte.vente[11] = 9;
+            carte.attaque = 15;
+            carte.vie_max = carte.vie = 15;
             carte.action_max = 1;
             carte.equipement_max = 1;
             carte.texte = function () {
@@ -2279,12 +2278,12 @@ function obtenir_carte(carte_id) {
             carte.nom = "Slime";
             carte.type = "Créature";
             carte.familles.push("Slime");
-            carte.cout[0] = 2;
-            carte.cout[2] = 2;
-            carte.vente[0] = 1;
+            carte.cout[0] = 3;
+            carte.cout[2] = 3;
+            carte.vente[0] = 2;
             carte.vente[2] = 1;
-            carte.attaque = 1;
-            carte.vie_max = carte.vie = 1;
+            carte.attaque = 2;
+            carte.vie_max = carte.vie = 2;
             carte.action_max = 1;
             carte.equipement_max = 1;
             carte.resistance = 1;
@@ -2293,11 +2292,12 @@ function obtenir_carte(carte_id) {
             carte.nom = "Fantôme";
             carte.type = "Créature";
             carte.familles.push("Fantôme");
-            carte.cout[0] = 1;
-            carte.cout[9] = 1;
+            carte.cout[0] = 2;
+            carte.cout[9] = 2;
             carte.vente[0] = 1;
-            carte.attaque = 2;
-            carte.vie_max = carte.vie = 2;
+            carte.vente[9] = 1;
+            carte.attaque = 3;
+            carte.vie_max = carte.vie = 3;
             carte.action_max = 1;
             carte.equipement_max = 1;
             carte.ephemere = true;
@@ -2318,10 +2318,10 @@ function obtenir_carte(carte_id) {
             carte.nom = "Gladiateur";
             carte.type = "Créature";
             carte.familles.push("Humain");
-            carte.cout[0] = 5;
-            carte.vente[0] = 2;
-            carte.attaque = 2;
-            carte.vie_max = carte.vie = 2;
+            carte.cout[0] = 9;
+            carte.vente[0] = 4;
+            carte.attaque = 4;
+            carte.vie_max = carte.vie = 4;
             carte.action_max = 1;
             carte.equipement_max = 1;
             carte.texte = function () {
@@ -2337,19 +2337,19 @@ function obtenir_carte(carte_id) {
             carte.nom = "Oeuf de dragon";
             carte.type = "Bâtiment";
             carte.familles.push("Reptile", "Dragon", "Oeuf");
-            carte.cout[0] = 7;
-            carte.cout[1] = 3;
-            carte.cout[5] = 3;
-            carte.vente[0] = 3;
+            carte.cout[0] = 10;
+            carte.cout[1] = 5;
+            carte.cout[5] = 5;
+            carte.vente[0] = 6;
             carte.vente[1] = 2;
             carte.vente[5] = 2;
             carte.vie_max = carte.vie = 1;
             carte.texte = function () {
-                return "Quand arrive sur le terrain : Lance un décompte de 2.<br/>Quand le décompte de cette carte est écoulé : Se détruit et crée " + effet_carte_voir_id(9, carte) + " sur le terrain.";
+                return "Quand arrive sur le terrain : Lance un décompte de 10.<br/>Quand le décompte de cette carte est écoulé : Se détruit et crée " + effet_carte_voir_id(9, carte) + " sur le terrain.";
             }
             carte.effet_ajouter = function () {
                 if (carte.zone == "terrain") {
-                    carte.decompte = 2;
+                    carte.decompte = 10;
                 }
             }
             carte.effet_enlever = function () {
@@ -2368,10 +2368,10 @@ function obtenir_carte(carte_id) {
             carte.nom = "Assassin";
             carte.type = "Créature";
             carte.familles.push("Humain");
-            carte.cout[0] = 7;
-            carte.vente[0] = 3;
-            carte.attaque = 2;
-            carte.vie_max = carte.vie = 2;
+            carte.cout[0] = 9;
+            carte.vente[0] = 4;
+            carte.attaque = 3;
+            carte.vie_max = carte.vie = 3;
             carte.action_max = 1;
             carte.equipement_max = 1;
             carte.texte = function () {
@@ -2412,22 +2412,22 @@ function obtenir_carte(carte_id) {
             carte.nom = "Ange";
             carte.type = "Créature";
             carte.familles.push("Ange");
-            carte.cout[0] = 11;
-            carte.cout[5] = 4;
-            carte.cout[10] = 4;
-            carte.vente[0] = 5;
-            carte.vente[5] = 2;
-            carte.vente[10] = 2;
-            carte.attaque = 8;
-            carte.vie_max = carte.vie = 8;
+            carte.cout[0] = 19;
+            carte.cout[5] = 10;
+            carte.cout[10] = 10;
+            carte.vente[0] = 9;
+            carte.vente[5] = 10;
+            carte.vente[10] = 10;
+            carte.attaque = 15;
+            carte.vie_max = carte.vie = 15;
             carte.action_max = 1;
             carte.equipement_max = 1;
             carte.texte = function () {
-                return "Quand posé : Soigne 2 au Meneur allié.";
+                return "Quand posé : Soigne 5 au Meneur allié.";
             }
             carte.effet_pose = function () {
                 if (!statistique(carte, "silence")) {
-                    soin_direct(carte.camp, 2);
+                    soin_direct(carte.camp, 5);
                 }
                 deplacer(carte, carte.camp, "terrain");
                 effet_pose(carte);
@@ -2443,8 +2443,8 @@ function obtenir_carte(carte_id) {
             carte.cout[10] = 10;
             carte.vente[0] = 5;
             carte.vente[10] = 5;
-            carte.attaque = 2;
-            carte.vie_max = carte.vie = 9;
+            carte.attaque = 1;
+            carte.vie_max = carte.vie = 10;
             carte.action_max = 1;
             carte.equipement_max = 1;
             carte.texte = function () {
@@ -2460,20 +2460,20 @@ function obtenir_carte(carte_id) {
             carte.nom = "Griffon";
             carte.type = "Créature";
             carte.familles.push("Griffon");
-            carte.cout[0] = 10;
-            carte.cout[5] = 9;
-            carte.vente[0] = 5;
-            carte.vente[5] = 4;
-            carte.attaque = 8;
-            carte.vie_max = carte.vie = 8;
+            carte.cout[0] = 20;
+            carte.cout[5] = 19;
+            carte.vente[0] = 10;
+            carte.vente[5] = 9;
+            carte.attaque = 15;
+            carte.vie_max = carte.vie = 15;
             carte.action_max = 1;
             carte.equipement_max = 1;
             carte.texte = function () {
-                return "Quand posé : Diminue le coût d'amélioration de la boutique de 2 Or.";
+                return "Quand posé : Diminue le coût d'amélioration de la boutique de 5 Or.";
             }
             carte.effet_pose = function () {
                 if (carte.camp == "joueur" && !statistique(carte, "silence")) {
-                    Jeu.boutique_amelioration -= 2;
+                    Jeu.boutique_amelioration -= 5;
                     if (Jeu.boutique_amelioration < 0) {
                         Jeu.boutique_amelioration = 0;
                     }
@@ -2488,12 +2488,12 @@ function obtenir_carte(carte_id) {
             carte.nom = "Tigre";
             carte.type = "Créature";
             carte.familles.push("Bête");
-            carte.cout[0] = 7;
-            carte.cout[3] = 6;
-            carte.vente[0] = 3;
-            carte.vente[3] = 3;
-            carte.attaque = 5;
-            carte.vie_max = carte.vie = 5;
+            carte.cout[0] = 10;
+            carte.cout[3] = 9;
+            carte.vente[0] = 5;
+            carte.vente[3] = 4;
+            carte.attaque = 8;
+            carte.vie_max = carte.vie = 9;
             carte.action_max = 1;
             carte.equipement_max = 1;
             carte.camouflage = true;
@@ -2502,92 +2502,20 @@ function obtenir_carte(carte_id) {
             carte.nom = "Troll";
             carte.type = "Créature";
             carte.familles.push("Troll");
-            carte.cout[0] = 10;
-            carte.cout[12] = 9;
-            carte.vente[0] = 5;
-            carte.vente[12] = 4;
-            carte.attaque = 8;
-            carte.vie_max = carte.vie = 9;
+            carte.cout[0] = 20;
+            carte.cout[12] = 19;
+            carte.vente[0] = 10;
+            carte.vente[12] = 9;
+            carte.attaque = 17;
+            carte.vie_max = carte.vie = 17;
             carte.action_max = 1;
             carte.equipement_max = 1;
             carte.texte = function () {
-                return "Quand posé : Applique " + effet_talent_voir("Gel", carte, 1) + " à une Unité adverse sur le terrain.";
+                return "Quand attaque : Applique " + effet_talent_voir("Gel", carte, 1) + " à l'Unité attaquée.";
             }
-            carte.effet_pose = function (step, cible) {
-                if (carte.camp == "joueur") {
-                    switch (step) {
-                        case 1:
-                            if (verifier_cible("adverse", "terrain") && !statistique(carte, "silence")) {
-                                initialiser();
-                                div("main");
-                                fonction("Annuler", "menu()");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte);
-                                saut(2);
-                                afficher("Choisissez une Unité adverse sur le terrain : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain adverse :</u>");
-                                saut();
-                                for (let n = 0; n < Jeu.adverse.terrain.length; n++) {
-                                    div("", "carte");
-                                    div();
-                                    if (!Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                        afficher_carte("adverse", "terrain", n);
-                                    }
-                                    else {
-                                        afficher("???");
-                                    }
-                                    div_fin();
-                                    if (!Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                        div_fin();
-                                    }
-                                    div_fin();
-                                }
-                                div_fin();
-                                div_fin();
-                                div("side", "affichage");
-                                div_fin();
-                                actualiser();
-                            }
-                            else {
-                                deplacer(carte, "joueur", "terrain");
-                                effet_pose(carte);
-                                menu();
-                            }
-                            break;
-                        case 2:
-                            if (Jeu.adverse.terrain[cible].gel < 1) {
-                                Jeu.adverse.terrain[cible].gel = 1;
-                            }
-                            deplacer(carte, "joueur", "terrain");
-                            effet_pose(carte);
-                            menu();
-                            break;
-                    }
-                }
-                else {
-                    if (verifier_cible("joueur", "terrain") && !statistique(carte, "silence")) {
-                        let best = 0;
-                        while (Jeu.joueur.terrain[best].camouflage && !Jeu.joueur.terrain[best].silence) {
-                            best++;
-                        }
-                        for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
-                            if (Jeu.joueur.terrain[n].gel < 1 && (!Jeu.joueur.terrain[n].camouflage || Jeu.joueur.terrain[n].silence)) {
-                                best = n;
-                            }
-                        }
-                        if (Jeu.joueur.terrain[best].gel < 1) {
-                            Jeu.joueur.terrain[best].gel = 1;
-                        }
-                    }
-                    deplacer(carte, "adverse", "terrain");
-                    effet_pose(carte);
-                    return true;
+            carte.effet_attaque = function (defenseur) {
+                if (defenseur.gel < 1) {
+                    defenseur.gel = 1;
                 }
             }
             break;
@@ -2899,8 +2827,10 @@ function obtenir_carte(carte_id) {
         case 74:
             carte.nom = "Baril explosif";
             carte.type = "Bâtiment";
-            carte.cout[0] = 1;
-            carte.cout[1] = 1;
+            carte.cout[0] = 3;
+            carte.cout[1] = 2;
+            carte.vente[0] = 1;
+            carte.vente[1] = 1;
             carte.vie = carte.vie_max = 2;
             carte.texte = function () {
                 return "Quand posé : Se place sur le terrain adverse.<br>Quand meurt : Inflige 2 dégâts au meneur allié.";
@@ -2937,10 +2867,10 @@ function obtenir_carte(carte_id) {
             carte.nom = "Chevalier monté";
             carte.type = "Créature";
             carte.familles.push("Humain");
-            carte.cout[0] = 18;
+            carte.cout[0] = 19;
             carte.vente[0] = 9;
             carte.attaque = 4;
-            carte.vie = carte.vie_max = 3;
+            carte.vie = carte.vie_max = 4;
             carte.rapidite = true;
             carte.action_max = 1;
             carte.equipement_max = 1;
@@ -2985,10 +2915,10 @@ function obtenir_carte(carte_id) {
             carte.nom = "Homme d'affaire";
             carte.type = "Créature";
             carte.familles.push("Humain");
-            carte.cout[0] = 8;
-            carte.vente[0] = 4;
-            carte.attaque = 2;
-            carte.vie = carte.vie_max = 2;
+            carte.cout[0] = 10;
+            carte.vente[0] = 5;
+            carte.attaque = 3;
+            carte.vie = carte.vie_max = 3;
             carte.action_max = 1;
             carte.equipement_max = 1;
             carte.texte = function () {
@@ -3122,7 +3052,7 @@ function obtenir_carte(carte_id) {
             }
             break;
         case 81:
-            carte.nom = "Boost";
+            carte.nom = "Encouragements";
             carte.type = "Action";
             carte.cout[0] = 2;
             carte.vente[0] = 1;
@@ -3301,10 +3231,10 @@ function obtenir_carte(carte_id) {
             carte.nom = "Soldat courageux";
             carte.type = "Créature";
             carte.familles.push("Humain");
-            carte.cout[0] = 8;
-            carte.vente[0] = 4;
-            carte.attaque = 3;
-            carte.vie = carte.vie_max = 3;
+            carte.cout[0] = 12;
+            carte.vente[0] = 6;
+            carte.attaque = 5;
+            carte.vie = carte.vie_max = 5;
             carte.action_max = 1;
             carte.equipement_max = 1;
             carte.texte = function () {
@@ -3321,132 +3251,144 @@ function obtenir_carte(carte_id) {
         case 84:
             carte.nom = "Gobelin";
             carte.familles.push("Gobelin");
-            carte.cout[0] = 2;
-            carte.cout[1] = 1;
+            carte.cout[0] = 3;
+            carte.cout[1] = 2;
             carte.vente[0] = 1;
-            carte.attaque = 2;
-            carte.vie_max = carte.vie = 2;
+            carte.vente[1] = 1;
+            carte.attaque = 3;
+            carte.vie_max = carte.vie = 3;
             carte.action_max = 1;
             carte.equipement_max = 1;
             break;
         case 85:
             carte.nom = "Ondin";
             carte.familles.push("Ondin");
-            carte.cout[0] = 2;
-            carte.cout[2] = 1;
+            carte.cout[0] = 3;
+            carte.cout[2] = 2;
             carte.vente[0] = 1;
-            carte.attaque = 2;
-            carte.vie_max = carte.vie = 2;
+            carte.vente[2] = 1;
+            carte.attaque = 3;
+            carte.vie_max = carte.vie = 3;
             carte.action_max = 1;
             carte.equipement_max = 1;
             break;
         case 86:
             carte.nom = "Elfe";
             carte.familles.push("Elfe");
-            carte.cout[0] = 2;
-            carte.cout[3] = 1;
+            carte.cout[0] = 3;
+            carte.cout[3] = 2;
             carte.vente[0] = 1;
-            carte.attaque = 2;
-            carte.vie_max = carte.vie = 2;
+            carte.vente[3] = 1;
+            carte.attaque = 3;
+            carte.vie_max = carte.vie = 3;
             carte.action_max = 1;
             carte.equipement_max = 1;
             break;
         case 87:
             carte.nom = "Nain";
             carte.familles.push("Nain");
-            carte.cout[0] = 2;
-            carte.cout[4] = 1;
+            carte.cout[0] = 3;
+            carte.cout[4] = 2;
             carte.vente[0] = 1;
-            carte.attaque = 2;
-            carte.vie_max = carte.vie = 2;
+            carte.vente[4] = 1;
+            carte.attaque = 3;
+            carte.vie_max = carte.vie = 3;
             carte.action_max = 1;
             carte.equipement_max = 1;
             break;
         case 88:
             carte.nom = "Céleste";
             carte.familles.push("Céleste");
-            carte.cout[0] = 2;
-            carte.cout[5] = 1;
+            carte.cout[0] = 3;
+            carte.cout[5] = 2;
             carte.vente[0] = 1;
-            carte.attaque = 2;
-            carte.vie_max = carte.vie = 2;
+            carte.vente[5] = 1;
+            carte.attaque = 3;
+            carte.vie_max = carte.vie = 3;
             carte.action_max = 1;
             carte.equipement_max = 1;
             break;
         case 89:
             carte.nom = "Satyre";
             carte.familles.push("Satyre");
-            carte.cout[0] = 2;
-            carte.cout[6] = 1;
+            carte.cout[0] = 3;
+            carte.cout[6] = 2;
             carte.vente[0] = 1;
-            carte.attaque = 2;
-            carte.vie_max = carte.vie = 2;
+            carte.vente[6] = 1;
+            carte.attaque = 3;
+            carte.vie_max = carte.vie = 3;
             carte.action_max = 1;
             carte.equipement_max = 1;
             break;
         case 90:
             carte.nom = "Gnome";
             carte.familles.push("Gnome");
-            carte.cout[0] = 2;
-            carte.cout[7] = 1;
+            carte.cout[0] = 3;
+            carte.cout[7] = 2;
             carte.vente[0] = 1;
-            carte.attaque = 2;
-            carte.vie_max = carte.vie = 2;
+            carte.vente[7] = 1;
+            carte.attaque = 3;
+            carte.vie_max = carte.vie = 3;
             carte.action_max = 1;
             carte.equipement_max = 1;
             break;
         case 91:
             carte.nom = "Kalashtar";
             carte.familles.push("Kalashtar");
-            carte.cout[0] = 2;
-            carte.cout[8] = 1;
+            carte.cout[0] = 3;
+            carte.cout[8] = 2;
             carte.vente[0] = 1;
-            carte.attaque = 2;
-            carte.vie_max = carte.vie = 2;
+            carte.vente[8] = 1;
+            carte.attaque = 3;
+            carte.vie_max = carte.vie = 3;
             carte.action_max = 1;
             carte.equipement_max = 1;
             break;
         case 92:
             carte.nom = "Revenant";
             carte.familles.push("Mort-vivant", "Revenant");
-            carte.cout[0] = 2;
-            carte.cout[9] = 1;
+            carte.cout[0] = 3;
+            carte.cout[9] = 2;
             carte.vente[0] = 1;
-            carte.attaque = 2;
-            carte.vie_max = carte.vie = 2;
+            carte.vente[9] = 1;
+            carte.attaque = 3;
+            carte.vie_max = carte.vie = 3;
             carte.action_max = 1;
             carte.equipement_max = 1;
             break;
         case 93:
             carte.nom = "Fidèle";
             carte.familles.push("Aasimar", "Église");
-            carte.cout[0] = 2;
-            carte.cout[10] = 1;
+            carte.cout[0] = 3;
+            carte.cout[10] = 2;
             carte.vente[0] = 1;
-            carte.attaque = 2;
-            carte.vie_max = carte.vie = 2;
+            carte.vente[10] = 1;
+            carte.attaque = 3;
+            carte.vie_max = carte.vie = 3;
             carte.action_max = 1;
             carte.equipement_max = 1;
             break;
         case 94:
             carte.nom = "Drow";
             carte.familles.push("Drow");
-            carte.cout[0] = 2;
-            carte.cout[11] = 1;
+            carte.cout[0] = 3;
+            carte.cout[11] = 2;
             carte.vente[0] = 1;
-            carte.attaque = 2;
-            carte.vie_max = carte.vie = 2;
+            carte.vente[11] = 1;
+            carte.attaque = 3;
+            carte.vie_max = carte.vie = 3;
             carte.action_max = 1;
             carte.equipement_max = 1;
             break;
         case 95:
             carte.nom = "Goliath";
             carte.familles.push("Goliath");
-            carte.cout[0] = 2;
-            carte.cout[12] = 1;
+            carte.cout[0] = 3;
+            carte.cout[12] = 2;
             carte.vente[0] = 1;
-            carte.attaque = 2;
-            carte.vie_max = carte.vie = 2;
+            carte.vente[12] = 1;
+            carte.attaque = 3;
+            carte.vie_max = carte.vie = 3;
             carte.action_max = 1;
             carte.equipement_max = 1;
             break;
@@ -4023,8 +3965,8 @@ function obtenir_carte(carte_id) {
             carte.nom = "Doubles lames de cuivre";
             carte.type = "Objet";
             carte.familles.push("Équipement", "Arme");
-            carte.cout[0] = 5;
-            carte.vente[0] = 2;
+            carte.cout[0] = 10;
+            carte.vente[0] = 5;
             carte.stat_equipement.action_max = 1;
             carte.texte = function () {
                 return "Donne 1 action supplémentaire à la Créature équipée.";
@@ -4092,10 +4034,10 @@ function obtenir_carte(carte_id) {
         case 112:
             carte.nom = "Loup";
             carte.familles.push("Bête");
-            carte.cout[0] = 3;
-            carte.vente[0] = 1;
-            carte.attaque = 2;
-            carte.vie_max = carte.vie = 2;
+            carte.cout[0] = 5;
+            carte.vente[0] = 2;
+            carte.attaque = 3;
+            carte.vie_max = carte.vie = 3;
             carte.action_max = 1;
             carte.equipement_max = 1;
             break;
@@ -4126,12 +4068,12 @@ function obtenir_carte(carte_id) {
         case 114:
             carte.nom = "Golem";
             carte.familles.push("Golem");
-            carte.cout[0] = 10;
-            carte.cout[4] = 9;
-            carte.vente[0] = 5;
-            carte.vente[4] = 4;
-            carte.attaque = 4;
-            carte.defense = 3;
+            carte.cout[0] = 20;
+            carte.cout[4] = 19;
+            carte.vente[0] = 10;
+            carte.vente[4] = 9;
+            carte.attaque = 10;
+            carte.defense = 10;
             carte.vie_max = carte.vie = 10;
             carte.action_max = 1;
             carte.equipement_max = 1;
@@ -4139,12 +4081,12 @@ function obtenir_carte(carte_id) {
         case 115:
             carte.nom = "Minotaure";
             carte.familles.push("Minotaure");
-            carte.cout[0] = 5;
-            carte.cout[4] = 4;
-            carte.vente[0] = 2;
-            carte.vente[4] = 2;
-            carte.attaque = 3;
-            carte.vie_max = carte.vie = 3;
+            carte.cout[0] = 10;
+            carte.cout[4] = 9;
+            carte.vente[0] = 5;
+            carte.vente[4] = 4;
+            carte.attaque = 10;
+            carte.vie_max = carte.vie = 8;
             carte.action_max = 1;
             carte.equipement_max = 1;
             carte.texte = function () {
@@ -4159,12 +4101,12 @@ function obtenir_carte(carte_id) {
         case 116:
             carte.nom = "Centaure";
             carte.familles.push("Centaure");
-            carte.cout[0] = 5;
-            carte.cout[6] = 4;
-            carte.vente[0] = 2;
-            carte.vente[6] = 2;
-            carte.attaque = 3;
-            carte.vie_max = carte.vie = 4;
+            carte.cout[0] = 10;
+            carte.cout[6] = 9;
+            carte.vente[0] = 5;
+            carte.vente[6] = 4;
+            carte.attaque = 10;
+            carte.vie_max = carte.vie = 7;
             carte.action_max = 1;
             carte.equipement_max = 1;
             carte.rapidite = true;
@@ -4173,10 +4115,10 @@ function obtenir_carte(carte_id) {
             carte.nom = "Archimage";
             carte.type = "Créature";
             carte.familles.push("Humain", "Mage");
-            carte.cout[0] = 19;
-            carte.vente[0] = 9;
-            carte.attaque = 5;
-            carte.vie_max = carte.vie = 5;
+            carte.cout[0] = 39;
+            carte.vente[0] = 19;
+            carte.attaque = 15;
+            carte.vie_max = carte.vie = 15;
             carte.action_max = 1;
             carte.sorcellerie = 5;
             carte.equipement_max = 1;
@@ -4185,12 +4127,12 @@ function obtenir_carte(carte_id) {
             carte.nom = "Grand automate";
             carte.type = "Créature";
             carte.familles.push("Machine", "Automate");
-            carte.cout[0] = 10;
-            carte.cout[7] = 9;
-            carte.vente[0] = 5;
-            carte.vente[7] = 4;
-            carte.attaque = 10;
-            carte.vie_max = carte.vie = 10;
+            carte.cout[0] = 20;
+            carte.cout[7] = 19;
+            carte.vente[0] = 10;
+            carte.vente[7] = 9;
+            carte.attaque = 20;
+            carte.vie_max = carte.vie = 20;
             carte.action_max = 1;
             carte.equipement_max = 1;
             break;
@@ -4198,23 +4140,24 @@ function obtenir_carte(carte_id) {
             carte.nom = "Faucon";
             carte.type = "Créature";
             carte.familles.push("Oiseau");
-            carte.cout[0] = 2;
-            carte.cout[5] = 1;
+            carte.cout[0] = 3;
+            carte.cout[5] = 2;
             carte.vente[0] = 1;
-            carte.attaque = 2;
-            carte.vie_max = carte.vie = 2;
+            carte.vente[5] = 1;
+            carte.attaque = 3;
+            carte.vie_max = carte.vie = 3;
             carte.action_max = 1;
             carte.equipement_max = 1;
             break;
         case 120:
             carte.nom = "Hydre";
             carte.familles.push("Hydre");
-            carte.cout[0] = 10;
-            carte.cout[2] = 9;
-            carte.vente[0] = 5;
-            carte.vente[2] = 4;
-            carte.attaque = 7;
-            carte.vie_max = carte.vie = 8;
+            carte.cout[0] = 20;
+            carte.cout[2] = 19;
+            carte.vente[0] = 10;
+            carte.vente[2] = 9;
+            carte.attaque = 10;
+            carte.vie_max = carte.vie = 10;
             carte.action_max = 2;
             carte.equipement_max = 1;
             break;
@@ -4298,23 +4241,24 @@ function obtenir_carte(carte_id) {
         case 122:
             carte.nom = "Carpe";
             carte.familles.push("Poisson");
-            carte.cout[0] = 2;
-            carte.cout[2] = 1;
+            carte.cout[0] = 3;
+            carte.cout[2] = 2;
             carte.vente[0] = 1;
-            carte.attaque = 2;
-            carte.vie_max = carte.vie = 2;
+            carte.vente[2] = 1;
+            carte.attaque = 3;
+            carte.vie_max = carte.vie = 3;
             carte.action_max = 1;
             carte.equipement_max = 1;
             break;
         case 123:
             carte.nom = "Requin";
             carte.familles.push("Poisson");
-            carte.cout[0] = 5;
-            carte.cout[2] = 4;
-            carte.vente[0] = 2;
-            carte.vente[2] = 2;
-            carte.attaque = 5;
-            carte.vie_max = carte.vie = 5;
+            carte.cout[0] = 10;
+            carte.cout[2] = 9;
+            carte.vente[0] = 5;
+            carte.vente[2] = 4;
+            carte.attaque = 10;
+            carte.vie_max = carte.vie = 10;
             carte.action_max = 1;
             carte.equipement_max = 1;
             break;
@@ -4355,24 +4299,24 @@ function obtenir_carte(carte_id) {
         case 127:
             carte.nom = "Zombie";
             carte.familles.push("Mort-vivant", "Zombie");
-            carte.cout[0] = 3;
-            carte.cout[9] = 2;
-            carte.vente[0] = 1;
-            carte.vente[9] = 1;
-            carte.attaque = 2;
-            carte.vie_max = carte.vie = 4;
+            carte.cout[0] = 5;
+            carte.cout[9] = 4;
+            carte.vente[0] = 3;
+            carte.vente[9] = 2;
+            carte.attaque = 5;
+            carte.vie_max = carte.vie = 5;
             carte.action_max = 1;
             carte.equipement_max = 1;
             break;
         case 128:
             carte.nom = "Cyclope";
             carte.familles.push("Cyclope");
-            carte.cout[0] = 10;
-            carte.cout[6] = 9;
-            carte.vente[0] = 5;
-            carte.vente[6] = 4;
-            carte.attaque = 9;
-            carte.vie_max = carte.vie = 9;
+            carte.cout[0] = 20;
+            carte.cout[6] = 19;
+            carte.vente[0] = 10;
+            carte.vente[6] = 9;
+            carte.attaque = 19;
+            carte.vie_max = carte.vie = 19;
             carte.action_max = 1;
             carte.equipement_max = 1;
             carte.texte = function () {
@@ -4400,16 +4344,16 @@ function obtenir_carte(carte_id) {
             carte.nom = "Éclair cyclopéen";
             carte.type = "Objet";
             carte.familles.push("Équipement", "Arme", "Cyclope");
-            carte.cout[0] = 5;
-            carte.cout[6] = 4;
-            carte.vente[0] = 2;
-            carte.vente[6] = 2;
-            carte.stat_equipement.attaque = 5;
-            carte.stat_equipement.percee = 4;
-            carte.stat_equipement.sorcellerie = 1;
+            carte.cout[0] = 10;
+            carte.cout[6] = 9;
+            carte.vente[0] = 5;
+            carte.vente[6] = 4;
+            carte.stat_equipement.attaque = 15;
+            carte.stat_equipement.percee = 6;
+            carte.stat_equipement.sorcellerie = 2;
             carte.exclusif = true;
             carte.texte = function () {
-                return "Donne 5 attaque et applique " + effet_talent_voir("Percée", carte, 4) + " et " + effet_talent_voir("Sorcellerie", carte, 1) + " à la Créature équipée.";
+                return "Donne 15 attaque et applique " + effet_talent_voir("Percée", carte, 6) + " et " + effet_talent_voir("Sorcellerie", carte, 2) + " à la Créature équipée.";
             }
             carte.effet_pose = function (step, cible) {
                 if (carte.camp == "joueur") {
@@ -4474,12 +4418,12 @@ function obtenir_carte(carte_id) {
         case 130:
             carte.nom = "Porteur de torche";
             carte.familles.push("Gobelin");
-            carte.cout[0] = 3;
-            carte.cout[1] = 3;
+            carte.cout[0] = 4;
+            carte.cout[1] = 4;
             carte.vente[0] = 2;
-            carte.vente[1] = 1;
-            carte.attaque = 2;
-            carte.vie_max = carte.vie = 2;
+            carte.vente[1] = 2;
+            carte.attaque = 3;
+            carte.vie_max = carte.vie = 3;
             carte.action_max = 1;
             carte.equipement_max = 1;
             carte.texte = function () {
@@ -4498,12 +4442,12 @@ function obtenir_carte(carte_id) {
         case 131:
             carte.nom = "Sourcier";
             carte.familles.push("Ondin");
-            carte.cout[0] = 3;
-            carte.cout[2] = 3;
+            carte.cout[0] = 4;
+            carte.cout[2] = 4;
             carte.vente[0] = 2;
-            carte.vente[2] = 1;
-            carte.attaque = 2;
-            carte.vie_max = carte.vie = 2;
+            carte.vente[2] = 2;
+            carte.attaque = 3;
+            carte.vie_max = carte.vie = 3;
             carte.action_max = 1;
             carte.equipement_max = 1;
             carte.texte = function () {
@@ -4522,12 +4466,12 @@ function obtenir_carte(carte_id) {
         case 132:
             carte.nom = "Bûcheron";
             carte.familles.push("Elfe");
-            carte.cout[0] = 3;
-            carte.cout[3] = 3;
+            carte.cout[0] = 4;
+            carte.cout[3] = 4;
             carte.vente[0] = 2;
-            carte.vente[3] = 1;
-            carte.attaque = 2;
-            carte.vie_max = carte.vie = 2;
+            carte.vente[3] = 2;
+            carte.attaque = 3;
+            carte.vie_max = carte.vie = 3;
             carte.action_max = 1;
             carte.equipement_max = 1;
             carte.texte = function () {
@@ -4546,12 +4490,12 @@ function obtenir_carte(carte_id) {
         case 133:
             carte.nom = "Tailleur de pierre";
             carte.familles.push("Nain");
-            carte.cout[0] = 3;
-            carte.cout[4] = 3;
+            carte.cout[0] = 4;
+            carte.cout[4] = 4;
             carte.vente[0] = 2;
-            carte.vente[4] = 1;
-            carte.attaque = 2;
-            carte.vie_max = carte.vie = 2;
+            carte.vente[4] = 2;
+            carte.attaque = 3;
+            carte.vie_max = carte.vie = 3;
             carte.action_max = 1;
             carte.equipement_max = 1;
             carte.texte = function () {
@@ -4570,12 +4514,12 @@ function obtenir_carte(carte_id) {
         case 134:
             carte.nom = "Manieur d'éventail";
             carte.familles.push("Céleste");
-            carte.cout[0] = 3;
-            carte.cout[5] = 3;
+            carte.cout[0] = 4;
+            carte.cout[5] = 4;
             carte.vente[0] = 2;
-            carte.vente[5] = 1;
-            carte.attaque = 2;
-            carte.vie_max = carte.vie = 2;
+            carte.vente[5] = 2;
+            carte.attaque = 3;
+            carte.vie_max = carte.vie = 3;
             carte.action_max = 1;
             carte.equipement_max = 1;
             carte.texte = function () {
@@ -4594,12 +4538,12 @@ function obtenir_carte(carte_id) {
         case 135:
             carte.nom = "Satyre frotte fourrure";
             carte.familles.push("Satyre");
-            carte.cout[0] = 3;
-            carte.cout[6] = 3;
+            carte.cout[0] = 4;
+            carte.cout[6] = 4;
             carte.vente[0] = 2;
-            carte.vente[6] = 1;
-            carte.attaque = 2;
-            carte.vie_max = carte.vie = 2;
+            carte.vente[6] = 2;
+            carte.attaque = 3;
+            carte.vie_max = carte.vie = 3;
             carte.action_max = 1;
             carte.equipement_max = 1;
             carte.texte = function () {
@@ -4618,12 +4562,12 @@ function obtenir_carte(carte_id) {
         case 136:
             carte.nom = "Mineur";
             carte.familles.push("Gnome");
-            carte.cout[0] = 3;
-            carte.cout[7] = 3;
+            carte.cout[0] = 4;
+            carte.cout[7] = 4;
             carte.vente[0] = 2;
-            carte.vente[7] = 1;
-            carte.attaque = 2;
-            carte.vie_max = carte.vie = 2;
+            carte.vente[7] = 2;
+            carte.attaque = 3;
+            carte.vie_max = carte.vie = 3;
             carte.action_max = 1;
             carte.equipement_max = 1;
             carte.texte = function () {
@@ -4642,12 +4586,12 @@ function obtenir_carte(carte_id) {
         case 137:
             carte.nom = "Arcaniste";
             carte.familles.push("Kalashtar");
-            carte.cout[0] = 3;
-            carte.cout[8] = 3;
+            carte.cout[0] = 4;
+            carte.cout[8] = 4;
             carte.vente[0] = 2;
-            carte.vente[8] = 1;
-            carte.attaque = 2;
-            carte.vie_max = carte.vie = 2;
+            carte.vente[8] = 2;
+            carte.attaque = 3;
+            carte.vie_max = carte.vie = 3;
             carte.action_max = 1;
             carte.equipement_max = 1;
             carte.texte = function () {
@@ -4666,12 +4610,12 @@ function obtenir_carte(carte_id) {
         case 138:
             carte.nom = "Fossoyeur";
             carte.familles.push("Mort-vivant", "Revenant");
-            carte.cout[0] = 3;
-            carte.cout[9] = 3;
+            carte.cout[0] = 4;
+            carte.cout[9] = 4;
             carte.vente[0] = 2;
-            carte.vente[9] = 1;
-            carte.attaque = 2;
-            carte.vie_max = carte.vie = 2;
+            carte.vente[9] = 2;
+            carte.attaque = 3;
+            carte.vie_max = carte.vie = 3;
             carte.action_max = 1;
             carte.equipement_max = 1;
             carte.texte = function () {
@@ -4690,12 +4634,12 @@ function obtenir_carte(carte_id) {
         case 139:
             carte.nom = "Illuminateur";
             carte.familles.push("Aasimar");
-            carte.cout[0] = 3;
-            carte.cout[10] = 3;
+            carte.cout[0] = 4;
+            carte.cout[10] = 4;
             carte.vente[0] = 2;
-            carte.vente[10] = 1;
-            carte.attaque = 2;
-            carte.vie_max = carte.vie = 2;
+            carte.vente[10] = 2;
+            carte.attaque = 3;
+            carte.vie_max = carte.vie = 3;
             carte.action_max = 1;
             carte.equipement_max = 1;
             carte.texte = function () {
@@ -4714,12 +4658,12 @@ function obtenir_carte(carte_id) {
         case 140:
             carte.nom = "Souffleur de bougie";
             carte.familles.push("Drow");
-            carte.cout[0] = 3;
-            carte.cout[11] = 3;
+            carte.cout[0] = 4;
+            carte.cout[11] = 4;
             carte.vente[0] = 2;
-            carte.vente[11] = 1;
-            carte.attaque = 2;
-            carte.vie_max = carte.vie = 2;
+            carte.vente[11] = 2;
+            carte.attaque = 3;
+            carte.vie_max = carte.vie = 3;
             carte.action_max = 1;
             carte.equipement_max = 1;
             carte.texte = function () {
@@ -4738,12 +4682,12 @@ function obtenir_carte(carte_id) {
         case 141:
             carte.nom = "Coupeur de glace";
             carte.familles.push("Goliath");
-            carte.cout[0] = 3;
-            carte.cout[12] = 3;
+            carte.cout[0] = 4;
+            carte.cout[12] = 4;
             carte.vente[0] = 2;
-            carte.vente[12] = 1;
-            carte.attaque = 2;
-            carte.vie_max = carte.vie = 2;
+            carte.vente[12] = 2;
+            carte.attaque = 3;
+            carte.vie_max = carte.vie = 3;
             carte.action_max = 1;
             carte.equipement_max = 1;
             carte.texte = function () {
@@ -4818,169 +4762,169 @@ function obtenir_carte(carte_id) {
             carte.nom = "Mage de feu";
             carte.type = "Créature";
             carte.familles.push("Gobelin", "Mage");
-            carte.cout[0] = 3;
-            carte.cout[1] = 2;
-            carte.vente[0] = 1;
-            carte.vente[1] = 1;
-            carte.attaque = 2;
-            carte.vie_max = carte.vie = 2;
+            carte.cout[0] = 7;
+            carte.cout[1] = 7;
+            carte.vente[0] = 4;
+            carte.vente[1] = 3;
+            carte.attaque = 5;
+            carte.vie_max = carte.vie = 5;
             carte.action_max = 1;
-            carte.sorcellerie = 1;
             carte.equipement_max = 1;
+            carte.sorcellerie = 2;
             break;
         case 144:
             carte.nom = "Mage d'eau";
             carte.type = "Créature";
             carte.familles.push("Ondin", "Mage");
-            carte.cout[0] = 3;
-            carte.cout[2] = 2;
-            carte.vente[0] = 1;
-            carte.vente[2] = 1;
-            carte.attaque = 2;
-            carte.vie_max = carte.vie = 2;
+            carte.cout[0] = 7;
+            carte.cout[2] = 7;
+            carte.vente[0] = 4;
+            carte.vente[2] = 3;
+            carte.attaque = 5;
+            carte.vie_max = carte.vie = 5;
             carte.action_max = 1;
-            carte.sorcellerie = 1;
             carte.equipement_max = 1;
+            carte.sorcellerie = 2;
             break;
         case 145:
             carte.nom = "Mage des plantes";
             carte.type = "Créature";
             carte.familles.push("Elfe", "Mage");
-            carte.cout[0] = 3;
-            carte.cout[3] = 2;
-            carte.vente[0] = 1;
-            carte.vente[3] = 1;
-            carte.attaque = 2;
-            carte.vie_max = carte.vie = 2;
+            carte.cout[0] = 7;
+            carte.cout[3] = 7;
+            carte.vente[0] = 4;
+            carte.vente[3] = 3;
+            carte.attaque = 5;
+            carte.vie_max = carte.vie = 5;
             carte.action_max = 1;
-            carte.sorcellerie = 1;
             carte.equipement_max = 1;
+            carte.sorcellerie = 2;
             break;
         case 146:
             carte.nom = "Mage de terre";
             carte.type = "Créature";
             carte.familles.push("Nain", "Mage");
-            carte.cout[0] = 3;
-            carte.cout[4] = 2;
-            carte.vente[0] = 1;
-            carte.vente[4] = 1;
-            carte.attaque = 2;
-            carte.vie_max = carte.vie = 2;
+            carte.cout[0] = 7;
+            carte.cout[4] = 7;
+            carte.vente[0] = 4;
+            carte.vente[4] = 3;
+            carte.attaque = 5;
+            carte.vie_max = carte.vie = 5;
             carte.action_max = 1;
-            carte.sorcellerie = 1;
             carte.equipement_max = 1;
+            carte.sorcellerie = 2;
             break;
         case 147:
             carte.nom = "Mage d'air";
             carte.type = "Créature";
             carte.familles.push("Céleste", "Mage");
-            carte.cout[0] = 3;
-            carte.cout[5] = 2;
-            carte.vente[0] = 1;
-            carte.vente[5] = 1;
-            carte.attaque = 2;
-            carte.vie_max = carte.vie = 2;
+            carte.cout[0] = 7;
+            carte.cout[5] = 7;
+            carte.vente[0] = 4;
+            carte.vente[5] = 3;
+            carte.attaque = 5;
+            carte.vie_max = carte.vie = 5;
             carte.action_max = 1;
-            carte.sorcellerie = 1;
             carte.equipement_max = 1;
+            carte.sorcellerie = 2;
             break;
         case 148:
             carte.nom = "Mage de foudre";
             carte.type = "Créature";
             carte.familles.push("Satyre", "Mage");
-            carte.cout[0] = 3;
-            carte.cout[6] = 2;
-            carte.vente[0] = 1;
-            carte.vente[6] = 1;
-            carte.attaque = 2;
-            carte.vie_max = carte.vie = 2;
+            carte.cout[0] = 7;
+            carte.cout[6] = 7;
+            carte.vente[0] = 4;
+            carte.vente[6] = 3;
+            carte.attaque = 5;
+            carte.vie_max = carte.vie = 5;
             carte.action_max = 1;
-            carte.sorcellerie = 1;
             carte.equipement_max = 1;
+            carte.sorcellerie = 2;
             break;
         case 149:
             carte.nom = "Mage des métaux";
             carte.type = "Créature";
             carte.familles.push("Gnome", "Mage");
-            carte.cout[0] = 3;
-            carte.cout[7] = 2;
-            carte.vente[0] = 1;
-            carte.vente[7] = 1;
-            carte.attaque = 2;
-            carte.vie_max = carte.vie = 2;
+            carte.cout[0] = 7;
+            carte.cout[7] = 7;
+            carte.vente[0] = 4;
+            carte.vente[7] = 3;
+            carte.attaque = 5;
+            carte.vie_max = carte.vie = 5;
             carte.action_max = 1;
-            carte.sorcellerie = 1;
             carte.equipement_max = 1;
+            carte.sorcellerie = 2;
             break;
         case 150:
             carte.nom = "Mage des arcanes";
             carte.type = "Créature";
             carte.familles.push("Kalashtar", "Mage");
-            carte.cout[0] = 3;
-            carte.cout[8] = 2;
-            carte.vente[0] = 1;
-            carte.vente[8] = 1;
-            carte.attaque = 2;
-            carte.vie_max = carte.vie = 2;
+            carte.cout[0] = 7;
+            carte.cout[8] = 7;
+            carte.vente[0] = 4;
+            carte.vente[8] = 3;
+            carte.attaque = 5;
+            carte.vie_max = carte.vie = 5;
             carte.action_max = 1;
-            carte.sorcellerie = 1;
             carte.equipement_max = 1;
+            carte.sorcellerie = 2;
             break;
         case 151:
             carte.nom = "Mage de la mort";
             carte.type = "Créature";
             carte.familles.push("Mort-vivant", "Revenant", "Mage");
-            carte.cout[0] = 3;
-            carte.cout[9] = 2;
-            carte.vente[0] = 1;
-            carte.vente[9] = 1;
-            carte.attaque = 2;
-            carte.vie_max = carte.vie = 2;
+            carte.cout[0] = 7;
+            carte.cout[9] = 7;
+            carte.vente[0] = 4;
+            carte.vente[9] = 3;
+            carte.attaque = 5;
+            carte.vie_max = carte.vie = 5;
             carte.action_max = 1;
-            carte.sorcellerie = 1;
             carte.equipement_max = 1;
+            carte.sorcellerie = 2;
             break;
         case 152:
             carte.nom = "Mage de lumière";
             carte.type = "Créature";
             carte.familles.push("Aasimar", "Mage");
-            carte.cout[0] = 3;
-            carte.cout[10] = 2;
-            carte.vente[0] = 1;
-            carte.vente[10] = 1;
-            carte.attaque = 2;
-            carte.vie_max = carte.vie = 2;
+            carte.cout[0] = 7;
+            carte.cout[10] = 7;
+            carte.vente[0] = 4;
+            carte.vente[10] = 3;
+            carte.attaque = 5;
+            carte.vie_max = carte.vie = 5;
             carte.action_max = 1;
-            carte.sorcellerie = 1;
             carte.equipement_max = 1;
+            carte.sorcellerie = 2;
             break;
         case 153:
             carte.nom = "Mage des ombres";
             carte.type = "Créature";
             carte.familles.push("Drow", "Mage");
-            carte.cout[0] = 3;
-            carte.cout[11] = 2;
-            carte.vente[0] = 1;
-            carte.vente[11] = 1;
-            carte.attaque = 2;
-            carte.vie_max = carte.vie = 2;
+            carte.cout[0] = 7;
+            carte.cout[11] = 7;
+            carte.vente[0] = 4;
+            carte.vente[11] = 3;
+            carte.attaque = 5;
+            carte.vie_max = carte.vie = 5;
             carte.action_max = 1;
-            carte.sorcellerie = 1;
             carte.equipement_max = 1;
+            carte.sorcellerie = 2;
             break;
         case 154:
             carte.nom = "Mage de glace";
             carte.type = "Créature";
             carte.familles.push("Goliath", "Mage");
-            carte.cout[0] = 3;
-            carte.cout[12] = 2;
-            carte.vente[0] = 1;
-            carte.vente[12] = 1;
-            carte.attaque = 2;
-            carte.vie_max = carte.vie = 2;
+            carte.cout[0] = 7;
+            carte.cout[12] = 7;
+            carte.vente[0] = 4;
+            carte.vente[12] = 3;
+            carte.attaque = 5;
+            carte.vie_max = carte.vie = 5;
             carte.action_max = 1;
-            carte.sorcellerie = 1;
             carte.equipement_max = 1;
+            carte.sorcellerie = 2;
             break;
         case 155:
             carte.nom = "Création hydraulique";
@@ -5981,12 +5925,12 @@ function obtenir_carte(carte_id) {
         case 167:
             carte.nom = "Lion";
             carte.familles.push("Bête");
-            carte.cout[0] = 17;
-            carte.cout[1] = 16;
-            carte.vente[0] = 8;
-            carte.vente[1] = 8;
-            carte.attaque = 5;
-            carte.vie_max = carte.vie = 5;
+            carte.cout[0] = 22;
+            carte.cout[1] = 21;
+            carte.vente[0] = 11;
+            carte.vente[1] = 10;
+            carte.attaque = 10;
+            carte.vie_max = carte.vie = 10;
             carte.action_max = 1;
             carte.equipement_max = 1;
             carte.texte = function () {
@@ -6011,52 +5955,53 @@ function obtenir_carte(carte_id) {
         case 168:
             carte.nom = "Tour de mage";
             carte.type = "Bâtiment";
-            carte.cout[0] = 5;
-            carte.vente[0] = 2;
-            carte.vie_max = carte.vie = 4;
-            carte.sorcellerie = 1;
+            carte.cout[0] = 14;
+            carte.vente[0] = 7;
+            carte.vie_max = carte.vie = 10;
+            carte.sorcellerie = 2;
             break;
         case 169:
             carte.nom = "Ours des montagnes";
             carte.familles.push("Bête");
-            carte.cout[0] = 5;
-            carte.cout[4] = 4;
-            carte.vente[0] = 2;
-            carte.vente[4] = 2;
-            carte.attaque = 5;
-            carte.vie_max = carte.vie = 5;
+            carte.cout[0] = 10;
+            carte.cout[4] = 9;
+            carte.vente[0] = 5;
+            carte.vente[4] = 4;
+            carte.attaque = 10;
+            carte.vie_max = carte.vie = 10;
             carte.action_max = 1;
             carte.equipement_max = 1;
             break;
         case 170:
             carte.nom = "Ours polaire";
             carte.familles.push("Bête");
-            carte.cout[0] = 5;
-            carte.cout[12] = 4;
-            carte.vente[0] = 2;
-            carte.vente[12] = 2;
-            carte.attaque = 5;
-            carte.vie_max = carte.vie = 5;
+            carte.cout[0] = 10;
+            carte.cout[12] = 9;
+            carte.vente[0] = 5;
+            carte.vente[12] = 4;
+            carte.attaque = 10;
+            carte.vie_max = carte.vie = 10;
             carte.action_max = 1;
             carte.equipement_max = 1;
             break;
         case 171:
             carte.nom = "Loup des neiges";
             carte.familles.push("Bête");
-            carte.cout[0] = 2;
-            carte.cout[12] = 1;
+            carte.cout[0] = 3;
+            carte.cout[12] = 2;
             carte.vente[0] = 1;
-            carte.attaque = 2;
-            carte.vie_max = carte.vie = 2;
+            carte.vente[12] = 1;
+            carte.attaque = 3;
+            carte.vie_max = carte.vie = 3;
             carte.action_max = 1;
             carte.equipement_max = 1;
             break;
         case 172:
             carte.nom = "Serpent";
             carte.familles.push("Reptile");
-            carte.cout[0] = 2;
+            carte.cout[0] = 3;
             carte.vente[0] = 1;
-            carte.attaque = 1;
+            carte.attaque = 2;
             carte.vie_max = carte.vie = 2;
             carte.action_max = 1;
             carte.equipement_max = 1;
@@ -6064,11 +6009,11 @@ function obtenir_carte(carte_id) {
         case 173:
             carte.nom = "Caméléon";
             carte.familles.push("Reptile");
-            carte.cout[0] = 2;
-            carte.cout[3] = 2;
-            carte.vente[0] = 1;
+            carte.cout[0] = 3;
+            carte.cout[3] = 3;
+            carte.vente[0] = 2;
             carte.vente[3] = 1;
-            carte.attaque = 1;
+            carte.attaque = 2;
             carte.vie_max = carte.vie = 2;
             carte.action_max = 1;
             carte.equipement_max = 1;
@@ -6077,9 +6022,9 @@ function obtenir_carte(carte_id) {
         case 174:
             carte.nom = "Vipère";
             carte.familles.push("Reptile");
-            carte.cout[0] = 3;
-            carte.vente[0] = 1;
-            carte.attaque = 1;
+            carte.cout[0] = 4;
+            carte.vente[0] = 2;
+            carte.attaque = 2;
             carte.vie_max = carte.vie = 2;
             carte.action_max = 1;
             carte.equipement_max = 1;
@@ -6095,9 +6040,9 @@ function obtenir_carte(carte_id) {
         case 175:
             carte.nom = "Chat";
             carte.familles.push("Bête");
-            carte.cout[0] = 2;
+            carte.cout[0] = 3;
             carte.vente[0] = 1;
-            carte.attaque = 1;
+            carte.attaque = 2;
             carte.vie_max = carte.vie = 2;
             carte.action_max = 1;
             carte.equipement_max = 1;
@@ -6105,9 +6050,9 @@ function obtenir_carte(carte_id) {
         case 176:
             carte.nom = "Chat du mage";
             carte.familles.push("Bête");
-            carte.cout[0] = 4;
-            carte.vente[0] = 2;
-            carte.attaque = 1;
+            carte.cout[0] = 6;
+            carte.vente[0] = 3;
+            carte.attaque = 2;
             carte.vie_max = carte.vie = 2;
             carte.action_max = 1;
             carte.equipement_max = 1;
@@ -6117,28 +6062,29 @@ function obtenir_carte(carte_id) {
         case 177:
             carte.nom = "Cerf";
             carte.familles.push("Bête");
-            carte.cout[0] = 3;
-            carte.cout[3] = 3;
-            carte.vente[0] = 2;
-            carte.vente[3] = 1;
-            carte.attaque = 2;
-            carte.vie_max = carte.vie = 2;
+            carte.cout[0] = 8;
+            carte.cout[3] = 7;
+            carte.vente[0] = 4;
+            carte.vente[3] = 3;
+            carte.attaque = 5;
+            carte.vie_max = carte.vie = 5;
             carte.action_max = 1;
             carte.equipement_max = 1;
+            carte.percee = 4;
             carte.rapidite = true;
             break;
         case 178:
             carte.nom = "Sanglier";
             carte.familles.push("Bête");
-            carte.cout[0] = 3;
-            carte.cout[3] = 2;
-            carte.vente[0] = 1;
-            carte.vente[3] = 1;
-            carte.attaque = 3;
-            carte.vie_max = carte.vie = 2;
+            carte.cout[0] = 8;
+            carte.cout[3] = 7;
+            carte.vente[0] = 4;
+            carte.vente[3] = 3;
+            carte.attaque = 5;
+            carte.vie_max = carte.vie = 5;
             carte.action_max = 1;
             carte.equipement_max = 1;
-            carte.percee = 2;
+            carte.charge = true;
             break;
         case 179:
             carte.nom = "Voyage";
@@ -6177,12 +6123,12 @@ function obtenir_carte(carte_id) {
         case 180:
             carte.nom = "Pyromancien";
             carte.familles.push("Gobelin");
-            carte.cout[0] = 6;
-            carte.cout[1] = 5;
+            carte.cout[0] = 7;
+            carte.cout[1] = 6;
             carte.vente[0] = 3;
-            carte.vente[1] = 2;
-            carte.attaque = 2;
-            carte.vie_max = carte.vie = 2;
+            carte.vente[1] = 3;
+            carte.attaque = 3;
+            carte.vie_max = carte.vie = 3;
             carte.action_max = 1;
             carte.equipement_max = 1;
             carte.texte = function () {
@@ -6195,12 +6141,12 @@ function obtenir_carte(carte_id) {
         case 181:
             carte.nom = "Cryomancien";
             carte.familles.push("Goliath");
-            carte.cout[0] = 5;
-            carte.cout[12] = 4;
-            carte.vente[0] = 4;
-            carte.vente[12] = 3;
-            carte.attaque = 2;
-            carte.vie_max = carte.vie = 2;
+            carte.cout[0] = 6;
+            carte.cout[12] = 5;
+            carte.vente[0] = 3;
+            carte.vente[12] = 2;
+            carte.attaque = 3;
+            carte.vie_max = carte.vie = 3;
             carte.action_max = 1;
             carte.equipement_max = 1;
             carte.texte = function () {
@@ -6215,12 +6161,12 @@ function obtenir_carte(carte_id) {
         case 182:
             carte.nom = "Aquomancien";
             carte.familles.push("Ondin");
-            carte.cout[0] = 6;
-            carte.cout[2] = 5;
+            carte.cout[0] = 7;
+            carte.cout[2] = 6;
             carte.vente[0] = 3;
-            carte.vente[2] = 2;
-            carte.attaque = 2;
-            carte.vie_max = carte.vie = 2;
+            carte.vente[2] = 3;
+            carte.attaque = 3;
+            carte.vie_max = carte.vie = 3;
             carte.action_max = 1;
             carte.equipement_max = 1;
             carte.texte = function () {
@@ -6233,12 +6179,12 @@ function obtenir_carte(carte_id) {
         case 183:
             carte.nom = "Électromancien";
             carte.familles.push("Satyre");
-            carte.cout[0] = 5;
-            carte.cout[6] = 4;
+            carte.cout[0] = 6;
+            carte.cout[6] = 5;
             carte.vente[0] = 3;
             carte.vente[6] = 2;
-            carte.attaque = 2;
-            carte.vie_max = carte.vie = 2;
+            carte.attaque = 3;
+            carte.vie_max = carte.vie = 3;
             carte.action_max = 1;
             carte.equipement_max = 1;
             carte.texte = function () {
@@ -6263,12 +6209,12 @@ function obtenir_carte(carte_id) {
         case 184:
             carte.nom = "Phitomancien";
             carte.familles.push("Elfe");
-            carte.cout[0] = 6;
-            carte.cout[3] = 5;
+            carte.cout[0] = 7;
+            carte.cout[3] = 6;
             carte.vente[0] = 3;
-            carte.vente[3] = 2;
-            carte.attaque = 2;
-            carte.vie_max = carte.vie = 2;
+            carte.vente[3] = 3;
+            carte.attaque = 3;
+            carte.vie_max = carte.vie = 3;
             carte.action_max = 1;
             carte.equipement_max = 1;
             carte.texte = function () {
@@ -6288,12 +6234,12 @@ function obtenir_carte(carte_id) {
         case 185:
             carte.nom = "Géomancien";
             carte.familles.push("Nain");
-            carte.cout[0] = 8;
-            carte.cout[4] = 7;
+            carte.cout[0] = 9;
+            carte.cout[4] = 8;
             carte.vente[0] = 4;
-            carte.vente[4] = 3;
-            carte.attaque = 2;
-            carte.vie_max = carte.vie = 2;
+            carte.vente[4] = 4;
+            carte.attaque = 3;
+            carte.vie_max = carte.vie = 3;
             carte.action_max = 1;
             carte.equipement_max = 1;
             carte.texte = function () {
@@ -6314,12 +6260,12 @@ function obtenir_carte(carte_id) {
         case 186:
             carte.nom = "Aéromancien";
             carte.familles.push("Céleste");
-            carte.cout[0] = 6;
-            carte.cout[5] = 5;
+            carte.cout[0] = 7;
+            carte.cout[5] = 6;
             carte.vente[0] = 3;
-            carte.vente[5] = 2;
-            carte.attaque = 2;
-            carte.vie_max = carte.vie = 2;
+            carte.vente[5] = 3;
+            carte.attaque = 3;
+            carte.vie_max = carte.vie = 3;
             carte.action_max = 1;
             carte.equipement_max = 1;
             carte.texte = function () {
@@ -6335,12 +6281,12 @@ function obtenir_carte(carte_id) {
         case 187:
             carte.nom = "Métalomancien";
             carte.familles.push("Gnome");
-            carte.cout[0] = 6;
-            carte.cout[7] = 5;
+            carte.cout[0] = 7;
+            carte.cout[7] = 6;
             carte.vente[0] = 3;
-            carte.vente[7] = 2;
-            carte.attaque = 2;
-            carte.vie_max = carte.vie = 2;
+            carte.vente[7] = 3;
+            carte.attaque = 3;
+            carte.vie_max = carte.vie = 3;
             carte.action_max = 1;
             carte.equipement_max = 1;
             carte.texte = function () {
@@ -6353,12 +6299,12 @@ function obtenir_carte(carte_id) {
         case 188:
             carte.nom = "Arcanomencien";
             carte.familles.push("Kalashtar");
-            carte.cout[0] = 6;
-            carte.cout[8] = 5;
+            carte.cout[0] = 7;
+            carte.cout[8] = 6;
             carte.vente[0] = 3;
-            carte.vente[8] = 2;
-            carte.attaque = 2;
-            carte.vie_max = carte.vie = 2;
+            carte.vente[8] = 3;
+            carte.attaque = 3;
+            carte.vie_max = carte.vie = 3;
             carte.action_max = 1;
             carte.equipement_max = 1;
             carte.texte = function () {
@@ -6381,12 +6327,12 @@ function obtenir_carte(carte_id) {
         case 189:
             carte.nom = "Luxomencien";
             carte.familles.push("Aasimar");
-            carte.cout[0] = 6;
-            carte.cout[10] = 5;
+            carte.cout[0] = 7;
+            carte.cout[10] = 6;
             carte.vente[0] = 3;
-            carte.vente[10] = 2;
-            carte.attaque = 2;
-            carte.vie_max = carte.vie = 2;
+            carte.vente[10] = 3;
+            carte.attaque = 3;
+            carte.vie_max = carte.vie = 3;
             carte.action_max = 1;
             carte.equipement_max = 1;
             carte.texte = function () {
@@ -6405,12 +6351,12 @@ function obtenir_carte(carte_id) {
         case 190:
             carte.nom = "Ombromancien";
             carte.familles.push("Drow");
-            carte.cout[0] = 5;
-            carte.cout[11] = 4;
-            carte.vente[0] = 2;
+            carte.cout[0] = 6;
+            carte.cout[11] = 5;
+            carte.vente[0] = 3;
             carte.vente[11] = 2;
-            carte.attaque = 2;
-            carte.vie_max = carte.vie = 2;
+            carte.attaque = 3;
+            carte.vie_max = carte.vie = 3;
             carte.action_max = 1;
             carte.equipement_max = 1;
             carte.texte = function () {
@@ -6435,16 +6381,16 @@ function obtenir_carte(carte_id) {
         case 191:
             carte.nom = "Illithid";
             carte.familles.push("Illithid");
-            carte.cout[0] = 10;
-            carte.cout[8] = 9;
-            carte.vente[0] = 5;
-            carte.vente[8] = 4;
-            carte.attaque = 8;
-            carte.vie_max = carte.vie = 8;
+            carte.cout[0] = 20;
+            carte.cout[8] = 19;
+            carte.vente[0] = 10;
+            carte.vente[8] = 9;
+            carte.attaque = 10;
+            carte.vie_max = carte.vie = 10;
             carte.action_max = 1;
             carte.equipement_max = 1;
             carte.texte = function () {
-                return "Quand posé : Place une Créature adverse sur le terrain dont la vie est de 5 ou moins sur le terrain allié.";
+                return "Quand posé : Place une Créature adverse sur le terrain dont la vie est de 10 ou moins sur le terrain allié.";
             }
             carte.effet_pose = function (step, cible) {
                 if (carte.camp == "joueur") {
@@ -6452,7 +6398,7 @@ function obtenir_carte(carte_id) {
                         case 1:
                             let verifier = false;
                             for (let n = 0; n < Jeu.adverse.terrain.length; n++) {
-                                if (Jeu.adverse.terrain[n].vie <= 5 && Jeu.adverse.terrain[n].type == "Créature" && !Jeu.adverse.terrain[n].camouflage) {
+                                if (Jeu.adverse.terrain[n].vie <= 10 && Jeu.adverse.terrain[n].type == "Créature" && !Jeu.adverse.terrain[n].camouflage) {
                                     verifier = true;
                                 }
                             }
@@ -6511,17 +6457,17 @@ function obtenir_carte(carte_id) {
                     deplacer(carte, "adverse", "terrain");
                     let verifier = false;
                     for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
-                        if (Jeu.joueur.terrain[n].vie <= 5 && Jeu.joueur.terrain[n].type == "Créature" && (!Jeu.joueur.terrain[n].camouflage || Jeu.joueur.terrain[n].silence)) {
+                        if (Jeu.joueur.terrain[n].vie <= 10 && Jeu.joueur.terrain[n].type == "Créature" && (!Jeu.joueur.terrain[n].camouflage || Jeu.joueur.terrain[n].silence)) {
                             verifier = true;
                         }
                     }
                     if (verifier && !statistique(carte, "silence")) {
                         let best = 0;
-                        while (Jeu.joueur.terrain[best].type != "Créature" && Jeu.joueur.terrain[best].vie <= 5 && (!Jeu.joueur.terrain[n].camouflage || Jeu.joueur.terrain[n].silence)) {
+                        while (Jeu.joueur.terrain[best].type != "Créature" && Jeu.joueur.terrain[best].vie <= 10 && (!Jeu.joueur.terrain[n].camouflage || Jeu.joueur.terrain[n].silence)) {
                             best++;
                         }
                         for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
-                            if (Jeu.joueur.terrain[n].vie > Jeu.joueur.terrain[best].vie && Jeu.joueur.terrain[best].vie <= 5 && Jeu.joueur.terrain[best].type == "Créature" && (!Jeu.joueur.terrain[n].camouflage || Jeu.joueur.terrain[n].silence)) {
+                            if (Jeu.joueur.terrain[n].vie > Jeu.joueur.terrain[best].vie && Jeu.joueur.terrain[best].vie <= 10 && Jeu.joueur.terrain[best].type == "Créature" && (!Jeu.joueur.terrain[n].camouflage || Jeu.joueur.terrain[n].silence)) {
                                 best = n;
                             }
                         }
@@ -6797,25 +6743,25 @@ function obtenir_carte(carte_id) {
             break;
         case 205:
             carte.nom = "Squelette mage";
-            carte.familles.push("Mort-vivant", "Squelette");
-            carte.cout[0] = 2;
-            carte.cout[9] = 2;
-            carte.vente[0] = 1;
-            carte.vente[9] = 1;
-            carte.attaque = 2;
+            carte.familles.push("Mort-vivant", "Squelette", "Mage");
+            carte.cout[0] = 5;
+            carte.cout[9] = 4;
+            carte.vente[0] = 2;
+            carte.vente[9] = 2;
+            carte.attaque = 5;
             carte.vie_max = carte.vie = 1;
             carte.action_max = 1;
             carte.equipement_max = 1;
-            carte.sorcellerie = 1;
+            carte.sorcellerie = 2;
             break;
         case 206:
             carte.nom = "Archer squelette";
             carte.familles.push("Mort-vivant", "Squelette");
-            carte.cout[0] = 2;
-            carte.cout[9] = 2;
-            carte.vente[0] = 1;
+            carte.cout[0] = 3;
+            carte.cout[9] = 3;
+            carte.vente[0] = 2;
             carte.vente[9] = 1;
-            carte.attaque = 3;
+            carte.attaque = 5;
             carte.vie_max = carte.vie = 1;
             carte.action_max = 1;
             carte.equipement_max = 1;
@@ -6824,10 +6770,10 @@ function obtenir_carte(carte_id) {
         case 207:
             carte.nom = "Soldat";
             carte.familles.push("Humain");
-            carte.cout[0] = 5;
-            carte.vente[0] = 2;
-            carte.attaque = 3;
-            carte.vie_max = carte.vie = 3;
+            carte.cout[0] = 10;
+            carte.vente[0] = 5;
+            carte.attaque = 5;
+            carte.vie_max = carte.vie = 5;
             carte.action_max = 1;
             carte.equipement_max = 1;
             break;
@@ -6835,14 +6781,14 @@ function obtenir_carte(carte_id) {
             carte.nom = "Liche";
             carte.type = "Créature";
             carte.familles.push("Mort-vivant", "Liche");
-            carte.cout[0] = 11;
-            carte.cout[8] = 4;
-            carte.cout[9] = 4;
-            carte.vente[0] = 5;
-            carte.vente[8] = 2;
-            carte.vente[9] = 2;
-            carte.attaque = 10;
-            carte.vie_max = carte.vie = 10;
+            carte.cout[0] = 19;
+            carte.cout[8] = 10;
+            carte.cout[9] = 10;
+            carte.vente[0] = 9;
+            carte.vente[8] = 5;
+            carte.vente[9] = 5;
+            carte.attaque = 20;
+            carte.vie_max = carte.vie = 20;
             carte.action_max = 1;
             carte.equipement_max = 1;
             carte.texte = function () {
@@ -7168,10 +7114,10 @@ function obtenir_carte(carte_id) {
         case 212:
             carte.nom = "Fortification";
             carte.type = "Action";
-            carte.cout[0] = 10;
-            carte.vente[0] = 5;
+            carte.cout[0] = 14;
+            carte.vente[0] = 7;
             carte.texte = function () {
-                return "Donne 2 défense et 3 vie à un Bâtiment allié sur le terrain.";
+                return "Donne 2 défense et 5 vie à un Bâtiment allié sur le terrain.";
             }
             carte.effet_pose = function (step, cible) {
                 if (carte.camp == "joueur") {
@@ -7212,8 +7158,8 @@ function obtenir_carte(carte_id) {
                             break;
                         case 2:
                             Jeu.joueur.terrain[cible].defense += 2;
-                            Jeu.joueur.terrain[cible].vie += 3;
-                            Jeu.joueur.terrain[cible].vie_max += 3;
+                            Jeu.joueur.terrain[cible].vie += 5;
+                            Jeu.joueur.terrain[cible].vie_max += 5;
                             deplacer(carte, "joueur", "defausse");
                             effet_pose(carte);
                             menu();
@@ -7227,8 +7173,8 @@ function obtenir_carte(carte_id) {
                             best++;
                         }
                         Jeu.adverse.terrain[best].defense += 2;
-                        Jeu.adverse.terrain[best].vie += 3;
-                        Jeu.adverse.terrain[best].vie_max += 3;
+                        Jeu.adverse.terrain[best].vie += 5;
+                        Jeu.adverse.terrain[best].vie_max += 5;
                         deplacer(carte, "adverse", "defausse");
                         effet_pose(carte);
                         return true;
@@ -7309,10 +7255,10 @@ function obtenir_carte(carte_id) {
             carte.nom = "Grande faucheuse";
             carte.type = "Créature";
             carte.familles.push("Faucheuse");
-            carte.cout[0] = 15;
-            carte.cout[9] = 15;
-            carte.vente[0] = 8;
-            carte.vente[9] = 7;
+            carte.cout[0] = 25;
+            carte.cout[9] = 25;
+            carte.vente[0] = 13;
+            carte.vente[9] = 12;
             carte.attaque = 1;
             carte.vie_max = carte.vie = 10;
             carte.action_max = 1;
@@ -7322,10 +7268,10 @@ function obtenir_carte(carte_id) {
         case 218:
             carte.nom = "Fermier";
             carte.familles.push("Humain");
-            carte.cout[0] = 5;
-            carte.vente[0] = 2;
-            carte.attaque = 2;
-            carte.vie_max = carte.vie = 2;
+            carte.cout[0] = 7;
+            carte.vente[0] = 3;
+            carte.attaque = 3;
+            carte.vie_max = carte.vie = 3;
             carte.action_max = 1;
             carte.equipement_max = 1;
             carte.texte = function () {
@@ -7338,9 +7284,9 @@ function obtenir_carte(carte_id) {
         case 219:
             carte.nom = "Ferme";
             carte.type = "Bâtiment";
-            carte.cout[0] = 9;
-            carte.vente[0] = 1;
-            carte.vie_max = carte.vie = 4;
+            carte.cout[0] = 15;
+            carte.vente[0] = 7;
+            carte.vie_max = carte.vie = 10;
             carte.equipement_max = 1;
             carte.texte = function () {
                 return "Au début de la phase de préparation : Donne 3 Or.";
@@ -8295,12 +8241,12 @@ function obtenir_carte(carte_id) {
         case 232:
             carte.nom = "Capitaine pirate";
             carte.familles.push("Humain", "Pirate");
-            carte.cout[0] = 13;
-            carte.cout[2] = 13;
-            carte.vente[0] = 7;
-            carte.vente[2] = 6;
-            carte.attaque = 2;
-            carte.vie_max = carte.vie = 2;
+            carte.cout[0] = 17;
+            carte.cout[2] = 16;
+            carte.vente[0] = 8;
+            carte.vente[2] = 8;
+            carte.attaque = 5;
+            carte.vie_max = carte.vie = 5;
             carte.action_max = 1;
             carte.equipement_max = 1;
             carte.texte = function () {
@@ -8337,10 +8283,10 @@ function obtenir_carte(carte_id) {
         case 234:
             carte.nom = "Messager";
             carte.familles.push("Humain");
-            carte.cout[0] = 5;
-            carte.vente[0] = 2;
-            carte.attaque = 2;
-            carte.vie_max = carte.vie = 2;
+            carte.cout[0] = 7;
+            carte.vente[0] = 3;
+            carte.attaque = 3;
+            carte.vie_max = carte.vie = 3;
             carte.action_max = 1;
             carte.equipement_max = 1;
             carte.texte = function () {
@@ -8719,12 +8665,13 @@ function obtenir_carte(carte_id) {
             carte.type = "Créature";
             carte.familles.push("Démon");
             carte.cout[0] = 3;
-            carte.cout[1] = 1;
-            carte.cout[9] = 1;
+            carte.cout[1] = 2;
+            carte.cout[9] = 2;
+            carte.vente[0] = 1;
             carte.vente[1] = 1;
             carte.vente[9] = 1;
-            carte.attaque = 4;
-            carte.vie_max = carte.vie = 4;
+            carte.attaque = 5;
+            carte.vie_max = carte.vie = 5;
             carte.action_max = 1;
             carte.equipement_max = 1;
             carte.texte = function () {
@@ -8952,14 +8899,14 @@ function obtenir_carte(carte_id) {
         case 244:
             carte.nom = "Golem de lave";
             carte.familles.push("Golem");
-            carte.cout[0] = 12;
-            carte.cout[1] = 5;
-            carte.cout[4] = 5;
-            carte.vente[0] = 5;
-            carte.vente[1] = 3;
-            carte.vente[4] = 3;
-            carte.attaque = 4;
-            carte.defense = 3;
+            carte.cout[0] = 20;
+            carte.cout[1] = 10;
+            carte.cout[4] = 10;
+            carte.vente[0] = 10;
+            carte.vente[1] = 5;
+            carte.vente[4] = 5;
+            carte.attaque = 10;
+            carte.defense = 10;
             carte.vie_max = carte.vie = 10;
             carte.action_max = 1;
             carte.equipement_max = 1;
@@ -9040,11 +8987,11 @@ function obtenir_carte(carte_id) {
             carte.nom = "Navire marchand";
             carte.type = "Bâtiment";
             carte.familles.push("Bateau");
-            carte.cout[0] = 6;
-            carte.cout[2] = 6;
-            carte.vente[0] = 3;
-            carte.vente[2] = 3;
-            carte.vie_max = carte.vie = 4;
+            carte.cout[0] = 9;
+            carte.cout[2] = 9;
+            carte.vente[0] = 5;
+            carte.vente[2] = 4;
+            carte.vie_max = carte.vie = 10;
             carte.action_max = 1;
             carte.mobile = true;
             carte.texte = function () {
@@ -9058,11 +9005,11 @@ function obtenir_carte(carte_id) {
             carte.nom = "Bateau de transport";
             carte.type = "Bâtiment";
             carte.familles.push("Bateau");
-            carte.cout[0] = 4;
-            carte.cout[2] = 4;
-            carte.vente[0] = 2;
-            carte.vente[2] = 2;
-            carte.vie_max = carte.vie = 4;
+            carte.cout[0] = 7;
+            carte.cout[2] = 7;
+            carte.vente[0] = 4;
+            carte.vente[2] = 3;
+            carte.vie_max = carte.vie = 10;
             carte.action_max = 1;
             carte.mobile = true;
             carte.texte = function () {
@@ -9402,7 +9349,9 @@ function obtenir_carte(carte_id) {
             carte.nom = "Oeuf de faucon";
             carte.type = "Bâtiment";
             carte.familles.push("Oiseau", "Oeuf");
+            carte.cout[0] = 2;
             carte.cout[5] = 1;
+            carte.vente[0] = 1;
             carte.vie_max = carte.vie = 1;
             carte.texte = function () {
                 return "Quand arrive sur le terrain : Lance un décompte de 1.<br/>Quand le décompte de cette carte est écoulé : Se détruit et crée " + effet_carte_voir_id(119, carte) + " sur le terrain.";
@@ -9428,9 +9377,11 @@ function obtenir_carte(carte_id) {
             carte.nom = "Moineau";
             carte.type = "Créature";
             carte.familles.push("Oiseau");
+            carte.cout[0] = 1;
             carte.cout[5] = 1;
+            carte.vente[0] = 1;
             carte.attaque = 1;
-            carte.vie_max = carte.vie = 1;
+            carte.vie_max = carte.vie = 2;
             carte.action_max = 1;
             carte.equipement_max = 1;
             break;
@@ -9438,7 +9389,10 @@ function obtenir_carte(carte_id) {
             carte.nom = "Oeufs de moineau";
             carte.type = "Bâtiment";
             carte.familles.push("Oiseau", "Oeuf");
-            carte.cout[5] = 1;
+            carte.cout[0] = 2;
+            carte.cout[5] = 2;
+            carte.vente[0] = 1;
+            carte.vente[5] = 1;
             carte.vie_max = carte.vie = 1;
             carte.texte = function () {
                 return "Quand arrive sur le terrain : Lance un décompte de 1.<br/>Quand le décompte de cette carte est écoulé : Se détruit et crée 3 " + effet_carte_voir_id(254, carte) + " sur le terrain.";
@@ -9856,10 +9810,10 @@ function obtenir_carte(carte_id) {
         case 261:
             carte.nom = "Espion";
             carte.familles.push("Humain");
-            carte.cout[0] = 4;
-            carte.vente[0] = 2;
-            carte.attaque = 2;
-            carte.vie_max = carte.vie = 2;
+            carte.cout[0] = 6;
+            carte.vente[0] = 3;
+            carte.attaque = 3;
+            carte.vie_max = carte.vie = 3;
             carte.action_max = 1;
             carte.equipement_max = 1;
             carte.texte = function () {
@@ -9949,12 +9903,12 @@ function obtenir_carte(carte_id) {
         case 262:
             carte.nom = "Voyante";
             carte.familles.push("Kalashtar");
-            carte.cout[0] = 2;
-            carte.cout[8] = 2;
-            carte.vente[0] = 1;
+            carte.cout[0] = 3;
+            carte.cout[8] = 3;
+            carte.vente[0] = 2;
             carte.vente[8] = 1;
-            carte.attaque = 2;
-            carte.vie_max = carte.vie = 2;
+            carte.attaque = 3;
+            carte.vie_max = carte.vie = 3;
             carte.action_max = 1;
             carte.equipement_max = 1;
             carte.texte = function () {
@@ -10304,10 +10258,10 @@ function obtenir_carte(carte_id) {
         case 270:
             carte.nom = "Voleur";
             carte.familles.push("Humain");
-            carte.cout[0] = 5;
-            carte.vente[0] = 2;
-            carte.attaque = 2;
-            carte.vie_max = carte.vie = 2;
+            carte.cout[0] = 7;
+            carte.vente[0] = 3;
+            carte.attaque = 3;
+            carte.vie_max = carte.vie = 3;
             carte.action_max = 1;
             carte.equipement_max = 1;
             carte.texte = function () {
@@ -10381,10 +10335,10 @@ function obtenir_carte(carte_id) {
         case 274:
             carte.nom = "Banquier";
             carte.familles.push("Humain");
-            carte.cout[0] = 9;
-            carte.vente[0] = 4;
-            carte.attaque = 2;
-            carte.vie_max = carte.vie = 2;
+            carte.cout[0] = 11;
+            carte.vente[0] = 5;
+            carte.attaque = 3;
+            carte.vie_max = carte.vie = 3;
             carte.action_max = 1;
             carte.equipement_max = 1;
             carte.texte = function () {
@@ -10397,9 +10351,9 @@ function obtenir_carte(carte_id) {
         case 275:
             carte.nom = "Banque";
             carte.type = "Bâtiment";
-            carte.cout[0] = 21;
-            carte.vente[0] = 10;
-            carte.vie_max = carte.vie = 4;
+            carte.cout[0] = 27;
+            carte.vente[0] = 13;
+            carte.vie_max = carte.vie = 10;
             carte.equipement_max = 1;
             carte.texte = function () {
                 return "Au début de la phase de préparation : Donne 3 Or max.";
@@ -10762,8 +10716,8 @@ function obtenir_carte(carte_id) {
             carte.nom = "Éclosion";
             carte.type = "Action";
             carte.familles.push("Oeuf");
-            carte.cout[0] = 6;
-            carte.vente[0] = 3;
+            carte.cout[0] = 10;
+            carte.vente[0] = 5;
             carte.texte = function () {
                 return "Met le décompte d'un Bâtiment allié Oeuf sur le terrain à 0.";
             }
@@ -11059,10 +11013,10 @@ function obtenir_carte(carte_id) {
         case 287:
             carte.nom = "Alchimiste";
             carte.familles.push("Humain");
-            carte.cout[0] = 6;
-            carte.vente[0] = 3;
-            carte.attaque = 2;
-            carte.vie_max = carte.vie = 2;
+            carte.cout[0] = 8;
+            carte.vente[0] = 4;
+            carte.attaque = 3;
+            carte.vie_max = carte.vie = 3;
             carte.action_max = 1;
             carte.equipement_max = 1;
             carte.texte = function () {
@@ -11100,9 +11054,9 @@ function obtenir_carte(carte_id) {
             carte.nom = "Vendeur";
             carte.type = "Créature";
             carte.familles.push("Humain");
-            carte.cout[0] = 3;
-            carte.attaque = 2;
-            carte.vie_max = carte.vie = 2;
+            carte.cout[0] = 5;
+            carte.attaque = 3;
+            carte.vie_max = carte.vie = 3;
             carte.action_max = 1;
             carte.equipement_max = 1;
             carte.texte = function () {
@@ -11116,9 +11070,9 @@ function obtenir_carte(carte_id) {
             carte.nom = "Vendeur de potion";
             carte.type = "Créature";
             carte.familles.push("Humain");
-            carte.cout[0] = 4;
-            carte.attaque = 2;
-            carte.vie_max = carte.vie = 2;
+            carte.cout[0] = 6;
+            carte.attaque = 3;
+            carte.vie_max = carte.vie = 3;
             carte.action_max = 1;
             carte.equipement_max = 1;
             carte.texte = function () {
@@ -13537,15 +13491,15 @@ function obtenir_carte(carte_id) {
             carte.nom = "Forgemage";
             carte.type = "Créature";
             carte.familles.push("Gnome", "Mage");
-            carte.cout[0] = 4;
-            carte.cout[7] = 4;
-            carte.vente[0] = 2;
-            carte.vente[7] = 2;
-            carte.attaque = 2;
-            carte.vie_max = carte.vie = 2;
+            carte.cout[0] = 6;
+            carte.cout[7] = 6;
+            carte.vente[0] = 3;
+            carte.vente[7] = 3;
+            carte.attaque = 3;
+            carte.vie_max = carte.vie = 3;
             carte.action_max = 1;
-            carte.sorcellerie = 1;
             carte.equipement_max = 1;
+            carte.sorcellerie = 2;
             carte.texte = function () {
                 return "Quand posé : Pioche un Objet Équipement.";
             }
@@ -13580,12 +13534,12 @@ function obtenir_carte(carte_id) {
         case 326:
             carte.nom = "Hyène";
             carte.familles.push("Bête");
-            carte.cout[0] = 5;
-            carte.cout[9] = 4;
-            carte.vente[0] = 2;
+            carte.cout[0] = 6;
+            carte.cout[9] = 5;
+            carte.vente[0] = 3;
             carte.vente[9] = 2;
-            carte.attaque = 2;
-            carte.vie_max = carte.vie = 2;
+            carte.attaque = 3;
+            carte.vie_max = carte.vie = 3;
             carte.action_max = 1;
             carte.equipement_max = 1;
             carte.texte = function () {
@@ -13610,14 +13564,14 @@ function obtenir_carte(carte_id) {
         case 327:
             carte.nom = "Vautour";
             carte.familles.push("Oiseau");
-            carte.cout[0] = 3;
+            carte.cout[0] = 5;
             carte.cout[5] = 2;
             carte.cout[9] = 2;
-            carte.vente[0] = 1;
+            carte.vente[0] = 2;
             carte.vente[5] = 1;
             carte.vente[9] = 1;
-            carte.attaque = 2;
-            carte.vie_max = carte.vie = 2;
+            carte.attaque = 3;
+            carte.vie_max = carte.vie = 3;
             carte.action_max = 1;
             carte.equipement_max = 1;
             carte.texte = function () {
@@ -13642,10 +13596,10 @@ function obtenir_carte(carte_id) {
         case 328:
             carte.nom = "Chimère";
             carte.familles.push("Bête", "Oiseau", "Reptile");
-            carte.cout[0] = 35;
-            carte.vente[0] = 17;
-            carte.attaque = 10;
-            carte.vie_max = carte.vie = 10;
+            carte.cout[0] = 55;
+            carte.vente[0] = 27;
+            carte.attaque = 20;
+            carte.vie_max = carte.vie = 20;
             carte.action_max = 1;
             carte.equipement_max = 1;
             carte.texte = function () {
@@ -14062,10 +14016,10 @@ function obtenir_carte(carte_id) {
             carte.nom = "Doubles lames foudroyantes";
             carte.type = "Objet";
             carte.familles.push("Équipement", "Arme");
-            carte.cout[0] = 5;
-            carte.cout[6] = 5;
-            carte.vente[0] = 3;
-            carte.vente[6] = 2;
+            carte.cout[0] = 8;
+            carte.cout[6] = 7;
+            carte.vente[0] = 4;
+            carte.vente[6] = 3;
             carte.stat_equipement.attaque = 2;
             carte.stat_equipement.action_max = 1;
             carte.stat_equipement.rapidite = true;
@@ -16682,17 +16636,137 @@ function obtenir_carte(carte_id) {
             carte.nom = "Mur d'enceinte";
             carte.type = "Bâtiment";
             carte.familles.push("Mur");
-            carte.cout[0] = 10;
-            carte.vente[0] = 5;
-            carte.vie_max = carte.vie = 11;
+            carte.cout[0] = 19;
+            carte.vente[0] = 9;
+            carte.vie_max = carte.vie = 20;
             break;
         case 373:
             carte.nom = "Muraille";
             carte.type = "Bâtiment";
             carte.familles.push("Mur");
-            carte.cout[0] = 20;
-            carte.vente[0] = 10;
-            carte.vie_max = carte.vie = 21;
+            carte.cout[0] = 39;
+            carte.vente[0] = 19;
+            carte.vie_max = carte.vie = 40;
+            break;
+        case 374:
+            carte.nom = "Apprenti mage";
+            carte.type = "Créature";
+            carte.familles.push("Humain", "Mage");
+            carte.cout[0] = 7;
+            carte.vente[0] = 3;
+            carte.attaque = 3;
+            carte.vie_max = carte.vie = 3;
+            carte.action_max = 1;
+            carte.sorcellerie = 1;
+            carte.equipement_max = 1;
+            break;
+        case 375:
+            carte.nom = "Architecte nain";
+            carte.familles.push("Nain");
+            carte.cout[0] = 4;
+            carte.cout[4] = 4;
+            carte.vente[0] = 2;
+            carte.vente[4] = 2;
+            carte.attaque = 3;
+            carte.vie_max = carte.vie = 3;
+            carte.action_max = 1;
+            carte.equipement_max = 1;
+            carte.texte = function () {
+                return "Quand posé : Pioche un Bâtiment.";
+            }
+            carte.effet_pose = function () {
+                if (carte.camp == "joueur") {
+                    if (!statistique(carte, "silence")) {
+                        let verifier = false;
+                        for (let n = 0; n < Jeu.NOMBRE_CARTE; n++) {
+                            if (Jeu.joueur.regions[Jeu.region_active].boutique_generer(obtenir_carte(n)) && obtenir_carte(n).type == "Bâtiment") {
+                                verifier = true;
+                            }
+                        }
+                        if (verifier) {
+                            let nouvelle_carte = boutique_generer();
+                            while (nouvelle_carte.type != "Bâtiment") {
+                                nouvelle_carte = boutique_generer();
+                            }
+                            pioche("joueur", nouvelle_carte);
+                        }
+                    }
+                    deplacer(carte, "joueur", "terrain");
+                    effet_pose(carte);
+                    menu();
+                }
+                else {
+                    deplacer(carte, "adverse", "terrain");
+                    effet_pose(carte);
+                    return true;
+                }
+            }
+            break;
+        case 376:
+            carte.nom = "Messager céleste";
+            carte.familles.push("Céleste");
+            carte.cout[0] = 4;
+            carte.cout[5] = 3;
+            carte.vente[0] = 2;
+            carte.vente[5] = 1;
+            carte.attaque = 3;
+            carte.vie_max = carte.vie = 3;
+            carte.action_max = 1;
+            carte.equipement_max = 1;
+            carte.texte = function () {
+                return "Quand posé : Pioche 1 carte.";
+            }
+            carte.effet_pose = function () {
+                if (carte.camp == "joueur") {
+                    pioche("joueur");
+                }
+                deplacer(carte, carte.camp, "terrain");
+                effet_pose(carte);
+                menu();
+                return true;
+            }
+            break;
+        case 377:
+            carte.nom = "Forgeron gnome";
+            carte.familles.push("Gnome");
+            carte.cout[0] = 4;
+            carte.cout[7] = 4;
+            carte.vente[0] = 2;
+            carte.vente[7] = 2;
+            carte.attaque = 3;
+            carte.vie_max = carte.vie = 3;
+            carte.action_max = 1;
+            carte.equipement_max = 1;
+            carte.texte = function () {
+                return "Quand posé : Pioche un Objet Équipement.";
+            }
+            carte.effet_pose = function () {
+                if (carte.camp == "joueur") {
+                    if (!statistique(carte, "silence")) {
+                        let verifier = false;
+                        for (let n = 0; n < Jeu.NOMBRE_CARTE; n++) {
+                            if (Jeu.joueur.regions[Jeu.region_active].boutique_generer(obtenir_carte(n)) && obtenir_carte(n).familles.includes("Équipement")) {
+                                verifier = true;
+                            }
+                        }
+                        if (verifier) {
+                            let nouvelle_carte = boutique_generer();
+                            while (!nouvelle_carte.familles.includes("Équipement")) {
+                                nouvelle_carte = boutique_generer();
+                            }
+                            pioche("joueur", nouvelle_carte);
+                        }
+                    }
+                    deplacer(carte, "joueur", "terrain");
+                    effet_pose(carte);
+                    menu();
+                }
+                else {
+                    deplacer(carte, "adverse", "terrain");
+                    effet_pose(carte);
+                    return true;
+                }
+            }
             break;
     }
     return carte;
