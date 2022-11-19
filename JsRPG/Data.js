@@ -123,7 +123,7 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher(carte.nom);
                                 saut();
-                                afficher(carte.texte);
+                                afficher(carte.texte());
                                 saut(2);
                                 afficher("Choisissez une Créature alliée équipable sur le terrain : ");
                                 saut(2);
@@ -192,7 +192,7 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher(carte.nom);
                                 saut();
-                                afficher(carte.texte);
+                                afficher(carte.texte());
                                 saut(2);
                                 afficher("Choisissez une Créature alliée blessée sur le terrain : ");
                                 saut(2);
@@ -268,7 +268,7 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher(carte.nom);
                                 saut();
-                                afficher(carte.texte);
+                                afficher(carte.texte());
                                 saut(2);
                                 afficher("Choisissez une Créature alliée équipable sur le terrain : ");
                                 saut(2);
@@ -432,7 +432,7 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher(carte.nom);
                                 saut();
-                                afficher(carte.texte);
+                                afficher(carte.texte());
                                 saut(2);
                                 afficher("Choisissez une Unité adverse sur le terrain : ");
                                 saut(2);
@@ -519,7 +519,7 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher(carte.nom);
                                 saut();
-                                afficher(carte.texte);
+                                afficher(carte.texte());
                                 saut(2);
                                 afficher("Choisissez une Créature alliée blessée sur le terrain : ");
                                 saut(2);
@@ -678,7 +678,7 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher(carte.nom);
                                 saut();
-                                afficher(carte.texte);
+                                afficher(carte.texte());
                                 saut(2);
                                 afficher("Choisissez une Unité adverse sur le terrain : ");
                                 saut(2);
@@ -931,7 +931,7 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher(carte.nom);
                                 saut();
-                                afficher(carte.texte);
+                                afficher(carte.texte());
                                 saut(2);
                                 afficher("Choisissez une Unité adverse sur le terrain : ");
                                 saut(2);
@@ -1048,7 +1048,7 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher(carte.nom);
                                 saut();
-                                afficher(carte.texte);
+                                afficher(carte.texte());
                                 saut(2);
                                 afficher("Choisissez une Créature alliée équipable sur le terrain : ");
                                 saut(2);
@@ -1099,8 +1099,8 @@ function obtenir_carte(carte_id) {
         case 31:
             carte.nom = "Seconde chance";
             carte.type = "Action";
-            carte.cout[0] = 6;
-            carte.vente[0] = 3;
+            carte.cout[0] = 10;
+            carte.vente[0] = 5;
             carte.texte = function () {
                 return "Actualise la boutique alliée.";
             }
@@ -1209,7 +1209,7 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher(carte.nom);
                                 saut();
-                                afficher(carte.texte);
+                                afficher(carte.texte());
                                 saut(2);
                                 afficher("Choisissez une carte dans votre boutique : ");
                                 saut(2);
@@ -1336,7 +1336,7 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher(carte.nom);
                                 saut();
-                                afficher(carte.texte);
+                                afficher(carte.texte());
                                 saut(2);
                                 afficher("Choisissez une carte alliée dans la défausse : ");
                                 saut(2);
@@ -1464,7 +1464,7 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher(carte.nom);
                                 saut();
-                                afficher(carte.texte);
+                                afficher(carte.texte());
                                 saut(2);
                                 afficher("Choisissez une Créature adverse sur le terrain : ");
                                 saut(2);
@@ -1665,7 +1665,7 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher(carte.nom);
                                 saut();
-                                afficher(carte.texte);
+                                afficher(carte.texte());
                                 saut(2);
                                 afficher("Choisissez un effet : ");
                                 saut(2);
@@ -1812,7 +1812,7 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher(carte.nom);
                                 saut();
-                                afficher(carte.texte);
+                                afficher(carte.texte());
                                 saut(2);
                                 afficher("Choisissez une Créature alliée avec Poison sur le terrain : ");
                                 saut(2);
@@ -1948,7 +1948,7 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher(carte.nom);
                                 saut();
-                                afficher(carte.texte);
+                                afficher(carte.texte());
                                 saut(2);
                                 afficher("Choisissez une carte dans la boutique : ");
                                 saut(2);
@@ -2014,7 +2014,7 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher(carte.nom);
                                 saut();
-                                afficher(carte.texte);
+                                afficher(carte.texte());
                                 saut(2);
                                 afficher("Choisissez une Créature alliée sur le terrain : ");
                                 saut(2);
@@ -2143,7 +2143,7 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher(carte.nom);
                                 saut();
-                                afficher(carte.texte);
+                                afficher(carte.texte());
                                 saut(2);
                                 afficher("Choisissez un effet : ");
                                 saut(2);
@@ -2538,7 +2538,7 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher(carte.nom);
                                 saut();
-                                afficher(carte.texte);
+                                afficher(carte.texte());
                                 saut(2);
                                 afficher("Choisissez une Créature adverse sur le terrain : ");
                                 saut(2);
@@ -2654,7 +2654,7 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher(carte.nom);
                                 saut();
-                                afficher(carte.texte);
+                                afficher(carte.texte());
                                 saut(2);
                                 afficher("Choisissez une Créature adverse sur le terrain : ");
                                 saut(2);
@@ -2734,7 +2734,7 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher(carte.nom);
                                 saut();
-                                afficher(carte.texte);
+                                afficher(carte.texte());
                                 saut(2);
                                 afficher("Choisissez une Créature sur le terrain : ");
                                 saut(2);
@@ -2992,7 +2992,7 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher(carte.nom);
                                 saut();
-                                afficher(carte.texte);
+                                afficher(carte.texte());
                                 saut(2);
                                 afficher("Choisissez une Créature adverse sur le terrain : ");
                                 saut(2);
@@ -3070,7 +3070,7 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher(carte.nom);
                                 saut();
-                                afficher(carte.texte);
+                                afficher(carte.texte());
                                 saut(2);
                                 afficher("Choisissez une Créature alliée sur le terrain : ");
                                 saut(2);
@@ -3142,7 +3142,7 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher(carte.nom);
                                 saut();
-                                afficher(carte.texte);
+                                afficher(carte.texte());
                                 saut(2);
                                 afficher("Choisissez une Créature alliée sur le terrain : ");
                                 saut(2);
@@ -3699,7 +3699,7 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher(carte.nom);
                                 saut();
-                                afficher(carte.texte);
+                                afficher(carte.texte());
                                 saut(2);
                                 afficher("Choisissez une Créature alliée équipable sur le terrain : ");
                                 saut(2);
@@ -3770,7 +3770,7 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher(carte.nom);
                                 saut();
-                                afficher(carte.texte);
+                                afficher(carte.texte());
                                 saut(2);
                                 afficher("Choisissez une Créature alliée équipable sur le terrain : ");
                                 saut(2);
@@ -3841,7 +3841,7 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher(carte.nom);
                                 saut();
-                                afficher(carte.texte);
+                                afficher(carte.texte());
                                 saut(2);
                                 afficher("Choisissez une Créature alliée équipable sur le terrain : ");
                                 saut(2);
@@ -3912,7 +3912,7 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher(carte.nom);
                                 saut();
-                                afficher(carte.texte);
+                                afficher(carte.texte());
                                 saut(2);
                                 afficher("Choisissez une Créature alliée équipable sur le terrain : ");
                                 saut(2);
@@ -3982,7 +3982,7 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher(carte.nom);
                                 saut();
-                                afficher(carte.texte);
+                                afficher(carte.texte());
                                 saut(2);
                                 afficher("Choisissez une Créature alliée équipable sur le terrain : ");
                                 saut(2);
@@ -4179,7 +4179,7 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher(carte.nom);
                                 saut();
-                                afficher(carte.texte);
+                                afficher(carte.texte());
                                 saut(2);
                                 afficher("Choisissez une Unité adverse : ");
                                 saut(2);
@@ -4366,7 +4366,7 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher(carte.nom);
                                 saut();
-                                afficher(carte.texte);
+                                afficher(carte.texte());
                                 saut(2);
                                 afficher("Choisissez une Créature alliée équipable sur le terrain : ");
                                 saut(2);
@@ -4721,7 +4721,7 @@ function obtenir_carte(carte_id) {
                             saut(2);
                             afficher(carte.nom);
                             saut();
-                            afficher(carte.texte);
+                            afficher(carte.texte());
                             saut(2);
                             afficher("Choisissez une carte dans la boutique non-verrouillée : ");
                             saut(2);
@@ -4970,7 +4970,7 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher(carte.nom);
                                 saut();
-                                afficher(carte.texte);
+                                afficher(carte.texte());
                                 saut(2);
                                 afficher("Choisissez une Créature adverse sur le terrain : ");
                                 saut(2);
@@ -5094,7 +5094,7 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher(carte.nom);
                                 saut();
-                                afficher(carte.texte);
+                                afficher(carte.texte());
                                 saut(2);
                                 afficher("Choisissez une Créature adverse sur le terrain : ");
                                 saut(2);
@@ -5211,7 +5211,7 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher(carte.nom);
                                 saut();
-                                afficher(carte.texte);
+                                afficher(carte.texte());
                                 saut(2);
                                 afficher("Choisissez une Créature alliée sur le terrain : ");
                                 saut(2);
@@ -5299,7 +5299,7 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher(carte.nom);
                                 saut();
-                                afficher(carte.texte);
+                                afficher(carte.texte());
                                 saut(2);
                                 afficher("Choisissez une première Unité adverse sur le terrain : ");
                                 saut(2);
@@ -5338,7 +5338,7 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher(carte.nom);
                                 saut();
-                                afficher(carte.texte);
+                                afficher(carte.texte());
                                 saut(2);
                                 afficher("Choisissez une deuxième Unité adverse sur le terrain : ");
                                 saut(2);
@@ -5443,7 +5443,7 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher(carte.nom);
                                 saut();
-                                afficher(carte.texte);
+                                afficher(carte.texte());
                                 saut(2);
                                 afficher("Choisissez une Créature alliée dans la défausse : ");
                                 saut(2);
@@ -5507,7 +5507,7 @@ function obtenir_carte(carte_id) {
                             saut(2);
                             afficher(carte.nom);
                             saut();
-                            afficher(carte.texte);
+                            afficher(carte.texte());
                             saut(2);
                             afficher("Choisissez un effet : ");
                             saut(2);
@@ -5698,7 +5698,7 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher(carte.nom);
                                 saut();
-                                afficher(carte.texte);
+                                afficher(carte.texte());
                                 saut(2);
                                 afficher("Choisissez une Créature adverse sur le terrain : ");
                                 saut(2);
@@ -5737,7 +5737,7 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher(carte.nom);
                                 saut();
-                                afficher(carte.texte);
+                                afficher(carte.texte());
                                 saut(2);
                                 afficher("Choisissez une Créature alliée sur le terrain : ");
                                 saut(2);
@@ -5853,7 +5853,7 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher(carte.nom);
                                 saut();
-                                afficher(carte.texte);
+                                afficher(carte.texte());
                                 saut(2);
                                 afficher("Choisissez une Unité adverse sur le terrain : ");
                                 saut(2);
@@ -6409,7 +6409,7 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher(carte.nom);
                                 saut();
-                                afficher(carte.texte);
+                                afficher(carte.texte());
                                 saut(2);
                                 afficher("Choisissez une Créature adverse sur le terrain dont le coût total est de 4 ou moins : ");
                                 saut(2);
@@ -6500,7 +6500,7 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher(carte.nom);
                                 saut();
-                                afficher(carte.texte);
+                                afficher(carte.texte());
                                 saut(2);
                                 afficher("Choisissez une Créature alliée équipable sur le terrain : ");
                                 saut(2);
@@ -6805,7 +6805,7 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher(carte.nom);
                                 saut();
-                                afficher(carte.texte);
+                                afficher(carte.texte());
                                 saut(2);
                                 afficher("Choisissez une Créature alliée sur le terrain : ");
                                 saut(2);
@@ -6888,7 +6888,7 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher(carte.nom);
                                 saut();
-                                afficher(carte.texte);
+                                afficher(carte.texte());
                                 saut(2);
                                 afficher("Choisissez une Créature adverse sur le terrain : ");
                                 saut(2);
@@ -6971,7 +6971,7 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher(carte.nom);
                                 saut();
-                                afficher(carte.texte);
+                                afficher(carte.texte());
                                 saut(2);
                                 afficher("Choisissez une Créature adverse sur le terrain dont la vie est inférieure ou égale à 10 : ");
                                 saut(2);
@@ -7057,7 +7057,7 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher(carte.nom);
                                 saut();
-                                afficher(carte.texte);
+                                afficher(carte.texte());
                                 saut(2);
                                 afficher("Choisissez un Bâtiment allié blessé sur le terrain : ");
                                 saut(2);
@@ -7130,7 +7130,7 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher(carte.nom);
                                 saut();
-                                afficher(carte.texte);
+                                afficher(carte.texte());
                                 saut(2);
                                 afficher("Choisissez un Bâtiment allié sur le terrain : ");
                                 saut(2);
@@ -7316,7 +7316,7 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher(carte.nom);
                                 saut();
-                                afficher(carte.texte);
+                                afficher(carte.texte());
                                 saut(2);
                                 afficher("Choisissez une Créature alliée sur le terrain : ");
                                 saut(2);
@@ -7396,7 +7396,7 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher(carte.nom);
                                 saut();
-                                afficher(carte.texte);
+                                afficher(carte.texte());
                                 saut(2);
                                 afficher("Choisissez une Créature alliée sur le terrain : ");
                                 saut(2);
@@ -7480,7 +7480,7 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher(carte.nom);
                                 saut();
-                                afficher(carte.texte);
+                                afficher(carte.texte());
                                 saut(2);
                                 afficher("Choisissez une Créature alliée équipable sur le terrain : ");
                                 saut(2);
@@ -7551,7 +7551,7 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher(carte.nom);
                                 saut();
-                                afficher(carte.texte);
+                                afficher(carte.texte());
                                 saut(2);
                                 afficher("Choisissez une Créature alliée sur le terrain : ");
                                 saut(2);
@@ -7584,7 +7584,7 @@ function obtenir_carte(carte_id) {
                             saut(2);
                             afficher(carte.nom);
                             saut();
-                            afficher(carte.texte);
+                            afficher(carte.texte());
                             saut(2);
                             afficher("Choisissez une Unité adverse sur le terrain : ");
                             saut(2);
@@ -7670,7 +7670,7 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher(carte.nom);
                                 saut();
-                                afficher(carte.texte);
+                                afficher(carte.texte());
                                 saut(2);
                                 afficher("Choisissez une Créature alliée sur le terrain : ");
                                 saut(2);
@@ -7703,7 +7703,7 @@ function obtenir_carte(carte_id) {
                             saut(2);
                             afficher(carte.nom);
                             saut();
-                            afficher(carte.texte);
+                            afficher(carte.texte());
                             saut(2);
                             afficher("Choisissez une Unité adverse sur le terrain : ");
                             saut(2);
@@ -7789,7 +7789,7 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher(carte.nom);
                                 saut();
-                                afficher(carte.texte);
+                                afficher(carte.texte());
                                 saut(2);
                                 afficher("Choisissez une Créature alliée sur le terrain : ");
                                 saut(2);
@@ -7864,7 +7864,7 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher(carte.nom);
                                 saut();
-                                afficher(carte.texte);
+                                afficher(carte.texte());
                                 saut(2);
                                 afficher("Choisissez une Créature alliée avec Brûlure sur le terrain : ");
                                 saut(2);
@@ -7938,7 +7938,7 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher(carte.nom);
                                 saut();
-                                afficher(carte.texte);
+                                afficher(carte.texte());
                                 saut(2);
                                 afficher("Choisissez une Créature alliée avec Gel sur le terrain : ");
                                 saut(2);
@@ -8013,7 +8013,7 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher(carte.nom);
                                 saut();
-                                afficher(carte.texte);
+                                afficher(carte.texte());
                                 saut(2);
                                 afficher("Choisissez une Créature alliée avec Étourdissement sur le terrain : ");
                                 saut(2);
@@ -8086,7 +8086,7 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher(carte.nom);
                                 saut();
-                                afficher(carte.texte);
+                                afficher(carte.texte());
                                 saut(2);
                                 afficher("Choisissez une Créature alliée avec Pansement sur le terrain : ");
                                 saut(2);
@@ -8162,7 +8162,7 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher(carte.nom);
                                 saut();
-                                afficher(carte.texte);
+                                afficher(carte.texte());
                                 saut(2);
                                 afficher("Choisissez une Créature adverse sur le terrain : ");
                                 saut(2);
@@ -8224,9 +8224,9 @@ function obtenir_carte(carte_id) {
         case 231:
             carte.nom = "Caserne";
             carte.type = "Bâtiment";
-            carte.cout[0] = 23;
-            carte.vente[0] = 11;
-            carte.vie_max = carte.vie = 4;
+            carte.cout[0] = 50;
+            carte.vente[0] = 25;
+            carte.vie_max = carte.vie = 10;
             carte.action_max = 1;
             carte.mobile = true;
             carte.texte = function () {
@@ -8313,31 +8313,24 @@ function obtenir_carte(carte_id) {
                 return "Applique " + effet_talent_voir("Brûlure", carte, 2) + " à toutes les Unités adverses sur le terrain.";
             }
             carte.effet_pose = function () {
-                if (carte.camp == "joueur") {
-                    if (Jeu.adverse.terrain.length > 0) {
-                        for (let n = Jeu.adverse.terrain.length - 1; n >= 0; n--) {
-                            if (Jeu.adverse.terrain[n].brulure < 2) {
-                                Jeu.adverse.terrain[n].brulure = 2;
-                            }
-                        }
-                        deplacer(carte, "joueur", "defausse");
-                        effet_pose(carte);
-                        menu();
+                let verifier = false;
+                for (let n = 0; n < Jeu[camp_oppose(carte.camp)].terrain.length; n++) {
+                    if (Jeu[camp_oppose(carte.camp)].terrain[n].brulure < 2) {
+                        verifier = true;
                     }
                 }
-                else {
-                    if (Jeu.joueur.terrain.length > 0) {
-                        for (let n = Jeu.joueur.terrain.length - 1; n >= 0; n--) {
-                            if (Jeu.joueur.terrain[n].brulure < 2) {
-                                Jeu.joueur.terrain[n].brulure = 2;
-                            }
+                if (verifier) {
+                    for (let n = 0; n < Jeu[camp_oppose(carte.camp)].terrain.length; n++) {
+                        if (Jeu[camp_oppose(carte.camp)].terrain[n].brulure < 2) {
+                            Jeu[camp_oppose(carte.camp)].terrain[n].brulure = 2;
                         }
-                        deplacer(carte, "adverse", "defausse");
-                        effet_pose(carte);
-                        return true;
                     }
-                    return false;
+                    deplacer(carte, "joueur", "defausse");
+                    effet_pose(carte);
+                    menu();
+                    return true;
                 }
+                return false;
             }
             break;
         case 236:
@@ -8351,31 +8344,24 @@ function obtenir_carte(carte_id) {
                 return "Applique " + effet_talent_voir("Gel", carte, 1) + " à toutes les Unités adverses sur le terrain.";
             }
             carte.effet_pose = function () {
-                if (carte.camp == "joueur") {
-                    if (Jeu.adverse.terrain.length > 0) {
-                        for (let n = Jeu.adverse.terrain.length - 1; n >= 0; n--) {
-                            if (Jeu.adverse.terrain[n].gel < 1) {
-                                Jeu.adverse.terrain[n].gel = 1;
-                            }
-                        }
-                        deplacer(carte, "joueur", "defausse");
-                        effet_pose(carte);
-                        menu();
+                let verifier = false;
+                for (let n = 0; n < Jeu[camp_oppose(carte.camp)].terrain.length; n++) {
+                    if (Jeu[camp_oppose(carte.camp)].terrain[n].gel < 1) {
+                        verifier = true;
                     }
                 }
-                else {
-                    if (Jeu.joueur.terrain.length > 0) {
-                        for (let n = Jeu.joueur.terrain.length - 1; n >= 0; n--) {
-                            if (Jeu.joueur.terrain[n].gel < 1) {
-                                Jeu.joueur.terrain[n].gel = 1
-                            }
+                if (verifier) {
+                    for (let n = 0; n < Jeu[camp_oppose(carte.camp)].terrain.length; n++) {
+                        if (Jeu[camp_oppose(carte.camp)].terrain[n].gel < 1) {
+                            Jeu[camp_oppose(carte.camp)].terrain[n].gel = 1;
                         }
-                        deplacer(carte, "adverse", "defausse");
-                        effet_pose(carte);
-                        return true;
                     }
-                    return false;
+                    deplacer(carte, "joueur", "defausse");
+                    effet_pose(carte);
+                    menu();
+                    return true;
                 }
+                return false;
             }
             break;
         case 237:
@@ -8396,7 +8382,7 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher(carte.nom);
                                 saut();
-                                afficher(carte.texte);
+                                afficher(carte.texte());
                                 saut(2);
                                 afficher("Choisissez une Créature alliée sur le terrain : ");
                                 saut(2);
@@ -8539,7 +8525,7 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher(carte.nom);
                                 saut();
-                                afficher(carte.texte);
+                                afficher(carte.texte());
                                 saut(2);
                                 afficher("Choisissez une Créature alliée équipable sur le terrain : ");
                                 saut(2);
@@ -8609,7 +8595,7 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher(carte.nom);
                                 saut();
-                                afficher(carte.texte);
+                                afficher(carte.texte());
                                 saut(2);
                                 afficher("Choisissez une Créature alliée équipable sur le terrain : ");
                                 saut(2);
@@ -8724,7 +8710,7 @@ function obtenir_carte(carte_id) {
                             saut(2);
                             afficher(carte.nom);
                             saut();
-                            afficher(carte.texte);
+                            afficher(carte.texte());
                             saut(2);
                             afficher("Choisissez un effet : ");
                             saut(2);
@@ -8822,7 +8808,7 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher(carte.nom);
                                 saut();
-                                afficher(carte.texte);
+                                afficher(carte.texte());
                                 saut(2);
                                 afficher("Choisissez une Créature alliée dans la défausse : ");
                                 saut(2);
@@ -9043,7 +9029,7 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher(carte.nom);
                                 saut();
-                                afficher(carte.texte);
+                                afficher(carte.texte());
                                 saut(2);
                                 afficher("Choisissez une Créature alliée sur le terrain : ");
                                 saut(2);
@@ -9120,7 +9106,7 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher(carte.nom);
                                 saut();
-                                afficher(carte.texte);
+                                afficher(carte.texte());
                                 saut(2);
                                 afficher("Choisissez une Créature alliée sur le terrain : ");
                                 saut(2);
@@ -9219,7 +9205,7 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher(carte.nom);
                                 saut();
-                                afficher(carte.texte);
+                                afficher(carte.texte());
                                 saut(2);
                                 afficher("Choisissez une carte Plante dans la boutique : ");
                                 saut(2);
@@ -9288,7 +9274,7 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher(carte.nom);
                                 saut();
-                                afficher(carte.texte);
+                                afficher(carte.texte());
                                 saut(2);
                                 afficher("Choisissez une Unité alliée Plante sur le terrain : ");
                                 saut(2);
@@ -9444,7 +9430,7 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher(carte.nom);
                                 saut();
-                                afficher(carte.texte);
+                                afficher(carte.texte());
                                 saut(2);
                                 afficher("Choisissez une Créature alliée non-Vampire sur le terrain : ");
                                 saut(2);
@@ -9526,7 +9512,7 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher(carte.nom);
                                 saut();
-                                afficher(carte.texte);
+                                afficher(carte.texte());
                                 saut(2);
                                 afficher("Choisissez une Créature alliée sur le terrain : ");
                                 saut(2);
@@ -9603,7 +9589,7 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher(carte.nom);
                                 saut();
-                                afficher(carte.texte);
+                                afficher(carte.texte());
                                 saut(2);
                                 afficher("Choisissez une Créature alliée équipable sur le terrain : ");
                                 saut(2);
@@ -9673,7 +9659,7 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher(carte.nom);
                                 saut();
-                                afficher(carte.texte);
+                                afficher(carte.texte());
                                 saut(2);
                                 afficher("Choisissez une Créature alliée équipable sur le terrain : ");
                                 saut(2);
@@ -9747,7 +9733,7 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher(carte.nom);
                                 saut();
-                                afficher(carte.texte);
+                                afficher(carte.texte());
                                 saut(2);
                                 afficher("Choisissez une Unité adverse sur le terrain : ");
                                 saut(2);
@@ -9836,7 +9822,7 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher(carte.nom);
                                 saut();
-                                afficher(carte.texte);
+                                afficher(carte.texte());
                                 saut(2);
                                 afficher("Choisissez une carte adverse dans la main : ");
                                 saut(2);
@@ -9931,7 +9917,7 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher(carte.nom);
                                 saut();
-                                afficher(carte.texte);
+                                afficher(carte.texte());
                                 saut(2);
                                 afficher("Choisissez une carte adverse dans la boutique : ");
                                 saut(2);
@@ -10145,7 +10131,7 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher(carte.nom);
                                 saut();
-                                afficher(carte.texte);
+                                afficher(carte.texte());
                                 saut(2);
                                 afficher("Choisissez une Unité adverse sur le terrain : ");
                                 saut(2);
@@ -10380,7 +10366,7 @@ function obtenir_carte(carte_id) {
                             saut(2);
                             afficher(carte.nom);
                             saut();
-                            afficher(carte.texte);
+                            afficher(carte.texte());
                             saut(2);
                             afficher("Choisissez un effet : ");
                             saut(2);
@@ -10468,7 +10454,7 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher(carte.nom);
                                 saut();
-                                afficher(carte.texte);
+                                afficher(carte.texte());
                                 saut(2);
                                 afficher("Choisissez une Unité adverse sur le terrain : ");
                                 saut(2);
@@ -10575,7 +10561,7 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher(carte.nom);
                                 saut();
-                                afficher(carte.texte);
+                                afficher(carte.texte());
                                 saut(2);
                                 afficher("Choisissez une Créature alliée sur le terrain : ");
                                 saut(2);
@@ -10654,7 +10640,7 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher(carte.nom);
                                 saut();
-                                afficher(carte.texte);
+                                afficher(carte.texte());
                                 saut(2);
                                 afficher("Choisissez une carte adverse dans la main : ");
                                 saut(2);
@@ -10738,7 +10724,7 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher(carte.nom);
                                 saut();
-                                afficher(carte.texte);
+                                afficher(carte.texte());
                                 saut(2);
                                 afficher("Choisissez un Bâtiment allié Oeuf sur le terrain : ");
                                 saut(2);
@@ -10821,7 +10807,7 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher(carte.nom);
                                 saut();
-                                afficher(carte.texte);
+                                afficher(carte.texte());
                                 saut(2);
                                 afficher("Choisissez une Créature alliée sur le terrain : ");
                                 saut(2);
@@ -10890,7 +10876,7 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher(carte.nom);
                                 saut();
-                                afficher(carte.texte);
+                                afficher(carte.texte());
                                 saut(2);
                                 afficher("Choisissez une Créature alliée sur le terrain : ");
                                 saut(2);
@@ -10959,7 +10945,7 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher(carte.nom);
                                 saut();
-                                afficher(carte.texte);
+                                afficher(carte.texte());
                                 saut(2);
                                 afficher("Choisissez une Créature alliée blessée sur le terrain : ");
                                 saut(2);
@@ -11129,7 +11115,7 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher(carte.nom);
                                 saut();
-                                afficher(carte.texte);
+                                afficher(carte.texte());
                                 saut(2);
                                 afficher("Choisissez une Créature alliée équipable sur le terrain : ");
                                 saut(2);
@@ -11213,7 +11199,7 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher(carte.nom);
                                 saut();
-                                afficher(carte.texte);
+                                afficher(carte.texte());
                                 saut(2);
                                 afficher("Choisissez une Créature alliée équipable sur le terrain : ");
                                 saut(2);
@@ -11283,7 +11269,7 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher(carte.nom);
                                 saut();
-                                afficher(carte.texte);
+                                afficher(carte.texte());
                                 saut(2);
                                 afficher("Choisissez une Créature alliée équipable sur le terrain : ");
                                 saut(2);
@@ -11358,7 +11344,7 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher(carte.nom);
                                 saut();
-                                afficher(carte.texte);
+                                afficher(carte.texte());
                                 saut(2);
                                 afficher("Choisissez une Créature alliée équipable sur le terrain : ");
                                 saut(2);
@@ -11430,7 +11416,7 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher(carte.nom);
                                 saut();
-                                afficher(carte.texte);
+                                afficher(carte.texte());
                                 saut(2);
                                 afficher("Choisissez une Créature alliée équipable sur le terrain : ");
                                 saut(2);
@@ -11540,7 +11526,7 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher(carte.nom);
                                 saut();
-                                afficher(carte.texte);
+                                afficher(carte.texte());
                                 saut(2);
                                 afficher("Choisissez une Unité adverse sur le terrain : ");
                                 saut(2);
@@ -11637,7 +11623,7 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher(carte.nom);
                                 saut();
-                                afficher(carte.texte);
+                                afficher(carte.texte());
                                 saut(2);
                                 afficher("Choisissez une Créature alliée sur le terrain : ");
                                 saut(2);
@@ -11731,7 +11717,7 @@ function obtenir_carte(carte_id) {
             carte.vente[0] = 5;
             carte.vente[3] = 5;
             carte.texte = function () {
-                return "Soigne totalement à une Créature alliée sur le terrain.";
+                return "Soigne totalement une Créature alliée sur le terrain.";
             }
             carte.effet_pose = function (step, cible) {
                 if (carte.camp == "joueur") {
@@ -11744,7 +11730,7 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher(carte.nom);
                                 saut();
-                                afficher(carte.texte);
+                                afficher(carte.texte());
                                 saut(2);
                                 afficher("Choisissez une Créature alliée blessée sur le terrain : ");
                                 saut(2);
@@ -11881,7 +11867,7 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher(carte.nom);
                                 saut();
-                                afficher(carte.texte);
+                                afficher(carte.texte());
                                 saut(2);
                                 afficher("Choisissez une Unité adverse sur le terrain : ");
                                 saut(2);
@@ -11960,7 +11946,7 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher(carte.nom);
                                 saut();
-                                afficher(carte.texte);
+                                afficher(carte.texte());
                                 saut(2);
                                 afficher("Choisissez une Créature adverse sur le terrain : ");
                                 saut(2);
@@ -12081,7 +12067,7 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher(carte.nom);
                                 saut();
-                                afficher(carte.texte);
+                                afficher(carte.texte());
                                 saut(2);
                                 afficher("Choisissez une Créature adverse sur le terrain : ");
                                 saut(2);
@@ -12157,7 +12143,7 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher(carte.nom);
                                 saut();
-                                afficher(carte.texte);
+                                afficher(carte.texte());
                                 saut(2);
                                 afficher("Choisissez une Créature adverse sur le terrain : ");
                                 saut(2);
@@ -12358,7 +12344,7 @@ function obtenir_carte(carte_id) {
             carte.vente[0] = 8;
             carte.vente[8] = 7;
             carte.texte = function () {
-                return "Inflige 1 dégât à toutes les Unités adverses sur le terrain. Inflige 1 dégat supplémentaire pour chaque 10 de Sorcellerie que vous avez.";
+                return "Inflige 1 dégât à toutes les Unités adverses sur le terrain. Inflige 1 dégat supplémentaire pour chaque 10 de Sorcellerie.";
             }
             carte.effet_pose = function () {
                 if (Jeu[camp_oppose(carte.camp)].terrain.length > 0) {
@@ -12432,7 +12418,7 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher(carte.nom);
                                 saut();
-                                afficher(carte.texte);
+                                afficher(carte.texte());
                                 saut(2);
                                 afficher("Choisissez une Créature alliée Zombie dans la défausse : ");
                                 saut(2);
@@ -12515,7 +12501,7 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher(carte.nom);
                                 saut();
-                                afficher(carte.texte);
+                                afficher(carte.texte());
                                 saut(2);
                                 afficher("Choisissez une Créature adverse sur le terrain : ");
                                 saut(2);
@@ -12595,7 +12581,7 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher(carte.nom);
                                 saut();
-                                afficher(carte.texte);
+                                afficher(carte.texte());
                                 saut(2);
                                 afficher("Choisissez une Créature alliée sur le terrain : ");
                                 saut(2);
@@ -12688,7 +12674,7 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher(carte.nom);
                                 saut();
-                                afficher(carte.texte);
+                                afficher(carte.texte());
                                 saut(2);
                                 afficher("Choisissez une Créature alliée sur le terrain : ");
                                 saut(2);
@@ -12762,7 +12748,7 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher(carte.nom);
                                 saut();
-                                afficher(carte.texte);
+                                afficher(carte.texte());
                                 saut(2);
                                 afficher("Choisissez une Créature alliée sur le terrain : ");
                                 saut(2);
@@ -12835,7 +12821,7 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher(carte.nom);
                                 saut();
-                                afficher(carte.texte);
+                                afficher(carte.texte());
                                 saut(2);
                                 afficher("Choisissez une Créature adverse sur le terrain : ");
                                 saut(2);
@@ -12991,7 +12977,7 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher(carte.nom);
                                 saut();
-                                afficher(carte.texte);
+                                afficher(carte.texte());
                                 saut(2);
                                 afficher("Choisissez une Unité adverse sur le terrain : ");
                                 saut(2);
@@ -13085,7 +13071,7 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher(carte.nom);
                                 saut();
-                                afficher(carte.texte);
+                                afficher(carte.texte());
                                 saut(2);
                                 afficher("Choisissez une Créature alliée blessée sur le terrain : ");
                                 saut(2);
@@ -13160,7 +13146,7 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher(carte.nom);
                                 saut();
-                                afficher(carte.texte);
+                                afficher(carte.texte());
                                 saut(2);
                                 afficher("Choisissez une Créature alliée équipable sur le terrain : ");
                                 saut(2);
@@ -13300,7 +13286,7 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher(carte.nom);
                                 saut();
-                                afficher(carte.texte);
+                                afficher(carte.texte());
                                 saut(2);
                                 afficher("Choisissez une Créature alliée Ogre sur le terrain : ");
                                 saut(2);
@@ -13340,7 +13326,7 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher(carte.nom);
                                 saut();
-                                afficher(carte.texte);
+                                afficher(carte.texte());
                                 saut(2);
                                 afficher("Choisissez une Unité adverse sur le terrain : ");
                                 saut(2);
@@ -13433,7 +13419,7 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher(carte.nom);
                                 saut();
-                                afficher(carte.texte);
+                                afficher(carte.texte());
                                 saut(2);
                                 afficher("Choisissez un Bâtiment allié blessé sur le terrain : ");
                                 saut(2);
@@ -13655,7 +13641,7 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher(carte.nom);
                                 saut();
-                                afficher(carte.texte);
+                                afficher(carte.texte());
                                 saut(2);
                                 afficher("Choisissez une Créature alliée équipable sur le terrain : ");
                                 saut(2);
@@ -13730,7 +13716,7 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher(carte.nom);
                                 saut();
-                                afficher(carte.texte);
+                                afficher(carte.texte());
                                 saut(2);
                                 afficher("Choisissez une Créature alliée équipable sur le terrain : ");
                                 saut(2);
@@ -13817,7 +13803,7 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher(carte.nom);
                                 saut();
-                                afficher(carte.texte);
+                                afficher(carte.texte());
                                 saut(2);
                                 afficher("Choisissez une Créature alliée équipable sur le terrain : ");
                                 saut(2);
@@ -13890,7 +13876,7 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher(carte.nom);
                                 saut();
-                                afficher(carte.texte);
+                                afficher(carte.texte());
                                 saut(2);
                                 afficher("Choisissez une Créature alliée équipable sur le terrain : ");
                                 saut(2);
@@ -13963,7 +13949,7 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher(carte.nom);
                                 saut();
-                                afficher(carte.texte);
+                                afficher(carte.texte());
                                 saut(2);
                                 afficher("Choisissez une Créature alliée équipable sur le terrain : ");
                                 saut(2);
@@ -14037,7 +14023,7 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher(carte.nom);
                                 saut();
-                                afficher(carte.texte);
+                                afficher(carte.texte());
                                 saut(2);
                                 afficher("Choisissez une Créature alliée équipable sur le terrain : ");
                                 saut(2);
@@ -14123,7 +14109,7 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher(carte.nom);
                                 saut();
-                                afficher(carte.texte);
+                                afficher(carte.texte());
                                 saut(2);
                                 afficher("Choisissez une Créature alliée équipable sur le terrain : ");
                                 saut(2);
@@ -14195,7 +14181,7 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher(carte.nom);
                                 saut();
-                                afficher(carte.texte);
+                                afficher(carte.texte());
                                 saut(2);
                                 afficher("Choisissez une Créature alliée équipable sur le terrain : ");
                                 saut(2);
@@ -14269,7 +14255,7 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher(carte.nom);
                                 saut();
-                                afficher(carte.texte);
+                                afficher(carte.texte());
                                 saut(2);
                                 afficher("Choisissez une Créature alliée équipable sur le terrain : ");
                                 saut(2);
@@ -14349,7 +14335,7 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher(carte.nom);
                                 saut();
-                                afficher(carte.texte);
+                                afficher(carte.texte());
                                 saut(2);
                                 afficher("Choisissez un effet : ");
                                 saut(2);
@@ -14573,7 +14559,7 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher(carte.nom);
                                 saut();
-                                afficher(carte.texte);
+                                afficher(carte.texte());
                                 saut(2);
                                 afficher("Choisissez une Créature alliée équipable sur le terrain : ");
                                 saut(2);
@@ -14643,7 +14629,7 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher(carte.nom);
                                 saut();
-                                afficher(carte.texte);
+                                afficher(carte.texte());
                                 saut(2);
                                 afficher("Choisissez une Créature alliée équipable sur le terrain : ");
                                 saut(2);
@@ -14713,7 +14699,7 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher(carte.nom);
                                 saut();
-                                afficher(carte.texte);
+                                afficher(carte.texte());
                                 saut(2);
                                 afficher("Choisissez une Créature alliée équipable sur le terrain : ");
                                 saut(2);
@@ -14783,7 +14769,7 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher(carte.nom);
                                 saut();
-                                afficher(carte.texte);
+                                afficher(carte.texte());
                                 saut(2);
                                 afficher("Choisissez une Créature alliée équipable sur le terrain : ");
                                 saut(2);
@@ -14853,7 +14839,7 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher(carte.nom);
                                 saut();
-                                afficher(carte.texte);
+                                afficher(carte.texte());
                                 saut(2);
                                 afficher("Choisissez une Créature alliée équipable sur le terrain : ");
                                 saut(2);
@@ -14927,7 +14913,7 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher(carte.nom);
                                 saut();
-                                afficher(carte.texte);
+                                afficher(carte.texte());
                                 saut(2);
                                 afficher("Choisissez une Créature alliée équipable sur le terrain : ");
                                 saut(2);
@@ -14998,7 +14984,7 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher(carte.nom);
                                 saut();
-                                afficher(carte.texte);
+                                afficher(carte.texte());
                                 saut(2);
                                 afficher("Choisissez une Créature alliée équipable sur le terrain : ");
                                 saut(2);
@@ -15070,7 +15056,7 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher(carte.nom);
                                 saut();
-                                afficher(carte.texte);
+                                afficher(carte.texte());
                                 saut(2);
                                 afficher("Choisissez une Créature alliée équipable sur le terrain : ");
                                 saut(2);
@@ -15142,7 +15128,7 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher(carte.nom);
                                 saut();
-                                afficher(carte.texte);
+                                afficher(carte.texte());
                                 saut(2);
                                 afficher("Choisissez une Créature alliée équipable sur le terrain : ");
                                 saut(2);
@@ -15214,7 +15200,7 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher(carte.nom);
                                 saut();
-                                afficher(carte.texte);
+                                afficher(carte.texte());
                                 saut(2);
                                 afficher("Choisissez une Créature alliée équipable sur le terrain : ");
                                 saut(2);
@@ -15290,7 +15276,7 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher(carte.nom);
                                 saut();
-                                afficher(carte.texte);
+                                afficher(carte.texte());
                                 saut(2);
                                 afficher("Choisissez une Créature alliée équipable sur le terrain : ");
                                 saut(2);
@@ -15363,7 +15349,7 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher(carte.nom);
                                 saut();
-                                afficher(carte.texte);
+                                afficher(carte.texte());
                                 saut(2);
                                 afficher("Choisissez une Créature alliée équipable sur le terrain : ");
                                 saut(2);
@@ -15498,7 +15484,7 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher(carte.nom);
                                 saut();
-                                afficher(carte.texte);
+                                afficher(carte.texte());
                                 saut(2);
                                 afficher("Choisissez une Créature adverse sur le terrain : ");
                                 saut(2);
@@ -15698,7 +15684,7 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher(carte.nom);
                                 saut();
-                                afficher(carte.texte);
+                                afficher(carte.texte());
                                 saut(2);
                                 afficher("Choisissez une Créature alliée sur le terrain : ");
                                 saut(2);
@@ -15780,7 +15766,7 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher(carte.nom);
                                 saut();
-                                afficher(carte.texte);
+                                afficher(carte.texte());
                                 saut(2);
                                 afficher("Choisissez une Unité adverse sur le terrain : ");
                                 saut(2);
@@ -15872,7 +15858,7 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher(carte.nom);
                                 saut();
-                                afficher(carte.texte);
+                                afficher(carte.texte());
                                 saut(2);
                                 afficher("Choisissez une Créature alliée sur le terrain avec Portée : ");
                                 saut(2);
@@ -15946,7 +15932,7 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher(carte.nom);
                                 saut();
-                                afficher(carte.texte);
+                                afficher(carte.texte());
                                 saut(2);
                                 afficher("Choisissez une Créature alliée sur le terrain : ");
                                 saut(2);
@@ -16017,7 +16003,7 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher(carte.nom);
                                 saut();
-                                afficher(carte.texte);
+                                afficher(carte.texte());
                                 saut(2);
                                 afficher("Choisissez une Créature alliée équipable sur le terrain : ");
                                 saut(2);
@@ -16093,7 +16079,7 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher(carte.nom);
                                 saut();
-                                afficher(carte.texte);
+                                afficher(carte.texte());
                                 saut(2);
                                 afficher("Choisissez une Créature adverse sur le terrain : ");
                                 saut(2);
@@ -16184,7 +16170,7 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher(carte.nom);
                                 saut();
-                                afficher(carte.texte);
+                                afficher(carte.texte());
                                 saut(2);
                                 afficher("Choisissez une Créature adverse sur le terrain : ");
                                 saut(2);
@@ -16270,7 +16256,7 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher(carte.nom);
                                 saut();
-                                afficher(carte.texte);
+                                afficher(carte.texte());
                                 saut(2);
                                 afficher("Choisissez une Créature adverse sur le terrain : ");
                                 saut(2);
@@ -16386,7 +16372,7 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher(carte.nom);
                                 saut();
-                                afficher(carte.texte);
+                                afficher(carte.texte());
                                 saut(2);
                                 afficher("Choisissez une Créature alliée ayant un coût supérieur ou égal à 1 en Air sur le terrain : ");
                                 saut(2);
@@ -16463,7 +16449,7 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher(carte.nom);
                                 saut();
-                                afficher(carte.texte);
+                                afficher(carte.texte());
                                 saut(2);
                                 afficher("Choisissez une Unité adverse sur le terrain : ");
                                 saut(2);
@@ -16573,7 +16559,7 @@ function obtenir_carte(carte_id) {
                                 saut(2);
                                 afficher(carte.nom);
                                 saut();
-                                afficher(carte.texte);
+                                afficher(carte.texte());
                                 saut(2);
                                 afficher("Choisissez une Créature adverse sur le terrain : ");
                                 saut(2);
@@ -16766,6 +16752,389 @@ function obtenir_carte(carte_id) {
                     effet_pose(carte);
                     return true;
                 }
+            }
+            break;
+        case 378:
+            carte.nom = "Comète arcanique";
+            carte.type = "Action";
+            carte.familles.push("Sort");
+            carte.cout[0] = 10;
+            carte.cout[8] = 10;
+            carte.vente[0] = 5;
+            carte.vente[8] = 5;
+            carte.texte = function () {
+                return "Inflige autant de dégâts à une Unité adverse sur le terrain que vous avez de Sorcellerie.";
+            }
+            carte.effet_pose = function (step, cible) {
+                if (carte.camp == "joueur") {
+                    switch (step) {
+                        case 1:
+                            if (verifier_cible("adverse", "terrain") && sorcellerie("joueur") > 0) {
+                                initialiser();
+                                div("main");
+                                fonction("Annuler", "menu()");
+                                saut(2);
+                                afficher(carte.nom);
+                                saut();
+                                afficher(carte.texte());
+                                saut(2);
+                                afficher("Choisissez une Unité adverse sur le terrain : ");
+                                saut(2);
+                                div("", "zone");
+                                afficher("<u>Terrain adverse :</u>");
+                                saut();
+                                for (let n = 0; n < Jeu.adverse.terrain.length; n++) {
+                                    div("", "carte");
+                                    div();
+                                    if (!Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
+                                        afficher_carte("adverse", "terrain", n);
+                                    }
+                                    else {
+                                        afficher("???");
+                                    }
+                                    div_fin();
+                                    if (!Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
+                                        div();
+                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
+                                        div_fin();
+                                    }
+                                    div_fin();
+                                }
+                                div_fin();
+                                div_fin();
+                                div("side", "affichage");
+                                div_fin();
+                                actualiser();
+                            }
+                            break;
+                        case 2:
+                            degats(Jeu.adverse.terrain[cible], sorcellerie("joueur"));
+                            deplacer(carte, "joueur", "defausse");
+                            effet_pose(carte);
+                            menu();
+                            break;
+                    }
+                }
+                else {
+                    if (verifier_cible("joueur", "terrain") && sorcellerie("adverse") > 0) {
+                        let best = 0;
+                        while (Jeu.joueur.terrain[best].camouflage && !Jeu.joueur.terrain[best].silence) {
+                            best++;
+                        }
+                        for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
+                            if ((Jeu.joueur.terrain[n].vie <= sorcellerie("adverse") && Jeu.joueur.terrain[best].vie > sorcellerie("adverse")) || Jeu.joueur.terrain[n].vie > Jeu.joueur.terrain[best].vie && (!Jeu.joueur.terrain[n].camouflage || Jeu.joueur.terrain[n].silence)) {
+                                best = n;
+                            }
+                        }
+                        degats(Jeu.joueur.terrain[best], sorcellerie("adverse"));
+                        deplacer(carte, "adverse", "defausse");
+                        effet_pose(carte);
+                        return true;
+                    }
+                    return false;
+                }
+            }
+            break;
+        case 379:
+            carte.nom = "Minotaure destructeur";
+            carte.type = "Créature";
+            carte.familles.push("Minotaure");
+            carte.cout[0] = 20;
+            carte.cout[4] = 19;
+            carte.vente[0] = 10;
+            carte.vente[4] = 9;
+            carte.attaque = 10;
+            carte.vie_max = carte.vie = 10;
+            carte.action_max = 1;
+            carte.equipement_max = 1;
+            carte.texte = function () {
+                return "Quand posé : Détruit un Bâtiment adverse sur le terrain.";
+            }
+            carte.effet_pose = function (step, cible) {
+                if (carte.camp == "joueur") {
+                    switch (step) {
+                        case 1:
+                            if (verifier_cible_batiment("adverse", "terrain") && !statistique(carte, "silence")) {
+                                initialiser();
+                                div("main");
+                                fonction("Annuler", "menu()");
+                                saut(2);
+                                afficher(carte.nom);
+                                saut();
+                                afficher(carte.texte());
+                                saut(2);
+                                afficher("Choisissez une Créature adverse sur le terrain : ");
+                                saut(2);
+                                div("", "zone");
+                                afficher("<u>Terrain adverse :</u>");
+                                saut();
+                                for (let n = 0; n < Jeu.adverse.terrain.length; n++) {
+                                    div("", "carte");
+                                    div();
+                                    if (!Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
+                                        afficher_carte("adverse", "terrain", n);
+                                    }
+                                    else {
+                                        afficher("???");
+                                    }
+                                    div_fin();
+                                    if (Jeu.adverse.terrain[n].type == "Bâtiment" && !Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
+                                        div();
+                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
+                                        div_fin();
+                                    }
+                                    div_fin();
+                                }
+                                div_fin();
+                                div_fin();
+                                div("side", "affichage");
+                                div_fin();
+                                actualiser();
+                            }
+                            else {
+                                deplacer(carte, "joueur", "terrain");
+                                effet_pose(carte);
+                                menu();
+                            }
+                            break;
+                        case 2:
+                            mort(Jeu.adverse.terrain[cible]);
+                            deplacer(carte, "joueur", "terrain");
+                            effet_pose(carte);
+                            menu();
+                            break;
+                    }
+                }
+                else {
+                    if (verifier_cible_batiment("joueur", "terrain") && !statistique(carte, "silence")) {
+                        let best = 0;
+                        while (Jeu.joueur.terrain[best].type != "Bâtiment" && (Jeu.joueur.terrain[best].camouflage && !Jeu.joueur.terrain[best].silence)) {
+                            best++;
+                        }
+                        for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
+                            if (Jeu.joueur.terrain[n].vie > Jeu.joueur.terrain[best].vie && Jeu.joueur.terrain[best].type == "Bâtiment" && (!Jeu.joueur.terrain[n].camouflage || Jeu.joueur.terrain[n].silence)) {
+                                best = n;
+                            }
+                        }
+                        mort(Jeu.joueur.terrain[best]);
+                    }
+                    deplacer(carte, "adverse", "terrain");
+                    effet_pose(carte);
+                    return true;
+                }
+            }
+            break;
+        case 380:
+            carte.nom = "Briser la garde";
+            carte.type = "Action";
+            carte.cout[0] = 10;
+            carte.vente[0] = 5;
+            carte.texte = function () {
+                return "Enlève la vie supplémentaire d'une Créature adverse sur le terrain.";
+            }
+            carte.effet_pose = function (step, cible) {
+                if (carte.camp == "joueur") {
+                    switch (step) {
+                        case 1:
+                            let verifier = false;
+                            for (let n = 0; n < Jeu.adverse.terrain.length; n++) {
+                                if (Jeu.adverse.terrain[n].type == "Créature" && Jeu.adverse.terrain[n].vie_sup > 0) {
+                                    verifier = true;
+                                }
+                            }
+                            if (verifier) {
+                                initialiser();
+                                div("main");
+                                fonction("Annuler", "menu()");
+                                saut(2);
+                                afficher(carte.nom);
+                                saut();
+                                afficher(carte.texte());
+                                saut(2);
+                                afficher("Choisissez une Créature adverse : ");
+                                saut(2);
+                                div("", "zone");
+                                afficher("<u>Terrain adverse :</u>");
+                                saut();
+                                for (let n = 0; n < Jeu.adverse.terrain.length; n++) {
+                                    div("", "carte");
+                                    div();
+                                    if (!Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
+                                        afficher_carte("adverse", "terrain", n);
+                                    }
+                                    else {
+                                        afficher("???");
+                                    }
+                                    div_fin();
+                                    if (Jeu.adverse.terrain[n].type == "Créature" && Jeu.adverse.terrain[n].vie_sup > 0 && (!Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence)) {
+                                        div();
+                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
+                                        div_fin();
+                                    }
+                                    div_fin();
+                                }
+                                div_fin();
+                                div_fin();
+                                div("side", "affichage");
+                                div_fin();
+                                actualiser();
+                            }
+                            break;
+                        case 2:
+                            Jeu.adverse.terrain[cible].vie_sup = 0;
+                            deplacer(carte, "joueur", "defausse");
+                            effet_pose(carte);
+                            menu();
+                            break;
+                    }
+                }
+                else {
+                    let verifier = false;
+                    for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
+                        if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].vie_sup > 0) {
+                            verifier = true;
+                        }
+                    }
+                    if (verifier) {
+                        let best = 0;
+                        while (Jeu.joueur.terrain[best].vie_sup == 0 || Jeu.joueur.terrain[best].type != "Créature" || (Jeu.joueur.terrain[best].camouflage && !Jeu.joueur.terrain[best].silence)) {
+                            best++;
+                        }
+                        for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
+                            if (Jeu.joueur.terrain[n].type == "Créature" && (!Jeu.joueur.terrain[n].camouflage || Jeu.joueur.terrain[n].silence)) {
+                                best = n;
+                            }
+                        }
+                        Jeu.joueur.terrain[best].vie_sup = 0;
+                        deplacer(carte, "adverse", "defausse");
+                        effet_pose(carte);
+                        return true;
+                    }
+                    return false;
+                }
+            }
+            break;
+        case 381:
+            carte.nom = "Soins complets";
+            carte.type = "Action";
+            carte.cout[0] = 20;
+            carte.vente[0] = 10;
+            carte.texte = function () {
+                return "Soigne totalement une Créature alliée sur le terrain.";
+            }
+            carte.effet_pose = function (step, cible) {
+                if (carte.camp == "joueur") {
+                    switch (step) {
+                        case 1:
+                            if (verifier_soin_creature("joueur")) {
+                                initialiser();
+                                div("main");
+                                fonction("Annuler", "menu()");
+                                saut(2);
+                                afficher(carte.nom);
+                                saut();
+                                afficher(carte.texte());
+                                saut(2);
+                                afficher("Choisissez une Créature alliée blessée sur le terrain : ");
+                                saut(2);
+                                div("", "zone");
+                                afficher("<u>Terrain :</u>");
+                                saut();
+                                for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
+                                    div("", "carte");
+                                    div();
+                                    afficher_carte("joueur", "terrain", n);
+                                    div_fin();
+                                    if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].vie < Jeu.joueur.terrain[n].vie_max) {
+                                        div();
+                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
+                                        div_fin();
+                                    }
+                                    div_fin();
+                                }
+                                div_fin();
+                                div_fin();
+                                div("side", "affichage");
+                                div_fin();
+                                actualiser();
+                            }
+                            break;
+                        case 2:
+                            soin(Jeu.joueur.terrain[cible], Jeu.joueur.terrain[cible].vie_max - Jeu.joueur.terrain[cible].vie);
+                            deplacer(carte, "joueur", "defausse");
+                            effet_pose(carte);
+                            menu();
+                            break;
+                    }
+                }
+                else {
+                    if (verifier_soin_creature("adverse")) {
+                        let best = 0;
+                        while (Jeu.adverse.terrain[best].type != "Créature" || Jeu.adverse.terrain[best].vie >= Jeu.adverse.terrain[best].vie_max) {
+                            best++;
+                        }
+                        for (let n = 0; n < Jeu.adverse.terrain.length; n++) {
+                            if ((Jeu.adverse.terrain[n].vie_max - Jeu.adverse.terrain[n].vie) > (Jeu.adverse.terrain[best].vie_max - Jeu.adverse.terrain[best].vie) && Jeu.adverse.terrain[n].type == "Créature") {
+                                best = n;
+                            }
+                        }
+                        soin(Jeu.adverse.terrain[best], Jeu.adverse.terrain[best].vie_max - Jeu.adverse.terrain[best].vie);
+                        deplacer(carte, "adverse", "defausse");
+                        effet_pose(carte);
+                        return true;
+                    }
+                    return false;
+                }
+            }
+            break;
+        case 382:
+            carte.nom = "Vague de soin";
+            carte.type = "Action";
+            carte.cout[0] = 30;
+            carte.vente[0] = 15;
+            carte.texte = function () {
+                return "Soigne 3 à toutes les Créatures alliées sur le terrain.";
+            }
+            carte.effet_pose = function () {
+                if (verifier_soin_creature(carte.camp)) {
+                    let array = [];
+                    for (let n = 0; n < Jeu[carte.camp].terrain.length; n++) {
+                        array.push(Jeu[carte.camp].terrain[n]);
+                    }
+                    for (let n = 0; n < array.length; n++) {
+                        soin(array[n], 3);
+                    }
+                    deplacer(carte, carte.camp, "defausse");
+                    effet_pose(carte);
+                    menu();
+                    return true;
+                }
+                return false;
+            }
+            break;
+        case 383:
+            carte.nom = "Peste";
+            carte.type = "Action";
+            carte.cout[0] = 10;
+            carte.cout[11] = 10;
+            carte.vente[0] = 5;
+            carte.vente[11] = 5;
+            carte.texte = function () {
+                return "Applique " + effet_talent_voir("Contamination", carte, 2) + " à toutes les Créatures adverses sur le terrain.";
+            }
+            carte.effet_pose = function () {
+                if (verifier_creature(camp_oppose(carte.camp), "terrain")) {
+                    for (let n = 0; n < Jeu[camp_oppose(carte.camp)].terrain.length; n++) {
+                        if (Jeu[camp_oppose(carte.camp)].terrain[n].type == "Créature") {
+                            Jeu[camp_oppose(carte.camp)].terrain[n].contamination += 2;
+                        }
+                    }
+                    deplacer(carte, "joueur", "defausse");
+                    effet_pose(carte);
+                    menu();
+                    return true;
+                }
+                return false;
             }
             break;
     }
