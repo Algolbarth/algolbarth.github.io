@@ -17,7 +17,7 @@ function demarrage() {
         ],
         types: ["Créature", "Bâtiment", "Objet", "Action", "Région"],
         familles: [],
-        NOMBRE_CARTE: 383,
+        NOMBRE_CARTE: 388,
         combat: {
             auto: true,
             vitesse: 1000,
@@ -504,7 +504,7 @@ function carte_afficher(carte, div) {
         texte += "<u>Équipements :</u> <br/>";
         if (carte.equipements.length > 0) {
             for (let n = 0; n < carte.equipements.length; n++) {
-                texte += "<button onclick='javascript:carte_afficher(Jeu[" + '"' + carte.camp + '"' + "][" + '"' + carte.zone + '"' + "][" + '"' + carte.slot + '"' + "].equipements[" + n + "])'>" + carte.equipements[n].nom + "</button> <br/>";
+                texte += "<button onclick='javascript:carte_afficher(Jeu[" + '"' + carte.camp + '"' + "][" + '"' + carte.zone + '"' + "][" + '"' + carte.slot + '"' + "].equipements[" + n + "], " + '"' + div + '"' + ")'>" + carte.equipements[n].nom + "</button> <br/>";
             }
         }
         else {

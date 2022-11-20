@@ -1111,9 +1111,7 @@ function obtenir_carte(carte_id) {
                     effet_pose(carte);
                     menu();
                 }
-                else {
-                    return false;
-                }
+                return false;
             }
             carte.description = "On a tous droit à une seconde chance.";
             break;
@@ -15899,9 +15897,9 @@ function obtenir_carte(carte_id) {
                             verifier = true;
                         }
                     }
-                    if (Jeu.adverse.terrain.length > 0) {
+                    if (verifier) {
                         let best = 0;
-                        while (Jeu.adverse.terrain[best].type != "Créature" || !Jeu.adverse.terrain[n].portee) {
+                        while (Jeu.adverse.terrain[best].type != "Créature" || !Jeu.adverse.terrain[best].portee) {
                             best++;
                         }
                         Jeu.adverse.terrain[best].stat_etage.attaque += 12;
@@ -16211,18 +16209,18 @@ function obtenir_carte(carte_id) {
                 }
                 else {
                     let verifier = false;
-                    for (let n = 0; n < Jeu.adverse.terrain.length; n++) {
-                        if (Jeu.adverse.terrain[n].brulure < 3) {
+                    for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
+                        if (Jeu.joueur.terrain[n].brulure < 3) {
                             verifier = true;
                         }
                     }
                     if (verifier) {
                         let best = 0;
-                        while (Jeu.adverse.terrain[n].brulure >= 3 || (Jeu.joueur.terrain[best].camouflage && !Jeu.joueur.terrain[best].silence)) {
+                        while (Jeu.joueur.terrain[best].brulure >= 3 || (Jeu.joueur.terrain[best].camouflage && !Jeu.joueur.terrain[best].silence)) {
                             best++;
                         }
                         for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
-                            if (Jeu.adverse.terrain[n].brulure < 3 && Jeu.adverse.terrain[n].brulure < Jeu.adverse.terrain[best].brulure && (!Jeu.joueur.terrain[n].camouflage || Jeu.joueur.terrain[n].silence)) {
+                            if (Jeu.joueur.terrain[n].brulure < 3 && Jeu.joueur.terrain[n].brulure < Jeu.joueur.terrain[best].brulure && (!Jeu.joueur.terrain[n].camouflage || Jeu.joueur.terrain[n].silence)) {
                                 best = n;
                             }
                         }
@@ -17135,6 +17133,409 @@ function obtenir_carte(carte_id) {
                     return true;
                 }
                 return false;
+            }
+            break;
+        case 384:
+            carte.nom = "Barbare";
+            carte.type = "Créature";
+            carte.familles.push("Humain");
+            carte.cout[0] = 9;
+            carte.vente[0] = 4;
+            carte.attaque = 4;
+            carte.vie_max = carte.vie = 4;
+            carte.action_max = 1;
+            carte.equipement_max = 1;
+            carte.texte = function () {
+                return "Quand attaque : Se donne 1 attaque.";
+            }
+            carte.effet_attaque = function () {
+                carte.attaque++;
+            }
+            break;
+        case 385:
+            carte.nom = "Aiguisage";
+            carte.type = "Action";
+            carte.familles.push("Équipement", "Arme");
+            carte.cout[0] = 4;
+            carte.vente[0] = 2;
+            carte.texte = function () {
+                return "Donne 5 attaque à une Créature alliée équipée d'un Objet Arme.";
+            }
+            carte.effet_pose = function (step, cible) {
+                if (carte.camp == "joueur") {
+                    switch (step) {
+                        case 1:
+                            let verifier = false;
+                            for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
+                                if (Jeu.joueur.terrain[n].type == "Créature") {
+                                    for (let i = 0; i < Jeu.joueur.terrain[n].equipements.length; i++) {
+                                        if (Jeu.joueur.terrain[n].equipements[i].familles.includes("Arme")) {
+                                            verifier = true;
+                                        }
+                                    }
+                                }
+                            }
+                            if (verifier) {
+                                initialiser();
+                                div("main");
+                                fonction("Annuler", "menu()");
+                                saut(2);
+                                afficher(carte.nom);
+                                saut();
+                                afficher(carte.texte());
+                                saut(2);
+                                afficher("Choisissez une Créature alliée équipée d'un Objet Arme sur le terrain : ");
+                                saut(2);
+                                div("", "zone");
+                                afficher("<u>Terrain :</u>");
+                                saut();
+                                for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
+                                    let verifier2 = false;
+                                    if (Jeu.joueur.terrain[n].type == "Créature") {
+                                        for (let i = 0; i < Jeu.joueur.terrain[n].equipements.length; i++) {
+                                            if (Jeu.joueur.terrain[n].equipements[i].familles.includes("Arme")) {
+                                                verifier2 = true;
+                                            }
+                                        }
+                                    }
+                                    div("", "carte");
+                                    div();
+                                    afficher_carte("joueur", "terrain", n);
+                                    div_fin();
+                                    if (verifier2) {
+                                        div();
+                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
+                                        div_fin();
+                                    }
+                                    div_fin();
+                                }
+                                div_fin();
+                                div_fin();
+                                div("side", "affichage");
+                                div_fin();
+                                actualiser();
+                            }
+                            break;
+                        case 2:
+                            Jeu.joueur.terrain[cible].attaque += 5;
+                            deplacer(carte, "joueur", "defausse");
+                            effet_pose(carte);
+                            menu();
+                            break;
+                    }
+                }
+                else {
+                    let verifier = false;
+                    for (let n = 0; n < Jeu.adverse.terrain.length; n++) {
+                        if (Jeu.adverse.terrain[n].type == "Créature") {
+                            for (let i = 0; i < Jeu.adverse.terrain[n].equipements.length; i++) {
+                                if (Jeu.adverse.terrain[n].equipements[i].familles.includes("Arme")) {
+                                    verifier = true;
+                                }
+                            }
+                        }
+                    }
+                    if (verifier) {
+                        let best = 0;
+                        let verifier2 = false;
+                        if (Jeu.adverse.terrain[best].type == "Créature") {
+                            for (let i = 0; i < Jeu.adverse.terrain[best].equipements.length; i++) {
+                                if (Jeu.adverse.terrain[best].equipements[i].familles.includes("Arme")) {
+                                    verifier2 = true;
+                                }
+                            }
+                        }
+                        while (!verifier2) {
+                            best++;
+                            if (Jeu.adverse.terrain[best].type == "Créature") {
+                                for (let i = 0; i < Jeu.adverse.terrain[best].equipements.length; i++) {
+                                    if (Jeu.adverse.terrain[best].equipements[i].familles.includes("Arme")) {
+                                        verifier2 = true;
+                                    }
+                                }
+                            }
+                        }
+                        Jeu.adverse.terrain[best].attaque += 5;
+                        deplacer(carte, "adverse", "defausse");
+                        effet_pose(carte);
+                        return true;
+                    }
+                    return false;
+                }
+            }
+            break;
+        case 386:
+            carte.nom = "Désarmer";
+            carte.type = "Action";
+            carte.familles.push("Équipement", "Arme");
+            carte.cout[0] = 4;
+            carte.vente[0] = 2;
+            carte.texte = function () {
+                return "Enlève tous les Objets Arme équipés à une Créature adverse.";
+            }
+            carte.effet_pose = function (step, cible) {
+                if (carte.camp == "joueur") {
+                    switch (step) {
+                        case 1:
+                            let verifier = false;
+                            for (let n = 0; n < Jeu.adverse.terrain.length; n++) {
+                                if (Jeu.adverse.terrain[n].type == "Créature") {
+                                    for (let i = 0; i < Jeu.adverse.terrain[n].equipements.length; i++) {
+                                        if (Jeu.adverse.terrain[n].equipements[i].familles.includes("Arme")) {
+                                            verifier = true;
+                                        }
+                                    }
+                                }
+                            }
+                            if (verifier) {
+                                initialiser();
+                                div("main");
+                                fonction("Annuler", "menu()");
+                                saut(2);
+                                afficher(carte.nom);
+                                saut();
+                                afficher(carte.texte());
+                                saut(2);
+                                afficher("Choisissez une Créature adverse équipée d'un Objet Arme sur le terrain : ");
+                                saut(2);
+                                div("", "zone");
+                                afficher("<u>Terrain adverse :</u>");
+                                saut();
+                                for (let n = 0; n < Jeu.adverse.terrain.length; n++) {
+                                    let verifier2 = false;
+                                    if (Jeu.adverse.terrain[n].type == "Créature") {
+                                        for (let i = 0; i < Jeu.adverse.terrain[n].equipements.length; i++) {
+                                            if (Jeu.adverse.terrain[n].equipements[i].familles.includes("Arme")) {
+                                                verifier2 = true;
+                                            }
+                                        }
+                                    }
+                                    div("", "carte");
+                                    div();
+                                    afficher_carte("adverse", "terrain", n);
+                                    div_fin();
+                                    if (verifier2) {
+                                        div();
+                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
+                                        div_fin();
+                                    }
+                                    div_fin();
+                                }
+                                div_fin();
+                                div_fin();
+                                div("side", "affichage");
+                                div_fin();
+                                actualiser();
+                            }
+                            break;
+                        case 2:
+                            for (let i = 0; i < Jeu.adverse.terrain[cible].equipements.length; i++) {
+                                if (Jeu.adverse.terrain[cible].equipements[i].familles.includes("Arme")) {
+                                    Jeu.adverse.defausse.push(Jeu.adverse.terrain[cible].equipements[i]);
+                                    Jeu.adverse.terrain[cible].equipements.splice(i, 1);
+                                    i--;
+                                }
+                            }
+                            deplacer(carte, "joueur", "defausse");
+                            effet_pose(carte);
+                            menu();
+                            break;
+                    }
+                }
+                else {
+                    let verifier = false;
+                    for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
+                        if (Jeu.joueur.terrain[n].type == "Créature") {
+                            for (let i = 0; i < Jeu.joueur.terrain[n].equipements.length; i++) {
+                                if (Jeu.joueur.terrain[n].equipements[i].familles.includes("Arme")) {
+                                    verifier = true;
+                                }
+                            }
+                        }
+                    }
+                    if (verifier) {
+                        let best = 0;
+                        let verifier2 = false;
+                        if (Jeu.joueur.terrain[best].type == "Créature") {
+                            for (let i = 0; i < Jeu.joueur.terrain[best].equipements.length; i++) {
+                                if (Jeu.joueur.terrain[best].equipements[i].familles.includes("Arme")) {
+                                    verifier2 = true;
+                                }
+                            }
+                        }
+                        while (!verifier2) {
+                            best++;
+                            if (Jeu.joueur.terrain[best].type == "Créature") {
+                                for (let i = 0; i < Jeu.joueur.terrain[best].equipements.length; i++) {
+                                    if (Jeu.joueur.terrain[best].equipements[i].familles.includes("Arme")) {
+                                        verifier2 = true;
+                                    }
+                                }
+                            }
+                        }
+                        deplacer(carte, "adverse", "defausse");
+                        effet_pose(carte);
+                        return true;
+                    }
+                    return false;
+                }
+            }
+            break;
+        case 387:
+            carte.nom = "Mettre à nu";
+            carte.type = "Action";
+            carte.familles.push("Équipement", "Armure");
+            carte.cout[0] = 4;
+            carte.vente[0] = 2;
+            carte.texte = function () {
+                return "Enlève tous les Objets Armure équipés à une Créature adverse.";
+            }
+            carte.effet_pose = function (step, cible) {
+                if (carte.camp == "joueur") {
+                    switch (step) {
+                        case 1:
+                            let verifier = false;
+                            for (let n = 0; n < Jeu.adverse.terrain.length; n++) {
+                                if (Jeu.adverse.terrain[n].type == "Créature") {
+                                    for (let i = 0; i < Jeu.adverse.terrain[n].equipements.length; i++) {
+                                        if (Jeu.adverse.terrain[n].equipements[i].familles.includes("Armure")) {
+                                            verifier = true;
+                                        }
+                                    }
+                                }
+                            }
+                            if (verifier) {
+                                initialiser();
+                                div("main");
+                                fonction("Annuler", "menu()");
+                                saut(2);
+                                afficher(carte.nom);
+                                saut();
+                                afficher(carte.texte());
+                                saut(2);
+                                afficher("Choisissez une Créature adverse équipée d'un Objet Armure sur le terrain : ");
+                                saut(2);
+                                div("", "zone");
+                                afficher("<u>Terrain adverse :</u>");
+                                saut();
+                                for (let n = 0; n < Jeu.adverse.terrain.length; n++) {
+                                    let verifier2 = false;
+                                    if (Jeu.adverse.terrain[n].type == "Créature") {
+                                        for (let i = 0; i < Jeu.adverse.terrain[n].equipements.length; i++) {
+                                            if (Jeu.adverse.terrain[n].equipements[i].familles.includes("Armure")) {
+                                                verifier2 = true;
+                                            }
+                                        }
+                                    }
+                                    div("", "carte");
+                                    div();
+                                    afficher_carte("adverse", "terrain", n);
+                                    div_fin();
+                                    if (verifier2) {
+                                        div();
+                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
+                                        div_fin();
+                                    }
+                                    div_fin();
+                                }
+                                div_fin();
+                                div_fin();
+                                div("side", "affichage");
+                                div_fin();
+                                actualiser();
+                            }
+                            break;
+                        case 2:
+                            for (let i = 0; i < Jeu.adverse.terrain[cible].equipements.length; i++) {
+                                if (Jeu.adverse.terrain[cible].equipements[i].familles.includes("Armure")) {
+                                    Jeu.adverse.defausse.push(Jeu.adverse.terrain[cible].equipements[i]);
+                                    Jeu.adverse.terrain[cible].equipements.splice(i, 1);
+                                    i--;
+                                }
+                            }
+                            deplacer(carte, "joueur", "defausse");
+                            effet_pose(carte);
+                            menu();
+                            break;
+                    }
+                }
+                else {
+                    let verifier = false;
+                    for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
+                        if (Jeu.joueur.terrain[n].type == "Créature") {
+                            for (let i = 0; i < Jeu.joueur.terrain[n].equipements.length; i++) {
+                                if (Jeu.joueur.terrain[n].equipements[i].familles.includes("Armure")) {
+                                    verifier = true;
+                                }
+                            }
+                        }
+                    }
+                    if (verifier) {
+                        let best = 0;
+                        let verifier2 = false;
+                        if (Jeu.joueur.terrain[best].type == "Créature") {
+                            for (let i = 0; i < Jeu.joueur.terrain[best].equipements.length; i++) {
+                                if (Jeu.joueur.terrain[best].equipements[i].familles.includes("Armure")) {
+                                    verifier2 = true;
+                                }
+                            }
+                        }
+                        while (!verifier2) {
+                            best++;
+                            if (Jeu.joueur.terrain[best].type == "Créature") {
+                                for (let i = 0; i < Jeu.joueur.terrain[best].equipements.length; i++) {
+                                    if (Jeu.joueur.terrain[best].equipements[i].familles.includes("Armure")) {
+                                        verifier2 = true;
+                                    }
+                                }
+                            }
+                        }
+                        deplacer(carte, "adverse", "defausse");
+                        effet_pose(carte);
+                        return true;
+                    }
+                    return false;
+                }
+            }
+            break;
+        case 388:
+            carte.nom = "Stratège";
+            carte.familles.push("Humain");
+            carte.cout[0] = 8;
+            carte.vente[0] = 4;
+            carte.attaque = 3;
+            carte.vie_max = carte.vie = 3;
+            carte.action_max = 1;
+            carte.equipement_max = 1;
+            carte.texte = function () {
+                return "Quand posé : Pioche une Action.";
+            }
+            carte.effet_pose = function () {
+                if (carte.camp == "joueur") {
+                    if (!statistique(carte, "silence")) {
+                        let verifier = false;
+                        for (let n = 0; n < Jeu.NOMBRE_CARTE; n++) {
+                            if (Jeu.joueur.regions[Jeu.region_active].boutique_generer(obtenir_carte(n)) && obtenir_carte(n).familles.includes("Action")) {
+                                verifier = true;
+                            }
+                        }
+                        if (verifier) {
+                            let nouvelle_carte = boutique_generer();
+                            while (!nouvelle_carte.familles.includes("Action")) {
+                                nouvelle_carte = boutique_generer();
+                            }
+                            pioche("joueur", nouvelle_carte);
+                        }
+                    }
+                    deplacer(carte, "joueur", "terrain");
+                    effet_pose(carte);
+                    menu();
+                }
+                else {
+                    deplacer(carte, "adverse", "terrain");
+                    effet_pose(carte);
+                    return true;
+                }
             }
             break;
     }
