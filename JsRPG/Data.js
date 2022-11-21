@@ -1285,7 +1285,7 @@ function obtenir_carte(carte_id) {
             carte.cout[0] = 20;
             carte.vente[0] = 10;
             carte.texte = function () {
-                return "Place une carte alliée dans la défausse dans la main. Si c'est une Unité, la soigne de 1.";
+                return "Place dans la main une carte alliée dans la défausse. Si c'est une Unité, la soigne de 1.";
             }
             carte.effet_pose = function (step, cible) {
                 if (carte.camp == "joueur") {
@@ -1375,21 +1375,19 @@ function obtenir_carte(carte_id) {
             carte.vente[0] = 9;
             carte.vente[1] = 5;
             carte.vente[5] = 5;
-            carte.attaque = 15;
+            carte.attaque = 17;
             carte.vie_max = carte.vie = 20;
             carte.texte = function () {
-                return "Quand meurt : Se soigne de 1, se place dans la boutique et se verrouille.";
+                return "Quand meurt : Crée " + effet_carte_voir_id(41, carte) + " dans la boutique.";
             }
             carte.effet_mort = function () {
                 if (!statistique(carte, "silence")) {
-                    if (statistique(carte, "ephemere") && !statistique(carte, "silence")) {
-                        enlever(carte);
-                    }
-                    else {
-                        carte.vie = 1;
-                        deplacer(carte, carte.camp, "boutique");
-                        carte.verrouillage = true;
-                    }
+                    let nouvelle_carte = obtenir_carte(41);
+                    nouvelle_carte.verrouillage = true;
+                    pioche(carte.camp, nouvelle_carte);
+                }
+                if (statistique(carte, "ephemere") && !statistique(carte, "silence")) {
+                    enlever(carte);
                 }
                 else {
                     deplacer(carte, carte.camp, "defausse");
@@ -2631,7 +2629,7 @@ function obtenir_carte(carte_id) {
             carte.vente[0] = 3;
             carte.vente[5] = 2;
             carte.texte = function () {
-                return "Place une Créature sur le terrain dans la main.";
+                return "Place dans la main une Créature sur le terrain.";
             }
             carte.effet_pose = function (step, cible_camp, cible_slot) {
                 if (carte.camp == "joueur") {
@@ -4918,7 +4916,7 @@ function obtenir_carte(carte_id) {
             carte.vente[0] = 3;
             carte.vente[5] = 2;
             carte.texte = function () {
-                return "Place une Créature adverse sur le terrain dans la main.<br/>Sorcellerie 10 : Place une Créature adverse sur le terrain dans la boutique.";
+                return "Place dans la main une Créature adverse sur le terrain.<br/>Sorcellerie 10 : Place dans la boutique une Créature adverse sur le terrain.";
             }
             carte.effet_pose = function (step, cible) {
                 if (carte.camp == "joueur") {
@@ -5267,7 +5265,7 @@ function obtenir_carte(carte_id) {
             carte.vente[0] = 2;
             carte.vente[9] = 1;
             carte.texte = function () {
-                return "Place une Créature alliée dans la défausse dans la boutique et la soigne de 1.<br/>Sorcellerie 20 : Place une Créature alliée dans la défausse dans la boutique et la soigne totalement.";
+                return "Place dans la boutique une Créature alliée dans la défausse et la soigne de 1.<br/>Sorcellerie 20 : Place dans la boutique une Créature alliée dans la défausse et la soigne totalement.";
             }
             carte.effet_pose = function (step, cible) {
                 if (carte.camp == "joueur") {
@@ -6204,7 +6202,7 @@ function obtenir_carte(carte_id) {
             carte.attaque = 10;
             carte.vie_max = carte.vie = 10;
             carte.texte = function () {
-                return "Quand posé : Place une Créature adverse sur le terrain dont la vie est de 10 ou moins sur le terrain allié.";
+                return "Quand posé : Place sur le terrain allié une Créature adverse sur le terrain dont la vie est de 10 ou moins.";
             }
             carte.effet_pose = function (step, cible) {
                 if (carte.camp == "joueur") {
@@ -7956,7 +7954,7 @@ function obtenir_carte(carte_id) {
             carte.vente[0] = 10;
             carte.vente[8] = 10;
             carte.texte = function () {
-                return "Place une Créature adverse sur le terrain sur le terrain allié.";
+                return "Place sur le terrain allié une Créature adverse sur le terrain.";
             }
             carte.effet_pose = function (step, cible) {
                 if (carte.camp == "joueur") {
@@ -8596,7 +8594,7 @@ function obtenir_carte(carte_id) {
             carte.vente[0] = 10;
             carte.vente[10] = 10;
             carte.texte = function () {
-                return "Place une Créature alliée dans la défausse sur le terrain et la soigne totalement.";
+                return "Place sur le terrain une Créature alliée dans la défausse et la soigne totalement.";
             }
             carte.effet_pose = function (step, cible) {
                 if (carte.camp == "joueur") {
@@ -10421,7 +10419,7 @@ function obtenir_carte(carte_id) {
             carte.cout[0] = 40;
             carte.vente[0] = 20;
             carte.texte = function () {
-                return "Place une carte adverse dans la main dans la main alliée.";
+                return "Place dans la main alliée une carte adverse dans la main.";
             }
             carte.effet_pose = function (step, cible) {
                 if (carte.camp == "joueur") {
@@ -11767,12 +11765,7 @@ function obtenir_carte(carte_id) {
                             }
                             break;
                         case 2:
-                            Jeu.adverse.terrain.push(Jeu.adverse.terrain[cible]);
-                            Jeu.adverse.terrain.splice(cible, 1);
-                            Jeu.adverse.terrain[Jeu.adverse.terrain.length - 1].slot = Jeu.adverse.terrain.length - 1;
-                            for (let n = cible; n < Jeu.adverse.terrain.length - 1; n++) {
-                                Jeu.adverse.terrain[n].slot--;
-                            }
+                            deplacer(Jeu.adverse.terrain[cible], "adverse", "terrain");
                             deplacer(carte, "joueur", "defausse");
                             effet_pose(carte);
                             menu();
@@ -11785,12 +11778,7 @@ function obtenir_carte(carte_id) {
                         while (Jeu.joueur.terrain[best].type != "Créature" || (Jeu.joueur.terrain[best].camouflage && !Jeu.joueur.terrain[best].silence)) {
                             best++;
                         }
-                        Jeu.joueur.terrain.push(Jeu.joueur.terrain[best]);
-                        Jeu.joueur.terrain.splice(best, 1);
-                        Jeu.joueur.terrain[Jeu.joueur.terrain.length - 1].slot = Jeu.joueur.terrain.length - 1;
-                        for (let n = best; n < Jeu.joueur.terrain.length - 1; n++) {
-                            Jeu.joueur.terrain[n].slot--;
-                        }
+                        deplacer(Jeu.joueur.terrain[best], "joueur", "terrain");
                         deplacer(carte, "adverse", "defausse");
                         effet_pose(carte);
                         return true;
@@ -12188,7 +12176,7 @@ function obtenir_carte(carte_id) {
             carte.vente[0] = 8;
             carte.vente[9] = 8;
             carte.texte = function () {
-                return "Place une Créature alliée Zombie dans la défausse sur le terrain et la soigne totalement.";
+                return "Place sur le terrain une Créature alliée Zombie dans la défausse et la soigne totalement.";
             }
             carte.effet_pose = function (step, cible) {
                 if (carte.camp == "joueur") {
@@ -17300,6 +17288,184 @@ function obtenir_carte(carte_id) {
                     effet_pose(carte);
                     return true;
                 }
+            }
+            break;
+        case 389:
+            carte.nom = "Phoenix renaissant";
+            define_creature(carte);
+            carte.familles.push("Phoenix");
+            carte.cout[0] = 29;
+            carte.cout[1] = 15;
+            carte.cout[5] = 15;
+            carte.vente[0] = 15;
+            carte.vente[1] = 7;
+            carte.vente[5] = 7;
+            carte.attaque = 20;
+            carte.vie_max = carte.vie = 20;
+            carte.texte = function () {
+                return "Quand meurt : Se soigne complétement, se place sur le terrain et perd cet effet.";
+            }
+            carte.effet_mort = function () {
+                if (statistique(carte, "ephemere")) {
+                    enlever(carte);
+                }
+                else {
+                    if (!statistique(carte, "silence")) {
+                        carte.texte = function () {
+                            return "Aucun";
+                        }
+                        carte.effet_mort = function () {
+                            if (statistique(carte, "ephemere") && !statistique(carte, "silence")) {
+                                enlever(carte);
+                            }
+                            else {
+                                deplacer(carte, carte.camp, "defausse");
+                            }
+                        }
+                        carte.vie = carte.vie_max;
+                        deplacer(carte, carte.camp, "terrain");
+                    }
+                    else {
+                        deplacer(carte, carte.camp, "defausse");
+                    }
+                }
+            }
+            break;
+        case 390:
+            carte.nom = "Plume de phoenix";
+            carte.type = "Objet";
+            carte.familles.push("Phoenix");
+            carte.cout[0] = 20;
+            carte.cout[1] = 10;
+            carte.cout[5] = 10;
+            carte.vente[0] = 10;
+            carte.vente[1] = 5;
+            carte.vente[5] = 5;
+            carte.texte = function () {
+                return "Place dans la main une Créature alliée dans la défausse et la soigne totalement.";
+            }
+            carte.effet_pose = function (step, cible) {
+                if (carte.camp == "joueur") {
+                    switch (step) {
+                        case 1:
+                            if (verifier_creature("joueur", "defausse")) {
+                                initialiser();
+                                div("main");
+                                fonction("Annuler", "menu()");
+                                saut(2);
+                                afficher(carte.nom);
+                                saut();
+                                afficher(carte.texte());
+                                saut(2);
+                                afficher("Choisissez une Créature alliée dans la défausse : ");
+                                saut(2);
+                                div("", "zone");
+                                afficher("<u>Défausse :</u>");
+                                saut();
+                                for (let n = 0; n < Jeu.joueur.defausse.length; n++) {
+                                    div("", "carte");
+                                    div();
+                                    afficher_carte("joueur", "defausse", n);
+                                    div_fin();
+                                    if (Jeu.joueur.defausse[n].type == "Créature") {
+                                        div();
+                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
+                                        div_fin();
+                                    }
+                                    div_fin();
+                                }
+                                div_fin();
+                                div_fin();
+                                div("side", "affichage");
+                                div_fin();
+                                actualiser();
+                            }
+                            break;
+                        case 2:
+                            Jeu.joueur.defausse[cible].vie = Jeu.joueur.defausse[cible].vie_max;
+                            deplacer(Jeu.joueur.defausse[cible], "joueur", "main");
+                            deplacer(carte, "joueur", "defausse");
+                            effet_pose(carte);
+                            menu();
+                            break;
+                    }
+                }
+                else {
+                    if (verifier_creature("adverse", "defausse")) {
+                        let best = 0;
+                        while (Jeu.adverse.defausse[best].type != "Créature") {
+                            best++;
+                        }
+                        for (let n = 0; n < Jeu.adverse.defausse.length; n++) {
+                            if (cout_total(Jeu.adverse.defausse[n]) > cout_total(Jeu.adverse.defausse[best]) && Jeu.adverse.defausse[n].type == "Créature") {
+                                best = n;
+                            }
+                        }
+                        Jeu.adverse.defausse[best].vie = Jeu.adverse.defausse[best].vie_max;
+                        deplacer(Jeu.adverse.defausse[best], "adverse", "main");
+                        deplacer(carte, "adverse", "defausse");
+                        effet_pose(carte);
+                        return true;
+                    }
+                    return false;
+                }
+            }
+            break;
+        case 391:
+            carte.nom = "Phoenix au plumage ardent";
+            define_creature(carte);
+            carte.familles.push("Phoenix");
+            carte.cout[0] = 59;
+            carte.cout[1] = 30;
+            carte.cout[5] = 30;
+            carte.vente[0] = 29;
+            carte.vente[1] = 15;
+            carte.vente[5] = 15;
+            carte.attaque = 20;
+            carte.vie_max = carte.vie = 20;
+            carte.texte = function () {
+                return "Au début de la phase de préparation : Crée une " + effet_carte_voir_id(390, carte) + " dans la main.";
+            }
+            carte.effet_etage_debut = function () {
+                let nouvelle_carte = obtenir_carte(390);
+                nouvelle_carte.vente = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];;
+                ajouter(nouvelle_carte, carte.camp, "main");
+            }
+            break;
+        case 392:
+            carte.nom = "Tréant aux branches noueuses";
+            define_creature(carte);
+            carte.familles.push("Plante", "Tréant");
+            carte.cout[0] = 40;
+            carte.cout[3] = 39;
+            carte.vente[0] = 20;
+            carte.vente[3] = 19;
+            carte.attaque = 10;
+            carte.vie_max = carte.vie = 25;
+            carte.regeneration = 5;
+            carte.texte = function () {
+                return "Quand attaque : Inflige autant de dégâts à la créature attaquée que la vie max de cette créature.";
+            }
+            carte.effet_attaque = function (defenseur) {
+                degats(defenseur, carte.vie_max);
+            }
+            break;
+        case 393:
+            carte.nom = "Tréant aux racines nourrissantes";
+            define_creature(carte);
+            carte.familles.push("Plante", "Tréant");
+            carte.cout[0] = 40;
+            carte.cout[3] = 39;
+            carte.vente[0] = 20;
+            carte.vente[3] = 19;
+            carte.attaque = 15;
+            carte.vie_max = carte.vie = 20;
+            carte.regeneration = 5;
+            carte.texte = function () {
+                return "Au début de la phase de préparation : Se soigne complétement.";
+            }
+            carte.effet_etage_debut = function () {
+                carte.vie = carte.vie_max;
             }
             break;
     }
