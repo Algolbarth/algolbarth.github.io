@@ -23,7 +23,6 @@ function demarrage() {
             vitesse: 1000,
         },
         afficher_stat: true,
-        texte_talent: true,
         collection: [],
         collection_tri: "nom",
         collection_ordre: "croissant",
@@ -1626,4 +1625,10 @@ function talent_voir(talent, div, stack = false) {
     else {
         side.classList.add("affichage");
     }
+}
+
+function define_creature (carte) {
+    carte.type == "Créature";
+    carte.action_max = 1;
+    carte.equipement_max = 1;
 }

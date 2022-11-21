@@ -26,16 +26,6 @@ function option() {
         fonction("Activé", "Jeu.afficher_stat=true;option()");
         afficher(" Désactivé");
     }
-    saut();
-    afficher("<u>Description des talents :</u> ");
-    if (Jeu.texte_talent) {
-        afficher("Activé ");
-        fonction("Désactivé", "Jeu.texte_talent=false;option()");
-    }
-    else {
-        fonction("Activé", "Jeu.texte_talent=true;option()");
-        afficher(" Désactivé");
-    }
     saut(2);
     fonction("Retour à l'écran titre", "Jeu.en_jeu = false;ecran_titre()");
     actualiser();
