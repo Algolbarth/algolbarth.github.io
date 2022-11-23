@@ -17,7 +17,7 @@ function demarrage() {
         ],
         types: ["Créature", "Bâtiment", "Objet", "Action", "Région"],
         familles: [],
-        NOMBRE_CARTE: 393,
+        NOMBRE_CARTE: 396,
         combat: {
             auto: true,
             vitesse: 1000,
@@ -122,7 +122,6 @@ function nouvelle_partie() {
     Jeu.combat.etat = false;
     ajouter(obtenir_carte(78), "joueur", "regions");
     ajouter(obtenir_carte(31), "joueur", "main");
-    ajouter(obtenir_carte(391), "joueur", "main");
     ajouter(obtenir_carte(1), "joueur", "terrain");
     for (let n = 0; n < Jeu.joueur.main.length; n++) {
         Jeu.joueur.main[n].cache = true;

@@ -4873,19 +4873,19 @@ function obtenir_carte(carte_id) {
             carte.nom = "Édification boueuse";
             carte.type = "Action";
             carte.familles.push("Sort");
-            carte.cout[0] = 2;
+            carte.cout[0] = 3;
             carte.cout[4] = 2;
             carte.vente[0] = 1;
             carte.vente[4] = 1;
             carte.texte = function () {
-                return "Crée un " + effet_carte_voir_id(158, carte) + " sur le terrain en première position.<br/>Sorcellerie 4 : Crée un " + effet_carte_voir_id(158, carte) + " sur le terrain en première position et lui donne 2 vie.";
+                return "Crée un " + effet_carte_voir_id(158, carte) + " sur le terrain en première position.<br/>Sorcellerie 10 : Crée un " + effet_carte_voir_id(158, carte) + " sur le terrain en première position et lui donne 5 vie.";
             }
             carte.effet_pose = function () {
                 let nouvelle_carte = obtenir_carte(158);
-                nouvelle_carte.vente = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-                if (sorcellerie(carte.camp) >= 2) {
-                    nouvelle_carte.vie = nouvelle_carte.vie_max += 2;
+                if (sorcellerie(carte.camp) >= 10) {
+                    nouvelle_carte.vie= nouvelle_carte.vie_max += 5;
                 }
+                nouvelle_carte.vente = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
                 ajouter(nouvelle_carte, carte.camp, "terrain");
                 Jeu[carte.camp].terrain.unshift(nouvelle_carte);
                 Jeu[carte.camp].terrain.splice(Jeu[carte.camp].terrain.length - 1, 1);
@@ -4903,9 +4903,10 @@ function obtenir_carte(carte_id) {
             carte.type = "Bâtiment";
             carte.familles.push("Mur");
             carte.cout[0] = 2;
-            carte.cout[4] = 1;
+            carte.cout[4] = 2;
             carte.vente[0] = 1;
-            carte.vie_max = carte.vie = 4;
+            carte.vente[4] = 1;
+            carte.vie_max = carte.vie = 5;
             break;
         case 159:
             carte.nom = "Coup de vent";
@@ -17267,13 +17268,13 @@ function obtenir_carte(carte_id) {
                     if (!statistique(carte, "silence")) {
                         let verifier = false;
                         for (let n = 0; n < Jeu.NOMBRE_CARTE; n++) {
-                            if (Jeu.joueur.regions[Jeu.region_active].boutique_generer(obtenir_carte(n)) && obtenir_carte(n).familles.includes("Action")) {
+                            if (Jeu.joueur.regions[Jeu.region_active].boutique_generer(obtenir_carte(n)) && obtenir_carte(n).type == "Action") {
                                 verifier = true;
                             }
                         }
                         if (verifier) {
                             let nouvelle_carte = boutique_generer();
-                            while (!nouvelle_carte.familles.includes("Action")) {
+                            while (nouvelle_carte.type != "Action") {
                                 nouvelle_carte = boutique_generer();
                             }
                             pioche("joueur", nouvelle_carte);
@@ -17466,6 +17467,81 @@ function obtenir_carte(carte_id) {
             }
             carte.effet_etage_debut = function () {
                 carte.vie = carte.vie_max;
+            }
+            break;
+        case 394:
+            carte.nom = "Pêcheur";
+            define_creature(carte);
+            carte.familles.push("Ondin");
+            carte.cout[0] = 4;
+            carte.cout[2] = 4;
+            carte.vente[0] = 2;
+            carte.vente[2] = 2;
+            carte.attaque = 3;
+            carte.vie_max = carte.vie = 3;
+            carte.texte = function () {
+                return "Quand posé : Pioche une Créature Poisson.";
+            }
+            carte.effet_pose = function () {
+                if (carte.camp == "joueur") {
+                    if (!statistique(carte, "silence")) {
+                        let verifier = false;
+                        for (let n = 0; n < Jeu.NOMBRE_CARTE; n++) {
+                            if (Jeu.joueur.regions[Jeu.region_active].boutique_generer(obtenir_carte(n)) && obtenir_carte(n).type == "Créature" && obtenir_carte(n).familles.includes("Poisson")) {
+                                verifier = true;
+                            }
+                        }
+                        if (verifier) {
+                            let nouvelle_carte = boutique_generer();
+                            while (!nouvelle_carte.familles.includes("Poisson") || nouvelle_carte.type != "Créature") {
+                                nouvelle_carte = boutique_generer();
+                            }
+                            pioche("joueur", nouvelle_carte);
+                        }
+                    }
+                    deplacer(carte, "joueur", "terrain");
+                    effet_pose(carte);
+                    menu();
+                }
+                else {
+                    deplacer(carte, "adverse", "terrain");
+                    effet_pose(carte);
+                    return true;
+                }
+            }
+            break;
+        case 395:
+            carte.nom = "Baleine";
+            define_creature(carte);
+            carte.familles.push("Bête");
+            carte.cout[0] = 10;
+            carte.cout[2] = 9;
+            carte.vente[0] = 5;
+            carte.vente[2] = 4;
+            carte.attaque = 5;
+            carte.vie_max = carte.vie = 15;
+            break;
+        case 396:
+            carte.nom = "Dauphin";
+            define_creature(carte);
+            carte.familles.push("Bête");
+            carte.cout[0] = 5;
+            carte.cout[2] = 4;
+            carte.vente[0] = 2;
+            carte.vente[2] = 2;
+            carte.attaque = 5;
+            carte.vie_max = carte.vie = 5;
+            carte.texte = function () {
+                return "Quand posé : Pioche 1 carte.";
+            }
+            carte.effet_pose = function () {
+                if (carte.camp == "joueur") {
+                    pioche("joueur");
+                }
+                deplacer(carte, carte.camp, "terrain");
+                effet_pose(carte);
+                menu();
+                return true;
             }
             break;
     }
