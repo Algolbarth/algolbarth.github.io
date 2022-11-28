@@ -26,6 +26,16 @@ function option() {
         fonction("Activé", "Jeu.afficher_stat=true;option()");
         afficher(" Désactivé");
     }
+    saut();
+    afficher("<u>Afficher le détails des statistiques :</u> ");
+    if (Jeu.afficher_detail_stat) {
+        afficher("Activé ");
+        fonction("Désactivé", "Jeu.afficher_detail_stat=false;option()");
+    }
+    else {
+        fonction("Activé", "Jeu.afficher_detail_stat=true;option()");
+        afficher(" Désactivé");
+    }
     saut(2);
     fonction("Retour à l'écran titre", "Jeu.en_jeu = false;ecran_titre()");
     actualiser();

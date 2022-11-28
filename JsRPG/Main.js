@@ -17,12 +17,13 @@ function demarrage() {
         ],
         types: ["Créature", "Bâtiment", "Objet", "Action", "Région"],
         familles: [],
-        NOMBRE_CARTE: 396,
+        NOMBRE_CARTE: 407,
         combat: {
             auto: true,
             vitesse: 1000,
         },
         afficher_stat: true,
+        afficher_detail_stat: true,
         collection: [],
         collection_tri: "nom",
         collection_ordre: "croissant",
@@ -489,13 +490,45 @@ function carte_afficher(carte, div) {
         if (statistique(carte, "charge")) {
             texte += effet_talent_voir("Charge", carte) + "<br/>";
         }
-        texte += "<u>Attaque :</u> " + statistique(carte, "attaque") + "<br/>";
+        texte += "<u>Attaque :</u> " + statistique(carte, "attaque");
+        if (Jeu.afficher_detail_stat && (carte.stat_etage.attaque > 0 || carte.stat_tour.attaque > 0)) {
+            texte += " (" + carte.attaque + " de base";
+            if (carte.stat_etage.attaque > 0) {
+                texte += " + " + carte.stat_etage.attaque + " pour cet étage";
+            }
+            if (carte.stat_tour.attaque > 0) {
+                texte += " + " + carte.stat_tour.attaque + " pour ce tour de combat";
+            }
+            texte += ")";
+        }
+        texte += "<br/>";
     }
     if (carte.type == "Créature" || carte.type == "Bâtiment") {
-        texte += "<u>Défense :</u> " + statistique(carte, "defense") + "<br/>";
+        texte += "<u>Défense :</u> " + statistique(carte, "defense");
+        if (Jeu.afficher_detail_stat && (carte.stat_etage.defense > 0 || carte.stat_tour.defense > 0)) {
+            texte += " (" + carte.defense + " de base";
+            if (carte.stat_etage.defense > 0) {
+                texte += " + " + carte.stat_etage.defense + " pour cet étage";
+            }
+            if (carte.stat_tour.defense > 0) {
+                texte += " + " + carte.stat_tour.defense + " pour ce tour de combat";
+            }
+            texte += ")";
+        }
+        texte += "<br/>";
         texte += "<u>Vie :</u> " + carte.vie + " / " + statistique(carte, "vie_max");
         if (carte.vie_sup > 0) {
             texte += " (+ " + carte.vie_sup + ")";
+        }
+        if (Jeu.afficher_detail_stat && (carte.stat_etage.vie_max > 0 || carte.stat_tour.vie_max > 0)) {
+            texte += " (" + carte.vie_max + " de base";
+            if (carte.stat_etage.vie_max > 0) {
+                texte += " + " + carte.stat_etage.vie_max + " pour cet étage";
+            }
+            if (carte.stat_tour.vie_max > 0) {
+                texte += " + " + carte.stat_tour.vie_max + " pour ce tour de combat";
+            }
+            texte += ")";
         }
         texte += "<br/>";
     }
@@ -1627,7 +1660,7 @@ function talent_voir(talent, div, stack = false) {
     }
 }
 
-function define_creature (carte) {
+function define_creature(carte) {
     carte.type == "Créature";
     carte.action_max = 1;
     carte.equipement_max = 1;
