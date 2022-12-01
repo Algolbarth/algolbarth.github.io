@@ -22,14 +22,54 @@ function obtenir_histoire(id) {
     switch (id) {
         case 1:
             histoire.nom = "Génèse";
-            histoire.texte = "Au début il n'y avait rien. <br/>";
-            histoire.texte += "Puis la lumière et les ténèbres se sont partagés le monde, la première dominant les cieux et les seconds tapissant les profondeurs. <br/>";
+            histoire.texte = "<center>Génèse</center>";
+            histoire.texte += "Au début il n'y avait rien. <br/>";
+            histoire.texte += "Puis la lumière et les ténèbres se sont partagé le monde, la première dominant les cieux et les seconds tapissant les profondeurs. <br/>";
             histoire.texte += "Ensuite l'eau recouvra le monde et laissa l'air s'installer au-dessus d'elle. <br/>";
-            histoire.texte += "Dans l'eau émergea alors la terre chatouillant l'air tandis que le feu se regroupa sous forme de boule au dessus de ces îles nouvellement créées. <br/>";
-            histoire.texte += "Pour que ces éléments puisse agir entre eux, la foudre leur incita le mouvement et la glace limita ce dernier pour garantir un équilibre des forces. <br/>";
-            histoire.texte += "Une fois que le changement et la contnuité arrivèrent dans l'univers, la vie put prendre son essort et les végétaux poussèrent partout où ils pouvaient. <br/>";
-            histoire.texte += "Mais la vie implique la mort et cette dernière emporta les êtres vivants trop faibles, ne laissant que les plus robustes pour dévéllopper la faune et la flore. <br/>";
+            histoire.texte += "Dans l'eau émergea alors la terre chatouillant l'air tandis que le feu se regroupa sous forme de boule au-dessus de ces îles nouvellement créées. <br/>";
+            histoire.texte += "Pour que ces éléments puissent agir entre eux, la foudre leur incita le mouvement et la glace limita ce dernier pour garantir un équilibre des forces. <br/>";
+            histoire.texte += "Une fois que le changement et la continuité arrivèrent dans l'univers, la vie put prendre son essor et les végétaux poussèrent partout où ils pouvaient. <br/>";
+            histoire.texte += "Mais la vie implique la mort et cette dernière emporta les êtres vivants trop faibles, ne laissant que les plus robustes pour dévellopper la faune et la flore. <br/>";
             histoire.texte += "Enfin la vie donna naissance à la conscience, et avec elle les croyances de l'arcane et les sciences des métaux.";
+            break;
+        case 2:
+            histoire.nom = "Chroniques du temps";
+            histoire.texte = "<center>Chroniques du temps</center>";
+            histoire.texte += "- Apparition et mort de Golgoth <br/>";
+            histoire.texte += "- Liaison vers l'Enfer <br/>";
+            histoire.texte += "- Liaison vers le Paradis <br/>";
+            histoire.texte += "- Guerre divine <br/>";
+            histoire.texte += "- Apparition et mort de Golgoth <br/>";
+            histoire.texte += "- Grande guerre <br/>";
+            histoire.texte += "- Naissance de l'Empire <br/>";
+            histoire.texte += "- Guerre de l'Empire contre les 7 grands pêchés <br/>";
+            histoire.texte += "- Règne de l'Empereur barbare <br/>";
+            histoire.texte += "- Guerre contre les démons <br/>";
+            histoire.texte += "- Mort de l'Empereur barbare contre un archidémon <br/>";
+            histoire.texte += "- Règne de l'Empereur haut-elfe <br/>";
+            histoire.texte += "- Guerre contre le néant <br/>";
+            histoire.texte += "- Règne de l'Empereur dragon <br/>";
+            histoire.texte += "- Avénement de la liche alliée au Néant <br/>";
+            break;
+        case 3:
+            histoire.nom = "Histoire impériale";
+            histoire.texte = "<center>Histoire impériale</center>";
+            histoire.texte += "L'Empire est le plus grand royaume au monde, unissant toutes les races des terres connues autour d'un seul pouvoir. <br/>";
+            histoire.texte += "Ce pouvoir est incarné autour de l'Empereur, autorité suprême du monde qui régit les peuples s'étant ralliés à l'Empire. <br/>";
+            histoire.texte += "Autour de l'Empereur, chaque peuple peut envoyer un représentant siéger à la citadelle imperiale pour incarner les intérêts des siens et former le siège impérial, assistant l'empereur dans sa tâche. <br/>";
+            histoire.texte += "L'Empereur est un individu désigné par l'Empereur précédent, garantissant une continuité de la bonne volonté de l'Empire et d'un règne cohérent. <br/>";
+            histoire.texte += "Le nouvel empereur étant un homme de confiance du précédent, il s'agit souvent d'un de ses plus proches conseillers parmi les membres du siège impérial. <br/>";
+            histoire.texte += "L'Empire est centralisée autour d'une ville-continent faisant office de capitale impériale, construite aux abords de la citadelle impériale. <br/>";
+            histoire.texte += "La capitale impériale regroupe les institutions commerciales, les ambassades des peuples mais aussi de nombreuses auberges, des entrepôts gigantesques et des commerces de toutes sortes. <br/>";
+            histoire.texte += "Les plus grands artisans se sont installés ici pour bénéficier du flux de voyageurs et de la renommée qu'implique un tel emplacement. <br/>"
+            histoire.texte += "L'Empire est né des cendres de la Grande guerre et de la nécessité d'unir les peuples quels que soient les éléments et par-delà les océans. <br/>";
+            histoire.texte += "Autrefois, les races n'étaient régies que par des pouvoirs locaux et inévitablement des conflits éclataient pour d'innombrables raisons. <br/>";
+            histoire.texte += "Le commerce amorcé par les humains pour réunir les continents était efficace mais la diversité des guildes marchandes menait à la création de plusieurs monnaies. Au final, les continents ne partageant pas la même monnaie étaient tout aussi éloigné qu'avant. <br/>";
+            histoire.texte += "Avec l'obligation d'utiliser la monnaie impériale, tous les peuples étaient unis malgré la distance. <br/>";
+            break;
+        case 4:
+            histoire.nom = "Chroniques du temps";
+            histoire.texte = "- Apparition et mort de Golgoth <br/>";
             break;
     }
     return histoire;

@@ -2,6 +2,7 @@ body {
     font-size: 150%;
     background: #8a4b14;
     cursor: url("Images/Select.cur"), default;
+    text-align : justify;
 }
 
 button {
