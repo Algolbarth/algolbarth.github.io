@@ -188,7 +188,7 @@ function attaque(attaquant, defenseur) {
                 degats(Jeu[Jeu.combat.defenseur].terrain[defenseur.slot], degats_result.surplus);
             }
             attaquant.effet_tuer(defenseur);
-            for (let n=0;n<attaquant.equipements.length;n++) {
+            for (let n = 0; n < attaquant.equipements.length; n++) {
                 attaquant.equipements[n].stat_equipement.effet_tuer(attaquant, defenseur);
             }
         }
@@ -248,6 +248,8 @@ function combat_afficher() {
         fonction("Désactiver mode auto", "combat_auto_off()");
     }
     else {
+        fonction("Options", "option_combat()");
+        afficher(" - ");
         fonction("Activer mode auto", "combat_auto_on()");
         afficher(" - ");
         fonction("Action suivante", "combat_continuer()");
@@ -308,7 +310,7 @@ function combat_afficher() {
     actualiser();
 }
 
-function fermer_carte (camp) {
+function fermer_carte(camp) {
     texte = "";
     if (camp == "joueur") {
         side.classList.remove("affichage");

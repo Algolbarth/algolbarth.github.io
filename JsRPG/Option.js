@@ -1,52 +1,56 @@
-function option() {
-    initialiser();
-    fonction("Continuer", "menu()");
-    saut(2);
-    afficher("<u>Combat automatique :</u> ");
-    if (Jeu.combat.auto) {
-        afficher("Activé ");
-        fonction("Désactivé", "Jeu.combat.auto=false;option()");
+function option(option_afficher) {
+    if (!Jeu.combat.etat) {
+        afficher("<u>Combat automatique :</u> ");
+        if (Jeu.combat.auto) {
+            afficher("Activé ");
+            fonction("Désactivé", "Jeu.combat.auto=false;" + option_afficher);
+        }
+        else {
+            fonction("Activé", "Jeu.combat.auto=true;" + option_afficher);
+            afficher(" Désactivé");
+        }
+        saut();
     }
-    else {
-        fonction("Activé", "Jeu.combat.auto=true;option()");
-        afficher(" Désactivé");
-    }
-    saut();
     afficher("<u>Vitesse de combat automatique :</u> ");
     option_vitesse("Lente", 3000);
     option_vitesse("Normal", 1000);
     option_vitesse("Rapide", 500);
-    saut();
-    afficher("<u>Afficher les statistiques des créatures et des bâtiments hors combat :</u> ");
-    if (Jeu.afficher_stat) {
-        afficher("Activé ");
-        fonction("Désactivé", "Jeu.afficher_stat=false;option()");
+}
+
+function option_vitesse(nom, vitesse, option_afficher) {
+    if (Jeu.combat.vitesse == vitesse) {
+        afficher(nom + " ");
     }
     else {
-        fonction("Activé", "Jeu.afficher_stat=true;option()");
-        afficher(" Désactivé");
+        fonction(nom, "Jeu.combat.vitesse=" + vitesse + ";" + option_afficher);
+        afficher(" ");
     }
-    saut();
-    afficher("<u>Afficher le détails des statistiques :</u> ");
-    if (Jeu.afficher_detail_stat) {
-        afficher("Activé ");
-        fonction("Désactivé", "Jeu.afficher_detail_stat=false;option()");
-    }
-    else {
-        fonction("Activé", "Jeu.afficher_detail_stat=true;option()");
-        afficher(" Désactivé");
-    }
+}
+
+function option_jeu() {
+    initialiser();
+    fonction("Continuer", "menu()");
+    saut(2);
+    option("option_jeu()");
     saut(2);
     fonction("Retour à l'écran titre", "Jeu.en_jeu = false;ecran_titre()");
     actualiser();
 }
 
-function option_vitesse(nom, vitesse) {
-    if (Jeu.combat.vitesse == vitesse) {
-        afficher(nom + " ");
-    }
-    else {
-        fonction(nom, "Jeu.combat.vitesse=" + vitesse + ";option()");
-        afficher(" ");
-    }
+function option_combat() {
+    initialiser();
+    fonction("Continuer", "combat_afficher()");
+    saut(2);
+    option("option_combat()");
+    saut(2);
+    fonction("Retour à l'écran titre", "Jeu.en_jeu = false;ecran_titre()");
+    actualiser();
+}
+
+function option_menu() {
+    initialiser();
+    fonction("Retour", "ecran_titre()");
+    saut(2);
+    option("option_menu()");
+    actualiser();
 }

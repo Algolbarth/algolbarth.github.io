@@ -17,13 +17,12 @@ function demarrage() {
         ],
         types: ["Créature", "Bâtiment", "Objet", "Action", "Région"],
         familles: [],
-        NOMBRE_CARTE: 407,
+        NOMBRE_CARTE: 408,
+        NOMBRE_HISTOIRE : 1,
         combat: {
             auto: true,
             vitesse: 1000,
         },
-        afficher_stat: true,
-        afficher_detail_stat: true,
         collection: [],
         collection_tri: "nom",
         collection_ordre: "croissant",
@@ -74,6 +73,10 @@ function ecran_titre() {
     fonction("Jouer", "nouvelle_partie()", "menu");
     saut(2);
     fonction("Bibliothèque", "collection_init();collection()", "menu");
+    saut(2);
+    fonction("Univers", "lore()", "menu");
+    saut(2);
+    fonction("Options", "option_menu()", "menu");
     afficher("</center>");
     actualiser();
 }
@@ -140,7 +143,7 @@ function nouvelle_partie() {
 function menu() {
     initialiser();
     div("main");
-    fonction("Options", "option()");
+    fonction("Options", "option_jeu()");
     saut(2);
     afficher("Etage : " + Jeu.etage);
     saut();
@@ -313,7 +316,7 @@ function afficher_carte(camp, zone, slot) {
     if (carte.verrouillage) {
         afficher("]");
     }
-    if ((Jeu.afficher_stat || Jeu.combat.etat) && ["Créature", "Bâtiment"].includes(carte.type)) {
+    if (["Créature", "Bâtiment"].includes(carte.type)) {
         if (carte.type == "Créature") {
             afficher(" " + statistique(carte, "attaque") + " ATT");
         }
@@ -350,6 +353,19 @@ function carte_afficher(carte, div) {
         texte += "</i></div>";
     }
     texte += "</div>";
+    texte += "<u>Éléments :</u> ";
+    if (carte.elements.length > 0) {
+        for (let n = 0; n < carte.elements.length; n++) {
+            if (n > 0) {
+                texte += ", ";
+            }
+            texte += carte.elements[n];
+        }
+    }
+    else {
+        texte += "Neutre";
+    }
+    texte += "<br/>";
     texte += "<u>Coût :</u> ";
     let premier_cout = true;
     for (let n = 0; n < carte.cout.length; n++) {
@@ -491,7 +507,7 @@ function carte_afficher(carte, div) {
             texte += effet_talent_voir("Charge", carte) + "<br/>";
         }
         texte += "<u>Attaque :</u> " + statistique(carte, "attaque");
-        if (Jeu.afficher_detail_stat && (carte.stat_etage.attaque > 0 || carte.stat_tour.attaque > 0)) {
+        if (carte.stat_etage.attaque > 0 || carte.stat_tour.attaque > 0) {
             texte += " (" + carte.attaque + " de base";
             if (carte.stat_etage.attaque > 0) {
                 texte += " + " + carte.stat_etage.attaque + " pour cet étage";
@@ -505,7 +521,7 @@ function carte_afficher(carte, div) {
     }
     if (carte.type == "Créature" || carte.type == "Bâtiment") {
         texte += "<u>Défense :</u> " + statistique(carte, "defense");
-        if (Jeu.afficher_detail_stat && (carte.stat_etage.defense > 0 || carte.stat_tour.defense > 0)) {
+        if (carte.stat_etage.defense > 0 || carte.stat_tour.defense > 0) {
             texte += " (" + carte.defense + " de base";
             if (carte.stat_etage.defense > 0) {
                 texte += " + " + carte.stat_etage.defense + " pour cet étage";
@@ -520,7 +536,7 @@ function carte_afficher(carte, div) {
         if (carte.vie_sup > 0) {
             texte += " (+ " + carte.vie_sup + ")";
         }
-        if (Jeu.afficher_detail_stat && (carte.stat_etage.vie_max > 0 || carte.stat_tour.vie_max > 0)) {
+        if (carte.stat_etage.vie_max > 0 || carte.stat_tour.vie_max > 0) {
             texte += " (" + carte.vie_max + " de base";
             if (carte.stat_etage.vie_max > 0) {
                 texte += " + " + carte.stat_etage.vie_max + " pour cet étage";
