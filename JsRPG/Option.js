@@ -12,9 +12,9 @@ function option(option_afficher) {
         saut();
     }
     afficher("<u>Vitesse de combat automatique :</u> ");
-    option_vitesse("Lente", 3000);
-    option_vitesse("Normal", 1000);
-    option_vitesse("Rapide", 500);
+    option_vitesse("Lente", 3000, option_afficher);
+    option_vitesse("Normal", 1000, option_afficher);
+    option_vitesse("Rapide", 500, option_afficher);
 }
 
 function option_vitesse(nom, vitesse, option_afficher) {

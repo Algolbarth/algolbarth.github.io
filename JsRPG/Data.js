@@ -2847,7 +2847,13 @@ function obtenir_carte(carte_id) {
                 return "Toutes les cartes peuvent être piochées dans la boutique.";
             }
             carte.effet_pose = function () {
-                return false;
+                if (carte.camp == "joueur") {
+                    deplacer(carte, "joueur", "regions");
+                    menu();
+                }
+                else {
+                    return false;
+                }
             }
             carte.boutique_generer = function (nouvelle_carte) {
                 if ((cout_total(nouvelle_carte) <= Jeu.boutique_niveau * 5 || Jeu.boutique_niveau == 10) && !nouvelle_carte.exclusif) {
@@ -3007,8 +3013,8 @@ function obtenir_carte(carte_id) {
                             break;
                         case 2:
                             Jeu.joueur.terrain[cible].stat_etage.attaque += 2;
-                            Jeu.joueur.terrain[cible].vie++;
-                            Jeu.joueur.terrain[cible].stat_etage.vie_max++;
+                            Jeu.joueur.terrain[cible].vie += 2;
+                            Jeu.joueur.terrain[cible].stat_etage.vie_max += 2;
                             deplacer(carte, "joueur", "defausse");
                             effet_pose(carte);
                             menu();
@@ -3022,8 +3028,8 @@ function obtenir_carte(carte_id) {
                             best++;
                         }
                         Jeu.adverse.terrain[best].stat_etage.attaque += 2;
-                        Jeu.adverse.terrain[best].vie++;
-                        Jeu.adverse.terrain[best].stat_etage.vie_max++;
+                        Jeu.adverse.terrain[best].vie += 2;
+                        Jeu.adverse.terrain[best].stat_etage.vie_max += 2;
                         deplacer(carte, "adverse", "defausse");
                         effet_pose(carte);
                         return true;
@@ -17927,6 +17933,80 @@ function obtenir_carte(carte_id) {
                     }
                 }
             }
+            break;
+        case 409:
+            carte.nom = "Bagarreur satyre";
+            define_creature(carte);
+            carte.familles.push("Satyre");
+            carte.cout[0] = 4;
+            carte.cout[6] = 4;
+            carte.vente[0] = 2;
+            carte.vente[6] = 2;
+            carte.attaque = 3;
+            carte.vie_max = carte.vie = 3;
+            carte.texte = function () {
+                return "Quand posé : Donne 6 attaque à une Créature alliée sur le terrain jusqu'à la fin de la phase de combat.";
+            }
+            carte.effet_pose = function (step, cible) {
+                if (carte.camp == "joueur") {
+                    switch (step) {
+                        case 1:
+                            if (verifier_creature("joueur", "terrain")) {
+                                initialiser();
+                                div("main");
+                                fonction("Annuler", "menu()");
+                                saut(2);
+                                afficher(carte.nom);
+                                saut();
+                                afficher(carte.texte());
+                                saut(2);
+                                afficher("Choisissez une Créature alliée sur le terrain : ");
+                                saut(2);
+                                div("", "zone");
+                                afficher("<u>Terrain :</u>");
+                                saut();
+                                for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
+                                    div("", "carte");
+                                    div();
+                                    afficher_carte("joueur", "terrain", n);
+                                    div_fin();
+                                    if (Jeu.joueur.terrain[n].type == "Créature") {
+                                        div();
+                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
+                                        div_fin();
+                                    }
+                                    div_fin();
+                                }
+                                div_fin();
+                                div_fin();
+                                div("side", "affichage");
+                                div_fin();
+                                actualiser();
+                            }
+                            break;
+                        case 2:
+                            Jeu.joueur.terrain[cible].stat_etage.attaque += 6;
+                            deplacer(carte, "joueur", "defausse");
+                            effet_pose(carte);
+                            menu();
+                            break;
+                    }
+                }
+                else {
+                    if (verifier_creature("adverse", "terrain")) {
+                        let best = 0;
+                        while (Jeu.adverse.terrain[best].type != "Créature") {
+                            best++;
+                        }
+                        Jeu.adverse.terrain[best].stat_etage.attaque += 6;
+                        deplacer(carte, "adverse", "defausse");
+                        effet_pose(carte);
+                        return true;
+                    }
+                    return false;
+                }
+            }
+            break;
             break;
     }
     for (let n = 0; n < carte.cout.length; n++) {

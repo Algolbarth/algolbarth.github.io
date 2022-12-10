@@ -17,8 +17,8 @@ function demarrage() {
         ],
         types: ["Créature", "Bâtiment", "Objet", "Action", "Région"],
         familles: [],
-        NOMBRE_CARTE: 408,
-        NOMBRE_HISTOIRE : 3,
+        NOMBRE_CARTE: 409,
+        NOMBRE_HISTOIRE : 4,
         combat: {
             auto: true,
             vitesse: 1000,
@@ -164,7 +164,11 @@ function menu() {
     }
     saut();
     div("", "zone");
-    afficher("<u>Régions :</u>");
+    afficher("<u>Régions :</u> <i>" + Jeu.joueur.regions.length + " carte");
+    if (Jeu.joueur.regions.length > 1) {
+        afficher("s");
+    }
+    afficher("</i>");
     saut();
     for (let n = 0; n < Jeu.joueur.regions.length; n++) {
         div("", "carte");
@@ -188,6 +192,11 @@ function menu() {
     afficher(" (" + (Jeu.boutique_niveau + 1) + " Or)");
     afficher(" - ");
     fonction("Verrouiller", "boutique_verrouiller()");
+    afficher(" - <i>" + Jeu.joueur.boutique.length + " carte");
+    if (Jeu.joueur.boutique.length > 1) {
+        afficher("s");
+    }
+    afficher("</i>");
     div_fin();
     if (Jeu.joueur.boutique.length > 0) {
         for (let n = 0; n < Jeu.joueur.boutique.length; n++) {
@@ -208,7 +217,11 @@ function menu() {
     div_fin();
     saut();
     div("", "zone");
-    afficher("<u>Main :</u>");
+    afficher("<u>Main :</u> <i>" + Jeu.joueur.main.length + " carte");
+    if (Jeu.joueur.main.length > 1) {
+        afficher("s");
+    }
+    afficher("</i>");
     saut();
     if (Jeu.joueur.main.length > 0) {
         for (let n = 0; n < Jeu.joueur.main.length; n++) {
@@ -239,7 +252,11 @@ function menu() {
     div_fin();
     saut();
     div("", "zone");
-    afficher("<u>Terrain :</u>");
+    afficher("<u>Terrain :</u> <i>" + Jeu.joueur.terrain.length + " carte");
+    if (Jeu.joueur.terrain.length > 1) {
+        afficher("s");
+    }
+    afficher("</i>");
     saut();
     if (Jeu.joueur.terrain.length > 0) {
         for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
@@ -270,7 +287,11 @@ function menu() {
     div_fin();
     saut();
     div("", "zone");
-    afficher("<u>Défausse :</u>");
+    afficher("<u>Défausse :</u> <i>" + Jeu.joueur.defausse.length + " carte");
+    if (Jeu.joueur.defausse.length > 1) {
+        afficher("s");
+    }
+    afficher("</i>");
     saut();
     if (Jeu.joueur.defausse.length > 0) {
         for (let n = 0; n < Jeu.joueur.defausse.length; n++) {
