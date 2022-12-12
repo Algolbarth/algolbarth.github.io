@@ -52,12 +52,6 @@ function ajouter_sites () {
     ajouter_site("Where in Warcraft ?","https://www.kruithne.net/where-in-warcraft/",[3]);
     ajouter_site("Summoners War : Sky Arena","https://sw.com2us.com/fr/skyarena",[3,10]);
     ajouter_site("Summoners War Wiki","https://summonerswarskyarena.info/",[3,10]);
-    ajouter_site("Benetton","https://fr.benetton.com/",[5]);
-    ajouter_site("Pimkie","https://www.pimkie.fr/",[5]);
-    ajouter_site("Camaieu","https://www.camaieu.fr/",[5]);
-    ajouter_site("Cache Cache","https://www.cache-cache.fr/",[5]);
-    ajouter_site("DeFacto <i>France</i>","https://ma.defactofashion.com/",[5]);
-    ajouter_site("DeFacto <i>Turquie</i>","https://www.defacto.com.tr/kadin/",[5]);
     ajouter_site("Youtube convertisseur en MP3","https://mp3y.download/fr/faster-mp3-convert",[8]);
     ajouter_site("Dofus","https://www.dofus.com/fr/prehome",[3]);
     ajouter_site("Wix","https://fr.wix.com/",[7]);
@@ -84,12 +78,8 @@ function ajouter_sites () {
     ajouter_site("JeuxVidéos.com","https://www.jeuxvideo.com/",[2,3]);
     ajouter_site("Minecraft <i>Site officiel</i>","https://www.minecraft.net/fr-fr",[3]);
     ajouter_site("Minecraft.fr","https://minecraft.fr/",[3]);
-    ajouter_site("Orsay","https://www.aboutyou.de/about/brand/orsay",[5]);
-    ajouter_site("H&M","https://www2.hm.com/fr_fr/index.html",[5]);
-    ajouter_site("Kiabi","https://www.kiabi.com/",[5]);
     ajouter_site("Gems of War Database","https://gowdb.com/fr-FR/",[3]);
     ajouter_site("Doctissimo","https://www.doctissimo.fr/",[6]);
-    ajouter_site("Vero moda","https://www.veromoda.com/fr/fr/home",[5]);
     ajouter_site("RGB color codes","https://htmlcolorcodes.com/fr/",[7]);
     ajouter_site("Pampling","https://www.pampling.com/tienda/catalogo/busqueda?pag=4",[5]);
     ajouter_site("Filtre Sallen-Key","http://sim.okawa-denshi.jp/en/Fkeisan.htm",[6]);
@@ -99,10 +89,15 @@ function ajouter_sites () {
     ajouter_site("Tables de hachage","http://web4.ensiie.fr/~guillaume.burel/cours/IAP3/cours_hash.pdf",[7]);
     ajouter_site("Amplificateur opérationnel","http://physiquenetappliquee.free.fr/ampli_op1.php",[6]);
 
+    ajouter_site("New Monaco","New Monaco/index.html",[0]);
+    ajouter_site("JsTA","JsTA/index.html",[0]);
     ajouter_site("Dimension","Dimension/index.html",[0]);
     ajouter_site("JsRPG","JsRPG/index.html",[0]);
-    ajouter_site("Projet","Projet/index.html",[0]);
     ajouter_site("Cryptage","Cryptage/index.html",[0]);
+
+    ajouter_site("Jellyfin","https://jelly.lacave.stream/web/index.html",[1]);
+    ajouter_site("Photos Meet-Up Dimension 2022","https://photos.google.com/share/AF1QipMgO525dQxGhR_Yjk9575LrGxKH_m4LBx6dHpFAXlVrtuOI-7vDzCBnNl8c7qQ_wg?pli=1&key=cDFjNkstZG4wOHJBYW9nTW4zTW9RbnVQNllIQ1FB",[1]);
+    ajouter_site("Veste Veromoda à dl","https://www.veromoda.com/fr/fr/vm/shoppez-par-categorie/blazers/en-jersey-blazer-10235973.html?cgid=vm-blazers&dwvar_colorPattern=10235973_DryRose_959119",[1]);
 
     ajouter_dossier("Local");//0
     ajouter_dossier("Favoris");//1
