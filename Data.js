@@ -89,8 +89,6 @@ function ajouter_sites () {
     ajouter_site("Tables de hachage","http://web4.ensiie.fr/~guillaume.burel/cours/IAP3/cours_hash.pdf",[7]);
     ajouter_site("Amplificateur opérationnel","http://physiquenetappliquee.free.fr/ampli_op1.php",[6]);
 
-    ajouter_site("New Monaco","New Monaco/index.html",[0]);
-    ajouter_site("JsTA","JsTA/index.html",[0]);
     ajouter_site("Dimension","Dimension/index.html",[0]);
     ajouter_site("JsRPG","JsRPG/index.html",[0]);
     ajouter_site("Cryptage","Cryptage/index.html",[0]);
