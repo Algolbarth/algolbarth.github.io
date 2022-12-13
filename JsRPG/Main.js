@@ -17,7 +17,7 @@ function demarrage() {
         ],
         types: ["Créature", "Bâtiment", "Objet", "Action", "Région"],
         familles: [],
-        NOMBRE_CARTE: 409,
+        NOMBRE_CARTE: 425,
         NOMBRE_HISTOIRE : 4,
         combat: {
             auto: true,
@@ -1120,7 +1120,11 @@ function adversaire_voir() {
     }
     saut();
     div("", "zone");
-    afficher("<u>Boutique adverse :</u>");
+    afficher("<u>Boutique adverse :</u> <i>" + Jeu.adverse.boutique.length + " carte");
+    if (Jeu.adverse.boutique.length > 1) {
+        afficher("s");
+    }
+    afficher("</i>");
     saut();
     if (Jeu.adverse.boutique.length > 0) {
         for (let n = 0; n < Jeu.adverse.boutique.length; n++) {
@@ -1143,7 +1147,11 @@ function adversaire_voir() {
     div_fin();
     saut();
     div("", "zone");
-    afficher("<u>Main adverse :</u>");
+    afficher("<u>Main adverse :</u> <i>" + Jeu.adverse.main.length + " carte");
+    if (Jeu.adverse.main.length > 1) {
+        afficher("s");
+    }
+    afficher("</i>");
     saut();
     if (Jeu.adverse.main.length > 0) {
         for (let n = 0; n < Jeu.adverse.main.length; n++) {
@@ -1166,7 +1174,11 @@ function adversaire_voir() {
     div_fin();
     saut();
     div("", "zone");
-    afficher("<u>Terrain adverse :</u>");
+    afficher("<u>Terrain adverse :</u> <i>" + Jeu.adverse.terrain.length + " carte");
+    if (Jeu.adverse.terrain.length > 1) {
+        afficher("s");
+    }
+    afficher("</i>");
     saut();
     if (Jeu.adverse.terrain.length > 0) {
         for (let n = 0; n < Jeu.adverse.terrain.length; n++) {
@@ -1189,7 +1201,11 @@ function adversaire_voir() {
     div_fin();
     saut();
     div("", "zone");
-    afficher("<u>Défausse adverse :</u>");
+    afficher("<u>Défausse adverse :</u> <i>" + Jeu.adverse.defausse.length + " carte");
+    if (Jeu.adverse.defausse.length > 1) {
+        afficher("s");
+    }
+    afficher("</i>");
     saut();
     if (Jeu.adverse.defausse.length > 0) {
         for (let n = 0; n < Jeu.adverse.defausse.length; n++) {

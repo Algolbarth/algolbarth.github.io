@@ -147,7 +147,7 @@ function attaque(attaquant, defenseur) {
     if (!statistique(attaquant, "silence")) {
         attaquant.effet_attaque(defenseur);
         for (let n = 0; n < attaquant.equipements.length; n++) {
-            attaquant.equipements[n].stat_equipement.effet_attaque(defenseur);
+            attaquant.equipements[n].stat_equipement.effet_attaque(attaquant, defenseur);
         }
     }
     if (attaquant.saignement > 0 && !statistique(attaquant, "silence")) {
