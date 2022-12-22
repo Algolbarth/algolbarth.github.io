@@ -2,7 +2,7 @@ function demarrage() {
     Compte = {
         situation_nombre: 38,
         carte_nombre: 50,
-        version: "0.0.1",
+        version: "1.0.0",
         jeu: {},
         nom: "",
         connexion: false,
