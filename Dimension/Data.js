@@ -607,17 +607,17 @@ function obtenir_situation (situation_id) {
             situation.texte = "Pinv tente de renverser le conseil des 4 en manigancant dans l'ombre.";
             choix = {
                 nom : "L'aider et conspirer",
-                texte : "Niark niark niark... Vous et les autres rebelles profitez d'une faille dans le système pour vous cacher aux yeux du pouvoir en place (ne vous emballez pas vous êtes caché dans un fil dans les channels de jeux vidéos où personne ne va)." + write_score(0,0,0,0),
+                texte : "Niark niark niark... Vous et les autres rebelles profitez d'une faille dans le système pour vous cacher aux yeux du pouvoir en place (ne vous emballez pas vous êtes caché dans un fil dans les channels de jeux vidéos où personne ne va)." + write_score(0,-1,2,-1),
                 action : function () {
-                    change_score(0,0,0,0);
+                    change_score(0,-1,2,-1);
                 }
             }
             situation.choix.push(choix);
             choix = {
                 nom : "Prévenir le conseil",
-                texte : "AH bah pas besoin, Red a remarqué tout seul que Pinv avait des perms anormales en checkant les paramètres du serv. Des fois il s'en faut de peu pour détenir la couronne ou juste passer pour un con." + write_score(0,0,0,0),
+                texte : "Ah bah pas besoin, Red a remarqué tout seul que Pinv avait des perms anormales en checkant les paramètres du serv. Des fois il s'en faut de peu pour détenir la couronne ou juste passer pour un con." + write_score(0,-1,1,0),
                 action : function () {
-                    change_score(0,0,0,0);
+                    change_score(0,-1,1,0);
                 }
             }
             situation.choix.push(choix);
@@ -626,17 +626,17 @@ function obtenir_situation (situation_id) {
             situation.texte = "Le bitcoin a l'air de sacrément reprendre la côte.";
             choix = {
                 nom : "Investir, VITE !",
-                texte : "Vous perdez tout sur ce coup de tête. Vous vous sentez con mais dites vous qu'il y a pire : des gens achètent des skins sur League of Legends ou des packs dans des gachas..." + write_score(0,0,0,0),
+                texte : "Vous perdez tout sur ce coup de tête. Vous vous sentez con mais dites vous qu'il y a pire : des gens achètent des skins sur League of Legends ou des packs dans des gachas..." + write_score(0,1,0,-3),
                 action : function () {
-                    change_score(0,0,0,0);
+                    change_score(0,1,0,-3);
                 }
             }
             situation.choix.push(choix);
             choix = {
                 nom : "Pas pour moi",
-                texte : "Vous êtes déjà pauvre et vous le resterez, c'est une bonne protection aux risques d'une crise économique." + write_score(0,0,0,0),
+                texte : "Vous êtes déjà pauvre et vous le resterez, c'est une bonne protection aux risques d'une crise économique." + write_score(0,-1,0,-1),
                 action : function () {
-                    change_score(0,0,0,0);
+                    change_score(0,-1,0,-1);
                 }
             }
             situation.choix.push(choix);
@@ -645,17 +645,17 @@ function obtenir_situation (situation_id) {
             situation.texte = "Red avale goulûment les dernières gouttes d'une boisson incroyable et vous demande d'en racheter d'autre. Mais au chemin du retour, vous hésitez.";
             choix = {
                 nom : "Boire la bouteille en secret",
-                texte : "Il voit tout. Au moment même où vous vous décidez d'ouvrir la sainte bouteille, un marteau fend l'air pour vous péter la gueule. On ne touche pas au bien d'autrui ok ?" + write_score(0,0,0,0),
+                texte : "Il voit tout. Au moment même où vous vous décidez d'ouvrir la sainte bouteille, un marteau fend l'air pour vous péter la gueule. On ne touche pas au bien d'autrui ok ?" + write_score(-2,0,-1,0),
                 action : function () {
-                    change_score(0,0,0,0);
+                    change_score(-2,0,-1,0);
                 }
             }
             situation.choix.push(choix);
             choix = {
                 nom : "Lui donner comme convenu",
-                texte : "Red vous remercie et vous permet de goûter le précieux breuvage en guise de récompense." + write_score(0,0,0,0),
+                texte : "Red vous remercie et vous permet de goûter le précieux breuvage en guise de récompense." + write_score(1,0,1,0),
                 action : function () {
-                    change_score(0,0,0,0);
+                    change_score(1,0,1,0);
                 }
             }
             situation.choix.push(choix);
@@ -664,17 +664,17 @@ function obtenir_situation (situation_id) {
             situation.texte = "Nook veut vous apprendre les arcanes du magnétisme.";
             choix = {
                 nom : "Let's go devenir Magneto",
-                texte : "Plaquer une cuillère sur son épaule ne faisant de vous un Xmen vous sortez très deçu de cette masterclass improvisée. Pa contre vous savez tirez des lasers avec vos yeux et ça c'est classe." + write_score(0,0,0,0),
+                texte : "Plaquer une cuillère sur son épaule ne faisant pas de vous un Xmen vous sortez très deçu de cette masterclass improvisée. Pa contre vous savez tirez des lasers avec vos yeux et ça c'est classe." + write_score(0,1,0,-1),
                 action : function () {
-                    change_score(0,0,0,0);
+                    change_score(0,1,0,-1);
                 }
             }
             situation.choix.push(choix);
             choix = {
                 nom : "S'amuser à lui lancer des objets en métal",
-                texte : "Vous êtes malin, Nook est obligé de vous supplier d'arrêter ça et vous donne tous ses cailloux en échange." + write_score(0,0,0,0),
+                texte : "Vous êtes malin, Nook est obligé de vous supplier d'arrêter ça et vous donne tous ses cailloux en échange." + write_score(0,-2,2,0),
                 action : function () {
-                    change_score(0,0,0,0);
+                    change_score(0,-2,2,0);
                 }
             }
             situation.choix.push(choix);
@@ -683,17 +683,17 @@ function obtenir_situation (situation_id) {
             situation.texte = "Algolbarth nous partage sa vision du romantisme, pas sûr qu'il soit le mieux placé pour ça. Demandons à une personne plus avisée, c'est à dire vous.";
             choix = {
                 nom : "Je suis un véritable gentleman",
-                texte : "Et vous êtes un exemple à suivre. Toutes les femmes du monde vous en remercie et par vos dires emplies d'humanité, c'est même l'entiereté de la création qui vous encense. Par contre être en couple ça coûte cher, nah raf vous perdez des cailloux." + write_score(0,0,0,0),
+                texte : "Et vous êtes un exemple à suivre. Toutes les femmes du monde vous en remercie et par vos dires emplies d'humanité, c'est même l'entiereté de la création qui vous encense. Par contre être en couple ça coûte cher, nah raf vous perdez des cailloux." + write_score(0,0,-1,3),
                 action : function () {
-                    change_score(0,0,0,0);
+                    change_score(0,0,-1,3);
                 }
             }
             situation.choix.push(choix);
             choix = {
                 nom : "Toutes des putes",
-                texte : "Ça valait bien le coup de vous demandez votre avis. A force de penser comme ça vous finirez vos jours tous seuls vous savez ? Cependant l'absence de proche vous permet de jouir seul de vos biens. Etre un connard, ça a aussi des avantages." + write_score(0,0,0,0),
+                texte : "Ça valait bien le coup de vous demandez votre avis. A force de penser comme ça vous finirez vos jours tous seuls vous savez ? Cependant l'absence de proche vous permet de jouir seul de vos biens. Etre un connard, ça a aussi des avantages." + write_score(0,-1,0,-1),
                 action : function () {
-                    change_score(0,0,0,0);
+                    change_score(0,-1,0,-1);
                 }
             }
             situation.choix.push(choix);
@@ -702,17 +702,17 @@ function obtenir_situation (situation_id) {
             situation.texte = "Un petit débat sur la peine de mort ça vous dit dit ? Parfait car Dimensions regorge de personnes éclairées sur ce sujet.";
             choix = {
                 nom : "Trop stylé la perpetuité",
-                texte : "Mais oui l'ami Bartholomé a raison, c'est trop marrant. En plus si on coupait toutes les têtes on aurait plus d'évasion possible, pas de film avec Morgan Freeman, pas de fun quoi. Alors oui yen a qui deviennent fous mais c'est le jeu ma pauvre Lucette." + write_score(0,0,0,0),
+                texte : "Mais oui l'ami Bartholomé a raison, c'est trop marrant. En plus si on coupait toutes les têtes on aurait plus d'évasion possible, pas de film avec Morgan Freeman, pas de fun quoi. Alors oui yen a qui deviennent fous mais c'est le jeu ma pauvre Lucette." + write_score(0,-1,1,0),
                 action : function () {
-                    change_score(0,0,0,0);
+                    change_score(0,-1,1,0);
                 }
             }
             situation.choix.push(choix);
             choix = {
                 nom : "Qu'on leur coupe la tête !",
-                texte : "Vous êtes un nostalgique de l'époque de la Terreur, un fan de la guillotine, bref un français, un vrai. Vous faîtes rayonner la culture française dans le monde en cassant des nuques, c'est beau." + write_score(0,0,0,0),
+                texte : "Vous êtes un nostalgique de l'époque de la Terreur, un fan de la guillotine, bref un français, un vrai. Vous faîtes rayonner la culture française dans le monde en cassant des nuques, c'est beau." + write_score(0,-1,0,1),
                 action : function () {
-                    change_score(0,0,0,0);
+                    change_score(0,-1,0,1);
                 }
             }
             situation.choix.push(choix);
@@ -721,17 +721,17 @@ function obtenir_situation (situation_id) {
             situation.texte = "Un scientifique bien étrange vous propose durant une Japan expo de remonter dans le temps en entrant dans un micro-onde.";
             choix = {
                 nom : "Le suivre",
-                texte : "" + write_score(0,0,0,0),
+                texte : "Il vous transforme en banane. Ce n'est pas désagréable mais vous avez passé plusieurs années pour revenir dans votre temporalité initiale." + write_score(-1,-1,3,-1),
                 action : function () {
-                    change_score(0,0,0,0);
+                    change_score(-1,-1,3,-1);
                 }
             }
             situation.choix.push(choix);
             choix = {
                 nom : "Vous êtes le vieux dans retour vers le futur ?",
-                texte : "Eh non ce n'est pas lui. Du coup zêtes ban temporairement. Tout le monde n'a pas votre culture mon vieux." + write_score(0,0,0,0),
+                texte : "Eh non ce n'est pas lui. Du coup zêtes ban temporairement. Tout le monde n'a pas votre culture mon vieux." + write_score(0,2,-3,0),
                 action : function () {
-                    change_score(0,0,0,0);
+                    change_score(0,2,-3,0);
                 }
             }
             situation.choix.push(choix);
