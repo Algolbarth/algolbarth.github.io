@@ -17,7 +17,7 @@ function demarrage() {
         ],
         types: ["Créature", "Bâtiment", "Objet", "Action", "Région"],
         familles: [],
-        NOMBRE_CARTE: 425,
+        NOMBRE_CARTE: 440,
         NOMBRE_HISTOIRE : 4,
         combat: {
             auto: true,
@@ -1400,11 +1400,17 @@ function effet_pose(carte) {
     for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
         if (!statistique(Jeu.joueur.terrain[n], "silence")) {
             Jeu.joueur.terrain[n].effet_pose_carte(carte);
+            for (let i = 0; i < Jeu.joueur.terrain[n].equipements.length; i++) {
+                Jeu.joueur.terrain[n].equipements[i].effet_pose_carte(Jeu.joueur.terrain[n], carte);
+            }
         }
     }
     for (let n = 0; n < Jeu.adverse.terrain.length; n++) {
         if (!statistique(Jeu.adverse.terrain[n], "silence")) {
             Jeu.adverse.terrain[n].effet_pose_carte(carte);
+            for (let i = 0; i < Jeu.adverse.terrain[n].equipements.length; i++) {
+                Jeu.adverse.terrain[n].equipements[i].effet_pose_carte(Jeu.adverse.terrain[n], carte);
+            }
         }
     }
 }
@@ -1529,6 +1535,15 @@ function verifier_saignement(camp) {
 function verifier_etourdissement(camp) {
     for (let n = 0; n < Jeu[camp].terrain.length; n++) {
         if (Jeu[camp].terrain[n].etourdissement) {
+            return true;
+        }
+    }
+    return false;
+}
+
+function verifier_contamination(camp) {
+    for (let n = 0; n < Jeu[camp].terrain.length; n++) {
+        if (Jeu[camp].terrain[n].contamination > 0) {
             return true;
         }
     }
