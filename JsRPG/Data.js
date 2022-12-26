@@ -4046,8 +4046,8 @@ function obtenir_carte(carte_id) {
             carte.cout[2] = 19;
             carte.vente[0] = 10;
             carte.vente[2] = 9;
-            carte.attaque = 10;
-            carte.vie_max = carte.vie = 10;
+            carte.attaque = 15;
+            carte.vie_max = carte.vie = 15;
             carte.action_max = 2;
             break;
         case 121:
@@ -19244,6 +19244,45 @@ function obtenir_carte(carte_id) {
                     }
                     return false;
                 }
+            }
+            break;
+        case 441:
+            carte.nom = "Hydre venimeuse";
+            define_creature(carte);
+            carte.familles.push("Reptile", "Hydre");
+            carte.cout[0] = 26;
+            carte.cout[2] = 25;
+            carte.vente[0] = 13;
+            carte.vente[2] = 12;
+            carte.attaque = 20;
+            carte.vie_max = carte.vie = 20;
+            carte.action_max = 2;
+            carte.texte = function () {
+                return "Quand attaque : Applique " + effet_talent_voir("Poison", carte, 4) + " à la Créature attaquée.";
+            }
+            carte.effet_attaque = function (defenseur) {
+                if (defenseur.type == "Créature") {
+                    defenseur.poison += 4;
+                }
+            }
+            break;
+        case 442:
+            carte.nom = "Hydre immortelle";
+            define_creature(carte);
+            carte.familles.push("Reptile", "Hydre");
+            carte.cout[0] = 30;
+            carte.cout[2] = 30;
+            carte.vente[0] = 15;
+            carte.vente[2] = 15;
+            carte.attaque = 15;
+            carte.vie_max = carte.vie = 20;
+            carte.action_max = 2;
+            carte.regeneration = 5;
+            carte.texte = function () {
+                return "Quand est attaqué : Se donne 5 vie max.";
+            }
+            carte.effet_be_attaque = function (defenseur) {
+                carte.vie_max += 5;
             }
             break;
     }
