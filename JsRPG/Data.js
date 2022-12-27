@@ -18355,7 +18355,7 @@ function obtenir_carte(carte_id) {
             carte.texte = function () {
                 return "Au début de la phase de préparation : Se donne 10 vie supplémentaire.";
             }
-            carte.effet_tour_debut = function () {
+            carte.effet_etage_debut = function () {
                 if (carte.sup < 10) {
                     carte.sup = 10;
                 }
@@ -18726,11 +18726,12 @@ function obtenir_carte(carte_id) {
             carte.nom = "Démoniste";
             define_creature(carte);
             carte.familles.push("Humain");
-            carte.cout[0] = 3;
-            carte.cout[1] = 1;
-            carte.cout[9] = 1;
-            carte.vente[1] = 1;
-            carte.vente[9] = 1;
+            carte.cout[0] = 7;
+            carte.cout[1] = 4;
+            carte.cout[9] = 4;
+            carte.vente[0] = 3;
+            carte.vente[1] = 2;
+            carte.vente[9] = 2;
             carte.attaque = 3;
             carte.vie_max = carte.vie = 3;
             carte.texte = function () {
@@ -19281,8 +19282,49 @@ function obtenir_carte(carte_id) {
             carte.texte = function () {
                 return "Quand est attaqué : Se donne 5 vie max.";
             }
-            carte.effet_be_attaque = function (defenseur) {
+            carte.effet_be_attaque = function () {
                 carte.vie_max += 5;
+            }
+            break;
+        case 443:
+            carte.nom = "Hydre à 5 têtes";
+            define_creature(carte);
+            carte.familles.push("Reptile", "Hydre");
+            carte.cout[0] = 40;
+            carte.cout[2] = 39;
+            carte.vente[0] = 20;
+            carte.vente[2] = 19;
+            carte.attaque = 20;
+            carte.vie_max = carte.vie = 20;
+            carte.action_max = 5;
+            break;
+        case 444:
+            carte.nom = "Mur d'enceinte nain";
+            carte.type = "Bâtiment";
+            carte.familles.push("Mur", "Nain");
+            carte.cout[0] = 10;
+            carte.cout[4] = 9;
+            carte.vente[0] = 5;
+            carte.vente[4] = 4;
+            carte.vie_max = carte.vie = 20;
+            break;
+        case 445:
+            carte.nom = "Champion";
+            define_creature(carte);
+            carte.familles.push("Humain");
+            carte.cout[0] = 24;
+            carte.vente[0] = 12;
+            carte.attaque = 10;
+            carte.vie_max = carte.vie = 10;
+            carte.texte = function () {
+                return "Au début d'un tour de combat : Si cette Créature est en première en position, se donne 2 attaque et 2 vie.";
+            }
+            carte.effet_tour_debut = function () {
+                if (carte.zone == "terrain" && carte.slot == 0) {
+                    carte.attaque += 2;
+                    carte.vie += 2;
+                    carte.vie_max += 2;
+                }
             }
             break;
     }
