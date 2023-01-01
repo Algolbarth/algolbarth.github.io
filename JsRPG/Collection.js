@@ -1,7 +1,7 @@
 function collection() {
     initialiser();
     div("main");
-    fonction("Retour", "ecran_titre()");
+    fonction("Retour", "accueil()");
     saut(2);
     fonction("Filtrer", "collection_filtre()");
     afficher(" Trier par <select id='tri' onchange='collection_tri_appliquer()'>")

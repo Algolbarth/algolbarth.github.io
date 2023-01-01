@@ -33,7 +33,7 @@ function option_jeu() {
     saut(2);
     option("option_jeu()");
     saut(2);
-    fonction("Retour à l'écran titre", "Jeu.en_jeu = false;ecran_titre()");
+    fonction("Retour à l'écran titre", "Jeu.en_jeu = false;accueil()");
     actualiser();
 }
 
@@ -43,13 +43,13 @@ function option_combat() {
     saut(2);
     option("option_combat()");
     saut(2);
-    fonction("Retour à l'écran titre", "Jeu.en_jeu = false;ecran_titre()");
+    fonction("Retour à l'écran titre", "Jeu.en_jeu = false;accueil()");
     actualiser();
 }
 
 function option_menu() {
     initialiser();
-    fonction("Retour", "ecran_titre()");
+    fonction("Retour", "accueil()");
     saut(2);
     option("option_menu()");
     actualiser();

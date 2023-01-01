@@ -17,8 +17,8 @@ function demarrage() {
         ],
         types: ["Créature", "Bâtiment", "Objet", "Action", "Région"],
         familles: [],
-        NOMBRE_CARTE: 445,
-        NOMBRE_HISTOIRE : 4,
+        NOMBRE_CARTE: 447,
+        NOMBRE_HISTOIRE: 4,
         combat: {
             auto: true,
             vitesse: 1000,
@@ -32,7 +32,7 @@ function demarrage() {
             cout: "Tous",
             boutique: "Tous"
         },
-        en_jeu: false
+        en_jeu: false,
     }
     for (let n = 1; n <= Jeu.NOMBRE_CARTE; n++) {
         let carte = obtenir_carte(n);
@@ -64,7 +64,29 @@ function verifier_famille(famille) {
     return false;
 }
 
+function musique() {
+    Jeu.musique = new Audio("Musique/" + parseInt(Math.random() * 17 + 1) + ".mp3");
+    Jeu.musique.addEventListener('ended', function () {
+        let id = parseInt(Math.random() * 17 + 1);
+        console.log(id);
+        Jeu.musique.src = "Musique/" + id + ".mp3";
+        Jeu.musique.play();
+    }, true);
+    Jeu.musique.play();
+}
+
 function ecran_titre() {
+    initialiser();
+    afficher("<center><img src='Images/Title.png' style='width:30em;border:solid;border-width:5px;'/>");
+    saut();
+    afficher("Version BETA");
+    saut(3);
+    fonction("Jouer", "musique();accueil()", "menu");
+    afficher("</center>");
+    actualiser();
+}
+
+function accueil() {
     initialiser();
     afficher("<center><img src='Images/Title.png' style='width:30em;border:solid;border-width:5px;'/>");
     saut();
@@ -1230,7 +1252,7 @@ function game_over() {
     initialiser();
     afficher("Vous avez dû abandonner à l'étage " + Jeu.etage);
     saut(2);
-    fonction("Abandonner", "ecran_titre()");
+    fonction("Abandonner", "accueil()");
     actualiser();
 }
 
@@ -1238,7 +1260,7 @@ function victoire() {
     initialiser();
     afficher("Victoire");
     saut(2);
-    fonction("Ecran titre", "ecran_titre()");
+    fonction("Ecran titre", "accueil()()");
     actualiser();
 }
 
@@ -1732,4 +1754,17 @@ function define_creature(carte) {
     carte.type == "Créature";
     carte.action_max = 1;
     carte.equipement_max = 1;
+}
+
+function verifier(camp, zone, type=false, famille=false, talent=false, condition=true) {
+    for (let n = 0; n < Jeu[camp][zone].length; n++) {
+        if (type !== false && type.includes(Jeu[camp][zone][n].type)) {
+            if (famille !== false && Jeu[camp][zone][n].familles.includes(famille)) {
+                if (talent !== false && Jeu[camp][zone][n][talent] == condition) {
+                    return true;
+                }
+            }
+        }
+    }
+    return false;
 }

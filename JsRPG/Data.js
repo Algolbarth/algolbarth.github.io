@@ -6127,7 +6127,7 @@ function obtenir_carte(carte_id) {
             }
             break;
         case 188:
-            carte.nom = "Arcanomencien";
+            carte.nom = "Arcanomancien";
             define_creature(carte);
             carte.familles.push("Kalashtar");
             carte.cout[0] = 7;
@@ -6154,7 +6154,7 @@ function obtenir_carte(carte_id) {
             }
             break;
         case 189:
-            carte.nom = "Luxomencien";
+            carte.nom = "Luxomancien";
             define_creature(carte);
             carte.familles.push("Aasimar");
             carte.cout[0] = 7;
@@ -6164,7 +6164,7 @@ function obtenir_carte(carte_id) {
             carte.attaque = 3;
             carte.vie_max = carte.vie = 3;
             carte.texte = function () {
-                return "Quand joue : Soigne 4 à la Créature alliée la plus en avant dont la vie est plus basse que sa vie maximale.";
+                return "Quand joue : Soigne 4 à la Créature alliée la plus en avant sur le terrain dont la vie est plus basse que sa vie maximale.";
             }
             carte.effet_action = function () {
                 if (verifier_soin_creature(carte.camp)) {
@@ -19324,6 +19324,44 @@ function obtenir_carte(carte_id) {
                     carte.attaque += 2;
                     carte.vie += 2;
                     carte.vie_max += 2;
+                }
+            }
+            break;
+        case 446:
+            carte.nom = "Barrière de corail";
+            carte.type = "Bâtiment";
+            carte.familles.push("Mur");
+            carte.cout[0] = 8;
+            carte.cout[2] = 7;
+            carte.vente[0] = 4;
+            carte.vente[2] = 3;
+            carte.vie_max = carte.vie = 10;
+            carte.regeneration = 3;
+            break;
+        case 447:
+            carte.nom = "Phare";
+            carte.type = "Bâtiment";
+            carte.cout[0] = 6;
+            carte.cout[2] = 6;
+            carte.vente[0] = 3;
+            carte.vente[2] = 3;
+            carte.vie_max = carte.vie = 10;
+            carte.texte = function () {
+                return "Au début de la phase de préparation : Enlève " + effet_talent_voir("Camouflage", carte) + " à l'Unité adverse la plus en avant sur le terrain avec " + effet_talent_voir("Camouflage", carte) + ".";
+            }
+            carte.effet_etage_debut = function () {
+                let verifier = false;
+                for (let n = 0; n < Jeu[camp_oppose(carte.camp)].terrain.length; n++) {
+                    if (Jeu[camp_oppose(carte.camp)].terrain[n].camouflage) {
+                        verifier = true;
+                    }
+                }
+                if (verifier) {
+                    let best = 0;
+                    while (!Jeu[camp_oppose(carte.camp)].terrain[best].camouflage) {
+                        best++;
+                    }
+                    Jeu[camp_oppose(carte.camp)].terrain[best].camouflage = false;
                 }
             }
             break;

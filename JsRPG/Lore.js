@@ -1,7 +1,7 @@
 function lore() {
     initialiser();
     div("main");
-    fonction("Retour", "ecran_titre()");
+    fonction("Retour", "accueil()");
     saut(2);
     for (let n = 1; n <= Jeu.NOMBRE_HISTOIRE; n++) {
         div("", "carte");
