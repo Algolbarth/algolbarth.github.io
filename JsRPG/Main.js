@@ -17,7 +17,7 @@ function demarrage() {
         ],
         types: ["Créature", "Bâtiment", "Objet", "Action", "Région"],
         familles: [],
-        NOMBRE_CARTE: 447,
+        NOMBRE_CARTE: 451,
         NOMBRE_HISTOIRE: 4,
         combat: {
             auto: true,
@@ -1683,7 +1683,7 @@ function talent_voir(talent, div, stack = false) {
             texte += "Quand cette carte subit des dégâts, en subis " + stack + " de moins.";
             break;
         case "Épine":
-            texte += "Quand est attaquée par une Créature, lui inflige " + stack + " dégât(s).";
+            texte += "Quand est attaquée par une Créature :  Lui inflige " + stack + " dégât(s).";
             break;
         case "Régénération":
             texte += "Au début de chaque tour de combat, se soigne de " + stack + ".";
@@ -1716,7 +1716,7 @@ function talent_voir(talent, div, stack = false) {
             texte += "Ignore " + stack + " défense quand attaque.";
             break;
         case "Portée":
-            texte += "Attaque en priorité la dernière Créature ou Bâtiment au lieu de la première.";
+            texte += "Attaque en priorité l'Unité en dernière position au lieu de celle en première position.";
             break;
         case "Létalité":
             texte += "Quand attaque une Créature : envoie la Créature attaquée à la défausse.";
@@ -1734,10 +1734,10 @@ function talent_voir(talent, div, stack = false) {
             texte += "Quand attaque (pour les " + stack + " prochaines attaque), subit 2 dégâts.";
             break;
         case "Érosion":
-            texte += "Quand attaque diminue de " + stack + " la vie maximale de la Créature ou du Bâtiment attaqué (la vie maximale ne peut pas descendre en-dessous de 1).";
+            texte += "Quand attaque diminue de " + stack + " la vie maximale de l'Unité attaquée (la vie maximale ne peut pas descendre en-dessous de 1).";
             break;
         case "Charge":
-            texte += "Quand tue une Créature ou un Bâtiment inflige le surplus de dégâts à la Créature ou au Bâtiment juste derrière.";
+            texte += "Quand tue une Unité : Inflige le surplus de dégât à l'Unité juste derrière.";
             break;
     }
     div_actualiser(div, texte);
@@ -1754,17 +1754,4 @@ function define_creature(carte) {
     carte.type == "Créature";
     carte.action_max = 1;
     carte.equipement_max = 1;
-}
-
-function verifier(camp, zone, type=false, famille=false, talent=false, condition=true) {
-    for (let n = 0; n < Jeu[camp][zone].length; n++) {
-        if (type !== false && type.includes(Jeu[camp][zone][n].type)) {
-            if (famille !== false && Jeu[camp][zone][n].familles.includes(famille)) {
-                if (talent !== false && Jeu[camp][zone][n][talent] == condition) {
-                    return true;
-                }
-            }
-        }
-    }
-    return false;
 }
