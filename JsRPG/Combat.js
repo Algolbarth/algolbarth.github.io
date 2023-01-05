@@ -350,7 +350,7 @@ function combat_defaite() {
         saut();
         afficher("Il vous reste " + Jeu.joueur.vie + " vie");
         saut(2);
-        fonction("Continuer", "etage_fin()");
+        fonction("Continuer", "etage_fin();etage_debut()");
     }
     else {
         afficher("Vous n'avez plus de vie");

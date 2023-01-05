@@ -17,8 +17,9 @@ function demarrage() {
         ],
         types: ["Créature", "Bâtiment", "Objet", "Action", "Région"],
         familles: [],
-        NOMBRE_CARTE: 451,
+        NOMBRE_CARTE: 457,
         NOMBRE_HISTOIRE: 4,
+        NOMBRE_MUSIQUE: 17,
         combat: {
             auto: true,
             vitesse: 1000,
@@ -33,6 +34,11 @@ function demarrage() {
             boutique: "Tous"
         },
         en_jeu: false,
+        musique: {
+            audio: new Audio(),
+            liste: [],
+            slot: 0
+        }
     }
     for (let n = 1; n <= Jeu.NOMBRE_CARTE; n++) {
         let carte = obtenir_carte(n);
@@ -65,14 +71,21 @@ function verifier_famille(famille) {
 }
 
 function musique() {
-    Jeu.musique = new Audio("Musique/" + parseInt(Math.random() * 17 + 1) + ".mp3");
-    Jeu.musique.addEventListener('ended', function () {
-        let id = parseInt(Math.random() * 17 + 1);
-        console.log(id);
-        Jeu.musique.src = "Musique/" + id + ".mp3";
-        Jeu.musique.play();
+    for (let n = 1; n <= Jeu.NOMBRE_MUSIQUE; n++) {
+        Jeu.musique.liste.push(n);
+    }
+    shuffle(Jeu.musique.liste);
+    Jeu.musique.slot = 0;
+    Jeu.musique.audio.src = "Musique/" + Jeu.musique.liste[Jeu.musique.slot] + ".mp3";
+    Jeu.musique.audio.play();
+    Jeu.musique.audio.addEventListener('ended', function () {
+        Jeu.musique.slot++;
+        if (Jeu.musique.slot > Jeu.NOMBRE_MUSIQUE) {
+            Jeu.musique.slot = 0;
+        }
+        Jeu.musique.audio.src = "Musique/" + Jeu.musique.liste[Jeu.musique.slot] + ".mp3";
+        Jeu.musique.audio.play();
     }, true);
-    Jeu.musique.play();
 }
 
 function ecran_titre() {
@@ -766,6 +779,7 @@ function etage_suivant() {
         if (Jeu.etage < 100) {
             adversaire_generer(Jeu.etage + 2);
         }
+        etage_debut();
         menu();
     }
     else {
@@ -935,7 +949,6 @@ function etage_fin() {
             enlever(array[n]);
         }
     }
-    etage_debut();
     if (Jeu.joueur.vie > 0) {
         menu();
     }
@@ -971,7 +984,7 @@ function etage_debut() {
 function adversaire_generer(etage) {
     Jeu.adverse.boutique = [];
     for (let n = 0; n < Jeu.ressources.length; n++) {
-        Jeu.adverse.ressources[n].courant = Jeu.adverse.ressources[n].courant = Jeu.adverse.ressources[n].reserve = 0;
+        Jeu.adverse.ressources[n].courant = Jeu.adverse.ressources[n].courant = Jeu.adverse.ressources[n].reserve = 100;
     }
     /*
     if (etage == 1) {
@@ -1754,4 +1767,8 @@ function define_creature(carte) {
     carte.type == "Créature";
     carte.action_max = 1;
     carte.equipement_max = 1;
+}
+
+function shuffle(array) {
+    array.sort(() => Math.random() - 0.5);
 }
