@@ -141,11 +141,11 @@ function collection_filtre() {
     }
     afficher("</select>");
     saut(2);
-    afficher("Coût : <select id='filtre_cout'>")
+    afficher("Élément : <select id='filtre_element'>")
     afficher("<option value=" + '"Tous"' + ">Tous</option>");
     for (let n = 0; n < Jeu.ressources.length; n++) {
         afficher("<option value=" + n);
-        if (Jeu.collection_filtre.cout == n) {
+        if (Jeu.collection_filtre.element == n) {
             afficher(" selected=" + '"selected"');
         }
         afficher(">" + Jeu.ressources[n].nom + "</option>");
@@ -171,15 +171,23 @@ function collection_filtre_appliquer() {
     let filtre = {
         type: document.getElementById("filtre_type").value,
         famille: document.getElementById("filtre_famille").value,
-        cout: document.getElementById("filtre_cout").value,
+        element: document.getElementById("filtre_element").value,
         boutique: document.getElementById("filtre_boutique").value
     }
     Jeu.collection_filtre = filtre;
     Jeu.collection = [];
     for (let n = 1; n <= Jeu.NOMBRE_CARTE; n++) {
         let carte = obtenir_carte(n);
-        if ((filtre.type == carte.type || filtre.type == "Tous") && (carte.familles.includes(filtre.famille) || filtre.famille == "Toutes") && (carte.cout[filtre.cout] > 0 || filtre.cout == "Tous") && (((cout_total(carte) <= filtre.boutique * 5 || filtre.boutique == 20) && cout_total(carte) > (filtre.boutique - 1) * 5) || filtre.boutique == "Tous")) {
-            Jeu.collection.push(obtenir_carte(n));
+        if ((filtre.type == carte.type || filtre.type == "Tous") && (carte.familles.includes(filtre.famille) || filtre.famille == "Toutes") && (((cout_total(carte) <= filtre.boutique * 5 || filtre.boutique == 20) && cout_total(carte) > (filtre.boutique - 1) * 5) || filtre.boutique == "Tous")) {
+            if (filtre.element == "Tous") {
+                Jeu.collection.push(obtenir_carte(n));
+            }
+            else if (filtre.element == 0 && cout_total(carte) == carte.cout[0]) {
+                Jeu.collection.push(obtenir_carte(n));
+            }
+            else  if (carte.elements.includes(Jeu.ressources[filtre.element].nom) > 0) {
+                Jeu.collection.push(obtenir_carte(n));
+            }
         }
     }
     collection_tri();
