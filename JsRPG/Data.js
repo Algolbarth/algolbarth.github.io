@@ -20993,6 +20993,111 @@ function obtenir_carte(carte_id) {
                 }
             }
             break;
+        case 486:
+            carte.nom = "Panthère";
+            define_creature(carte);
+            carte.familles.push("Bête");
+            carte.cout[0] = 7;
+            carte.cout[11] = 6;
+            carte.vente[0] = 3;
+            carte.vente[11] = 3;
+            carte.attaque = 5;
+            carte.vie_max = carte.vie = 5;
+            carte.camouflage = true;
+            break;
+        case 487:
+            carte.nom = "Léopard";
+            define_creature(carte);
+            carte.familles.push("Bête");
+            carte.cout[0] = 7;
+            carte.cout[6] = 6;
+            carte.vente[0] = 3;
+            carte.vente[6] = 3;
+            carte.attaque = 5;
+            carte.vie_max = carte.vie = 5;
+            carte.rapidite = true;
+            break;
+        case 488:
+            carte.nom = "Anémie";
+            carte.type = "Action";
+            carte.familles.push("Maladie");
+            carte.cout[0] = 20;
+            carte.vente[0] = 10;
+            carte.texte = function () {
+                return "Enlève " + effet_talent_voir("Contamination", carte) + " à une Créature adverse et lui applique " + effet_talent_voir("Saignement", carte) + " d'autant que le nombre de " + effet_talent_voir("Contamination", carte) + " enlevé.";
+            }
+            carte.effet_pose = function (step, cible) {
+                if (carte.camp == "joueur") {
+                    switch (step) {
+                        case 1:
+                            if (verifier_contamination("adverse")) {
+                                initialiser();
+                                div("main");
+                                fonction("Annuler", "menu()");
+                                saut(2);
+                                afficher(carte.nom);
+                                saut();
+                                afficher(carte.texte());
+                                saut(2);
+                                afficher("Choisissez une Créature adverse sur le terrain : ");
+                                saut(2);
+                                div("", "zone");
+                                afficher("<u>Terrain adverse :</u>");
+                                saut();
+                                for (let n = 0; n < Jeu.adverse.terrain.length; n++) {
+                                    div("", "carte");
+                                    div();
+                                    if (!Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
+                                        afficher_carte("adverse", "terrain", n);
+                                    }
+                                    else {
+                                        afficher("???");
+                                    }
+                                    div_fin();
+                                    if (Jeu.adverse.terrain[n].type == "Créature" && Jeu.adverse.terrain[n].contamination > 0 && !Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
+                                        div();
+                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
+                                        div_fin();
+                                    }
+                                    div_fin();
+                                }
+                                div_fin();
+                                div_fin();
+                                div("side", "affichage");
+                                div_fin();
+                                actualiser();
+                            }
+                            break;
+                        case 2:
+                            Jeu.adverse.terrain[cible - 1].saignement = Jeu.adverse.terrain[cible - 1].contamination;
+                            Jeu.adverse.terrain[cible - 1].contamination = 0;
+                            deplacer(carte, "joueur", "defausse");
+                            effet_pose(carte);
+                            menu();
+                            break;
+                    }
+                }
+                else {
+                    if (verifier_contamination("joueur")) {
+                        let best = 0;
+                        while (Jeu.joueur.terrain[best].type != "Créature" || Jeu.joueur.terrain[best].contamination == 0 || (Jeu.joueur.terrain[best].camouflage && !Jeu.joueur.terrain[best].silence)) {
+                            best++;
+                        }
+                        for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
+                            if (!Jeu.joueur.terrain[n].contamination > 0 && Jeu.joueur.terrain[n].type == "Créature" && (!Jeu.joueur.terrain[n].camouflage || Jeu.joueur.terrain[n].silence)) {
+                                best = n;
+                            }
+                        }
+                        Jeu.joueur.terrain[best - 1].saignement = Jeu.joueur.terrain[best - 1].contamination;
+                        Jeu.joueur.terrain[best - 1].contamination = 0;
+                        deplacer(carte, "adverse", "defausse");
+                        effet_pose(carte);
+                        return true;
+                    }
+                    return false;
+                }
+            }
+            break;
     }
     for (let n = 1; n < carte.cout.length; n++) {
         if (carte.cout[n] > 0) {
