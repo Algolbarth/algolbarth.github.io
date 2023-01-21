@@ -17804,7 +17804,7 @@ function obtenir_carte(carte_id) {
             carte.protection = true;
             break;
         case 406:
-            carte.nom = "Solide sur les appuies";
+            carte.nom = "Solide sur les appuis";
             carte.type = "Action";
             carte.cout[0] = 5;
             carte.vente[0] = 2;
