@@ -17996,10 +17996,15 @@ function obtenir_carte(carte_id) {
                                 div_fin();
                                 actualiser();
                             }
+                            else {
+                                deplacer(carte, "joueur", "terrain");
+                                effet_pose(carte);
+                                menu();
+                            }
                             break;
                         case 2:
                             Jeu.joueur.terrain[cible].stat_etage.attaque += 6;
-                            deplacer(carte, "joueur", "defausse");
+                            deplacer(carte, "joueur", "terrain");
                             effet_pose(carte);
                             menu();
                             break;
@@ -18012,11 +18017,10 @@ function obtenir_carte(carte_id) {
                             best++;
                         }
                         Jeu.adverse.terrain[best].stat_etage.attaque += 6;
-                        deplacer(carte, "adverse", "defausse");
-                        effet_pose(carte);
-                        return true;
                     }
-                    return false;
+                    deplacer(carte, "adverse", "terrain");
+                    effet_pose(carte);
+                    return true;
                 }
             }
             break;
