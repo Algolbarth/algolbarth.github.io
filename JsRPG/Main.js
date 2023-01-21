@@ -161,8 +161,7 @@ function nouvelle_partie() {
     Jeu.combat.etat = false;
     ajouter(obtenir_carte(78), "joueur", "regions");
     ajouter(obtenir_carte(31), "joueur", "main");
-    ajouter(obtenir_carte(9), "joueur", "terrain");
-    ajouter(obtenir_carte(6), "joueur", "terrain");
+    ajouter(obtenir_carte(1), "joueur", "terrain");
     for (let n = 0; n < Jeu.joueur.main.length; n++) {
         Jeu.joueur.main[n].cache = true;
     }
@@ -616,11 +615,10 @@ function carte_afficher(carte, div) {
             texte += "Aucun <br/>";
         }
     }
-    texte += "<div id='description'><span id='contenu'>" + carte.description + "</span></div>";
+    texte += "<br/> <div id='description'><span id='contenu'>" + carte.description + "</span></div>";
     div_actualiser(div, texte);
     if (div == "main") {
         main.classList.add("affichage");
-        document.getElementById("description").style.left = '7.5%';
     }
     else {
         side.classList.add("affichage");
@@ -1000,7 +998,6 @@ function adversaire_generer(etage) {
                 Jeu.adverse.ressources[9].courant = Jeu.adverse.ressources[9].max = 2;
                 ajouter(obtenir_carte(5), "adverse", "boutique");
                 ajouter(obtenir_carte(5), "adverse", "boutique");
-                ajouter(obtenir_carte(210), "adverse", "main");
                 break;
             case 1:
                 Jeu.adverse.ressources[0].courant = Jeu.adverse.ressources[0].max = 2;

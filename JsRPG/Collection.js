@@ -148,7 +148,14 @@ function collection_filtre() {
         if (Jeu.collection_filtre.element == n) {
             afficher(" selected=" + '"selected"');
         }
-        afficher(">" + Jeu.ressources[n].nom + "</option>");
+        afficher(">");
+        if (n == 0) {
+            afficher("Neutre");
+        }
+        else {
+            afficher(Jeu.ressources[n].nom);
+        }
+        afficher("</option>");
     }
     afficher("</select>");
     saut(2);
