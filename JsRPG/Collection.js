@@ -130,14 +130,14 @@ function collection_filtre() {
     }
     afficher("</select>");
     saut(2);
-    afficher("Famille : <select id='filtre_famille'>")
+    afficher("Famille : <select id='filtre_famille'>");
     afficher("<option value=" + '"Toutes"' + ">Toutes</option>");
     for (let n = 0; n < Jeu.familles.length; n++) {
-        afficher("<option value=" + Jeu.familles[n]);
+        afficher("<option value=" + '"' + Jeu.familles[n]);
         if (Jeu.collection_filtre.famille == Jeu.familles[n]) {
-            afficher(" selected=" + '"selected"');
+            afficher('"' + " selected=" + '"selected"');
         }
-        afficher(">" + Jeu.familles[n] + "</option>");
+        afficher('"' + ">" + Jeu.familles[n] + "</option>");
     }
     afficher("</select>");
     saut(2);
@@ -185,7 +185,7 @@ function collection_filtre_appliquer() {
             else if (filtre.element == 0 && cout_total(carte) == carte.cout[0]) {
                 Jeu.collection.push(obtenir_carte(n));
             }
-            else  if (carte.elements.includes(Jeu.ressources[filtre.element].nom) > 0) {
+            else if (carte.elements.includes(Jeu.ressources[filtre.element].nom) > 0) {
                 Jeu.collection.push(obtenir_carte(n));
             }
         }

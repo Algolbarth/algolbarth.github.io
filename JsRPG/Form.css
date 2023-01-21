@@ -130,6 +130,37 @@ option {
     background-color: #c0b577;
 }
 
+.slidecontainer {
+    width:100%;
+}
+
+.slider {
+    appearance: none;
+    width: 25%;
+    height: 25px;
+    background:#c0b577;
+    color:#bbad5c;
+    border:solid;
+    border-color:black;
+}
+
+.slider::-webkit-slider-thumb {
+    appearance: none;
+    width: 25px;
+    height: 25px;
+    border:double;
+    border-color:black;
+    background:#723d0e;
+}
+
+.slider::-moz-range-thumb {
+    width: 25px;
+    height: 25px;
+    border:double;
+    border-color:black;
+    background:#723d0e;
+}
+
 @media (max-width: 1000px) {
     * {
         box-sizing: border-box;
@@ -216,5 +247,8 @@ option {
     html {
         -webkit-text-size-adjust: 100%;
         -ms-text-size-adjust: 100%;
+    }
+    .slider {
+        width:100%;
     }
 }

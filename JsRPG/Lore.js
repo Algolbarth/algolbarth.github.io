@@ -70,7 +70,7 @@ function obtenir_histoire(id) {
             histoire.nom = "L'Empereur barbare";
             histoire.texte = "<center>l'Empereur barbare</center>";
             histoire.texte += "Si les empereurs ont l'habitude de se faire discret pour incarner au mieux un pouvoir dépassant les citoyens et proche d'un dieu, ce n'est pas le cas de tous les empereurs qui ont traversé l'histoire. <br/>";
-            histoire.texte += "En particulier celui de celui qui fut surnommé l'Empereur barbare, en raison de son origine. Bruyant, extraverti et violent, cet Empereur déstabilisa le pouvoir en place et choqua le siège par sa manière de faire, en bien comme en mal. <br/>";
+            histoire.texte += "En particulier pour celui qui fut surnommé l'Empereur barbare, en raison de son origine. Bruyant, extraverti et violent, cet Empereur déstabilisa le pouvoir en place et choqua le siège par sa manière de faire, en bien comme en mal. <br/>";
             histoire.texte += "Il restera dans l'histoire pour ses colères, son goût du combat et ses nombreuses apparitions en public faisant de lui l'Empereur le plus controversé de tous les temps. <br/>";
             histoire.texte += "Beaucoup voyaient en lui un héritier illégitime, incapable de veiller sur l'Empire et de remplir ses responsabilités. <br/>";
             histoire.texte += "Malgré les questions que soulevaient son attitude, il se montra à la hauteur de son titre en gagnant le respect des peuples les plus combattifs et en ralliant à l'Empire des camps considérés comme nuisibles. <br/>";
