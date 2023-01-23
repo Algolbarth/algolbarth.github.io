@@ -17,12 +17,12 @@ function demarrage() {
         ],
         types: ["Créature", "Bâtiment", "Objet", "Action", "Région"],
         familles: [],
-        NOMBRE_CARTE: 492,
+        NOMBRE_CARTE: 495,
         NOMBRE_HISTOIRE: 4,
         NOMBRE_MUSIQUE: 17,
         combat: {
             auto: true,
-            vitesse: 1000,
+            vitesse: 1000
         },
         collection: [],
         collection_tri: "nom",
@@ -983,7 +983,7 @@ function etage_debut() {
 function adversaire_generer(etage) {
     Jeu.adverse.boutique = [];
     for (let n = 0; n < Jeu.ressources.length; n++) {
-        Jeu.adverse.ressources[n].courant = Jeu.adverse.ressources[n].courant = Jeu.adverse.ressources[n].reserve = 0;
+        Jeu.adverse.ressources[n].courant = Jeu.adverse.ressources[n].max = Jeu.adverse.ressources[n].reserve = 0;
     }
     /*
     if (etage == 1) {
@@ -1000,7 +1000,7 @@ function adversaire_generer(etage) {
                 ajouter(obtenir_carte(5), "adverse", "boutique");
                 break;
             case 1:
-                Jeu.adverse.ressources[0].courant = Jeu.adverse.ressources[0].max = 2;
+                Jeu.adverse.ressources[0].courant = Jeu.adverse.ressources[0].max = 4;
                 Jeu.adverse.ressources[9].courant = Jeu.adverse.ressources[9].max = 2;
                 ajouter(obtenir_carte(13), "adverse", "boutique");
                 ajouter(obtenir_carte(13), "adverse", "boutique");
@@ -1018,9 +1018,8 @@ function adversaire_generer(etage) {
                 ajouter(obtenir_carte(127), "adverse", "boutique");
                 break;
             case 4:
-                Jeu.adverse.ressources[0].courant = Jeu.adverse.ressources[0].max = 38;
-                Jeu.adverse.ressources[1].courant = Jeu.adverse.ressources[1].max = 20;
-                Jeu.adverse.ressources[5].courant = Jeu.adverse.ressources[5].max = 20;
+                Jeu.adverse.ressources[0].courant = Jeu.adverse.ressources[0].max = 18;
+                Jeu.adverse.ressources[9].courant = Jeu.adverse.ressources[1].max = 16;
                 ajouter(obtenir_carte(14), "adverse", "boutique");
                 ajouter(obtenir_carte(14), "adverse", "boutique");
                 break;
@@ -1032,9 +1031,9 @@ function adversaire_generer(etage) {
                 ajouter(obtenir_carte(57), "adverse", "boutique");
                 break;
             case 6:
-                Jeu.adverse.ressources[0].courant = Jeu.adverse.ressources[0].max = 40;
-                Jeu.adverse.ressources[8].courant = Jeu.adverse.ressources[8].max = 22;
-                Jeu.adverse.ressources[9].courant = Jeu.adverse.ressources[9].max = 20;
+                Jeu.adverse.ressources[0].courant = Jeu.adverse.ressources[0].max = 42;
+                Jeu.adverse.ressources[8].courant = Jeu.adverse.ressources[8].max = 20;
+                Jeu.adverse.ressources[9].courant = Jeu.adverse.ressources[9].max = 22;
                 ajouter(obtenir_carte(13), "adverse", "boutique");
                 ajouter(obtenir_carte(13), "adverse", "boutique");
                 ajouter(obtenir_carte(208), "adverse", "boutique");
@@ -1586,7 +1585,16 @@ function verifier_contamination(camp) {
 
 function verifier_debuff(camp) {
     for (let n = 0; n < Jeu[camp].terrain.length; n++) {
-        if (Jeu[camp].terrain[n].poison > 0 || Jeu[camp].terrain[n].brulure > 0 || Jeu[camp].terrain[n].saignement > 0 || Jeu[camp].terrain[n].maladie > 0 || Jeu[camp].terrain[n].gel > 0 || Jeu[camp].terrain[n].etourdissement || Jeu[camp].terrain[n].silence) {
+        if (Jeu[camp].terrain[n].poison > 0 || Jeu[camp].terrain[n].brulure > 0 || Jeu[camp].terrain[n].saignement > 0 || Jeu[camp].terrain[n].contamination > 0 || Jeu[camp].terrain[n].gel > 0 || Jeu[camp].terrain[n].etourdissement || Jeu[camp].terrain[n].silence) {
+            return true;
+        }
+    }
+    return false;
+}
+
+function verifier_region(camp, region_id) {
+    for (let n = 0; n < Jeu[camp].region.length; n++) {
+        if (Jeu[camp].terrain[n].id == region_id) {
             return true;
         }
     }

@@ -608,10 +608,10 @@ function obtenir_carte(carte_id) {
             carte.nom = "Squelette";
             define_creature(carte);
             carte.familles.push("Mort-vivant", "Squelette");
-            carte.cout[0] = 1;
+            carte.cout[0] = 2;
             carte.cout[9] = 1;
             carte.vente[0] = 1;
-            carte.attaque = 2;
+            carte.attaque = 3;
             carte.vie_max = carte.vie = 1;
             carte.description = "Simple amas d'os manipulé, ils sont totalement dépourvus d'intelligence.";
             break;
@@ -619,10 +619,10 @@ function obtenir_carte(carte_id) {
             carte.nom = "Nécromancien";
             define_creature(carte);
             carte.familles.push("Mort-vivant", "Revenant");
-            carte.cout[0] = 7;
-            carte.cout[9] = 6;
-            carte.vente[0] = 3;
-            carte.vente[9] = 3;
+            carte.cout[0] = 9;
+            carte.cout[9] = 8;
+            carte.vente[0] = 4;
+            carte.vente[9] = 4;
             carte.attaque = 3;
             carte.vie_max = carte.vie = 3;
             carte.texte = function () {
@@ -2845,12 +2845,9 @@ function obtenir_carte(carte_id) {
                 return "Toutes les cartes peuvent être piochées dans la boutique.";
             }
             carte.effet_pose = function () {
-                if (carte.camp == "joueur") {
-                    deplacer(carte, "joueur", "regions");
+                if (!verifier_region(carte.camp, 78)) {
+                    deplacer(carte, carte.camp, "regions");
                     menu();
-                }
-                else {
-                    return false;
                 }
             }
             carte.boutique_generer = function (nouvelle_carte) {
@@ -2871,12 +2868,9 @@ function obtenir_carte(carte_id) {
                 return "Les cartes piochées dans la boutique sont Feu.";
             }
             carte.effet_pose = function () {
-                if (carte.camp == "joueur") {
-                    deplacer(carte, "joueur", "regions");
+                if (!verifier_region(carte.camp, 79)) {
+                    deplacer(carte, carte.camp, "regions");
                     menu();
-                }
-                else {
-                    return false;
                 }
             }
             carte.boutique_generer = function (nouvelle_carte) {
@@ -3302,12 +3296,9 @@ function obtenir_carte(carte_id) {
                 return "Les cartes piochées dans la boutique sont Eau.";
             }
             carte.effet_pose = function () {
-                if (carte.camp == "joueur") {
-                    deplacer(carte, "joueur", "regions");
+                if (!verifier_region(carte.camp, 96)) {
+                    deplacer(carte, carte.camp, "regions");
                     menu();
-                }
-                else {
-                    return false;
                 }
             }
             carte.boutique_generer = function (nouvelle_carte) {
@@ -3328,12 +3319,9 @@ function obtenir_carte(carte_id) {
                 return "Les cartes piochées dans la boutique sont Végétal.";
             }
             carte.effet_pose = function () {
-                if (carte.camp == "joueur") {
-                    deplacer(carte, "joueur", "regions");
+                if (!verifier_region(carte.camp, 97)) {
+                    deplacer(carte, carte.camp, "regions");
                     menu();
-                }
-                else {
-                    return false;
                 }
             }
             carte.boutique_generer = function (nouvelle_carte) {
@@ -3354,12 +3342,9 @@ function obtenir_carte(carte_id) {
                 return "Les cartes piochées dans la boutique sont Terre.";
             }
             carte.effet_pose = function () {
-                if (carte.camp == "joueur") {
-                    deplacer(carte, "joueur", "regions");
+                if (!verifier_region(carte.camp, 98)) {
+                    deplacer(carte, carte.camp, "regions");
                     menu();
-                }
-                else {
-                    return false;
                 }
             }
             carte.boutique_generer = function (nouvelle_carte) {
@@ -3380,12 +3365,9 @@ function obtenir_carte(carte_id) {
                 return "Les cartes piochées dans la boutique sont Air.";
             }
             carte.effet_pose = function () {
-                if (carte.camp == "joueur") {
-                    deplacer(carte, "joueur", "regions");
+                if (!verifier_region(carte.camp, 99)) {
+                    deplacer(carte, carte.camp, "regions");
                     menu();
-                }
-                else {
-                    return false;
                 }
             }
             carte.boutique_generer = function (nouvelle_carte) {
@@ -3406,12 +3388,9 @@ function obtenir_carte(carte_id) {
                 return "Les cartes piochées dans la boutique sont Foudre.";
             }
             carte.effet_pose = function () {
-                if (carte.camp == "joueur") {
-                    deplacer(carte, "joueur", "regions");
+                if (!verifier_region(carte.camp, 100)) {
+                    deplacer(carte, carte.camp, "regions");
                     menu();
-                }
-                else {
-                    return false;
                 }
             }
             carte.boutique_generer = function (nouvelle_carte) {
@@ -3432,12 +3411,9 @@ function obtenir_carte(carte_id) {
                 return "Les cartes piochées dans la boutique sont Métal.";
             }
             carte.effet_pose = function () {
-                if (carte.camp == "joueur") {
-                    deplacer(carte, "joueur", "regions");
+                if (!verifier_region(carte.camp, 101)) {
+                    deplacer(carte, carte.camp, "regions");
                     menu();
-                }
-                else {
-                    return false;
                 }
             }
             carte.boutique_generer = function (nouvelle_carte) {
@@ -3458,12 +3434,9 @@ function obtenir_carte(carte_id) {
                 return "Les cartes piochées dans la boutique sont Arcane.";
             }
             carte.effet_pose = function () {
-                if (carte.camp == "joueur") {
-                    deplacer(carte, "joueur", "regions");
+                if (!verifier_region(carte.camp, 102)) {
+                    deplacer(carte, carte.camp, "regions");
                     menu();
-                }
-                else {
-                    return false;
                 }
             }
             carte.boutique_generer = function (nouvelle_carte) {
@@ -3484,12 +3457,9 @@ function obtenir_carte(carte_id) {
                 return "Les cartes piochées dans la boutique sont Mort.";
             }
             carte.effet_pose = function () {
-                if (carte.camp == "joueur") {
-                    deplacer(carte, "joueur", "regions");
+                if (!verifier_region(carte.camp, 103)) {
+                    deplacer(carte, carte.camp, "regions");
                     menu();
-                }
-                else {
-                    return false;
                 }
             }
             carte.boutique_generer = function (nouvelle_carte) {
@@ -3510,12 +3480,9 @@ function obtenir_carte(carte_id) {
                 return "Les cartes piochées dans la boutique sont Lumière.";
             }
             carte.effet_pose = function () {
-                if (carte.camp == "joueur") {
-                    deplacer(carte, "joueur", "regions");
+                if (!verifier_region(carte.camp, 104)) {
+                    deplacer(carte, carte.camp, "regions");
                     menu();
-                }
-                else {
-                    return false;
                 }
             }
             carte.boutique_generer = function (nouvelle_carte) {
@@ -3536,12 +3503,9 @@ function obtenir_carte(carte_id) {
                 return "Les cartes piochées dans la boutique sont Ombre.";
             }
             carte.effet_pose = function () {
-                if (carte.camp == "joueur") {
-                    deplacer(carte, "joueur", "regions");
+                if (!verifier_region(carte.camp, 105)) {
+                    deplacer(carte, carte.camp, "regions");
                     menu();
-                }
-                else {
-                    return false;
                 }
             }
             carte.boutique_generer = function (nouvelle_carte) {
@@ -3562,12 +3526,9 @@ function obtenir_carte(carte_id) {
                 return "Les cartes piochées dans la boutique sont Glace.";
             }
             carte.effet_pose = function () {
-                if (carte.camp == "joueur") {
-                    deplacer(carte, "joueur", "regions");
+                if (!verifier_region(carte.camp, 106)) {
+                    deplacer(carte, carte.camp, "regions");
                     menu();
-                }
-                else {
-                    return false;
                 }
             }
             carte.boutique_generer = function (nouvelle_carte) {
@@ -3948,12 +3909,9 @@ function obtenir_carte(carte_id) {
                 return "Les cartes piochées dans la boutique sont Neutre.";
             }
             carte.effet_pose = function () {
-                if (carte.camp == "joueur") {
-                    deplacer(carte, "joueur", "regions");
+                if (!verifier_region(carte.camp, 113)) {
+                    deplacer(carte, carte.camp, "regions");
                     menu();
-                }
-                else {
-                    return false;
                 }
             }
             carte.boutique_generer = function (nouvelle_carte) {
@@ -5340,7 +5298,7 @@ function obtenir_carte(carte_id) {
             carte.familles.push("Sort");
             carte.cout[0] = 4;
             carte.cout[10] = 3;
-            carte.vente[0] = 1;
+            carte.vente[0] = 2;
             carte.vente[10] = 1;
             carte.texte = function () {
                 return "Soigne 5 à une Créature alliée sur le terrain.<br/>ou<br/>Inflige 5 dégâts à une Créature adverse sur le terrain.<br/>Sorcellerie 5 : Soigne 10 à une Créature alliée sur le terrain.<br/>ou<br/>Inflige 10 dégâts à une Créature adverse sur le terrain.";
@@ -5803,8 +5761,8 @@ function obtenir_carte(carte_id) {
         case 168:
             carte.nom = "Tour de mage";
             carte.type = "Bâtiment";
-            carte.cout[0] = 14;
-            carte.vente[0] = 7;
+            carte.cout[0] = 13;
+            carte.vente[0] = 6;
             carte.vie_max = carte.vie = 10;
             carte.sorcellerie = 2;
             break;
@@ -5892,8 +5850,8 @@ function obtenir_carte(carte_id) {
             carte.nom = "Chat du mage";
             define_creature(carte);
             carte.familles.push("Bête");
-            carte.cout[0] = 6;
-            carte.vente[0] = 3;
+            carte.cout[0] = 5;
+            carte.vente[0] = 2;
             carte.attaque = 2;
             carte.vie_max = carte.vie = 2;
             carte.sorcellerie = 1;
@@ -10914,7 +10872,7 @@ function obtenir_carte(carte_id) {
                 }
             }
             carte.texte = function () {
-                return "Applique l'effet suivant à la Créature équipée : Au début de la phase de préparation : Pioche 1 Action Sort.";
+                return "Applique l'effet suivant à la Créature équipée : Au début de la phase de préparation : Pioche une Action Sort.";
             }
             carte.effet_pose = function (step, cible) {
                 if (carte.camp == "joueur") {
@@ -12165,16 +12123,16 @@ function obtenir_carte(carte_id) {
             carte.nom = "Amas d'os";
             carte.type = "Action";
             carte.familles.push("Sort", "Mort-vivant", "Squelette");
-            carte.cout[0] = 4;
-            carte.cout[9] = 3;
-            carte.vente[0] = 2;
-            carte.vente[9] = 1;
+            carte.cout[0] = 5;
+            carte.cout[9] = 5;
+            carte.vente[0] = 3;
+            carte.vente[9] = 2;
             carte.texte = function () {
-                return "Crée 3 " + effet_carte_voir_id(13, carte) + " sur le terrain.<br/>Sorcellerie 4 : Crée 5 " + effet_carte_voir_id(13, carte) + " sur le terrain.";
+                return "Crée 3 " + effet_carte_voir_id(13, carte) + " sur le terrain.<br/>Sorcellerie 6 : Crée 5 " + effet_carte_voir_id(13, carte) + " sur le terrain.";
             }
             carte.effet_pose = function () {
                 let nombre = 3;
-                if (sorcellerie(carte.camp) >= 2) {
+                if (sorcellerie(carte.camp) >= 6) {
                     nombre = 5;
                 }
                 for (let n = 0; n < nombre; n++) {
@@ -13030,10 +12988,10 @@ function obtenir_carte(carte_id) {
             carte.nom = "Réveiller les morts";
             carte.type = "Action";
             carte.familles.push("Mort-vivant", "Squelette");
-            carte.cout[0] = 10;
-            carte.cout[9] = 10;
-            carte.vente[0] = 5;
-            carte.vente[9] = 5;
+            carte.cout[0] = 15;
+            carte.cout[9] = 15;
+            carte.vente[0] = 8;
+            carte.vente[9] = 7;
             carte.texte = function () {
                 return "Crée " + effet_carte_voir_id(13, carte) + " sur le terrain pour chaque Créature dans la Défausse et bannis toutes les Créatures dans la Défausse.";
             }
@@ -13891,7 +13849,7 @@ function obtenir_carte(carte_id) {
                 }
             }
             carte.texte = function () {
-                return "Applique l'effet suivant à la Créature équipée : Au début de la phase de préparation : Pioche 1 Action Arcane Sort.";
+                return "Applique l'effet suivant à la Créature équipée : Au début de la phase de préparation : Pioche une Action Arcane Sort.";
             }
             carte.effet_pose = function (step, cible) {
                 if (carte.camp == "joueur") {
@@ -17693,7 +17651,7 @@ function obtenir_carte(carte_id) {
             carte.nom = "Sage";
             define_creature(carte);
             carte.familles.push("Humain", "Mage");
-            carte.cout[0] = 16;
+            carte.cout[0] = 15;
             carte.vente[0] = 7;
             carte.attaque = 5;
             carte.vie_max = carte.vie = 5;
@@ -21308,6 +21266,125 @@ function obtenir_carte(carte_id) {
                         }
                         if (verifier_5) {
                             while (nouvelle_carte.type != "Action") {
+                                nouvelle_carte = boutique_generer();
+                            }
+                            pioche("joueur", nouvelle_carte);
+                        }
+                        deplacer(carte, "joueur", "defausse");
+                        effet_pose(carte);
+                        menu();
+                    }
+                }
+                else {
+                    return false;
+                }
+            }
+            break;
+        case 493:
+            carte.nom = "Aventurier";
+            define_creature(carte);
+            carte.familles.push("Humain");
+            carte.cout[0] = 11;
+            carte.vente[0] = 5;
+            carte.attaque = 3;
+            carte.vie_max = carte.vie = 3;
+            carte.texte = function () {
+                return "Quand posé : Pioche un Objet et une Action.";
+            }
+            carte.effet_pose = function () {
+                if (carte.camp == "joueur") {
+                    if (!statistique(carte, "silence")) {
+                        let verifier1 = verifier2 = false;
+                        for (let n = 0; n < Jeu.NOMBRE_CARTE; n++) {
+                            if (Jeu.joueur.regions[Jeu.region_active].boutique_generer(obtenir_carte(n))) {
+                                if (obtenir_carte(n).type == "Action") {
+                                    verifier1 = true;
+                                }
+                                if (obtenir_carte(n).type == "Objet") {
+                                    verifier2 = true;
+                                }
+                            }
+                        }
+                        if (verifier1 || verifier2) {
+                            let nouvelle_carte = boutique_generer();
+                            if (verifier1) {
+                                while (nouvelle_carte.type != "Action") {
+                                    nouvelle_carte = boutique_generer();
+                                }
+                                pioche("joueur", nouvelle_carte);
+                            }
+                            if (verifier2) {
+                                while (nouvelle_carte.type != "Objet") {
+                                    nouvelle_carte = boutique_generer();
+                                }
+                                pioche("joueur", nouvelle_carte);
+                            }
+                        }
+                    }
+                    deplacer(carte, "joueur", "terrain");
+                    effet_pose(carte);
+                    menu();
+                }
+                else {
+                    deplacer(carte, "adverse", "terrain");
+                    effet_pose(carte);
+                    return true;
+                }
+            }
+            break;
+        case 494:
+            carte.nom = "Boussole";
+            carte.type = "Objet";
+            carte.cout[0] = 3;
+            carte.vente[0] = 1;
+            carte.texte = function () {
+                return "Pioche une Région.";
+            }
+            carte.effet_pose = function () {
+                if (carte.camp == "joueur") {
+                    let verifier = false;
+                    for (let n = 0; n < Jeu.NOMBRE_CARTE; n++) {
+                        if (Jeu.joueur.regions[Jeu.region_active].boutique_generer(obtenir_carte(n)) && obtenir_carte(n).type == "Région") {
+                            verifier = true;
+                        }
+                    }
+                    if (verifier) {
+                        let nouvelle_carte = boutique_generer();
+                        while (nouvelle_carte.type != "Région") {
+                            nouvelle_carte = boutique_generer();
+                        }
+                        pioche("joueur", nouvelle_carte);
+                        deplacer(carte, "joueur", "defausse");
+                        effet_pose(carte);
+                        menu();
+                    }
+                }
+                else {
+                    return false;
+                }
+            }
+            break;
+        case 495:
+            carte.nom = "Globe";
+            carte.type = "Objet";
+            carte.cout[0] = 15;
+            carte.vente[0] = 7;
+            carte.texte = function () {
+                return "Bannis toutes les cartes alliées dans la boutique et actualise la boutique avec des Régions.";
+            }
+            carte.effet_pose = function () {
+                if (carte.camp == "joueur") {
+                    let verifier = false;
+                    for (let n = 0; n < Jeu.NOMBRE_CARTE; n++) {
+                        if (Jeu.joueur.regions[Jeu.region_active].boutique_generer(obtenir_carte(n)) && obtenir_carte(n).type == "Région") {
+                            verifier = true;
+                        }
+                    }
+                    if (verifier) {
+                        Jeu.joueur.boutique = [];
+                        while (Jeu.joueur.boutique.length < 3 + parseInt((Jeu.boutique_niveau - 1) / 2)) {
+                            let nouvelle_carte = boutique_generer();
+                            while (nouvelle_carte.type != "Région") {
                                 nouvelle_carte = boutique_generer();
                             }
                             pioche("joueur", nouvelle_carte);
