@@ -21399,6 +21399,127 @@ function obtenir_carte(carte_id) {
                 }
             }
             break;
+        case 496:
+            carte.nom = "Taverne";
+            carte.type = "Bâtiment";
+            carte.cout[0] = 16;
+            carte.vente[0] = 8;
+            carte.vie_max = carte.vie = 10;
+            carte.action_max = 1;
+            carte.texte = function () {
+                return "Au début de la phase de préparation : Pioche une Créature.";
+            }
+            carte.effet_etage_debut = function () {
+                if (carte.camp == "joueur") {
+                    let verifier = false;
+                    for (let n = 0; n < Jeu.NOMBRE_CARTE; n++) {
+                        if (Jeu.joueur.regions[Jeu.region_active].boutique_generer(obtenir_carte(n)) && obtenir_carte(n).type == "Créature") {
+                            verifier = true;
+                        }
+                    }
+                    if (verifier) {
+                        let nouvelle_carte = boutique_generer();
+                        while (nouvelle_carte.type != "Créature") {
+                            nouvelle_carte = boutique_generer();
+                        }
+                        pioche("joueur", nouvelle_carte);
+                    }
+                }
+            }
+            break;
+        case 497:
+            carte.nom = "Auberge";
+            carte.type = "Bâtiment";
+            carte.cout[0] = 14;
+            carte.vente[0] = 7;
+            carte.vie_max = carte.vie = 10;
+            carte.action_max = 1;
+            carte.texte = function () {
+                return "Au début de la phase de préparation : Soigne 2 à votre meneur.";
+            }
+            carte.effet_etage_debut = function () {
+                soin_direct(carte.camp, 2);
+            }
+            break;
+        case 498:
+            carte.nom = "Tavernier";
+            define_creature(carte);
+            carte.familles.push("Humain");
+            carte.cout[0] = 8;
+            carte.vente[0] = 4;
+            carte.attaque = 3;
+            carte.vie_max = carte.vie = 3;
+            carte.texte = function () {
+                return "Quand posé : Pioche une Créature.";
+            }
+            carte.effet_pose = function () {
+                if (carte.camp == "joueur") {
+                    if (!statistique(carte, "silence")) {
+                        let verifier = false;
+                        for (let n = 0; n < Jeu.NOMBRE_CARTE; n++) {
+                            if (Jeu.joueur.regions[Jeu.region_active].boutique_generer(obtenir_carte(n)) && obtenir_carte(n).type == "Créature") {
+                                verifier = true;
+                            }
+                        }
+                        if (verifier) {
+                            let nouvelle_carte = boutique_generer();
+                            while (!nouvelle_carte.type == "Créature") {
+                                nouvelle_carte = boutique_generer();
+                            }
+                            pioche("joueur", nouvelle_carte);
+                        }
+                    }
+                    deplacer(carte, "joueur", "terrain");
+                    effet_pose(carte);
+                    menu();
+                }
+                else {
+                    deplacer(carte, "adverse", "terrain");
+                    effet_pose(carte);
+                    return true;
+                }
+            }
+            break;
+        case 499:
+            carte.nom = "Aubergiste";
+            define_creature(carte);
+            carte.familles.push("Humain");
+            carte.cout[0] = 9;
+            carte.vente[0] = 4;
+            carte.attaque = 3;
+            carte.vie_max = carte.vie = 3;
+            carte.texte = function () {
+                return "Quand posé : Soigne 2 à votre meneur.";
+            }
+            carte.effet_pose = function () {
+                if (!statistique(carte, "silence")) {
+                    soin_direct(carte.camp, 2);
+                }
+                deplacer(carte, "adverse", "terrain");
+                effet_pose(carte);
+                return true;
+            }
+            break;
+        case 500:
+            carte.nom = "Feu de camp";
+            carte.type = "Bâtiment";
+            carte.cout[0] = 20;
+            carte.vente[0] = 10;
+            carte.vie_max = carte.vie = 10;
+            carte.action_max = 1;
+            carte.texte = function () {
+                return "Au début de la phase de préparation : Soigne 1 à toutes les Créatures alliées sur le terrain.";
+            }
+            carte.effet_etage_debut = function () {
+                let array = [];
+                for (let n = 0; n < Jeu[carte.camp].terrain.length; n++) {
+                    array.push(Jeu[carte.camp].terrain[n]);
+                }
+                for (let n = 0; n < array.length; n++) {
+                    soin(array[n], 3);
+                }
+            }
+            break;
     }
     for (let n = 1; n < carte.cout.length; n++) {
         if (carte.cout[n] > 0) {

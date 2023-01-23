@@ -17,7 +17,7 @@ function demarrage() {
         ],
         types: ["Créature", "Bâtiment", "Objet", "Action", "Région"],
         familles: [],
-        NOMBRE_CARTE: 495,
+        NOMBRE_CARTE: 500,
         NOMBRE_HISTOIRE: 4,
         NOMBRE_MUSIQUE: 17,
         combat: {
@@ -1296,16 +1296,18 @@ function descendre(camp, zone, slot) {
 }
 
 function soin(carte, montant) {
-    carte.vie += montant;
-    if (carte.vie > statistique(carte, "vie_max")) {
-        carte.vie = statistique(carte, "vie_max");
-    }
-    if (!statistique(carte, "silence")) {
-        carte.effet_soin(montant);
-    }
-    for (let n = 0; n < Jeu[carte.camp].terrain.length; n++) {
-        if (!statistique(Jeu[carte.camp].terrain[n], "silence")) {
-            Jeu[carte.camp].terrain[n].effet_soin_carte(carte);
+    if (carte.vie < carte.vie_max) {
+        carte.vie += montant;
+        if (carte.vie > statistique(carte, "vie_max")) {
+            carte.vie = statistique(carte, "vie_max");
+        }
+        if (!statistique(carte, "silence")) {
+            carte.effet_soin(montant);
+        }
+        for (let n = 0; n < Jeu[carte.camp].terrain.length; n++) {
+            if (!statistique(Jeu[carte.camp].terrain[n], "silence")) {
+                Jeu[carte.camp].terrain[n].effet_soin_carte(carte);
+            }
         }
     }
 }
