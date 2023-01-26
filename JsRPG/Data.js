@@ -344,20 +344,20 @@ function obtenir_carte(carte_id) {
             carte.attaque = 3;
             carte.vie_max = carte.vie = 3;
             carte.texte = function () {
-                return "Quand posé : Pioche un Objet Équipement.";
+                return "Quand posé : Pioche 1 Objet Équipement.";
             }
             carte.effet_pose = function () {
                 if (carte.camp == "joueur") {
                     if (!statistique(carte, "silence")) {
                         let verifier = false;
                         for (let n = 0; n < Jeu.NOMBRE_CARTE; n++) {
-                            if (Jeu.joueur.regions[Jeu.region_active].boutique_generer(obtenir_carte(n)) && obtenir_carte(n).familles.includes("Équipement")) {
+                            if (Jeu.joueur.regions[Jeu.region_active].boutique_generer(obtenir_carte(n)) && obtenir_carte(n).type == "Objet" && obtenir_carte(n).familles.includes("Équipement")) {
                                 verifier = true;
                             }
                         }
                         if (verifier) {
                             let nouvelle_carte = boutique_generer();
-                            while (!nouvelle_carte.familles.includes("Équipement")) {
+                            while (nouvelle_carte.type != "Objet" || !nouvelle_carte.familles.includes("Équipement")) {
                                 nouvelle_carte = boutique_generer();
                             }
                             pioche("joueur", nouvelle_carte);
@@ -830,6 +830,7 @@ function obtenir_carte(carte_id) {
             carte.cout[0] = 3;
             carte.cout[7] = 2;
             carte.vente[0] = 1;
+            carte.vente[7] = 1;
             carte.attaque = 3;
             carte.vie_max = carte.vie = 3;
             carte.description = "Les gnomes ne pouvant effectuer des tâches particulièrement physique, ils ont préférés concevoir des outils puis des automate pour s'en occuper.";
@@ -846,10 +847,10 @@ function obtenir_carte(carte_id) {
             carte.nom = "Bateau pirate";
             carte.type = "Bâtiment";
             carte.familles.push("Bateau", "Pirate");
-            carte.cout[0] = 13;
-            carte.cout[2] = 12;
-            carte.vente[0] = 6;
-            carte.vente[2] = 6;
+            carte.cout[0] = 20;
+            carte.cout[2] = 4;
+            carte.vente[0] = 10;
+            carte.vente[2] = 2;
             carte.vie_max = carte.vie = 10;
             carte.action_max = 1;
             carte.mobile = true;
@@ -866,8 +867,8 @@ function obtenir_carte(carte_id) {
             carte.nom = "Pirate";
             define_creature(carte);
             carte.familles.push("Humain", "Pirate");
-            carte.cout[0] = 3;
-            carte.cout[2] = 2;
+            carte.cout[0] = 4;
+            carte.cout[2] = 1;
             carte.vente[0] = 1;
             carte.vente[2] = 1;
             carte.attaque = 3;
@@ -2521,7 +2522,7 @@ function obtenir_carte(carte_id) {
             carte.attaque = 3;
             carte.vie_max = carte.vie = 3;
             carte.texte = function () {
-                return "Quand vendu : Pioche une Action Sort.";
+                return "Quand vendu : Pioche 1 Action Sort.";
             }
             carte.effet_vente = function () {
                 let verifier = false;
@@ -3765,12 +3766,12 @@ function obtenir_carte(carte_id) {
             carte.nom = "Lance de cuivre";
             carte.type = "Objet";
             carte.familles.push("Équipement", "Arme");
-            carte.cout[0] = 3;
-            carte.vente[0] = 1;
-            carte.stat_equipement.attaque = 3;
+            carte.cout[0] = 4;
+            carte.vente[0] = 2;
+            carte.stat_equipement.attaque = 5;
             carte.stat_equipement.percee = 2;
             carte.texte = function () {
-                return "Donne 3 attaque et applique " + effet_talent_voir("Percée", carte, 2) + " à la Créature équipée.";
+                return "Donne 5 attaque et applique " + effet_talent_voir("Percée", carte, 2) + " à la Créature équipée.";
             }
             carte.effet_pose = function (step, cible) {
                 if (carte.camp == "joueur") {
@@ -4173,7 +4174,7 @@ function obtenir_carte(carte_id) {
             carte.attaque = 19;
             carte.vie_max = carte.vie = 19;
             carte.texte = function () {
-                return "Quand posé : Crée un " + effet_carte_voir_id(129, carte) + " dans la boutique.";
+                return "Quand posé : Crée " + effet_carte_voir_id(129, carte) + " dans la boutique.";
             }
             carte.effet_pose = function () {
                 if (carte.camp == "joueur") {
@@ -4860,7 +4861,7 @@ function obtenir_carte(carte_id) {
             carte.vente[0] = 2;
             carte.vente[4] = 1;
             carte.texte = function () {
-                return "Crée un " + effet_carte_voir_id(158, carte) + " sur le terrain en première position.<br/>Sorcellerie 10 : Crée un " + effet_carte_voir_id(158, carte) + " sur le terrain en première position et lui donne 5 vie.";
+                return "Crée " + effet_carte_voir_id(158, carte) + " sur le terrain en première position.<br/>Sorcellerie 10 : Crée " + effet_carte_voir_id(158, carte) + " sur le terrain en première position et lui donne 5 vie.";
             }
             carte.effet_pose = function () {
                 let nouvelle_carte = obtenir_carte(158);
@@ -6046,7 +6047,7 @@ function obtenir_carte(carte_id) {
             carte.attaque = 3;
             carte.vie_max = carte.vie = 3;
             carte.texte = function () {
-                return "Quand joue : Crée un " + effet_carte_voir_id(158, carte) + " sur le terrain en première position.";
+                return "Quand joue : Crée " + effet_carte_voir_id(158, carte) + " sur le terrain en première position.";
             }
             carte.effet_action = function () {
                 let nouvelle_carte = obtenir_carte(158);
@@ -6565,7 +6566,7 @@ function obtenir_carte(carte_id) {
         case 207:
             carte.nom = "Soldat";
             define_creature(carte);
-            carte.familles.push("Humain");
+            carte.familles.push("Humain", "Militaire");
             carte.cout[0] = 10;
             carte.vente[0] = 5;
             carte.attaque = 5;
@@ -8027,6 +8028,7 @@ function obtenir_carte(carte_id) {
         case 231:
             carte.nom = "Caserne";
             carte.type = "Bâtiment";
+            carte.familles.push("Militaire");
             carte.cout[0] = 50;
             carte.vente[0] = 25;
             carte.vie_max = carte.vie = 10;
@@ -8045,10 +8047,10 @@ function obtenir_carte(carte_id) {
             carte.nom = "Capitaine pirate";
             define_creature(carte);
             carte.familles.push("Humain", "Pirate");
-            carte.cout[0] = 17;
-            carte.cout[2] = 16;
-            carte.vente[0] = 8;
-            carte.vente[2] = 8;
+            carte.cout[0] = 27;
+            carte.cout[2] = 6;
+            carte.vente[0] = 13;
+            carte.vente[2] = 3;
             carte.attaque = 5;
             carte.vie_max = carte.vie = 5;
             carte.texte = function () {
@@ -8707,7 +8709,7 @@ function obtenir_carte(carte_id) {
             carte.cout[0] = 3;
             carte.vente[0] = 1;
             carte.texte = function () {
-                return "Pioche un Objet.";
+                return "Pioche 1 Objet.";
             }
             carte.effet_pose = function () {
                 if (carte.camp == "joueur") {
@@ -8739,7 +8741,7 @@ function obtenir_carte(carte_id) {
             carte.cout[0] = 3;
             carte.vente[0] = 1;
             carte.texte = function () {
-                return "Pioche une Action Sort.";
+                return "Pioche 1 Action Sort.";
             }
             carte.effet_pose = function () {
                 if (carte.camp == "joueur") {
@@ -10017,15 +10019,15 @@ function obtenir_carte(carte_id) {
         case 269:
             carte.nom = "Carte";
             carte.type = "Objet";
-            carte.cout[0] = 4;
+            carte.cout[0] = 5;
             carte.vente[0] = 2;
             carte.texte = function () {
-                return "Bannis toutes les cartes alliées dans la boutique et pioche 4 cartes.";
+                return "Bannis toutes les cartes alliées dans la boutique et pioche 5 cartes.";
             }
             carte.effet_pose = function () {
                 if (carte.camp == "joueur") {
                     Jeu.joueur.boutique = [];
-                    pioches("joueur", 4);
+                    pioches("joueur", 5);
                     deplacer(carte, "joueur", "defausse");
                     effet_pose(carte);
                     menu();
@@ -10141,10 +10143,10 @@ function obtenir_carte(carte_id) {
         case 276:
             carte.nom = "Trésor";
             carte.type = "Objet";
-            carte.cout[0] = 7;
-            carte.vente[0] = 3;
+            carte.cout[0] = 12;
+            carte.vente[0] = 6;
             carte.texte = function () {
-                return "Pioche 3 cartes.<br/>ou<br/>Donne 2 Or max.";
+                return "Pioche 6 cartes.<br/>ou<br/>Donne 4 Or max.";
             }
             carte.effet_pose = function (step, cible) {
                 if (carte.camp == "joueur") {
@@ -10795,20 +10797,20 @@ function obtenir_carte(carte_id) {
             carte.attaque = 3;
             carte.vie_max = carte.vie = 3;
             carte.texte = function () {
-                return "Quand posé : Pioche un Objet Potion.";
+                return "Quand posé : Pioche 1 Objet Potion.";
             }
             carte.effet_pose = function () {
                 if (carte.camp == "joueur") {
                     if (!statistique(carte, "silence")) {
                         let verifier = false;
                         for (let n = 0; n < Jeu.NOMBRE_CARTE; n++) {
-                            if (Jeu.joueur.regions[Jeu.region_active].boutique_generer(obtenir_carte(n)) && obtenir_carte(n).familles.includes("Potion")) {
+                            if (Jeu.joueur.regions[Jeu.region_active].boutique_generer(obtenir_carte(n)) && obtenir_carte(n).type == "Objet" && obtenir_carte(n).familles.includes("Potion")) {
                                 verifier = true;
                             }
                         }
                         if (verifier) {
                             let nouvelle_carte = boutique_generer();
-                            while (!nouvelle_carte.familles.includes("Potion")) {
+                            while (nouvelle_carte.type != "Objet" || !nouvelle_carte.familles.includes("Potion")) {
                                 nouvelle_carte = boutique_generer();
                             }
                             pioche("joueur", nouvelle_carte);
@@ -10847,18 +10849,18 @@ function obtenir_carte(carte_id) {
             carte.attaque = 3;
             carte.vie_max = carte.vie = 3;
             carte.texte = function () {
-                return "Quand vendu : Pioche un Objet Potion.";
+                return "Quand vendu : Pioche 1 Objet Potion.";
             }
             carte.effet_vente = function () {
                 let verifier = false;
                 for (let n = 0; n < Jeu.NOMBRE_CARTE; n++) {
-                    if (Jeu.joueur.regions[Jeu.region_active].boutique_generer(obtenir_carte(n)) && obtenir_carte(n).familles.includes("Potion")) {
+                    if (Jeu.joueur.regions[Jeu.region_active].boutique_generer(obtenir_carte(n)) && obtenir_carte(n).type == "Objet" && obtenir_carte(n).familles.includes("Potion")) {
                         verifier = true;
                     }
                 }
                 if (verifier) {
                     let nouvelle_carte = boutique_generer();
-                    while (!nouvelle_carte.familles.includes("Potion")) {
+                    while (nouvelle_carte.type != "Objet" || !nouvelle_carte.familles.includes("Potion")) {
                         nouvelle_carte = boutique_generer();
                     }
                     pioche("joueur", nouvelle_carte);
@@ -10889,7 +10891,7 @@ function obtenir_carte(carte_id) {
                 }
             }
             carte.texte = function () {
-                return "Applique l'effet suivant à la Créature équipée : Au début de la phase de préparation : Pioche une Action Sort.";
+                return "Applique l'effet suivant à la Créature équipée : Au début de la phase de préparation : Pioche 1 Action Sort.";
             }
             carte.effet_pose = function (step, cible) {
                 if (carte.camp == "joueur") {
@@ -12029,19 +12031,19 @@ function obtenir_carte(carte_id) {
             carte.vente[0] = 1;
             carte.vente[7] = 1;
             carte.texte = function () {
-                return "Pioche un Objet Équipement.<br/>Sorcellerie 3 : Pioche 2 Objets Équipement.";
+                return "Pioche 1 Objet Équipement.<br/>Sorcellerie 3 : Pioche 2 Objets Équipement.";
             }
             carte.effet_pose = function () {
                 if (carte.camp == "joueur") {
                     let verifier = false;
                     for (let n = 0; n < Jeu.NOMBRE_CARTE; n++) {
-                        if (Jeu.joueur.regions[Jeu.region_active].boutique_generer(obtenir_carte(n)) && obtenir_carte(n).familles.includes("Équipement")) {
+                        if (Jeu.joueur.regions[Jeu.region_active].boutique_generer(obtenir_carte(n)) && obtenir_carte(n).type == "Objet" && obtenir_carte(n).familles.includes("Équipement")) {
                             verifier = true;
                         }
                     }
                     if (verifier) {
                         let nouvelle_carte = boutique_generer();
-                        while (!nouvelle_carte.familles.includes("Équipement")) {
+                        while (nouvelle_carte.type != "Objet" || !nouvelle_carte.familles.includes("Équipement")) {
                             nouvelle_carte = boutique_generer();
                         }
                         pioche("joueur", nouvelle_carte);
@@ -13258,20 +13260,20 @@ function obtenir_carte(carte_id) {
             carte.vie_max = carte.vie = 3;
             carte.sorcellerie = 2;
             carte.texte = function () {
-                return "Quand posé : Pioche un Objet Équipement.";
+                return "Quand posé : Pioche 1 Objet Équipement.";
             }
             carte.effet_pose = function () {
                 if (carte.camp == "joueur") {
                     if (!statistique(carte, "silence")) {
                         let verifier = false;
                         for (let n = 0; n < Jeu.NOMBRE_CARTE; n++) {
-                            if (Jeu.joueur.regions[Jeu.region_active].boutique_generer(obtenir_carte(n)) && obtenir_carte(n).familles.includes("Équipement")) {
+                            if (Jeu.joueur.regions[Jeu.region_active].boutique_generer(obtenir_carte(n)) && obtenir_carte(n).type == "Objet" && obtenir_carte(n).familles.includes("Équipement")) {
                                 verifier = true;
                             }
                         }
                         if (verifier) {
                             let nouvelle_carte = boutique_generer();
-                            while (!nouvelle_carte.familles.includes("Équipement")) {
+                            while (nouvelle_carte.type != "Objet" || !nouvelle_carte.familles.includes("Équipement")) {
                                 nouvelle_carte = boutique_generer();
                             }
                             pioche("joueur", nouvelle_carte);
@@ -13866,7 +13868,7 @@ function obtenir_carte(carte_id) {
                 }
             }
             carte.texte = function () {
-                return "Applique l'effet suivant à la Créature équipée : Au début de la phase de préparation : Pioche une Action Arcane Sort.";
+                return "Applique l'effet suivant à la Créature équipée : Au début de la phase de préparation : Pioche 1 Action Arcane Sort.";
             }
             carte.effet_pose = function (step, cible) {
                 if (carte.camp == "joueur") {
@@ -14004,15 +14006,15 @@ function obtenir_carte(carte_id) {
             carte.nom = "Lance sacrée";
             carte.type = "Objet";
             carte.familles.push("Équipement", "Arme");
-            carte.cout[0] = 4;
-            carte.cout[10] = 4;
-            carte.vente[0] = 2;
+            carte.cout[0] = 6;
+            carte.cout[10] = 5;
+            carte.vente[0] = 3;
             carte.vente[10] = 2;
-            carte.stat_equipement.attaque = 4;
+            carte.stat_equipement.attaque = 10;
             carte.stat_equipement.percee = 4;
             carte.stat_equipement.vol_de_vie = 2;
             carte.texte = function () {
-                return "Donne 4 attaque, applique " + effet_talent_voir("Percée", carte, 4) + " et " + effet_talent_voir("Vol de vie", carte, 2) + " à la Créature équipée.";
+                return "Donne 10 attaque, applique " + effet_talent_voir("Percée", carte, 4) + " et " + effet_talent_voir("Vol de vie", carte, 2) + " à la Créature équipée.";
             }
             carte.effet_pose = function (step, cible) {
                 if (carte.camp == "joueur") {
@@ -16352,7 +16354,7 @@ function obtenir_carte(carte_id) {
             carte.attaque = 3;
             carte.vie_max = carte.vie = 3;
             carte.texte = function () {
-                return "Quand posé : Pioche un Bâtiment.";
+                return "Quand posé : Pioche 1 Bâtiment.";
             }
             carte.effet_pose = function () {
                 if (carte.camp == "joueur") {
@@ -16416,20 +16418,20 @@ function obtenir_carte(carte_id) {
             carte.attaque = 3;
             carte.vie_max = carte.vie = 3;
             carte.texte = function () {
-                return "Quand posé : Pioche un Objet Équipement.";
+                return "Quand posé : Pioche 1 Objet Équipement.";
             }
             carte.effet_pose = function () {
                 if (carte.camp == "joueur") {
                     if (!statistique(carte, "silence")) {
                         let verifier = false;
                         for (let n = 0; n < Jeu.NOMBRE_CARTE; n++) {
-                            if (Jeu.joueur.regions[Jeu.region_active].boutique_generer(obtenir_carte(n)) && obtenir_carte(n).familles.includes("Équipement")) {
+                            if (Jeu.joueur.regions[Jeu.region_active].boutique_generer(obtenir_carte(n)) && obtenir_carte(n).type == "Objet" && obtenir_carte(n).familles.includes("Équipement")) {
                                 verifier = true;
                             }
                         }
                         if (verifier) {
                             let nouvelle_carte = boutique_generer();
-                            while (!nouvelle_carte.familles.includes("Équipement")) {
+                            while (nouvelle_carte.type != "Objet" || !nouvelle_carte.familles.includes("Équipement")) {
                                 nouvelle_carte = boutique_generer();
                             }
                             pioche("joueur", nouvelle_carte);
@@ -17198,7 +17200,7 @@ function obtenir_carte(carte_id) {
             carte.attaque = 3;
             carte.vie_max = carte.vie = 3;
             carte.texte = function () {
-                return "Quand posé : Pioche une Action.";
+                return "Quand posé : Pioche 1 Action.";
             }
             carte.effet_pose = function () {
                 if (carte.camp == "joueur") {
@@ -17362,7 +17364,7 @@ function obtenir_carte(carte_id) {
             carte.attaque = 20;
             carte.vie_max = carte.vie = 20;
             carte.texte = function () {
-                return "Au début de la phase de préparation : Crée une " + effet_carte_voir_id(390, carte) + " dans la main.";
+                return "Au début de la phase de préparation : Crée " + effet_carte_voir_id(390, carte) + " dans la main.";
             }
             carte.effet_etage_debut = function () {
                 let nouvelle_carte = obtenir_carte(390);
@@ -17417,7 +17419,7 @@ function obtenir_carte(carte_id) {
             carte.attaque = 3;
             carte.vie_max = carte.vie = 3;
             carte.texte = function () {
-                return "Quand posé : Pioche une Créature Poisson.";
+                return "Quand posé : Pioche 1 Créature Poisson.";
             }
             carte.effet_pose = function () {
                 if (carte.camp == "joueur") {
@@ -18398,7 +18400,7 @@ function obtenir_carte(carte_id) {
             carte.attaque = 3;
             carte.vie_max = carte.vie = 3;
             carte.texte = function () {
-                return "Quand posé : Pioche une Action Maladie.";
+                return "Quand posé : Pioche 1 Action Maladie.";
             }
             carte.effet_pose = function () {
                 if (carte.camp == "joueur") {
@@ -18750,7 +18752,7 @@ function obtenir_carte(carte_id) {
             carte.attaque = 20;
             carte.vie_max = carte.vie = 20;
             carte.texte = function () {
-                return "Quand posé : Crée un " + effet_carte_voir_id(433, carte) + " dans la boutique.";
+                return "Quand posé : Crée " + effet_carte_voir_id(433, carte) + " dans la boutique.";
             }
             carte.effet_pose = function () {
                 if (carte.camp == "joueur") {
@@ -18856,7 +18858,7 @@ function obtenir_carte(carte_id) {
             carte.attaque = 20;
             carte.vie_max = carte.vie = 20;
             carte.texte = function () {
-                return "Quand posé : Crée un " + effet_carte_voir_id(435, carte) + " dans la boutique.";
+                return "Quand posé : Crée " + effet_carte_voir_id(435, carte) + " dans la boutique.";
             }
             carte.effet_pose = function () {
                 if (carte.camp == "joueur") {
@@ -18962,7 +18964,7 @@ function obtenir_carte(carte_id) {
             carte.attaque = 20;
             carte.vie_max = carte.vie = 20;
             carte.texte = function () {
-                return "Quand posé : Crée une " + effet_carte_voir_id(437, carte) + " dans la boutique.";
+                return "Quand posé : Crée " + effet_carte_voir_id(437, carte) + " dans la boutique.";
             }
             carte.effet_pose = function () {
                 if (carte.camp == "joueur") {
@@ -19017,7 +19019,7 @@ function obtenir_carte(carte_id) {
             }
             carte.exclusif = true;
             carte.texte = function () {
-                return "Applique " + effet_talent_voir("Sorcellerie", carte, 10) + " et l'effet suivant à la Créature équipée : Quand une Action Sort alliée est posée : Se donne 1 attaque et 1 vie. Au début de la phase de préparation : Pioche une Action Sort.";
+                return "Applique " + effet_talent_voir("Sorcellerie", carte, 10) + " et l'effet suivant à la Créature équipée : Quand une Action Sort alliée est posée : Se donne 1 attaque et 1 vie. Au début de la phase de préparation : Pioche 1 Action Sort.";
             }
             carte.effet_pose = function (step, cible) {
                 if (carte.camp == "joueur") {
@@ -21175,7 +21177,7 @@ function obtenir_carte(carte_id) {
             carte.cout[0] = 15;
             carte.vente[0] = 7;
             carte.texte = function () {
-                return "Pioche une Région, une Créature, un Bâtiment, un Objet et une Action.";
+                return "Pioche 1 Région, 1 Créature, 1 Bâtiment, 1 Objet et 1 Action.";
             }
             carte.effet_pose = function () {
                 if (carte.camp == "joueur") {
@@ -21250,7 +21252,7 @@ function obtenir_carte(carte_id) {
             carte.attaque = 3;
             carte.vie_max = carte.vie = 3;
             carte.texte = function () {
-                return "Quand posé : Pioche un Objet et une Action.";
+                return "Quand posé : Pioche 1 Objet et 1 Action.";
             }
             carte.effet_pose = function () {
                 if (carte.camp == "joueur") {
@@ -21299,7 +21301,7 @@ function obtenir_carte(carte_id) {
             carte.cout[0] = 3;
             carte.vente[0] = 1;
             carte.texte = function () {
-                return "Pioche une Région.";
+                return "Pioche 1 Région.";
             }
             carte.effet_pose = function () {
                 if (carte.camp == "joueur") {
@@ -21368,7 +21370,7 @@ function obtenir_carte(carte_id) {
             carte.vie_max = carte.vie = 10;
             carte.action_max = 1;
             carte.texte = function () {
-                return "Au début de la phase de préparation : Pioche une Créature.";
+                return "Au début de la phase de préparation : Pioche 1 Créature.";
             }
             carte.effet_etage_debut = function () {
                 if (carte.camp == "joueur") {
@@ -21411,7 +21413,7 @@ function obtenir_carte(carte_id) {
             carte.attaque = 3;
             carte.vie_max = carte.vie = 3;
             carte.texte = function () {
-                return "Quand posé : Pioche une Créature.";
+                return "Quand posé : Pioche 1 Créature.";
             }
             carte.effet_pose = function () {
                 if (carte.camp == "joueur") {
@@ -21490,7 +21492,7 @@ function obtenir_carte(carte_id) {
             carte.vie_max = carte.vie = 10;
             carte.action_max = 1;
             carte.texte = function () {
-                return "Au début de la phase de préparation : Pioche un Objet Équipement.";
+                return "Au début de la phase de préparation : Pioche 1 Objet Équipement.";
             }
             carte.effet_etage_debut = function () {
                 if (carte.camp == "joueur") {
@@ -21548,6 +21550,29 @@ function obtenir_carte(carte_id) {
                     return false;
                 }
             }
+            break;
+        case 503:
+            carte.nom = "Scorpion";
+            define_creature(carte);
+            carte.cout[0] = 20;
+            carte.cout[1] = 20;
+            carte.vente[0] = 10;
+            carte.vente[1] = 10;
+            carte.attaque = 1;
+            carte.vie_max = carte.vie = 1;
+            carte.letalite = true;
+            break;
+        case 504:
+            carte.nom = "Veuve noire";
+            define_creature(carte);
+            carte.familles.push("Araignée");
+            carte.cout[0] = 20;
+            carte.cout[9] = 20;
+            carte.vente[0] = 10;
+            carte.vente[9] = 10;
+            carte.attaque = 1;
+            carte.vie_max = carte.vie = 1;
+            carte.letalite = true;
             break;
     }
     for (let n = 1; n < carte.cout.length; n++) {
