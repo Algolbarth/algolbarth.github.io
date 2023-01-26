@@ -1,8 +1,7 @@
 function collection() {
     initialiser();
-    div("main");
     fonction("Retour", "accueil()");
-    saut(2);
+    afficher("<center>");
     fonction("Filtrer", "collection_filtre()");
     afficher(" Trier par <select id='tri' onchange='collection_tri_appliquer()'>")
     afficher("<option value='nom'");
@@ -27,25 +26,25 @@ function collection() {
     else {
         fonction("Décroissant", "Jeu.collection_ordre=" + '"croissant"' + ";collection()");
     }
-    saut(2);
-    afficher(Jeu.collection.length + " résultats");
-    saut(2);
+    afficher(" - " + Jeu.collection.length + " résultats");
+    afficher("</center>");
+    div("main");
     if (Jeu.collection_ordre == "croissant") {
         for (let n = 0; n < Jeu.collection.length; n++) {
             div("", "carte");
-            fonction(Jeu.collection[n].nom, "carte_voir_id(" + Jeu.collection[n].id + ',"side")');
+            fonction(Jeu.collection[n].nom, "carte_voir_id(" + Jeu.collection[n].id + ',"carte_side")');
             div_fin();
         }
     }
     else if (Jeu.collection_ordre == "decroissant") {
         for (let n = Jeu.collection.length - 1; n >= 0; n--) {
             div("", "carte");
-            fonction(Jeu.collection[n].nom, "carte_voir_id(" + Jeu.collection[n].id + ',"side")');
+            fonction(Jeu.collection[n].nom, "carte_voir_id(" + Jeu.collection[n].id + ',"carte_side")');
             div_fin();
         }
     }
     div_fin();
-    div("side", "affichage");
+    div("carte_side", "affichage");
     div_fin();
     actualiser();
 }

@@ -17,7 +17,7 @@ function demarrage() {
         ],
         types: ["Créature", "Bâtiment", "Objet", "Action", "Région"],
         familles: [],
-        NOMBRE_CARTE: 500,
+        NOMBRE_CARTE: 502,
         NOMBRE_HISTOIRE: 4,
         NOMBRE_MUSIQUE: 17,
         combat: {
@@ -94,7 +94,7 @@ function ecran_titre() {
     saut();
     afficher("Version BETA");
     saut(3);
-    fonction("Jouer", "musique();accueil()", "menu");
+    fonction("Se connecter", "musique();accueil()", "menu");
     afficher("</center>");
     actualiser();
 }
@@ -135,7 +135,9 @@ function nouvelle_partie() {
         boutique: [],
         main: [],
         terrain: [],
-        defausse: []
+        defausse: [],
+        regions: [],
+        liste_regions: [],
     }
     for (let n = 0; n < Jeu.ressources.length; n++) {
         let ressource = {
@@ -177,12 +179,35 @@ function nouvelle_partie() {
 
 function menu() {
     initialiser();
-    div("main");
+    div("", "bar");
+    div("", "flex");
     fonction("Options", "option_jeu()");
-    saut(2);
+    div_fin();
+    div("", "flex");
+    fonction("Combattre", "combat_nouveau()");
+    div_fin();
+    div("", "flex");
+    fonction("Options", "option_jeu()");
+    div_fin();
+    div_fin();
+    afficher("<center>");
     afficher("Etage : " + Jeu.etage);
-    saut();
-    afficher("Vie restante : " + Jeu.joueur.vie + " / " + Jeu.joueur.vie_max);
+    afficher("</center>");
+    joueur_voir();
+    adversaire_voir();
+    div("carte_main", "affichage");
+    div_fin();
+    div("carte_side", "affichage");
+    div_fin();
+    div("message", "affichage");
+    div();
+    actualiser();
+}
+
+function joueur_voir() {
+    div("main");
+    div("", "zone");
+    afficher("<u>Meneur :</u> " + Jeu.joueur.vie + " / " + Jeu.joueur.vie_max + " VIE");
     saut();
     for (let n = 0; n < Jeu.ressources.length; n++) {
         if (Jeu.joueur.ressources[n].max > 0 || Jeu.joueur.ressources[n].courant > 0 || Jeu.joueur.ressources[n].reserve > 0) {
@@ -197,6 +222,7 @@ function menu() {
         fonction("Ajouter une ressource", "ressource_choisir()");
         saut();
     }
+    div_fin();
     saut();
     div("", "zone");
     afficher("<u>Régions :</u> <i>" + Jeu.joueur.regions.length + " carte");
@@ -340,14 +366,150 @@ function menu() {
         saut();
     }
     div_fin();
-    saut();
-    fonction("Inspecter l'équipe adverse", "adversaire_voir()");
-    saut();
-    fonction("Combattre", "combat_nouveau()");
     div_fin();
-    div("side", "affichage");
+}
+
+function adversaire_voir() {
+    div("side");
+    div("", "zone");
+    afficher("<u>Meneur adverse :</u> " + Jeu.adverse.vie + " / " + Jeu.adverse.vie_max + " VIE");
+    saut();
+    for (let n = 0; n < Jeu.ressources.length; n++) {
+        if (Jeu.adverse.ressources[n].max > 0 || Jeu.adverse.ressources[n].courant > 0 || Jeu.adverse.ressources[n].reserve > 0) {
+            afficher(Jeu.ressources[n].nom + " : " + Jeu.adverse.ressources[n].courant + " / " + Jeu.adverse.ressources[n].max);
+            if (Jeu.adverse.ressources[n].reserve > 0) {
+                afficher(" + " + Jeu.adverse.ressources[n].reserve);
+            }
+            saut();
+        }
+    }
     div_fin();
-    actualiser();
+    saut();
+    div("", "zone");
+    afficher("<u>Régions adverses :</u> <i>" + Jeu.adverse.regions.length + " carte");
+    if (Jeu.adverse.regions.length > 1) {
+        afficher("s");
+    }
+    afficher("</i>");
+    saut();
+    if (Jeu.adverse.regions.length > 0) {
+        for (let n = 0; n < Jeu.adverse.regions.length; n++) {
+            div("", "carte");
+            div();
+            if (!Jeu.adverse.regions[n].cache) {
+                afficher_carte("adverse", "regions", n);
+            }
+            else {
+                afficher("???");
+            }
+            div_fin();
+            div_fin();
+        }
+    }
+    div_fin();
+    saut();
+    div("", "zone");
+    afficher("<u>Boutique adverse :</u> <i>" + Jeu.adverse.boutique.length + " carte");
+    if (Jeu.adverse.boutique.length > 1) {
+        afficher("s");
+    }
+    afficher("</i>");
+    saut();
+    if (Jeu.adverse.boutique.length > 0) {
+        for (let n = 0; n < Jeu.adverse.boutique.length; n++) {
+            div("", "carte");
+            div();
+            if (!Jeu.adverse.boutique[n].cache) {
+                afficher_carte("adverse", "boutique", n);
+            }
+            else {
+                afficher("???");
+            }
+            div_fin();
+            div_fin();
+        }
+    }
+    else {
+        afficher("<i>La boutique adverse est vide</i>");
+        saut();
+    }
+    div_fin();
+    saut();
+    div("", "zone");
+    afficher("<u>Main adverse :</u> <i>" + Jeu.adverse.main.length + " carte");
+    if (Jeu.adverse.main.length > 1) {
+        afficher("s");
+    }
+    afficher("</i>");
+    saut();
+    if (Jeu.adverse.main.length > 0) {
+        for (let n = 0; n < Jeu.adverse.main.length; n++) {
+            div("", "carte");
+            div();
+            if (!Jeu.adverse.main[n].cache) {
+                afficher_carte("adverse", "main", n);
+            }
+            else {
+                afficher("???");
+            }
+            div_fin();
+            div_fin();
+        }
+    }
+    else {
+        afficher("<i>La main adverse est vide</i>");
+        saut();
+    }
+    div_fin();
+    saut();
+    div("", "zone");
+    afficher("<u>Terrain adverse :</u> <i>" + Jeu.adverse.terrain.length + " carte");
+    if (Jeu.adverse.terrain.length > 1) {
+        afficher("s");
+    }
+    afficher("</i>");
+    saut();
+    if (Jeu.adverse.terrain.length > 0) {
+        for (let n = 0; n < Jeu.adverse.terrain.length; n++) {
+            div("", "carte");
+            div();
+            if (!Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
+                afficher_carte("adverse", "terrain", n);
+            }
+            else {
+                afficher("???");
+            }
+            div_fin();
+            div_fin();
+        }
+    }
+    else {
+        afficher("<i>Le terrain adverse est vide</i>");
+        saut();
+    }
+    div_fin();
+    saut();
+    div("", "zone");
+    afficher("<u>Défausse adverse :</u> <i>" + Jeu.adverse.defausse.length + " carte");
+    if (Jeu.adverse.defausse.length > 1) {
+        afficher("s");
+    }
+    afficher("</i>");
+    saut();
+    if (Jeu.adverse.defausse.length > 0) {
+        for (let n = 0; n < Jeu.adverse.defausse.length; n++) {
+            div("", "carte");
+            div();
+            afficher_carte("adverse", "defausse", n);
+            div_fin();
+            div_fin();
+        }
+    }
+    else {
+        afficher("<i>La défausse adverse est vide</i>");
+    }
+    div_fin();
+    div_fin();
 }
 
 function afficher_carte(camp, zone, slot) {
@@ -357,11 +519,11 @@ function afficher_carte(camp, zone, slot) {
     }
     if (!Jeu.combat.etat || !Jeu.combat.auto) {
         let string = "carte_voir(" + '"' + camp + '","' + zone + '",' + slot;
-        if (Jeu.combat.etat && camp == "adverse") {
-            string += ',"main"';
+        if (camp == "adverse") {
+            string += ',"carte_main"';
         }
         else {
-            string += ',"side"';
+            string += ',"carte_side"';
         }
         string += ")";
         fonction(carte.nom, string);
@@ -395,20 +557,18 @@ function carte_voir_id(carte_id, div) {
 function carte_afficher(carte, div) {
     let texte = "";
     texte += "<div style='display: flex;justify-content: space-between;'><div><u>Nom :</u> " + carte.nom + "</div>";
-    if (Jeu.combat.etat) {
-        texte += "<button onclick='javascript:fermer_carte(" + '"' + carte.camp + '"' + ")'>Fermer</button>";
-    }
-    else if (carte.camp == "joueur") {
-        texte += "<div><i>";
+    texte += "<div><button onclick='javascript:fermer_carte(" + '"' + div + '"' + ")'>Fermer</button></div>";
+    texte += "</div>";
+    if (carte.camp == "joueur") {
+        texte += "<u>Visibilité :</u> <i>";
         if (carte.cache || (carte.camouflage && !carte.silence)) {
             texte += "Caché";
         }
         else {
             texte += "Visible";
         }
-        texte += "</i></div>";
+        texte += "</i> <br/>";
     }
-    texte += "</div>";
     texte += "<u>Éléments :</u> ";
     if (carte.elements.length > 0) {
         for (let n = 0; n < carte.elements.length; n++) {
@@ -617,12 +777,11 @@ function carte_afficher(carte, div) {
     }
     texte += "<br/> <div id='description'><span id='contenu'>" + carte.description + "</span></div>";
     div_actualiser(div, texte);
-    if (div == "main") {
-        main.classList.add("affichage");
-    }
-    else {
-        side.classList.add("affichage");
-    }
+    document.getElementById(div).setAttribute("style", "display : block");
+}
+
+function fermer_carte(div) {
+    document.getElementById(div).setAttribute("style", "display : none");
 }
 
 function ressource_choisir() {
@@ -739,7 +898,7 @@ function acheter(camp, boutique_slot) {
 
 function vendre(zone, slot) {
     if (!statistique(Jeu.joueur[zone][slot], "silence")) {
-        Jeu.joueur[zone][slot].effet_vente();
+        Jeu.joueur[zone][slot].vente();
     }
     for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
         if (!statistique(Jeu.joueur.terrain[n], "silence")) {
@@ -995,35 +1154,41 @@ function adversaire_generer(etage) {
     if (etage % 10 != 0) {
         switch (Math.trunc(etage / 10)) {
             case 0:
+                Jeu.adverse.liste_regions.push([103]);
                 Jeu.adverse.ressources[9].courant = Jeu.adverse.ressources[9].max = 2;
                 ajouter(obtenir_carte(5), "adverse", "boutique");
                 ajouter(obtenir_carte(5), "adverse", "boutique");
                 break;
             case 1:
+                Jeu.adverse.liste_regions.push([103]);
                 Jeu.adverse.ressources[0].courant = Jeu.adverse.ressources[0].max = 4;
                 Jeu.adverse.ressources[9].courant = Jeu.adverse.ressources[9].max = 2;
                 ajouter(obtenir_carte(13), "adverse", "boutique");
                 ajouter(obtenir_carte(13), "adverse", "boutique");
                 break;
             case 2:
+                Jeu.adverse.liste_regions.push([103]);
                 Jeu.adverse.ressources[0].courant = Jeu.adverse.ressources[0].max = 4;
                 Jeu.adverse.ressources[9].courant = Jeu.adverse.ressources[9].max = 4;
                 ajouter(obtenir_carte(60), "adverse", "boutique");
                 ajouter(obtenir_carte(60), "adverse", "boutique");
                 break;
             case 3:
+                Jeu.adverse.liste_regions.push([103]);
                 Jeu.adverse.ressources[0].courant = Jeu.adverse.ressources[0].max = 10;
                 Jeu.adverse.ressources[9].courant = Jeu.adverse.ressources[9].max = 8;
                 ajouter(obtenir_carte(127), "adverse", "boutique");
                 ajouter(obtenir_carte(127), "adverse", "boutique");
                 break;
             case 4:
+                Jeu.adverse.liste_regions.push([103]);
                 Jeu.adverse.ressources[0].courant = Jeu.adverse.ressources[0].max = 18;
-                Jeu.adverse.ressources[9].courant = Jeu.adverse.ressources[1].max = 16;
+                Jeu.adverse.ressources[9].courant = Jeu.adverse.ressources[9].max = 16;
                 ajouter(obtenir_carte(14), "adverse", "boutique");
                 ajouter(obtenir_carte(14), "adverse", "boutique");
                 break;
             case 5:
+                Jeu.adverse.liste_regions.push([105]);
                 Jeu.adverse.ressources[0].courant = Jeu.adverse.ressources[0].max = 50;
                 Jeu.adverse.ressources[11].courant = Jeu.adverse.ressources[11].max = 48;
                 ajouter(obtenir_carte(383), "adverse", "boutique");
@@ -1031,6 +1196,7 @@ function adversaire_generer(etage) {
                 ajouter(obtenir_carte(57), "adverse", "boutique");
                 break;
             case 6:
+                Jeu.adverse.liste_regions.push([103]);
                 Jeu.adverse.ressources[0].courant = Jeu.adverse.ressources[0].max = 42;
                 Jeu.adverse.ressources[8].courant = Jeu.adverse.ressources[8].max = 20;
                 Jeu.adverse.ressources[9].courant = Jeu.adverse.ressources[9].max = 22;
@@ -1040,6 +1206,7 @@ function adversaire_generer(etage) {
                 ajouter(obtenir_carte(208), "adverse", "boutique");
                 break;
             case 7:
+                Jeu.adverse.liste_regions.push([103]);
                 Jeu.adverse.ressources[0].courant = Jeu.adverse.ressources[0].max = 29;
                 Jeu.adverse.ressources[1].courant = Jeu.adverse.ressources[1].max = 10;
                 Jeu.adverse.ressources[9].courant = Jeu.adverse.ressources[9].max = 10;
@@ -1048,6 +1215,7 @@ function adversaire_generer(etage) {
                 ajouter(obtenir_carte(279), "adverse", "boutique");
                 break;
             case 8:
+                Jeu.adverse.liste_regions.push([103]);
                 Jeu.adverse.ressources[0].courant = Jeu.adverse.ressources[0].max = 56;
                 Jeu.adverse.ressources[8].courant = Jeu.adverse.ressources[8].max = 36;
                 Jeu.adverse.ressources[9].courant = Jeu.adverse.ressources[9].max = 17;
@@ -1055,6 +1223,7 @@ function adversaire_generer(etage) {
                 ajouter(obtenir_carte(42), "adverse", "boutique");
                 break;
             case 9:
+                Jeu.adverse.liste_regions.push([78]);
                 for (let n = 1; n < Jeu.ressources.length; n++) {
                     Jeu.adverse.ressources[n].courant = Jeu.adverse.ressources[n].max = 10;
                 }
@@ -1065,18 +1234,22 @@ function adversaire_generer(etage) {
     else {
         switch (etage) {
             case 10:
+                Jeu.adverse.liste_regions.push([78]);
                 Jeu.adverse.ressources[0].courant = Jeu.adverse.ressources[0].max = 39;
                 ajouter(obtenir_carte(6), "adverse", "boutique");
                 break;
             case 20:
+                Jeu.adverse.liste_regions.push([78]);
                 Jeu.adverse.ressources[0].courant = Jeu.adverse.ressources[0].max = 39;
                 ajouter(obtenir_carte(6), "adverse", "boutique");
                 break;
             case 30:
+                Jeu.adverse.liste_regions.push([78]);
                 Jeu.adverse.ressources[0].courant = Jeu.adverse.ressources[0].max = 39;
                 ajouter(obtenir_carte(6), "adverse", "boutique");
                 break;
             case 40:
+                Jeu.adverse.liste_regions.push([78]);
                 Jeu.adverse.ressources[0].courant = Jeu.adverse.ressources[0].max = 39;
                 ajouter(obtenir_carte(6), "adverse", "boutique");
                 break;
@@ -1085,22 +1258,27 @@ function adversaire_generer(etage) {
                 ajouter(obtenir_carte(6), "adverse", "boutique");
                 break;
             case 60:
+                Jeu.adverse.liste_regions.push([78]);
                 Jeu.adverse.ressources[0].courant = Jeu.adverse.ressources[0].max = 39;
                 ajouter(obtenir_carte(6), "adverse", "boutique");
                 break;
             case 70:
+                Jeu.adverse.liste_regions.push([78]);
                 Jeu.adverse.ressources[0].courant = Jeu.adverse.ressources[0].max = 39;
                 ajouter(obtenir_carte(6), "adverse", "boutique");
                 break;
             case 80:
+                Jeu.adverse.liste_regions.push([78]);
                 Jeu.adverse.ressources[0].courant = Jeu.adverse.ressources[0].max = 39;
                 ajouter(obtenir_carte(6), "adverse", "boutique");
                 break;
             case 90:
+                Jeu.adverse.liste_regions.push([78]);
                 Jeu.adverse.ressources[0].courant = Jeu.adverse.ressources[0].max = 39;
                 ajouter(obtenir_carte(6), "adverse", "boutique");
                 break;
             case 100:
+                Jeu.adverse.liste_regions.push([78]);
                 Jeu.adverse.ressources[0].courant = Jeu.adverse.ressources[0].max = 39;
                 ajouter(obtenir_carte(6), "adverse", "boutique");
                 break;
@@ -1120,6 +1298,11 @@ function adversaire_acheter() {
 }
 
 function adversaire_jouer() {
+    Jeu.adverse.regions = [];
+    for (let n=0;n<Jeu.adverse.liste_regions[0].length;n++) {
+        ajouter(obtenir_carte(Jeu.adverse.liste_regions[0][n]), "adverse", "regions");
+    }
+    Jeu.adverse.liste_regions.splice(0, 1);
     let verifier = true;
     while (Jeu.adverse.main.length > 0 && verifier) {
         verifier = false;
@@ -1131,132 +1314,6 @@ function adversaire_jouer() {
             }
         }
     }
-}
-
-function adversaire_voir() {
-    initialiser();
-    div("main");
-    fonction("Retour", "menu()");
-    saut(2);
-    afficher("Etage : " + Jeu.etage);
-    saut();
-    afficher("Vie adverse : " + Jeu.adverse.vie + " / " + Jeu.adverse.vie_max);
-    saut();
-    for (let n = 0; n < Jeu.ressources.length; n++) {
-        if (Jeu.adverse.ressources[n].max > 0 || Jeu.adverse.ressources[n].courant > 0 || Jeu.adverse.ressources[n].reserve > 0) {
-            afficher(Jeu.ressources[n].nom + " : " + Jeu.adverse.ressources[n].courant + " / " + Jeu.adverse.ressources[n].max);
-            if (Jeu.adverse.ressources[n].reserve > 0) {
-                afficher(" + " + Jeu.adverse.ressources[n].reserve);
-            }
-            saut();
-        }
-    }
-    saut();
-    div("", "zone");
-    afficher("<u>Boutique adverse :</u> <i>" + Jeu.adverse.boutique.length + " carte");
-    if (Jeu.adverse.boutique.length > 1) {
-        afficher("s");
-    }
-    afficher("</i>");
-    saut();
-    if (Jeu.adverse.boutique.length > 0) {
-        for (let n = 0; n < Jeu.adverse.boutique.length; n++) {
-            div("", "carte");
-            div();
-            if (!Jeu.adverse.boutique[n].cache) {
-                afficher_carte("adverse", "boutique", n);
-            }
-            else {
-                afficher("???");
-            }
-            div_fin();
-            div_fin();
-        }
-    }
-    else {
-        afficher("<i>La boutique adverse est vide</i>");
-        saut();
-    }
-    div_fin();
-    saut();
-    div("", "zone");
-    afficher("<u>Main adverse :</u> <i>" + Jeu.adverse.main.length + " carte");
-    if (Jeu.adverse.main.length > 1) {
-        afficher("s");
-    }
-    afficher("</i>");
-    saut();
-    if (Jeu.adverse.main.length > 0) {
-        for (let n = 0; n < Jeu.adverse.main.length; n++) {
-            div("", "carte");
-            div();
-            if (!Jeu.adverse.main[n].cache) {
-                afficher_carte("adverse", "main", n);
-            }
-            else {
-                afficher("???");
-            }
-            div_fin();
-            div_fin();
-        }
-    }
-    else {
-        afficher("<i>La main adverse est vide</i>");
-        saut();
-    }
-    div_fin();
-    saut();
-    div("", "zone");
-    afficher("<u>Terrain adverse :</u> <i>" + Jeu.adverse.terrain.length + " carte");
-    if (Jeu.adverse.terrain.length > 1) {
-        afficher("s");
-    }
-    afficher("</i>");
-    saut();
-    if (Jeu.adverse.terrain.length > 0) {
-        for (let n = 0; n < Jeu.adverse.terrain.length; n++) {
-            div("", "carte");
-            div();
-            if (!Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                afficher_carte("adverse", "terrain", n);
-            }
-            else {
-                afficher("???");
-            }
-            div_fin();
-            div_fin();
-        }
-    }
-    else {
-        afficher("<i>Le terrain adverse est vide</i>");
-        saut();
-    }
-    div_fin();
-    saut();
-    div("", "zone");
-    afficher("<u>Défausse adverse :</u> <i>" + Jeu.adverse.defausse.length + " carte");
-    if (Jeu.adverse.defausse.length > 1) {
-        afficher("s");
-    }
-    afficher("</i>");
-    saut();
-    if (Jeu.adverse.defausse.length > 0) {
-        for (let n = 0; n < Jeu.adverse.defausse.length; n++) {
-            div("", "carte");
-            div();
-            afficher_carte("adverse", "defausse", n);
-            div_fin();
-            div_fin();
-        }
-    }
-    else {
-        afficher("<i>La défausse adverse est vide</i>");
-    }
-    div_fin();
-    div_fin();
-    div("side", "affichage");
-    div_fin();
-    actualiser();
 }
 
 function game_over() {
@@ -1595,8 +1652,8 @@ function verifier_debuff(camp) {
 }
 
 function verifier_region(camp, region_id) {
-    for (let n = 0; n < Jeu[camp].region.length; n++) {
-        if (Jeu[camp].terrain[n].id == region_id) {
+    for (let n = 0; n < Jeu[camp].regions.length; n++) {
+        if (Jeu[camp].regions[n].id == region_id) {
             return true;
         }
     }
@@ -1631,10 +1688,10 @@ function pioches(camp, nombre) {
 function effet_carte_voir_id(id, carte) {
     let string = "<button onclick='javascript:carte_voir_id(" + id + ", ";
     if (Jeu.combat.etat && carte.camp == "adverse") {
-        string += '"main"';
+        string += '"carte_main"';
     }
     else {
-        string += '"side"';
+        string += '"carte_side"';
     }
     string += ")'>" + obtenir_carte(id).nom + "</button>";
     return string;
@@ -1642,11 +1699,11 @@ function effet_carte_voir_id(id, carte) {
 
 function effet_talent_voir(talent, carte, stack = false) {
     let string = "<button onclick='javascript:talent_voir(" + '"' + talent + '", ';
-    if (Jeu.combat.etat && carte.camp == "adverse") {
-        string += '"main"';
+    if (carte.camp == "adverse") {
+        string += '"carte_main"';
     }
     else {
-        string += '"side"';
+        string += '"carte_side"';
     }
     if (stack !== false) {
         string += "," + stack;
@@ -1660,10 +1717,15 @@ function effet_talent_voir(talent, carte, stack = false) {
 }
 
 function talent_voir(talent, div, stack = false) {
-    let texte = talent;
+    console.log(div);
+    let texte = "";
+    texte += "<div style='display: flex;justify-content: space-between;'><div>" + talent;
     if (stack !== false) {
         texte += " " + stack;
     }
+    texte += "</div>";
+    texte += "<div><button onclick='javascript:fermer_carte(" + '"' + div + '"' + ")'>Fermer</button></div>";
+    texte += "</div>";
     texte += "<br/>";
     switch (talent) {
         case "Éternité":
@@ -1702,10 +1764,10 @@ function talent_voir(talent, div, stack = false) {
             }
             break;
         case "Résistance":
-            texte += "Quand cette carte subit des dégâts, en subis " + stack + " de moins.";
+            texte += "Quand cette carte subit des dégâts :  En subis " + stack + " de moins.";
             break;
         case "Épine":
-            texte += "Quand est attaquée par une Créature :  Lui inflige " + stack + " dégât(s).";
+            texte += "Quand attaqué :  Lui inflige " + stack + " dégât(s).";
             break;
         case "Régénération":
             texte += "Au début de chaque tour de combat, se soigne de " + stack + ".";
@@ -1717,7 +1779,7 @@ function talent_voir(talent, div, stack = false) {
             texte += "Annule les " + stack + " prochaines attaques.";
             break;
         case "Camouflage":
-            texte += "Ne peut pas être ciblé par une attaque adverse. S'enlève quand joue.";
+            texte += "Ne peut pas être ciblé par une attaque adverse ni par des effets adverses. S'enlève quand joue. Est affecté par les effets ne la ciblant pas directement (par exemple des effets qui s'applique à toutes les Unités sur le terrain ou qui visent une Unité à une position particulière).";
             break;
         case "Silence":
             texte += "Empêche tous les effets de cette carte de se déclencher.";
@@ -1763,13 +1825,6 @@ function talent_voir(talent, div, stack = false) {
             break;
     }
     div_actualiser(div, texte);
-    if (div == "main") {
-        main.classList.add("affichage");
-        document.getElementById("description").style.left = '7.5%';
-    }
-    else {
-        side.classList.add("affichage");
-    }
 }
 
 function define_creature(carte) {
@@ -1780,4 +1835,17 @@ function define_creature(carte) {
 
 function shuffle(array) {
     array.sort(() => Math.random() - 0.5);
+}
+
+function afficher_message(message) {
+    let texte = "";
+    texte += message;
+    texte += "<br/>";
+    texte += "<div><button onclick='javascript:fermer_message()'>Fermer</button></div>";
+    div_actualiser("message", texte);
+    document.getElementById("message").setAttribute("style", "display : block");
+}
+
+function fermer_message() {
+    document.getElementById("message").setAttribute("style", "display : none");
 }

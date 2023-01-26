@@ -1,8 +1,8 @@
 function lore() {
     initialiser();
-    div("main");
     fonction("Retour", "accueil()");
     saut(2);
+    div("main");
     for (let n = 1; n <= Jeu.NOMBRE_HISTOIRE; n++) {
         div("", "carte");
         fonction(obtenir_histoire(n).nom, "histoire_voir(" + n + ")");

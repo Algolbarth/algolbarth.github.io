@@ -307,18 +307,11 @@ function combat_afficher() {
     }
     div_fin();
     div_fin();
+    div("carte_main", "affichage");
+    div_fin();
+    div("carte_side", "affichage");
+    div_fin();
     actualiser();
-}
-
-function fermer_carte(camp) {
-    texte = "";
-    if (camp == "joueur") {
-        side.classList.remove("affichage");
-    }
-    else {
-        main.classList.remove("affichage");
-    }
-    combat_afficher();
 }
 
 function combat_auto_off() {

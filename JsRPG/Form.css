@@ -1,8 +1,21 @@
+html {
+    cursor: url("Images/Select.cur"), default;
+    height: 45em;
+}
+
 body {
     font-size: 150%;
     background: #8a4b14;
-    cursor: url("Images/Select.cur"), default;
     text-align: justify;
+}
+
+.bar {
+    display: flex;
+    justify-content: space-between;
+}
+
+.flex {
+    display: flex;
 }
 
 button {
@@ -64,6 +77,10 @@ button.menu:hover {
     background: rgb(99, 21, 21);
 }
 
+.attaquant:hover {
+    background: rgb(99, 21, 21);
+}
+
 .action {
     position: relative;
     right: 0;
@@ -86,18 +103,45 @@ button.menu:hover {
 }
 
 #main {
-    top: 1%;
     width: 48%;
-    height: 96%;
-    position: absolute;
+    height: 91%;
+    position: fixed;
+    overflow: auto;
 }
 
 #side {
     position: fixed;
     left: 50%;
-    top: 1%;
     width: 48%;
-    height: 96%;
+    height: 91%;
+    overflow: auto;
+}
+
+#carte_main {
+    position: fixed;
+    width: 48%;
+    height: 91%;
+    overflow: auto;
+    display: none;
+}
+
+#carte_side {
+    position: fixed;
+    left: 50%;
+    width: 48%;
+    height: 91%;
+    overflow: auto;
+    display: none;
+}
+
+#message {
+    position: fixed;
+    display: none;
+    text-align:center;
+    left: 25%;
+    top: 25%;
+    width: 50%;
+    height: 50%;
 }
 
 #description {
@@ -131,34 +175,38 @@ option {
 }
 
 .slidecontainer {
-    width:100%;
+    width: 100%;
 }
 
 .slider {
     appearance: none;
     width: 25%;
     height: 25px;
-    background:#c0b577;
-    color:#bbad5c;
-    border:solid;
-    border-color:black;
+    background: #c0b577;
+    color: #bbad5c;
+    border: solid;
+    border-color: black;
 }
 
 .slider::-webkit-slider-thumb {
     appearance: none;
     width: 25px;
     height: 25px;
-    border:double;
-    border-color:black;
-    background:#723d0e;
+    border: double;
+    border-color: black;
+    background: #723d0e;
 }
 
 .slider::-moz-range-thumb {
     width: 25px;
     height: 25px;
-    border:double;
-    border-color:black;
-    background:#723d0e;
+    border: double;
+    border-color: black;
+    background: #723d0e;
+}
+
+::-webkit-scrollbar {
+    display: none;
 }
 
 @media (max-width: 1000px) {
@@ -248,7 +296,8 @@ option {
         -webkit-text-size-adjust: 100%;
         -ms-text-size-adjust: 100%;
     }
+
     .slider {
-        width:100%;
+        width: 100%;
     }
 }
