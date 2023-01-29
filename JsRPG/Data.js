@@ -652,10 +652,10 @@ function obtenir_carte(carte_id) {
         case 16:
             carte.nom = "Bombe";
             carte.type = "Objet";
-            carte.cout[0] = 3;
-            carte.vente[0] = 1;
+            carte.cout[0] = 5;
+            carte.vente[0] = 2;
             carte.texte = function () {
-                return "Inflige 3 dégâts à une Unité adverse sur le terrain.";
+                return "Inflige 5 dégâts à une Unité adverse sur le terrain.";
             }
             carte.effet_pose = function (step, cible) {
                 if (carte.camp == "joueur") {
@@ -700,7 +700,7 @@ function obtenir_carte(carte_id) {
                             }
                             break;
                         case 2:
-                            degats(Jeu.adverse.terrain[cible], 3);
+                            degats(Jeu.adverse.terrain[cible], 5);
                             deplacer(carte, "joueur", "defausse");
                             effet_pose(carte);
                             menu();
@@ -714,11 +714,11 @@ function obtenir_carte(carte_id) {
                             best++;
                         }
                         for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
-                            if ((Jeu.joueur.terrain[n].vie <= 3 && Jeu.joueur.terrain[best].vie > 3) || Jeu.joueur.terrain[n].vie > Jeu.joueur.terrain[best].vie && (!Jeu.joueur.terrain[n].camouflage || Jeu.joueur.terrain[n].silence)) {
+                            if ((Jeu.joueur.terrain[n].vie <= 5 && Jeu.joueur.terrain[best].vie > 5) || Jeu.joueur.terrain[n].vie > Jeu.joueur.terrain[best].vie && (!Jeu.joueur.terrain[n].camouflage || Jeu.joueur.terrain[n].silence)) {
                                 best = n;
                             }
                         }
-                        degats(Jeu.joueur.terrain[best], 3);
+                        degats(Jeu.joueur.terrain[best], 5);
                         deplacer(carte, "adverse", "defausse");
                         effet_pose(carte);
                         return true;
@@ -1500,11 +1500,11 @@ function obtenir_carte(carte_id) {
             carte.nom = "Hérisson";
             define_creature(carte);
             carte.familles.push("Bête");
-            carte.cout[0] = 1;
+            carte.cout[0] = 2;
             carte.cout[3] = 1;
             carte.vente[0] = 1;
             carte.attaque = 1;
-            carte.vie_max = carte.vie = 1;
+            carte.vie_max = carte.vie = 2;
             carte.epine = 1;
             break;
         case 45:
@@ -2770,10 +2770,10 @@ function obtenir_carte(carte_id) {
             carte.nom = "Chevalier monté";
             define_creature(carte);
             carte.familles.push("Humain");
-            carte.cout[0] = 19;
-            carte.vente[0] = 9;
-            carte.attaque = 4;
-            carte.vie = carte.vie_max = 4;
+            carte.cout[0] = 38;
+            carte.vente[0] = 19;
+            carte.attaque = 7;
+            carte.vie = carte.vie_max = 10;
             carte.rapidite = true;
             carte.texte = function () {
                 return "Quand meurt : Se transforme en " + effet_carte_voir_id(76, carte) + ".";
@@ -2781,9 +2781,9 @@ function obtenir_carte(carte_id) {
             carte.effet_mort = function () {
                 if (!statistique(carte, "silence")) {
                     carte.nom = "Chevalier";
-                    carte.cout[0] -= 9;
-                    carte.vente[0] -= 5;
-                    carte.defense += 1;
+                    carte.cout[0] -= 19;
+                    carte.vente[0] -= 10;
+                    carte.defense += 2;
                     carte.vie = carte.vie_max;
                     carte.rapidite = false;
                     carte.texte = function () {
@@ -2812,11 +2812,11 @@ function obtenir_carte(carte_id) {
             carte.nom = "Chevalier";
             define_creature(carte);
             carte.familles.push("Humain");
-            carte.cout[0] = 9;
-            carte.vente[0] = 4;
-            carte.attaque = 4;
-            carte.defense = 1;
-            carte.vie = carte.vie_max = 4;
+            carte.cout[0] = 19;
+            carte.vente[0] = 9;
+            carte.attaque = 8;
+            carte.defense = 2;
+            carte.vie = carte.vie_max = 8;
             break;
         case 77:
             carte.nom = "Homme d'affaire";
@@ -8665,7 +8665,6 @@ function obtenir_carte(carte_id) {
             carte.cout[0] = 3;
             carte.vente[0] = 1;
             carte.vie_max = carte.vie = 1;
-            carte.camouflage = true;
             carte.texte = function () {
                 return "Quand une Créature adverse est posée : Lui inflige 3 dégâts et se détruit.";
             }
@@ -13532,7 +13531,7 @@ function obtenir_carte(carte_id) {
         case 331:
             carte.nom = "Fouet de ronces";
             carte.type = "Objet";
-            carte.familles.push("Équipement", "Arme");
+            carte.familles.push("Équipement", "Arme", "Plante");
             carte.cout[0] = 4;
             carte.cout[3] = 4;
             carte.vente[0] = 2;
@@ -19237,7 +19236,7 @@ function obtenir_carte(carte_id) {
         case 443:
             carte.nom = "Hydre à 5 têtes";
             define_creature(carte);
-            carte.familles.push("Reptile", "Hydre");
+            carte.familles.push("Reptile", "Hydre");carte.attaque = 10;
             carte.cout[0] = 40;
             carte.cout[2] = 39;
             carte.vente[0] = 20;
@@ -22195,6 +22194,183 @@ function obtenir_carte(carte_id) {
                         return true;
                     }
                     return false;
+                }
+            }
+            break;
+        case 518:
+            carte.nom = "Cavalier";
+            define_creature(carte);
+            carte.familles.push("Humain");
+            carte.cout[0] = 12;
+            carte.vente[0] = 6;
+            carte.attaque = 5;
+            carte.vie_max = carte.vie = 5;
+            carte.rapidite = true;
+            break;
+        case 519:
+            carte.nom = "Fouet de ronces toxiques";
+            carte.type = "Objet";
+            carte.familles.push("Équipement", "Arme", "Plante");
+            carte.cout[0] = 3;
+            carte.cout[3] = 3;
+            carte.vente[0] = 2;
+            carte.vente[3] = 1;
+            carte.stat_equipement.epine = 2;
+            carte.stat_equipement.effet_attaque = function (attaquant, defenseur) {
+                defenseur.poison += 2;
+                let cible_1, cible_2;
+                if (defenseur.slot > 0) {
+                    cible_1 = Jeu[defenseur.camp].terrain[defenseur.slot - 1];
+                }
+                if (defenseur.slot < Jeu[defenseur.camp].terrain.length - 1) {
+                    cible_2 = Jeu[defenseur.camp].terrain[defenseur.slot + 1];
+                }
+                if (defenseur.slot > 0) {
+                    if (cible1.type == "Créature") {
+                        cible_1.poison += 2;
+                    }
+                }
+                if (defenseur.slot < Jeu[defenseur.camp].terrain.length - 1) {
+                    if (cible2.type == "Créature") {
+                        cible_1.poison += 2;
+                    }
+                }
+            }
+            carte.texte = function () {
+                return "Applique " + effet_talent_voir("Épine", carte, 2) + " et l'effet suivant à la Créature équipée : Applique " + effet_talent_voir("Poison", carte, 2) + " à la Créature attaquée et aux Créatures en avant et en arrière de la Créature attaquée.";
+            }
+            carte.effet_pose = function (step, cible) {
+                if (carte.camp == "joueur") {
+                    switch (step) {
+                        case 1:
+                            if (verifier_equipement("joueur")) {
+                                initialiser();
+                                div("main");
+                                fonction("Annuler", "menu()");
+                                saut(2);
+                                afficher(carte.nom);
+                                saut();
+                                afficher(carte.texte());
+                                saut(2);
+                                afficher("Choisissez une Créature alliée équipable sur le terrain : ");
+                                saut(2);
+                                div("", "zone");
+                                afficher("<u>Terrain :</u>");
+                                saut();
+                                for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
+                                    div("", "carte");
+                                    div();
+                                    afficher_carte("joueur", "terrain", n);
+                                    div_fin();
+                                    if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].equipements.length < Jeu.joueur.terrain[n].equipement_max) {
+                                        div();
+                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
+                                        div_fin();
+                                    }
+                                    div_fin();
+                                }
+                                div_fin();
+                                div_fin();
+                                div("side", "affichage");
+                                div_fin();
+                                actualiser();
+                            }
+                            break;
+                        case 2:
+                            equiper(Jeu.joueur.terrain[cible], carte);
+                            effet_pose(carte);
+                            enlever(carte);
+                            menu();
+                            break;
+                    }
+                }
+                else {
+                    if (verifier_equipement("adverse")) {
+                        let best = 0;
+                        while (Jeu.adverse.terrain[best].type != "Créature" || Jeu.adverse.terrain[best].equipements.length >= Jeu.adverse.terrain[best].equipement_max) {
+                            best++;
+                        }
+                        equiper(Jeu.adverse.terrain[best], carte);
+                        effet_pose(carte);
+                        enlever(carte);
+                        return true;
+                    }
+                    return false;
+                }
+            }
+            break;
+        case 520:
+            carte.nom = "Poisson globe";
+            define_creature(carte);
+            carte.familles.push("Poisson");
+            carte.cout[0] = 2;
+            carte.cout[2] = 2;
+            carte.vente[0] = 1;
+            carte.vente[2] = 1;
+            carte.attaque = 1;
+            carte.vie_max = carte.vie = 3;
+            carte.epine = 1;
+            break;
+        case 521:
+            carte.nom = "Nageur expérimenté";
+            define_creature(carte);
+            carte.familles.push("Ondin");
+            carte.cout[0] = 4;
+            carte.cout[2] = 4;
+            carte.vente[0] = 2;
+            carte.vente[2] = 2;
+            carte.attaque = 3;
+            carte.vie_max = carte.vie = 3;
+            carte.repidite = true;
+            break;
+        case 522:
+            carte.nom = "Piège à ours";
+            carte.type = "Bâtiment";
+            carte.familles.push("Piège");
+            carte.cout[0] = 12;
+            carte.vente[0] = 6;
+            carte.vie_max = carte.vie = 3;
+            carte.texte = function () {
+                return "Quand une Créature adverse est posée : Lui inflige 10 dégâts et se détruit.";
+            }
+            carte.effet_pose_carte = function (carte_pose) {
+                if (carte_pose.camp != carte.camp && carte_pose.type == "Créature") {
+                    degats(carte_pose, 10);
+                    mort(carte);
+                }
+            }
+            break;
+        case 523:
+            carte.nom = "Fosse piégée";
+            carte.type = "Bâtiment";
+            carte.familles.push("Piège");
+            carte.cout[0] = 24;
+            carte.vente[0] = 12;
+            carte.vie_max = carte.vie = 5;
+            carte.texte = function () {
+                return "Quand une Créature adverse est posée : La détruit et se détruit.";
+            }
+            carte.effet_pose_carte = function (carte_pose) {
+                if (carte_pose.camp != carte.camp && carte_pose.type == "Créature") {
+                    mort(carte_pose);
+                    mort(carte);
+                }
+            }
+            break;
+        case 524:
+            carte.nom = "Sol épineux";
+            carte.type = "Bâtiment";
+            carte.familles.push("Plante");
+            carte.cout[0] = 13;
+            carte.vente[0] = 6;
+            carte.vie_max = carte.vie = 3;
+            carte.epine = 1;
+            carte.texte = function () {
+                return "Quand une Créature adverse est posée : Lui inflige 1 dégât.";
+            }
+            carte.effet_pose_carte = function (carte_pose) {
+                if (carte_pose.camp != carte.camp && carte_pose.type == "Créature") {
+                    degats(carte_pose, 1);
                 }
             }
             break;
