@@ -107,6 +107,7 @@ button.menu:hover {
     height: 91%;
     position: fixed;
     overflow: auto;
+    scrollbar-width: none;
 }
 
 #side {
@@ -115,6 +116,7 @@ button.menu:hover {
     width: 48%;
     height: 91%;
     overflow: auto;
+    scrollbar-width: none;
 }
 
 #carte_main {
@@ -123,6 +125,7 @@ button.menu:hover {
     height: 91%;
     overflow: auto;
     display: none;
+    scrollbar-width: none;
 }
 
 #carte_side {
@@ -132,16 +135,18 @@ button.menu:hover {
     height: 91%;
     overflow: auto;
     display: none;
+    scrollbar-width: none;
 }
 
 #message {
     position: fixed;
     display: none;
-    text-align:center;
+    text-align: center;
     left: 25%;
     top: 25%;
     width: 50%;
     height: 50%;
+    scrollbar-width: none;
 }
 
 #description {
@@ -168,6 +173,7 @@ input {
 select {
     background-color: #c0b577;
     font-size: 80%;
+    scrollbar-width: none;
 }
 
 option {

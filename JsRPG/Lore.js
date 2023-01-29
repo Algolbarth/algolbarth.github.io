@@ -37,10 +37,16 @@ function obtenir_histoire(id) {
             histoire.texte = "<center>Chroniques du temps</center>";
             histoire.texte += "- Liaison vers l'Enfer <br/>";
             histoire.texte += "- Liaison vers le Paradis <br/>";
-            histoire.texte += "- Guerre divine <br/>";
+            histoire.texte += "- Guerre des déités <br/>";
             histoire.texte += "- Apparition et mort de Golgoth <br/>";
+            histoire.texte += "- Première expansion <br/>";
+            histoire.texte += "- Seconde expansion <br/>";
+            histoire.texte += "- Mondialisation <br/>";
             histoire.texte += "- Grande guerre <br/>";
+            histoire.texte += "- Invasion des déités <br/>";
+            histoire.texte += "- Fin de la grande guerre <br/>";
             histoire.texte += "- Naissance de l'Empire <br/>";
+            histoire.texte += "- Règne de l'Empereur doré <br/>";
             histoire.texte += "- Guerre de l'Empire contre les 7 grands pêchés <br/>";
             histoire.texte += "- Règne de l'Empereur barbare <br/>";
             histoire.texte += "- Guerre contre les démons <br/>";

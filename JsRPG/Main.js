@@ -17,7 +17,7 @@ function demarrage() {
         ],
         types: ["Créature", "Bâtiment", "Objet", "Action", "Région"],
         familles: [],
-        NOMBRE_CARTE: 504,
+        NOMBRE_CARTE: 517,
         NOMBRE_HISTOIRE: 4,
         NOMBRE_MUSIQUE: 17,
         combat: {
@@ -726,10 +726,10 @@ function carte_afficher(carte, div) {
         if (carte.stat_etage.attaque > 0 || carte.stat_tour.attaque > 0) {
             texte += " (" + carte.attaque + " de base";
             if (carte.stat_etage.attaque > 0) {
-                texte += " + " + carte.stat_etage.attaque + " pour cet étage";
+                texte += " + " + carte.stat_etage.attaque + " jusqu'à la fin de la phase de combat";
             }
             if (carte.stat_tour.attaque > 0) {
-                texte += " + " + carte.stat_tour.attaque + " pour ce tour de combat";
+                texte += " + " + carte.stat_tour.attaque + " jusqu'à la fin du tour de combat";
             }
             texte += ")";
         }
@@ -740,10 +740,10 @@ function carte_afficher(carte, div) {
         if (carte.stat_etage.defense > 0 || carte.stat_tour.defense > 0) {
             texte += " (" + carte.defense + " de base";
             if (carte.stat_etage.defense > 0) {
-                texte += " + " + carte.stat_etage.defense + " pour cet étage";
+                texte += " + " + carte.stat_etage.defense + " jusqu'à la fin de la phase de combat";
             }
             if (carte.stat_tour.defense > 0) {
-                texte += " + " + carte.stat_tour.defense + " pour ce tour de combat";
+                texte += " + " + carte.stat_tour.defense + " jusqu'à la fin du tour de combat";
             }
             texte += ")";
         }
@@ -755,10 +755,10 @@ function carte_afficher(carte, div) {
         if (carte.stat_etage.vie_max > 0 || carte.stat_tour.vie_max > 0) {
             texte += " (" + carte.vie_max + " de base";
             if (carte.stat_etage.vie_max > 0) {
-                texte += " + " + carte.stat_etage.vie_max + " pour cet étage";
+                texte += " + " + carte.stat_etage.vie_max + " jusqu'à la fin de la phase de combat";
             }
             if (carte.stat_tour.vie_max > 0) {
-                texte += " + " + carte.stat_tour.vie_max + " pour ce tour de combat";
+                texte += " + " + carte.stat_tour.vie_max + " jusqu'à la fin du tour de combat";
             }
             texte += ")";
         }
@@ -898,7 +898,7 @@ function acheter(camp, boutique_slot) {
 
 function vendre(zone, slot) {
     if (!statistique(Jeu.joueur[zone][slot], "silence")) {
-        Jeu.joueur[zone][slot].vente();
+        Jeu.joueur[zone][slot].effet_vente();
     }
     for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
         if (!statistique(Jeu.joueur.terrain[n], "silence")) {
