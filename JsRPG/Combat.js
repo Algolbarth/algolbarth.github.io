@@ -335,11 +335,15 @@ function combat_victoire() {
 }
 
 function combat_defaite() {
+    let damage = combat_defaite_degats();
     initialiser();
     afficher("Défaite");
     saut(2);
     if (Jeu.joueur.vie > 0) {
-        afficher("Vous subissez " + combat_defaite_degats() + " dommages");
+        afficher("Vous subissez " + damage + " dommage");
+        if (damage > 1) {
+            afficher("s");
+        }
         saut();
         afficher("Il vous reste " + Jeu.joueur.vie + " vie");
         saut(2);
