@@ -2783,7 +2783,9 @@ function obtenir_carte(carte_id) {
                     carte.nom = "Chevalier";
                     carte.cout[0] -= 19;
                     carte.vente[0] -= 10;
+                    carte.attaque++;
                     carte.defense += 2;
+                    carte.vie_max -= 2;
                     carte.vie = carte.vie_max;
                     carte.rapidite = false;
                     carte.texte = function () {
@@ -19238,7 +19240,7 @@ function obtenir_carte(carte_id) {
         case 443:
             carte.nom = "Hydre à 5 têtes";
             define_creature(carte);
-            carte.familles.push("Reptile", "Hydre");carte.attaque = 10;
+            carte.familles.push("Reptile", "Hydre"); carte.attaque = 10;
             carte.cout[0] = 40;
             carte.cout[2] = 39;
             carte.vente[0] = 20;
@@ -22899,6 +22901,259 @@ function obtenir_carte(carte_id) {
             carte.attaque = 30;
             carte.vie_max = carte.vie = 20;
             carte.charge = true;
+            break;
+        case 540:
+            carte.nom = "Serpent dévoreur";
+            define_creature(carte);
+            carte.familles.push("Poisson", "Serpent de mer");
+            carte.cout[0] = 40;
+            carte.cout[2] = 39;
+            carte.vente[0] = 20;
+            carte.vente[2] = 19;
+            carte.attaque = 20;
+            carte.vie_max = carte.vie = 20;
+            carte.texte = function () {
+                return "Quand posé : Bannis une Créature alliée dans la boutique et se donne autant d'attaque et de vie que l'attaque et la vie de la Créature bannie.";
+            }
+            carte.effet_pose = function (step, cible) {
+                if (carte.camp == "joueur") {
+                    switch (step) {
+                        case 1:
+                            let verifier = false;
+                            for (let n = 0; n < Jeu.joueur.boutique.length; n++) {
+                                if (Jeu.joueur.boutique[n].type == "Créature") {
+                                    verifier = true;
+                                }
+                            }
+                            if (verifier && !statistique(carte, "silence")) {
+                                initialiser();
+                                div("main");
+                                fonction("Annuler", "menu()");
+                                saut(2);
+                                afficher(carte.nom);
+                                saut();
+                                afficher(carte.texte());
+                                saut(2);
+                                afficher("Choisissez une carte dans la boutique : ");
+                                saut(2);
+                                div("", "zone");
+                                afficher("<u>Boutique :</u>");
+                                saut();
+                                for (let n = 0; n < Jeu.joueur.boutique.length; n++) {
+                                    div("", "carte");
+                                    div();
+                                    afficher_carte("joueur", "boutique", n);
+                                    div_fin();
+                                    if (Jeu.joueur.boutique[n].type == "Créature") {
+                                        div();
+                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
+                                        div_fin();
+                                    }
+                                    div_fin();
+                                }
+                                div_fin();
+                                div_fin();
+                                div("side", "affichage");
+                                div_fin();
+                                actualiser();
+                            }
+                            else {
+                                deplacer(carte, "joueur", "terrain");
+                                effet_pose(carte);
+                                menu();
+                            }
+                            break;
+                        case 2:
+                            carte.attaque += Jeu.joueur.boutique[cible].attaque;
+                            carte.vie += Jeu.joueur.boutique[cible].vie_max;
+                            carte.vie_max += Jeu.joueur.boutique[cible].vie_max;
+                            enlever(Jeu.joueur.boutique[cible]);
+                            deplacer(carte, "joueur", "terrain");
+                            effet_pose(carte);
+                            menu();
+                            break;
+                    }
+                }
+                else {
+                    deplacer(carte, "adverse", "terrain");
+                    effet_pose(carte);
+                    return true;
+                }
+            }
+            break;
+        case 541:
+            carte.nom = "Serpent de mer agité";
+            define_creature(carte);
+            carte.familles.push("Poisson", "Serpent de mer");
+            carte.cout[0] = 40;
+            carte.cout[2] = 39;
+            carte.vente[0] = 20;
+            carte.vente[2] = 19;
+            carte.attaque = 20;
+            carte.vie_max = carte.vie = 20;
+            carte.texte = function () {
+                return "Quand posé : Bannis toutes les Créatures alliées dans la boutique et se donne 1 attaque et 1 vie pour chaque Créature bannie.";
+            }
+            carte.effet_pose = function (step, cible) {
+                if (carte.camp == "joueur") {
+                    if (!statistique(carte, "silence")) {
+                        let array = [];
+                        for (let n = 0; n < Jeu.joueur.boutique.length; n++) {
+                            array.push(Jeu.joueur.boutique[n]);
+                        }
+                        for (let n = 0; n < array.length; n++) {
+                            if (array[n].type == "Créature") {
+                                carte.attaque++;
+                                carte.vie++;
+                                carte.vie_max++;
+                                enlever(array[n]);
+                            }
+                        }
+                    }
+                    deplacer(carte, "joueur", "terrain");
+                    effet_pose(carte);
+                    menu();
+                    return true;
+                }
+                else {
+                    deplacer(carte, "adverse", "terrain");
+                    effet_pose(carte);
+                    return true;
+                }
+            }
+            break;
+        case 542:
+            carte.nom = "Serpent de mer affamé";
+            define_creature(carte);
+            carte.familles.push("Poisson", "Serpent de mer");
+            carte.cout[0] = 20;
+            carte.cout[2] = 19;
+            carte.vente[0] = 10;
+            carte.vente[2] = 9;
+            carte.attaque = 20;
+            carte.vie_max = carte.vie = 20;
+            carte.texte = function () {
+                return "Au début de la phase de préparation : Bannis une carte dans la boutique et se soigne de 2 tant que cette carte est blessée.";
+            }
+            carte.effet_etage_debut = function (step, cible) {
+                if (carte.camp == "joueur") {
+                    while (Jeu.joueur.boutique.length > 0 && carte.vie < carte.vie_max) {
+                        enlever(Jeu.joueur.boutique[0]);
+                        soin(carte, 2);
+                    }
+                }
+            }
+            break;
+        case 543:
+            carte.nom = "Garde squelette";
+            define_creature(carte);
+            carte.familles.push("Mort-vivant", "Squelette");
+            carte.cout[0] = 6;
+            carte.cout[9] = 5;
+            carte.vente[0] = 3;
+            carte.vente[9] = 2;
+            carte.attaque = 5;
+            carte.defense = 2;
+            carte.vie_max = carte.vie = 1;
+            carte.vie_sup = 4;
+            break;
+        case 544:
+            carte.nom = "Chevalier squelette";
+            define_creature(carte);
+            carte.familles.push("Mort-vivant", "Squelette");
+            carte.cout[0] = 8;
+            carte.cout[9] = 8;
+            carte.vente[0] = 4;
+            carte.vente[9] = 4;
+            carte.attaque = 10;
+            carte.vie = carte.vie_max = 1;
+            carte.rapidite = true;
+            carte.texte = function () {
+                return "Quand meurt : Se transforme en " + effet_carte_voir_id(13, carte) + ".";
+            }
+            carte.effet_mort = function () {
+                if (!statistique(carte, "silence")) {
+                    carte.nom = "Squelette";
+                    carte.cout[0] -= 6;
+                    carte.cout[9] -= 7;
+                    carte.vente[0] -= 3;
+                    carte.vente[9] -= 4;
+                    carte.attaque -= 7;
+                    carte.vie = carte.vie_max;
+                    carte.rapidite = false;
+                    carte.texte = function () {
+                        return "Aucun";
+                    };
+                    carte.effet_mort = function () {
+                        if (statistique(carte, "ephemere") && !statistique(carte, "silence")) {
+                            enlever(carte);
+                        }
+                        else {
+                            deplacer(carte, carte.camp, "defausse");
+                        }
+                    };
+                }
+                else {
+                    if (statistique(carte, "ephemere") && !statistique(carte, "silence")) {
+                        enlever(carte);
+                    }
+                    else {
+                        deplacer(carte, carte.camp, "defausse");
+                    }
+                }
+            }
+            break;
+        case 545:
+            carte.nom = "Nécromage";
+            define_creature(carte);
+            carte.familles.push("Mort-vivant", "Revenant", "Mage");
+            carte.cout[0] = 33;
+            carte.cout[9] = 32;
+            carte.vente[0] = 16;
+            carte.vente[9] = 16;
+            carte.attaque = 10;
+            carte.vie_max = carte.vie = 10;
+            carte.sorcellerie = 5;
+            carte.texte = function () {
+                return "Quand joue : Crée " + effet_carte_voir_id(205, carte) + " sur le terrain.";
+            }
+            carte.effet_action = function () {
+                let nouvelle_carte = obtenir_carte(205);
+                nouvelle_carte.vente = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+                ajouter(nouvelle_carte, carte.camp, "terrain");
+            }
+            break;
+        case 546:
+            carte.nom = "Roi squelette";
+            define_creature(carte);
+            carte.familles.push("Mort-vivant", "Squelette");
+            carte.cout[0] = 28;
+            carte.cout[9] = 27;
+            carte.vente[0] = 14;
+            carte.vente[9] = 13;
+            carte.attaque = 10;
+            carte.vie_max = carte.vie = 1;
+            carte.texte = function () {
+                return "Quand posé : Crée 2 " + effet_carte_voir_id(13, carte) + " sur le terrain. Donne 5 attaque à toutes les Créatures Squelette alliées sur le terrain.";
+            }
+            carte.effet_pose = function () {
+                if (!statistique(carte, "silence")) {
+                    for (let n=0;n<2;n++) {
+                        let nouvelle_carte = obtenir_carte(13);
+                        nouvelle_carte.vente = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+                        ajouter(nouvelle_carte, carte.camp, "terrain");
+                    }
+                    for (let n = 0; n < Jeu[carte.camp].terrain.length; n++) {
+                        if (Jeu[carte.camp].terrain[n].type == "Créature" && Jeu[carte.camp].terrain[n].familles.includes("Squelette")) {
+                            Jeu[carte.camp].terrain[n].attaque += 5;
+                        }
+                    }
+                }
+                deplacer(carte, carte.camp, "terrain");
+                effet_pose(carte);
+                menu();
+                return true;
+            }
             break;
     }
     for (let n = 1; n < carte.cout.length; n++) {
