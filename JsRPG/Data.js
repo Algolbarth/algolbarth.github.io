@@ -22325,7 +22325,7 @@ function obtenir_carte(carte_id) {
             carte.vente[2] = 2;
             carte.attaque = 3;
             carte.vie_max = carte.vie = 3;
-            carte.repidite = true;
+            carte.rapidite = true;
             break;
         case 522:
             carte.nom = "Piège à ours";
