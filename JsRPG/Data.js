@@ -15770,7 +15770,7 @@ function obtenir_carte(carte_id) {
                         case 1:
                             let verifier = false;
                             for (let n = 0; n < Jeu.adverse.terrain.length; n++) {
-                                if (Jeu.adverse.terrain[n].type == "Créature" && !nouvelle_carte.elements.includes("Eau")) {
+                                if (Jeu.adverse.terrain[n].type == "Créature" && !Jeu.adverse.terrain[n].elements.includes("Eau")) {
                                     verifier = true;
                                 }
                             }
@@ -15798,7 +15798,7 @@ function obtenir_carte(carte_id) {
                                         afficher("???");
                                     }
                                     div_fin();
-                                    if (Jeu.adverse.terrain[n].type == "Créature" && !nouvelle_carte.elements.includes("Eau") && (!Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence)) {
+                                    if (Jeu.adverse.terrain[n].type == "Créature" && !Jeu.adverse.terrain[n].elements.includes("Eau") && (!Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence)) {
                                         div();
                                         fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
                                         div_fin();
@@ -15823,17 +15823,17 @@ function obtenir_carte(carte_id) {
                 else {
                     let verifier = false;
                     for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
-                        if (Jeu.joueur.terrain[n].type == "Créature" && !nouvelle_carte.elements.includes("Eau")) {
+                        if (Jeu.joueur.terrain[n].type == "Créature" && !Jeu.joueur.terrain[n].elements.includes("Eau")) {
                             verifier = true;
                         }
                     }
                     if (verifier) {
                         let best = 0;
-                        while (Jeu.joueur.terrain[best].type != "Créature" || nouvelle_carte.elements.includes("Eau") || (Jeu.joueur.terrain[best].camouflage && !Jeu.joueur.terrain[best].silence)) {
+                        while (Jeu.joueur.terrain[best].type != "Créature" || Jeu.joueur.terrain[n].elements.includes("Eau") || (Jeu.joueur.terrain[best].camouflage && !Jeu.joueur.terrain[best].silence)) {
                             best++;
                         }
                         for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
-                            if (Jeu.joueur.terrain[n].vie > Jeu.joueur.terrain[best].vie && Jeu.joueur.terrain[best].type == "Créature" && (!Jeu.joueur.terrain[n].camouflage || Jeu.joueur.terrain[n].silence)) {
+                            if (Jeu.joueur.terrain[n].vie > Jeu.joueur.terrain[best].vie && Jeu.joueur.terrain[best].type == "Créature" && !Jeu.joueur.terrain[n].elements.includes("Eau") && (!Jeu.joueur.terrain[n].camouflage || Jeu.joueur.terrain[n].silence)) {
                                 best = n;
                             }
                         }
