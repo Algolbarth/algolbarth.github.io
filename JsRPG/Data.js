@@ -2799,6 +2799,7 @@ function obtenir_carte(carte_id) {
                             deplacer(carte, carte.camp, "defausse");
                         }
                     }
+                    carte.description = obtenir_carte(76).description;
                 }
                 else {
                     if (statistique(carte, "ephemere") && !statistique(carte, "silence")) {
@@ -10159,24 +10160,24 @@ function obtenir_carte(carte_id) {
                             saut(2);
                             afficher("Choisissez un effet : ");
                             saut(2);
-                            fonction("Pioche 3 cartes", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2)");
+                            fonction("Pioche 6 cartes", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2)");
                             saut();
                             afficher("ou");
                             saut();
-                            fonction("Donne 2 Or max", "Jeu.joueur.main[" + carte.slot + "].effet_pose(3)");
+                            fonction("Donne 4 Or max", "Jeu.joueur.main[" + carte.slot + "].effet_pose(3)");
                             div_fin();
                             div("side", "affichage");
                             div_fin();
                             actualiser();
                             break;
                         case 2:
-                            pioches("joueur", 3);
+                            pioches("joueur", 6);
                             deplacer(carte, "joueur", "defausse");
                             effet_pose(carte);
                             menu();
                             break;
                         case 3:
-                            Jeu.joueur.ressources[0].max += 2;
+                            Jeu.joueur.ressources[0].max += 4;
                             deplacer(carte, "joueur", "defausse");
                             effet_pose(carte);
                             menu();
@@ -10184,7 +10185,7 @@ function obtenir_carte(carte_id) {
                     }
                 }
                 else {
-                    Jeu.adverse.ressources[0].max += 2;
+                    Jeu.adverse.ressources[0].max += 4;
                     deplacer(carte, "adverse", "defausse");
                     effet_pose(carte);
                     menu();
@@ -17845,6 +17846,7 @@ function obtenir_carte(carte_id) {
                             deplacer(carte, carte.camp, "defausse");
                         }
                     }
+                    carte.description = obtenir_carte(89).description;
                 }
                 else {
                     if (statistique(carte, "ephemere") && !statistique(carte, "silence")) {
@@ -23092,6 +23094,7 @@ function obtenir_carte(carte_id) {
                             deplacer(carte, carte.camp, "defausse");
                         }
                     };
+                    carte.description = obtenir_carte(13).description;
                 }
                 else {
                     if (statistique(carte, "ephemere") && !statistique(carte, "silence")) {
