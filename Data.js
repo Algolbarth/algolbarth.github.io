@@ -93,10 +93,6 @@ function ajouter_sites () {
     ajouter_site("JsRPG","JsRPG/index.html",[0]);
     ajouter_site("Cryptage","Cryptage/index.html",[0]);
 
-    ajouter_site("Jellyfin","https://jelly.lacave.stream/web/index.html",[1]);
-    ajouter_site("Photos Meet-Up Dimension 2022","https://photos.google.com/share/AF1QipMgO525dQxGhR_Yjk9575LrGxKH_m4LBx6dHpFAXlVrtuOI-7vDzCBnNl8c7qQ_wg?pli=1&key=cDFjNkstZG4wOHJBYW9nTW4zTW9RbnVQNllIQ1FB",[1]);
-    ajouter_site("Veste Veromoda à dl","https://www.veromoda.com/fr/fr/vm/shoppez-par-categorie/blazers/en-jersey-blazer-10235973.html?cgid=vm-blazers&dwvar_colorPattern=10235973_DryRose_959119",[1]);
-
     ajouter_dossier("Local");//0
     ajouter_dossier("Favoris");//1
     ajouter_dossier("Réseaux sociaux");//2
