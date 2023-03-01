@@ -19,7 +19,7 @@ function demarrage() {
         familles: [],
         NOMBRE_CARTE: 546,
         NOMBRE_HISTOIRE: 4,
-        NOMBRE_MUSIQUE: 17,
+        NOMBRE_MUSIQUE: 4,
         combat: {
             auto: true,
             vitesse: 1000
@@ -119,8 +119,8 @@ function accueil() {
 function nouvelle_partie() {
     Jeu.en_jeu = true;
     Jeu.joueur = {
-        vie: 30,
-        vie_max: 30,
+        vie: 100,
+        vie_max: 100,
         ressources: [],
         boutique: [],
         main: [],
@@ -161,8 +161,10 @@ function nouvelle_partie() {
     Jeu.ressource_sup = 1;
     Jeu.region_active = 0;
     Jeu.combat.etat = false;
+    ajouter(obtenir_carte(113), "joueur", "regions");
     ajouter(obtenir_carte(78), "joueur", "regions");
     ajouter(obtenir_carte(31), "joueur", "main");
+    ajouter(obtenir_carte(16), "joueur", "main");
     ajouter(obtenir_carte(1), "joueur", "terrain");
     for (let n = 0; n < Jeu.joueur.main.length; n++) {
         Jeu.joueur.main[n].cache = true;
@@ -191,7 +193,7 @@ function menu() {
     div_fin();
     div_fin();
     afficher("<center>");
-    afficher("Etage : " + Jeu.etage);
+    afficher("Étage : " + Jeu.etage);
     afficher("</center>");
     joueur_voir();
     adversaire_voir();
@@ -202,6 +204,7 @@ function menu() {
     div("message", "affichage");
     div();
     actualiser();
+    actualiser_zone();
 }
 
 function joueur_voir() {
@@ -224,147 +227,20 @@ function joueur_voir() {
     }
     div_fin();
     saut();
-    div("", "zone");
-    afficher("<u>Régions :</u> <i>" + Jeu.joueur.regions.length + " carte");
-    if (Jeu.joueur.regions.length > 1) {
-        afficher("s");
-    }
     afficher("</i>");
-    saut();
-    for (let n = 0; n < Jeu.joueur.regions.length; n++) {
-        div("", "carte");
-        afficher_carte("joueur", "regions", n);
-        if (Jeu.region_active != n) {
-            afficher(" ");
-            fonction("Choisir", "Jeu.region_active=" + n + ";menu();");
-        }
-        div_fin();
-    }
+    div("joueur_regions", "zone");
     div_fin();
     saut();
-    div("", "zone");
-    div("boutique");
-    afficher("<u>Boutique Nv " + Jeu.boutique_niveau + " :</u> ");
-    if (Jeu.boutique_niveau < 20) {
-        fonction("Améliorer", "boutique_ameliorer()");
-        afficher(" (" + Jeu.boutique_amelioration + " Or) - ");
-    }
-    fonction("Actualiser", "boutique_rafraichir()");
-    afficher(" (" + (Jeu.boutique_niveau + 1) + " Or)");
-    afficher(" - ");
-    fonction("Verrouiller", "boutique_verrouiller()");
-    afficher(" - <i>" + Jeu.joueur.boutique.length + " carte");
-    if (Jeu.joueur.boutique.length > 1) {
-        afficher("s");
-    }
-    afficher("</i>");
-    div_fin();
-    if (Jeu.joueur.boutique.length > 0) {
-        for (let n = 0; n < Jeu.joueur.boutique.length; n++) {
-            div("", "carte");
-            div();
-            afficher_carte("joueur", "boutique", n);
-            div_fin();
-            div();
-            fonction("Acheter", "acheter(" + '"joueur",' + n + ")", "action");
-            div_fin();
-            div_fin();
-        }
-    }
-    else {
-        afficher("<i>La boutique est vide</i>");
-        saut();
-    }
+    div("joueur_boutique", "zone");
     div_fin();
     saut();
-    div("", "zone");
-    afficher("<u>Main :</u> <i>" + Jeu.joueur.main.length + " carte");
-    if (Jeu.joueur.main.length > 1) {
-        afficher("s");
-    }
-    afficher("</i>");
-    saut();
-    if (Jeu.joueur.main.length > 0) {
-        for (let n = 0; n < Jeu.joueur.main.length; n++) {
-            div("", "carte");
-            div();
-            if (n > 0) {
-                fonction("&#8679", "monter(" + '"joueur","main",' + n + ")");
-                afficher(" ");
-            }
-            if (n < Jeu.joueur.main.length - 1) {
-                fonction("&#8681", "descendre(" + '"joueur","main",' + n + ")");
-                afficher(" ");
-            }
-            afficher_carte("joueur", "main", n);
-            div_fin();
-            div();
-            fonction("Poser", "poser(" + n + ")");
-            afficher(" ");
-            fonction("Vendre", "vendre(" + '"main",' + n + ")");
-            div_fin();
-            div_fin();
-        }
-    }
-    else {
-        afficher("<i>Votre main est vide</i>");
-        saut();
-    }
+    div("joueur_main", "zone");
     div_fin();
     saut();
-    div("", "zone");
-    afficher("<u>Terrain :</u> <i>" + Jeu.joueur.terrain.length + " carte");
-    if (Jeu.joueur.terrain.length > 1) {
-        afficher("s");
-    }
-    afficher("</i>");
-    saut();
-    if (Jeu.joueur.terrain.length > 0) {
-        for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
-            div("", "carte");
-            div();
-            if (Jeu.joueur.terrain[n].type == "Créature" || (statistique(Jeu.joueur.terrain[n], "mobile") && !statistique(Jeu.joueur.terrain[n], "silence"))) {
-                if (n > 0) {
-                    fonction("&#8679", "monter(" + '"joueur","terrain",' + n + ")");
-                    afficher(" ");
-                }
-                if (n < Jeu.joueur.terrain.length - 1) {
-                    fonction("&#8681", "descendre(" + '"joueur","terrain",' + n + ")");
-                    afficher(" ");
-                }
-            }
-            afficher_carte("joueur", "terrain", n);
-            div_fin();
-            div();
-            fonction("Vendre", "vendre(" + '"terrain",' + n + ")");
-            div_fin();
-            div_fin();
-        }
-    }
-    else {
-        afficher("<i>Votre terrain est vide</i>");
-        saut();
-    }
+    div("joueur_terrain", "zone");
     div_fin();
     saut();
-    div("", "zone");
-    afficher("<u>Défausse :</u> <i>" + Jeu.joueur.defausse.length + " carte");
-    if (Jeu.joueur.defausse.length > 1) {
-        afficher("s");
-    }
-    afficher("</i>");
-    saut();
-    if (Jeu.joueur.defausse.length > 0) {
-        for (let n = 0; n < Jeu.joueur.defausse.length; n++) {
-            div("", "carte");
-            afficher_carte("joueur", "defausse", n);
-            div_fin();
-        }
-    }
-    else {
-        afficher("<i>Votre défausse est vide</i>");
-        saut();
-    }
+    div("joueur_defausse", "zone");
     div_fin();
     div_fin();
 }
@@ -385,165 +261,150 @@ function adversaire_voir() {
     }
     div_fin();
     saut();
-    div("", "zone");
-    afficher("<u>Régions adverses :</u> <i>" + Jeu.adverse.regions.length + " carte");
-    if (Jeu.adverse.regions.length > 1) {
-        afficher("s");
-    }
     afficher("</i>");
-    saut();
-    if (Jeu.adverse.regions.length > 0) {
-        for (let n = 0; n < Jeu.adverse.regions.length; n++) {
-            div("", "carte");
-            div();
-            if (!Jeu.adverse.regions[n].cache) {
-                afficher_carte("adverse", "regions", n);
-            }
-            else {
-                afficher("???");
-            }
-            div_fin();
-            div_fin();
-        }
-    }
+    div("adverse_regions", "zone");
     div_fin();
     saut();
-    div("", "zone");
-    afficher("<u>Boutique adverse :</u> <i>" + Jeu.adverse.boutique.length + " carte");
-    if (Jeu.adverse.boutique.length > 1) {
-        afficher("s");
-    }
-    afficher("</i>");
-    saut();
-    if (Jeu.adverse.boutique.length > 0) {
-        for (let n = 0; n < Jeu.adverse.boutique.length; n++) {
-            div("", "carte");
-            div();
-            if (!Jeu.adverse.boutique[n].cache) {
-                afficher_carte("adverse", "boutique", n);
-            }
-            else {
-                afficher("???");
-            }
-            div_fin();
-            div_fin();
-        }
-    }
-    else {
-        afficher("<i>La boutique adverse est vide</i>");
-        saut();
-    }
+    div("adverse_boutique", "zone");
     div_fin();
     saut();
-    div("", "zone");
-    afficher("<u>Main adverse :</u> <i>" + Jeu.adverse.main.length + " carte");
-    if (Jeu.adverse.main.length > 1) {
-        afficher("s");
-    }
-    afficher("</i>");
-    saut();
-    if (Jeu.adverse.main.length > 0) {
-        for (let n = 0; n < Jeu.adverse.main.length; n++) {
-            div("", "carte");
-            div();
-            if (!Jeu.adverse.main[n].cache) {
-                afficher_carte("adverse", "main", n);
-            }
-            else {
-                afficher("???");
-            }
-            div_fin();
-            div_fin();
-        }
-    }
-    else {
-        afficher("<i>La main adverse est vide</i>");
-        saut();
-    }
+    div("adverse_main", "zone");
     div_fin();
     saut();
-    div("", "zone");
-    afficher("<u>Terrain adverse :</u> <i>" + Jeu.adverse.terrain.length + " carte");
-    if (Jeu.adverse.terrain.length > 1) {
-        afficher("s");
-    }
-    afficher("</i>");
-    saut();
-    if (Jeu.adverse.terrain.length > 0) {
-        for (let n = 0; n < Jeu.adverse.terrain.length; n++) {
-            div("", "carte");
-            div();
-            if (!Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                afficher_carte("adverse", "terrain", n);
-            }
-            else {
-                afficher("???");
-            }
-            div_fin();
-            div_fin();
-        }
-    }
-    else {
-        afficher("<i>Le terrain adverse est vide</i>");
-        saut();
-    }
+    div("adverse_terrain", "zone");
     div_fin();
     saut();
-    div("", "zone");
-    afficher("<u>Défausse adverse :</u> <i>" + Jeu.adverse.defausse.length + " carte");
-    if (Jeu.adverse.defausse.length > 1) {
-        afficher("s");
-    }
-    afficher("</i>");
-    saut();
-    if (Jeu.adverse.defausse.length > 0) {
-        for (let n = 0; n < Jeu.adverse.defausse.length; n++) {
-            div("", "carte");
-            div();
-            afficher_carte("adverse", "defausse", n);
-            div_fin();
-            div_fin();
-        }
-    }
-    else {
-        afficher("<i>La défausse adverse est vide</i>");
-    }
+    div("adverse_defausse", "zone");
     div_fin();
     div_fin();
 }
 
-function afficher_carte(camp, zone, slot) {
+function afficher_zone(camp, zone, nom, vide) {
+    let texte = "";
+    if (camp == "joueur" && zone == "boutique") {
+        texte += "<div id='boutique'>";
+        texte += "<u>Boutique Nv " + Jeu.boutique_niveau + " :</u> ";
+        if (Jeu.boutique_niveau < 20) {
+            texte += "<button onclick='javascript:boutique_ameliorer()'>Améliorer</button>";
+            texte += " (" + Jeu.boutique_amelioration + " Or) - ";
+        }
+        texte += "<button onclick='javascript:boutique_rafraichir()'>Actualiser</button>";
+        texte += " (" + (Jeu.boutique_niveau + 1) + " Or)";
+        texte += " - ";
+        texte += "<button onclick='javascript:boutique_verrouiller()'>Verrouiller</button>";
+        texte += " - <i>" + Jeu.joueur.boutique.length + " carte";
+        if (Jeu.joueur.boutique.length > 1) {
+            texte += "s";
+        }
+        texte += "</i>";
+        texte += "</div>";
+    }
+    else {
+        texte += "<u>" + nom + " :</u> <i>" + Jeu[camp][zone].length + " carte";
+        if (Jeu[camp][zone].length > 1) {
+            texte += "s";
+        }
+        texte += "</i>";
+        texte += "</br>";
+    }
+    if (Jeu[camp][zone].length > 0) {
+        for (let n = 0; n < Jeu[camp][zone].length; n++) {
+            texte += "<div class='carte'>";
+            texte += "<div>";
+            if (camp == "joueur" && ((zone == "terrain" && Jeu[camp][zone][n].type == "Créature" || (statistique(Jeu[camp][zone][n], "mobile") && !statistique(Jeu[camp][zone][n], "silence"))) || (zone == "main"))) {
+                if (n > 0) {
+                    texte += "<button onclick='javascript:monter(" + '"joueur","' + zone + '",' + n + ")'>&#8679</button>";
+                    texte += " ";
+                }
+                if (n < Jeu[camp][zone].length - 1) {
+                    texte += "<button onclick='javascript:descendre(" + '"joueur","' + zone + '",' + n + ")'>&#8681</button>";
+                    texte += " ";
+                }
+            }
+            if (camp == "joueur" || ((!Jeu[camp][zone][n].camouflage || Jeu[camp][zone][n].silence) && !Jeu[camp][zone][n].cache)) {
+                texte += afficher_carte(camp, zone, n);
+            }
+            else {
+                texte += "???";
+            }
+            texte += "</div>";
+            texte += "<div>";
+            if (camp == "joueur" && ["main", "terrain"].includes(zone)) {
+                if (zone == "main") {
+                    texte += "<button onclick='javascript:poser(" + n + ")'>Poser</button>";
+                    texte += " ";
+                }
+                texte += "<button onclick='javascript:vendre(" + '"' + zone + '",' + n + ")'>Vendre</button>";
+            }
+            else if (camp == "joueur" && zone == "boutique") {
+                texte += "<button onclick='javascript:acheter(" + '"joueur",' + n + ")'>Acheter</button>";
+            }
+            else if (camp == "joueur" && zone == "regions" && Jeu.region_active != n) {
+                texte += "<button onclick='javascript:Jeu.region_active=" + n + ";actualiser_zone();'>Choisir</button>"; fonction("Choisir", "Jeu.region_active=" + n + ";menu();");
+            }
+            texte += "</div>";
+            texte += "</div>";
+        }
+    }
+    else {
+        texte += "<i>" + vide + "</i>";
+        texte += "<br/>";
+    }
+    div_actualiser(camp + "_" + zone, texte);
+}
+
+function actualiser_zone() {
+    afficher_zone("joueur", "regions", "Régions");
+    afficher_zone("joueur", "boutique", "Boutique", "Votre boutique est vide");
+    afficher_zone("joueur", "main", "Main", "Votre main est vide");
+    afficher_zone("joueur", "terrain", "Terrain", "Votre terrain est vide");
+    afficher_zone("joueur", "defausse", "Défausse", "Votre défausse est vide");
+    afficher_zone("adverse", "regions", "Régions adverses");
+    afficher_zone("adverse", "boutique", "Boutique adverse", "La boutique adverse est vide");
+    afficher_zone("adverse", "main", "Main adverse", "La main adverse est vide");
+    afficher_zone("adverse", "terrain", "Terrain adverse", "La terrain adverse est vide");
+    afficher_zone("adverse", "defausse", "Défausse adverse", "La défausse adverse est vide");
+}
+
+function afficher_carte(camp, zone, slot, div="auto") {
     let carte = Jeu[camp][zone][slot];
+    let texte = "";
     if (carte.verrouillage) {
-        afficher("[");
+        texte += "[";
     }
     if (!Jeu.combat.etat || !Jeu.combat.auto) {
         let string = "carte_voir(" + '"' + camp + '","' + zone + '",' + slot;
-        if (camp == "adverse") {
-            string += ',"carte_main"';
-        }
+        if (div == "auto") {
+            if (camp == "adverse") {
+                string += ',"carte_main"';
+            }
+            else {
+                string += ',"carte_side"';
+            }
+        } 
         else {
-            string += ',"carte_side"';
+            string += ',"' + div + '"';
         }
         string += ")";
-        fonction(carte.nom, string);
+        texte += "<button onclick='javascript:" + string + "'>" + carte.nom + "</button>";
     }
     else {
-        afficher(carte.nom);
+        texte += carte.nom;
     }
     if (carte.verrouillage) {
-        afficher("]");
+        texte += "]";
     }
     if (["Créature", "Bâtiment"].includes(carte.type)) {
         if (carte.type == "Créature") {
-            afficher(" " + statistique(carte, "attaque") + " ATT");
+            texte += " " + statistique(carte, "attaque") + " ATT";
         }
-        afficher(" " + statistique(carte, "defense") + " DEF " + carte.vie + "/" + statistique(carte, "vie_max"));
+        texte += " " + statistique(carte, "defense") + " DEF " + carte.vie + "/" + statistique(carte, "vie_max");
         if (carte.vie_sup > 0) {
-            afficher(" (+ " + carte.vie_sup + ")");
+            texte += " (+ " + carte.vie_sup + ")";
         }
-        afficher(" VIE");
+        texte += " VIE";
     }
+    return texte;
 }
 
 function carte_voir(camp, zone, slot, div) {
@@ -853,7 +714,7 @@ function boutique_ameliorer() {
         }
         Jeu.boutique_niveau++;
         Jeu.boutique_amelioration = Jeu.boutique_niveau * 5;
-        menu();
+        actualiser_zone();
     }
 }
 
@@ -868,7 +729,7 @@ function boutique_verrouiller() {
     for (let n = 0; n < Jeu.joueur.boutique.length; n++) {
         Jeu.joueur.boutique[n].verrouillage = verrou;
     }
-    menu();
+    actualiser_zone();
 }
 
 function acheter(camp, boutique_slot) {
@@ -914,7 +775,7 @@ function vendre(zone, slot) {
         Jeu.joueur.ressources[n].courant += Jeu.joueur[zone][slot].vente[n];
     }
     enlever(Jeu.joueur[zone][slot]);
-    menu();
+    actualiser_zone();
 }
 
 function etage_suivant() {
@@ -1299,7 +1160,7 @@ function adversaire_acheter() {
 
 function adversaire_jouer() {
     Jeu.adverse.regions = [];
-    for (let n=0;n<Jeu.adverse.liste_regions[0].length;n++) {
+    for (let n = 0; n < Jeu.adverse.liste_regions[0].length; n++) {
         ajouter(obtenir_carte(Jeu.adverse.liste_regions[0][n]), "adverse", "regions");
     }
     Jeu.adverse.liste_regions.splice(0, 1);

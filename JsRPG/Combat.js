@@ -269,7 +269,7 @@ function combat_afficher() {
                 div("", "carte");
             }
             div();
-            afficher_carte("joueur", "terrain", n);
+            afficher(afficher_carte("joueur", "terrain", n));
             div_fin();
             div_fin();
         }
@@ -296,7 +296,7 @@ function combat_afficher() {
                 div("", "carte");
             }
             div();
-            afficher_carte("adverse", "terrain", n);
+            afficher(afficher_carte("adverse", "terrain", n));
             div_fin();
             div_fin();
         }
@@ -330,7 +330,7 @@ function combat_victoire() {
     initialiser();
     afficher("Victoire");
     saut(2);
-    fonction("Etage suivant", "etage_suivant()");
+    fonction("Étage suivant", "etage_suivant()");
     actualiser();
 }
 

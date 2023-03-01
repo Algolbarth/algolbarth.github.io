@@ -133,7 +133,7 @@ function obtenir_carte(carte_id) {
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
                                     div("", "carte");
                                     div();
-                                    afficher_carte("joueur", "terrain", n);
+                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
                                     div_fin();
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].equipements.length < Jeu.joueur.terrain[n].equipement_max) {
                                         div();
@@ -144,7 +144,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -202,7 +202,7 @@ function obtenir_carte(carte_id) {
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
                                     div("", "carte");
                                     div();
-                                    afficher_carte("joueur", "terrain", n);
+                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
                                     div_fin();
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].vie < Jeu.joueur.terrain[n].vie_max) {
                                         div();
@@ -213,7 +213,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -278,7 +278,7 @@ function obtenir_carte(carte_id) {
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
                                     div("", "carte");
                                     div();
-                                    afficher_carte("joueur", "terrain", n);
+                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
                                     div_fin();
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].equipements.length < Jeu.joueur.terrain[n].equipement_max) {
                                         div();
@@ -289,7 +289,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -438,7 +438,7 @@ function obtenir_carte(carte_id) {
                                     div("", "carte");
                                     div();
                                     if (!Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                        afficher_carte("adverse", "terrain", n);
+                                        afficher(afficher_carte("adverse", "terrain", n, "carte_side"));
                                     }
                                     else {
                                         afficher("???");
@@ -453,7 +453,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -523,7 +523,7 @@ function obtenir_carte(carte_id) {
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
                                     div("", "carte");
                                     div();
-                                    afficher_carte("joueur", "terrain", n);
+                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
                                     div_fin();
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].vie < Jeu.joueur.terrain[n].vie_max) {
                                         div();
@@ -534,7 +534,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -679,7 +679,7 @@ function obtenir_carte(carte_id) {
                                     div("", "carte");
                                     div();
                                     if (!Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                        afficher_carte("adverse", "terrain", n);
+                                        afficher(afficher_carte("adverse", "terrain", n, "carte_side"));
                                     }
                                     else {
                                         afficher("???");
@@ -694,7 +694,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -916,7 +916,7 @@ function obtenir_carte(carte_id) {
                                     div("", "carte");
                                     div();
                                     if (!Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                        afficher_carte("adverse", "terrain", n);
+                                        afficher(afficher_carte("adverse", "terrain", n, "carte_side"));
                                     }
                                     else {
                                         afficher("???");
@@ -931,7 +931,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -979,6 +979,7 @@ function obtenir_carte(carte_id) {
                     return false;
                 }
             }
+            carte.description = "Un sort basique, efficace mais terriblement dangereux. Nombre de débutants ont ";
             break;
         case 29:
             carte.nom = "Coffre";
@@ -1032,7 +1033,7 @@ function obtenir_carte(carte_id) {
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
                                     div("", "carte");
                                     div();
-                                    afficher_carte("joueur", "terrain", n);
+                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
                                     div_fin();
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].equipements.length < Jeu.joueur.terrain[n].equipement_max) {
                                         div();
@@ -1043,7 +1044,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -1150,6 +1151,7 @@ function obtenir_carte(carte_id) {
             carte.attaque = 5;
             carte.vie_max = carte.vie = 5;
             carte.equipement_max = 2;
+            carte.description = "L'habilités de ces guerriers leur permet de manier tout type d'arme.";
             break;
         case 36:
             carte.nom = "Négociant";
@@ -1183,7 +1185,7 @@ function obtenir_carte(carte_id) {
                                 for (let n = 0; n < Jeu.joueur.boutique.length; n++) {
                                     div("", "carte");
                                     div();
-                                    afficher_carte("joueur", "boutique", n);
+                                    afficher(afficher_carte("joueur", "boutique", n, "carte_side"));
                                     div_fin();
                                     if (Jeu.joueur.boutique[n].cout[0] > 0) {
                                         div();
@@ -1194,7 +1196,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -1222,7 +1224,7 @@ function obtenir_carte(carte_id) {
                     return true;
                 }
             }
-            carte.description = "Tout peut se négocier, même le prix d'une personne.";
+            carte.description = "Tout peut se négocier, même ce qui se n'achète pas.";
             break;
         case 37:
             carte.nom = "Démon";
@@ -1237,12 +1239,12 @@ function obtenir_carte(carte_id) {
             carte.attaque = 25;
             carte.vie_max = carte.vie = 25;
             carte.texte = function () {
-                return "Quand posé : Inflige 5 dégâts au Meneur allié.";
+                return "Quand posé : Inflige 10 dégâts au Meneur allié.";
             }
             carte.effet_pose = function () {
                 if (carte.camp == "joueur") {
                     if (!statistique(carte, "silence")) {
-                        degats_direct("joueur", 3);
+                        degats_direct("joueur", 10);
                     }
                     deplacer(carte, carte.camp, "terrain");
                     effet_pose(carte);
@@ -1256,7 +1258,7 @@ function obtenir_carte(carte_id) {
                 else {
                     if (Jeu.adverse.vie > 3 || statistique(carte, "silence")) {
                         if (!statistique(carte, "silence")) {
-                            degats_direct("adverse", 3);
+                            degats_direct("adverse", 10);
                         }
                         deplacer(carte, carte.camp, "terrain");
                         effet_pose(carte);
@@ -1265,7 +1267,7 @@ function obtenir_carte(carte_id) {
                     return false;
                 }
             }
-            carte.description = "Les démons résident dans les enfers et sont les partisans du chaos. Ces créatures surpuissantes sont incontrôlables et imprévisibles.";
+            carte.description = "Les démons résident dans les enfers et sont les partisans du chaos. Ces créatures surpuissantes sont incontrôlables et imprévisibles, considérés comme les créatures les plus puissantes du monde connu.";
             break;
         case 38:
             carte.nom = "Archer";
@@ -1306,7 +1308,7 @@ function obtenir_carte(carte_id) {
                                 for (let n = 0; n < Jeu.joueur.defausse.length; n++) {
                                     div("", "carte");
                                     div();
-                                    afficher_carte("joueur", "defausse", n);
+                                    afficher(afficher_carte("joueur", "defausse", n, "carte_side"));
                                     div_fin();
                                     div();
                                     fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
@@ -1315,7 +1317,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -1427,7 +1429,7 @@ function obtenir_carte(carte_id) {
                                     div("", "carte");
                                     div();
                                     if (!Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                        afficher_carte("adverse", "terrain", n);
+                                        afficher(afficher_carte("adverse", "terrain", n, "carte_side"));
                                     }
                                     else {
                                         afficher("???");
@@ -1442,7 +1444,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -1615,7 +1617,7 @@ function obtenir_carte(carte_id) {
                                 saut();
                                 fonction("Applique Poison 4 à une Créature adverse sur le terrain", "Jeu.joueur.main[" + carte.slot + "].effet_pose(4)");
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -1638,7 +1640,7 @@ function obtenir_carte(carte_id) {
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
                                     div("", "carte");
                                     div();
-                                    afficher_carte("joueur", "terrain", n);
+                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
                                     div_fin();
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].equipements.length < Jeu.joueur.terrain[n].equipement_max) {
                                         div();
@@ -1649,7 +1651,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -1679,7 +1681,7 @@ function obtenir_carte(carte_id) {
                                     div("", "carte");
                                     div();
                                     if (!Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                        afficher_carte("adverse", "terrain", n);
+                                        afficher(afficher_carte("adverse", "terrain", n, "carte_side"));
                                     }
                                     else {
                                         afficher("???");
@@ -1694,7 +1696,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -1762,7 +1764,7 @@ function obtenir_carte(carte_id) {
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
                                     div("", "carte");
                                     div();
-                                    afficher_carte("joueur", "terrain", n);
+                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
                                     div_fin();
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].poison > 0) {
                                         div();
@@ -1773,7 +1775,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -1890,7 +1892,7 @@ function obtenir_carte(carte_id) {
                                 for (let n = 0; n < Jeu.joueur.boutique.length; n++) {
                                     div("", "carte");
                                     div();
-                                    afficher_carte("joueur", "boutique", n);
+                                    afficher(afficher_carte("joueur", "boutique", n, "carte_side"));
                                     div_fin();
                                     div();
                                     fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
@@ -1899,7 +1901,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -1956,7 +1958,7 @@ function obtenir_carte(carte_id) {
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
                                     div("", "carte");
                                     div();
-                                    afficher_carte("joueur", "terrain", n);
+                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
                                     div_fin();
                                     if (Jeu.joueur.terrain[n].type == "Créature" && (Jeu.joueur.terrain[n].poison > 0 || Jeu.joueur.terrain[n].brulure > 0 || Jeu.joueur.terrain[n].saignement > 0 || Jeu.joueur.terrain[n].contamination > 0 || Jeu.joueur.terrain[n].etourdissement || Jeu.joueur.terrain[n].silence)) {
                                         div();
@@ -1967,7 +1969,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -2080,7 +2082,7 @@ function obtenir_carte(carte_id) {
                                 saut();
                                 fonction("Inflige 1 dégât à une Créature adverse sur le terrain", "Jeu.joueur.main[" + carte.slot + "].effet_pose(4)");
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -2103,7 +2105,7 @@ function obtenir_carte(carte_id) {
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
                                     div("", "carte");
                                     div();
-                                    afficher_carte("joueur", "terrain", n);
+                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
                                     div_fin();
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].equipements.length < Jeu.joueur.terrain[n].equipement_max) {
                                         div();
@@ -2114,7 +2116,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -2144,7 +2146,7 @@ function obtenir_carte(carte_id) {
                                     div("", "carte");
                                     div();
                                     if (!Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                        afficher_carte("adverse", "terrain", n);
+                                        afficher(afficher_carte("adverse", "terrain", n, "carte_side"));
                                     }
                                     else {
                                         afficher("???");
@@ -2158,7 +2160,7 @@ function obtenir_carte(carte_id) {
                                     div_fin();
                                 }
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -2287,19 +2289,19 @@ function obtenir_carte(carte_id) {
             carte.nom = "Assassin";
             define_creature(carte);
             carte.familles.push("Humain");
-            carte.cout[0] = 9;
+            carte.cout[0] = 8;
             carte.vente[0] = 4;
             carte.attaque = 3;
             carte.vie_max = carte.vie = 3;
             carte.texte = function () {
-                return "Quand posé : Inflige 2 dégâts au Meneur adverse.";
+                return "Quand posé : Inflige 3 dégâts au Meneur adverse.";
             }
             carte.effet_pose = function () {
                 deplacer(carte, carte.camp, "terrain");
                 effet_pose(carte);
                 if (!statistique(carte, "silence")) {
                     if (carte.camp == "joueur") {
-                        degats_direct("adverse", 2);
+                        degats_direct("adverse", 3);
                         if (Jeu.adverse.vie > 0) {
                             menu();
                         }
@@ -2308,7 +2310,7 @@ function obtenir_carte(carte_id) {
                         }
                     }
                     else {
-                        degats_direct("joueur", 2);
+                        degats_direct("joueur", 3);
                         if (Jeu.joueur.vie <= 0) {
                             game_over();
                         }
@@ -2454,7 +2456,7 @@ function obtenir_carte(carte_id) {
                                     div("", "carte");
                                     div();
                                     if (!Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                        afficher_carte("adverse", "terrain", n);
+                                        afficher(afficher_carte("adverse", "terrain", n, "carte_side"));
                                     }
                                     else {
                                         afficher("???");
@@ -2469,7 +2471,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -2568,7 +2570,7 @@ function obtenir_carte(carte_id) {
                                     div("", "carte");
                                     div();
                                     if (!Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                        afficher_carte("adverse", "terrain", n);
+                                        afficher(afficher_carte("adverse", "terrain", n, "carte_side"));
                                     }
                                     else {
                                         afficher("???");
@@ -2583,7 +2585,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -2648,7 +2650,7 @@ function obtenir_carte(carte_id) {
                                     for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
                                         div("", "carte");
                                         div();
-                                        afficher_carte("joueur", "terrain", n);
+                                        afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
                                         div_fin();
                                         if (Jeu.joueur.terrain[n].type == "Créature") {
                                             div();
@@ -2674,7 +2676,7 @@ function obtenir_carte(carte_id) {
                                         div("", "carte");
                                         div();
                                         if (!Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                            afficher_carte("adverse", "terrain", n);
+                                            afficher(afficher_carte("adverse", "terrain", n, "carte_side"));
                                         }
                                         else {
                                             afficher("???");
@@ -2694,7 +2696,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -2730,13 +2732,13 @@ function obtenir_carte(carte_id) {
         case 74:
             carte.nom = "Baril explosif";
             carte.type = "Bâtiment";
-            carte.cout[0] = 3;
+            carte.cout[0] = 2;
             carte.cout[1] = 2;
             carte.vente[0] = 1;
             carte.vente[1] = 1;
             carte.vie = carte.vie_max = 2;
             carte.texte = function () {
-                return "Quand posé : Se place sur le terrain adverse.<br>Quand meurt : Inflige 2 dégâts au meneur allié.";
+                return "Quand posé : Se place sur le terrain adverse.<br>Quand meurt : Inflige 3 dégâts au meneur allié.";
             }
             carte.effet_pose = function () {
                 if (!statistique(carte, "silence")) {
@@ -2756,7 +2758,7 @@ function obtenir_carte(carte_id) {
             }
             carte.effet_mort = function () {
                 if (!statistique(carte, "silence")) {
-                    degats_direct(carte.camp, 2);
+                    degats_direct(carte.camp, 3);
                 }
                 if (statistique(carte, "ephemere") && !statistique(carte, "silence")) {
                     enlever(carte);
@@ -2913,7 +2915,7 @@ function obtenir_carte(carte_id) {
                                     div("", "carte");
                                     div();
                                     if (!Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                        afficher_carte("adverse", "terrain", n);
+                                        afficher(afficher_carte("adverse", "terrain", n, "carte_side"));
                                     }
                                     else {
                                         afficher("???");
@@ -2928,7 +2930,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -2990,7 +2992,7 @@ function obtenir_carte(carte_id) {
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
                                     div("", "carte");
                                     div();
-                                    afficher_carte("joueur", "terrain", n);
+                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
                                     div_fin();
                                     if (Jeu.joueur.terrain[n].type == "Créature") {
                                         div();
@@ -3001,7 +3003,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -3063,7 +3065,7 @@ function obtenir_carte(carte_id) {
                                     for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
                                         div("", "carte");
                                         div();
-                                        afficher_carte("joueur", "terrain", n);
+                                        afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
                                         div_fin();
                                         if (Jeu.joueur.terrain[n].type == "Créature") {
                                             div();
@@ -3089,7 +3091,7 @@ function obtenir_carte(carte_id) {
                                         div("", "carte");
                                         div();
                                         if (!Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                            afficher_carte("adverse", "terrain", n);
+                                            afficher(afficher_carte("adverse", "terrain", n, "carte_side"));
                                         }
                                         else {
                                             afficher("???");
@@ -3109,7 +3111,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -3583,7 +3585,7 @@ function obtenir_carte(carte_id) {
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
                                     div("", "carte");
                                     div();
-                                    afficher_carte("joueur", "terrain", n);
+                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
                                     div_fin();
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].equipements.length < Jeu.joueur.terrain[n].equipement_max) {
                                         div();
@@ -3594,7 +3596,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -3654,7 +3656,7 @@ function obtenir_carte(carte_id) {
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
                                     div("", "carte");
                                     div();
-                                    afficher_carte("joueur", "terrain", n);
+                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
                                     div_fin();
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].equipements.length < Jeu.joueur.terrain[n].equipement_max) {
                                         div();
@@ -3665,7 +3667,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -3724,7 +3726,7 @@ function obtenir_carte(carte_id) {
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
                                     div("", "carte");
                                     div();
-                                    afficher_carte("joueur", "terrain", n);
+                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
                                     div_fin();
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].equipements.length < Jeu.joueur.terrain[n].equipement_max) {
                                         div();
@@ -3735,7 +3737,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -3795,7 +3797,7 @@ function obtenir_carte(carte_id) {
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
                                     div("", "carte");
                                     div();
-                                    afficher_carte("joueur", "terrain", n);
+                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
                                     div_fin();
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].equipements.length < Jeu.joueur.terrain[n].equipement_max) {
                                         div();
@@ -3806,7 +3808,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -3866,7 +3868,7 @@ function obtenir_carte(carte_id) {
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
                                     div("", "carte");
                                     div();
-                                    afficher_carte("joueur", "terrain", n);
+                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
                                     div_fin();
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].equipements.length < Jeu.joueur.terrain[n].equipement_max) {
                                         div();
@@ -3877,7 +3879,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -4052,7 +4054,7 @@ function obtenir_carte(carte_id) {
                                     div("", "carte");
                                     div();
                                     if (!Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                        afficher_carte("adverse", "terrain", n);
+                                        afficher(afficher_carte("adverse", "terrain", n, "carte_side"));
                                     }
                                     else {
                                         afficher("???");
@@ -4067,7 +4069,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -4231,7 +4233,7 @@ function obtenir_carte(carte_id) {
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
                                     div("", "carte");
                                     div();
-                                    afficher_carte("joueur", "terrain", n);
+                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
                                     div_fin();
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].equipements.length < Jeu.joueur.terrain[n].equipement_max) {
                                         div();
@@ -4242,7 +4244,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -4574,7 +4576,7 @@ function obtenir_carte(carte_id) {
                             for (let n = 0; n < Jeu.joueur.boutique.length; n++) {
                                 div("", "carte");
                                 div();
-                                afficher_carte("joueur", "boutique", n);
+                                afficher(afficher_carte("joueur", "boutique", n, "carte_side"));
                                 div_fin();
                                 if (!Jeu.joueur.boutique.verrouillage) {
                                     div();
@@ -4585,7 +4587,7 @@ function obtenir_carte(carte_id) {
                             }
                             div_fin();
                             div_fin();
-                            div("side", "affichage");
+                            div("carte_side", "affichage");
                             div_fin();
                             actualiser();
                             break;
@@ -4800,7 +4802,7 @@ function obtenir_carte(carte_id) {
                                     div("", "carte");
                                     div();
                                     if (!Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                        afficher_carte("adverse", "terrain", n);
+                                        afficher(afficher_carte("adverse", "terrain", n, "carte_side"));
                                     }
                                     else {
                                         afficher("???");
@@ -4815,7 +4817,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -4925,7 +4927,7 @@ function obtenir_carte(carte_id) {
                                     div("", "carte");
                                     div();
                                     if (!Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                        afficher_carte("adverse", "terrain", n);
+                                        afficher(afficher_carte("adverse", "terrain", n, "carte_side"));
                                     }
                                     else {
                                         afficher("???");
@@ -4940,7 +4942,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -5041,7 +5043,7 @@ function obtenir_carte(carte_id) {
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
                                     div("", "carte");
                                     div();
-                                    afficher_carte("joueur", "terrain", n);
+                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
                                     div_fin();
                                     if (Jeu.joueur.terrain[n].type == "Créature") {
                                         div();
@@ -5052,7 +5054,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -5131,7 +5133,7 @@ function obtenir_carte(carte_id) {
                                     div("", "carte");
                                     div();
                                     if (!Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                        afficher_carte("adverse", "terrain", n);
+                                        afficher(afficher_carte("adverse", "terrain", n, "carte_side"));
                                     }
                                     else {
                                         afficher("???");
@@ -5146,7 +5148,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -5170,7 +5172,7 @@ function obtenir_carte(carte_id) {
                                     div("", "carte");
                                     div();
                                     if (!Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                        afficher_carte("adverse", "terrain", n);
+                                        afficher(afficher_carte("adverse", "terrain", n, "carte_side"));
                                     }
                                     else {
                                         afficher("???");
@@ -5185,7 +5187,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -5274,7 +5276,7 @@ function obtenir_carte(carte_id) {
                                 for (let n = 0; n < Jeu.joueur.defausse.length; n++) {
                                     div("", "carte");
                                     div();
-                                    afficher_carte("joueur", "defausse", n);
+                                    afficher(afficher_carte("joueur", "defausse", n, "carte_side"));
                                     div_fin();
                                     if (Jeu.joueur.defausse[n].type == "Créature") {
                                         div();
@@ -5285,7 +5287,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -5347,7 +5349,7 @@ function obtenir_carte(carte_id) {
                                 fonction("Inflige 5 dégâts à une Créature adverse sur le terrain", "Jeu.joueur.main[" + carte.slot + "].effet_pose(4)");
                             }
                             div_fin();
-                            div("side", "affichage");
+                            div("carte_side", "affichage");
                             div_fin();
                             actualiser();
                             break;
@@ -5374,7 +5376,7 @@ function obtenir_carte(carte_id) {
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
                                     div("", "carte");
                                     div();
-                                    afficher_carte("joueur", "terrain", n);
+                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
                                     div_fin();
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].vie < Jeu.joueur.terrain[n].vie_max) {
                                         div();
@@ -5385,7 +5387,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -5425,7 +5427,7 @@ function obtenir_carte(carte_id) {
                                     div("", "carte");
                                     div();
                                     if (!Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                        afficher_carte("adverse", "terrain", n);
+                                        afficher(afficher_carte("adverse", "terrain", n, "carte_side"));
                                     }
                                     else {
                                         afficher("???");
@@ -5440,7 +5442,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -5531,7 +5533,7 @@ function obtenir_carte(carte_id) {
                                     div("", "carte");
                                     div();
                                     if (!Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                        afficher_carte("adverse", "terrain", n);
+                                        afficher(afficher_carte("adverse", "terrain", n, "carte_side"));
                                     }
                                     else {
                                         afficher("???");
@@ -5546,7 +5548,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -5569,7 +5571,7 @@ function obtenir_carte(carte_id) {
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
                                     div("", "carte");
                                     div();
-                                    afficher_carte("joueur", "terrain", n);
+                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
                                     div_fin();
                                     if (Jeu.joueur.terrain[n].type == "Créature") {
                                         div();
@@ -5580,7 +5582,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -5686,7 +5688,7 @@ function obtenir_carte(carte_id) {
                                     div("", "carte");
                                     div();
                                     if (!Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                        afficher_carte("adverse", "terrain", n);
+                                        afficher(afficher_carte("adverse", "terrain", n, "carte_side"));
                                     }
                                     else {
                                         afficher("???");
@@ -5701,7 +5703,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -6219,7 +6221,7 @@ function obtenir_carte(carte_id) {
                                     div("", "carte");
                                     div();
                                     if (!Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                        afficher_carte("adverse", "terrain", n);
+                                        afficher(afficher_carte("adverse", "terrain", n, "carte_side"));
                                     }
                                     else {
                                         afficher("???");
@@ -6234,7 +6236,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -6309,7 +6311,7 @@ function obtenir_carte(carte_id) {
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
                                     div("", "carte");
                                     div();
-                                    afficher_carte("joueur", "terrain", n);
+                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
                                     div_fin();
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].equipements.length < Jeu.joueur.terrain[n].equipement_max) {
                                         div();
@@ -6320,7 +6322,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -6610,7 +6612,7 @@ function obtenir_carte(carte_id) {
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
                                     div("", "carte");
                                     div();
-                                    afficher_carte("joueur", "terrain", n);
+                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
                                     div_fin();
                                     if (Jeu.joueur.terrain[n].type == "Créature") {
                                         div();
@@ -6621,7 +6623,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -6694,7 +6696,7 @@ function obtenir_carte(carte_id) {
                                     div("", "carte");
                                     div();
                                     if (!Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                        afficher_carte("adverse", "terrain", n);
+                                        afficher(afficher_carte("adverse", "terrain", n, "carte_side"));
                                     }
                                     else {
                                         afficher("???");
@@ -6709,7 +6711,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -6744,10 +6746,10 @@ function obtenir_carte(carte_id) {
         case 210:
             carte.nom = "Assassinat";
             carte.type = "Action";
-            carte.cout[0] = 13;
-            carte.vente[0] = 6;
+            carte.cout[0] = 14;
+            carte.vente[0] = 7;
             carte.texte = function () {
-                return "Inflige 10 dégâts à une Créature adverse sur le terrain. Si elle meurt : inflige 2 dégâts au Meneur adverse.";
+                return "Inflige 10 dégâts à une Créature adverse sur le terrain. Si elle meurt : inflige 5 dégâts au Meneur adverse.";
             }
             carte.effet_pose = function (step, cible) {
                 if (carte.camp == "joueur") {
@@ -6771,7 +6773,7 @@ function obtenir_carte(carte_id) {
                                     div("", "carte");
                                     div();
                                     if (!Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                        afficher_carte("adverse", "terrain", n);
+                                        afficher(afficher_carte("adverse", "terrain", n, "carte_side"));
                                     }
                                     else {
                                         afficher("???");
@@ -6786,14 +6788,14 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
                             break;
                         case 2:
                             if (degats(Jeu.adverse.terrain[cible], 10).mort) {
-                                degats_direct("adverse", 2);
+                                degats_direct("adverse", 5);
                             }
                             deplacer(carte, "joueur", "defausse");
                             effet_pose(carte);
@@ -6827,7 +6829,7 @@ function obtenir_carte(carte_id) {
                         deplacer(carte, "adverse", "defausse");
                         effet_pose(carte);
                         if (degats(Jeu.joueur.terrain[best], 10).mort) {
-                            degats_direct("joueur", 2);
+                            degats_direct("joueur", 5);
                             if (Jeu.joueur.vie <= 0) {
                                 game_over();
                             }
@@ -6869,7 +6871,7 @@ function obtenir_carte(carte_id) {
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
                                     div("", "carte");
                                     div();
-                                    afficher_carte("joueur", "terrain", n);
+                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
                                     div_fin();
                                     if (Jeu.joueur.terrain[n].type == "Bâtiment" && Jeu.joueur.terrain[n].vie < Jeu.joueur.terrain[n].vie_max) {
                                         div();
@@ -6880,7 +6882,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -6942,7 +6944,7 @@ function obtenir_carte(carte_id) {
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
                                     div("", "carte");
                                     div();
-                                    afficher_carte("joueur", "terrain", n);
+                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
                                     div_fin();
                                     if (Jeu.joueur.terrain[n].type == "Bâtiment") {
                                         div();
@@ -6953,7 +6955,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -7124,7 +7126,7 @@ function obtenir_carte(carte_id) {
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
                                     div("", "carte");
                                     div();
-                                    afficher_carte("joueur", "terrain", n);
+                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
                                     div_fin();
                                     if (Jeu.joueur.terrain[n].type == "Créature") {
                                         div();
@@ -7135,7 +7137,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -7210,7 +7212,7 @@ function obtenir_carte(carte_id) {
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
                                     div("", "carte");
                                     div();
-                                    afficher_carte("joueur", "terrain", n);
+                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
                                     div_fin();
                                     if (Jeu.joueur.terrain[n].type == "Créature") {
                                         div();
@@ -7221,7 +7223,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -7294,7 +7296,7 @@ function obtenir_carte(carte_id) {
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
                                     div("", "carte");
                                     div();
-                                    afficher_carte("joueur", "terrain", n);
+                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
                                     div_fin();
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].equipements.length < Jeu.joueur.terrain[n].equipement_max) {
                                         div();
@@ -7305,7 +7307,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -7365,7 +7367,7 @@ function obtenir_carte(carte_id) {
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
                                     div("", "carte");
                                     div();
-                                    afficher_carte("joueur", "terrain", n);
+                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
                                     div_fin();
                                     if (Jeu.joueur.terrain[n].type == "Créature") {
                                         div();
@@ -7376,7 +7378,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -7399,7 +7401,7 @@ function obtenir_carte(carte_id) {
                                 div("", "carte");
                                 div();
                                 if (!Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                    afficher_carte("adverse", "terrain", n);
+                                    afficher(afficher_carte("adverse", "terrain", n, "carte_side"));
                                 }
                                 else {
                                     afficher("???");
@@ -7414,7 +7416,7 @@ function obtenir_carte(carte_id) {
                             }
                             div_fin();
                             div_fin();
-                            div("side", "affichage");
+                            div("carte_side", "affichage");
                             div_fin();
                             actualiser();
                             break;
@@ -7484,7 +7486,7 @@ function obtenir_carte(carte_id) {
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
                                     div("", "carte");
                                     div();
-                                    afficher_carte("joueur", "terrain", n);
+                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
                                     div_fin();
                                     if (Jeu.joueur.terrain[n].type == "Créature") {
                                         div();
@@ -7495,7 +7497,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -7518,7 +7520,7 @@ function obtenir_carte(carte_id) {
                                 div("", "carte");
                                 div();
                                 if (!Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                    afficher_carte("adverse", "terrain", n);
+                                    afficher(afficher_carte("adverse", "terrain", n, "carte_side"));
                                 }
                                 else {
                                     afficher("???");
@@ -7533,7 +7535,7 @@ function obtenir_carte(carte_id) {
                             }
                             div_fin();
                             div_fin();
-                            div("side", "affichage");
+                            div("carte_side", "affichage");
                             div_fin();
                             actualiser();
                             break;
@@ -7603,7 +7605,7 @@ function obtenir_carte(carte_id) {
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
                                     div("", "carte");
                                     div();
-                                    afficher_carte("joueur", "terrain", n);
+                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
                                     div_fin();
                                     if (Jeu.joueur.terrain[n].type == "Créature") {
                                         div();
@@ -7614,7 +7616,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -7678,7 +7680,7 @@ function obtenir_carte(carte_id) {
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
                                     div("", "carte");
                                     div();
-                                    afficher_carte("joueur", "terrain", n);
+                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
                                     div_fin();
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].brulure > 0) {
                                         div();
@@ -7689,7 +7691,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -7752,7 +7754,7 @@ function obtenir_carte(carte_id) {
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
                                     div("", "carte");
                                     div();
-                                    afficher_carte("joueur", "terrain", n);
+                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
                                     div_fin();
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].gel > 0) {
                                         div();
@@ -7763,7 +7765,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -7827,7 +7829,7 @@ function obtenir_carte(carte_id) {
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
                                     div("", "carte");
                                     div();
-                                    afficher_carte("joueur", "terrain", n);
+                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
                                     div_fin();
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].etourdissement) {
                                         div();
@@ -7838,7 +7840,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -7900,7 +7902,7 @@ function obtenir_carte(carte_id) {
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
                                     div("", "carte");
                                     div();
-                                    afficher_carte("joueur", "terrain", n);
+                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
                                     div_fin();
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].saignement > 0) {
                                         div();
@@ -7911,7 +7913,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -7977,7 +7979,7 @@ function obtenir_carte(carte_id) {
                                     div("", "carte");
                                     div();
                                     if (!Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                        afficher_carte("adverse", "terrain", n);
+                                        afficher(afficher_carte("adverse", "terrain", n, "carte_side"));
                                     }
                                     else {
                                         afficher("???");
@@ -7992,7 +7994,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -8192,7 +8194,7 @@ function obtenir_carte(carte_id) {
                                     for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
                                         div("", "carte");
                                         div();
-                                        afficher_carte("joueur", "terrain", n);
+                                        afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
                                         div_fin();
                                         if (Jeu.joueur.terrain[n].type == "Créature") {
                                             div();
@@ -8218,7 +8220,7 @@ function obtenir_carte(carte_id) {
                                         div("", "carte");
                                         div();
                                         if (!Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                            afficher_carte("adverse", "terrain", n);
+                                            afficher(afficher_carte("adverse", "terrain", n, "carte_side"));
                                         }
                                         else {
                                             afficher("???");
@@ -8238,7 +8240,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -8334,7 +8336,7 @@ function obtenir_carte(carte_id) {
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
                                     div("", "carte");
                                     div();
-                                    afficher_carte("joueur", "terrain", n);
+                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
                                     div_fin();
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].equipements.length < Jeu.joueur.terrain[n].equipement_max) {
                                         div();
@@ -8345,7 +8347,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -8404,7 +8406,7 @@ function obtenir_carte(carte_id) {
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
                                     div("", "carte");
                                     div();
-                                    afficher_carte("joueur", "terrain", n);
+                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
                                     div_fin();
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].equipements.length < Jeu.joueur.terrain[n].equipement_max) {
                                         div();
@@ -8415,7 +8417,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -8458,12 +8460,12 @@ function obtenir_carte(carte_id) {
             carte.attaque = 5;
             carte.vie_max = carte.vie = 5;
             carte.texte = function () {
-                return "Quand posé : Inflige 1 dégâts au Meneur allié.";
+                return "Quand posé : Inflige 2 dégâts au Meneur allié.";
             }
             carte.effet_pose = function () {
                 if (carte.camp == "joueur") {
                     if (!statistique(carte, "silence")) {
-                        degats_direct("joueur", 1);
+                        degats_direct("joueur", 2);
                     }
                     deplacer(carte, carte.camp, "terrain");
                     effet_pose(carte);
@@ -8477,7 +8479,7 @@ function obtenir_carte(carte_id) {
                 else {
                     if (Jeu.adverse.vie >= 1) {
                         if (!statistique(carte, "silence")) {
-                            degats_direct("adverse", 1);
+                            degats_direct("adverse", 2);
                         }
                         deplacer(carte, carte.camp, "terrain");
                         effet_pose(carte);
@@ -8517,7 +8519,7 @@ function obtenir_carte(carte_id) {
                             saut();
                             fonction("Pioche 1 carte", "Jeu.joueur.main[" + carte.slot + "].effet_pose(4)");
                             div_fin();
-                            div("side", "affichage");
+                            div("carte_side", "affichage");
                             div_fin();
                             actualiser();
                             break;
@@ -8539,7 +8541,7 @@ function obtenir_carte(carte_id) {
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
                                     div("", "carte");
                                     div();
-                                    afficher_carte("joueur", "terrain", n);
+                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
                                     div_fin();
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].vie < Jeu.joueur.terrain[n].vie_max) {
                                         div();
@@ -8550,7 +8552,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -8615,7 +8617,7 @@ function obtenir_carte(carte_id) {
                                 for (let n = 0; n < Jeu.joueur.defausse.length; n++) {
                                     div("", "carte");
                                     div();
-                                    afficher_carte("joueur", "defausse", n);
+                                    afficher(afficher_carte("joueur", "defausse", n, "carte_side"));
                                     div_fin();
                                     if (Jeu.joueur.defausse[n].type == "Créature") {
                                         div();
@@ -8626,7 +8628,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -8832,7 +8834,7 @@ function obtenir_carte(carte_id) {
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
                                     div("", "carte");
                                     div();
-                                    afficher_carte("joueur", "terrain", n);
+                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
                                     div_fin();
                                     if (Jeu.joueur.terrain[n].type == "Créature") {
                                         div();
@@ -8843,7 +8845,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -8909,7 +8911,7 @@ function obtenir_carte(carte_id) {
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
                                     div("", "carte");
                                     div();
-                                    afficher_carte("joueur", "terrain", n);
+                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
                                     div_fin();
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].vie_max > 2) {
                                         div();
@@ -8920,7 +8922,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -9009,7 +9011,7 @@ function obtenir_carte(carte_id) {
                                 for (let n = 0; n < Jeu.joueur.boutique.length; n++) {
                                     div("", "carte");
                                     div();
-                                    afficher_carte("joueur", "boutique", n);
+                                    afficher(afficher_carte("joueur", "boutique", n, "carte_side"));
                                     div_fin();
                                     if (Jeu.joueur.boutique[n].familles.includes("Plante") && Jeu.joueur.boutique[n].cout[3] > 0) {
                                         div();
@@ -9020,7 +9022,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -9079,7 +9081,7 @@ function obtenir_carte(carte_id) {
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
                                     div("", "carte");
                                     div();
-                                    afficher_carte("joueur", "terrain", n);
+                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
                                     div_fin();
                                     if (["Créature", "Bâtiment"].includes(Jeu.joueur.terrain[n].type) && Jeu.joueur.terrain[n].familles.includes("Plante")) {
                                         div();
@@ -9090,7 +9092,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -9234,7 +9236,7 @@ function obtenir_carte(carte_id) {
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
                                     div("", "carte");
                                     div();
-                                    afficher_carte("joueur", "terrain", n);
+                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
                                     div_fin();
                                     if (Jeu.joueur.terrain[n].type == "Créature" && !Jeu.joueur.terrain[n].familles.includes("Vampire")) {
                                         div();
@@ -9245,7 +9247,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -9316,7 +9318,7 @@ function obtenir_carte(carte_id) {
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
                                     div("", "carte");
                                     div();
-                                    afficher_carte("joueur", "terrain", n);
+                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
                                     div_fin();
                                     if (Jeu.joueur.terrain[n].type == "Créature" && !Jeu.joueur.terrain[n].esquive) {
                                         div();
@@ -9327,7 +9329,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -9393,7 +9395,7 @@ function obtenir_carte(carte_id) {
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
                                     div("", "carte");
                                     div();
-                                    afficher_carte("joueur", "terrain", n);
+                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
                                     div_fin();
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].equipements.length < Jeu.joueur.terrain[n].equipement_max) {
                                         div();
@@ -9404,7 +9406,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -9463,7 +9465,7 @@ function obtenir_carte(carte_id) {
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
                                     div("", "carte");
                                     div();
-                                    afficher_carte("joueur", "terrain", n);
+                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
                                     div_fin();
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].equipements.length < Jeu.joueur.terrain[n].equipement_max) {
                                         div();
@@ -9474,7 +9476,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -9538,7 +9540,7 @@ function obtenir_carte(carte_id) {
                                     div("", "carte");
                                     div();
                                     if (!Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                        afficher_carte("adverse", "terrain", n);
+                                        afficher(afficher_carte("adverse", "terrain", n, "carte_side"));
                                     }
                                     else {
                                         afficher("???");
@@ -9553,7 +9555,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -9626,7 +9628,7 @@ function obtenir_carte(carte_id) {
                                     div("", "carte");
                                     div();
                                     if (!Jeu.adverse.main[n].cache) {
-                                        afficher_carte("adverse", "main", n);
+                                        afficher(afficher_carte("adverse", "main", n, "carte_side"));
                                     }
                                     else {
                                         afficher("???");
@@ -9641,7 +9643,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -9720,7 +9722,7 @@ function obtenir_carte(carte_id) {
                                     div("", "carte");
                                     div();
                                     if (!Jeu.adverse.boutique[n].cache) {
-                                        afficher_carte("adverse", "boutique", n);
+                                        afficher(afficher_carte("adverse", "boutique", n, "carte_side"));
                                     }
                                     else {
                                         afficher("???");
@@ -9735,7 +9737,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -9934,7 +9936,7 @@ function obtenir_carte(carte_id) {
                                     div("", "carte");
                                     div();
                                     if (!Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                        afficher_carte("adverse", "terrain", n);
+                                        afficher(afficher_carte("adverse", "terrain", n, "carte_side"));
                                     }
                                     else {
                                         afficher("???");
@@ -9949,7 +9951,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -10166,7 +10168,7 @@ function obtenir_carte(carte_id) {
                             saut();
                             fonction("Donne 4 Or max", "Jeu.joueur.main[" + carte.slot + "].effet_pose(3)");
                             div_fin();
-                            div("side", "affichage");
+                            div("carte_side", "affichage");
                             div_fin();
                             actualiser();
                             break;
@@ -10228,8 +10230,8 @@ function obtenir_carte(carte_id) {
         case 279:
             carte.nom = "Colère";
             carte.type = "Action";
-            carte.cout[0] = 5;
-            carte.vente[0] = 2;
+            carte.cout[0] = 15;
+            carte.vente[0] = 7;
             carte.texte = function () {
                 return "Inflige autant de dégâts à une Unité adverse sur le terrain que de vie manquante du meneur allié.";
             }
@@ -10255,7 +10257,7 @@ function obtenir_carte(carte_id) {
                                     div("", "carte");
                                     div();
                                     if (!Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                        afficher_carte("adverse", "terrain", n);
+                                        afficher(afficher_carte("adverse", "terrain", n, "carte_side"));
                                     }
                                     else {
                                         afficher("???");
@@ -10270,7 +10272,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -10361,7 +10363,7 @@ function obtenir_carte(carte_id) {
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
                                     div("", "carte");
                                     div();
-                                    afficher_carte("joueur", "terrain", n);
+                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
                                     div_fin();
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].vie_max > Jeu.joueur.terrain[n].vie) {
                                         div();
@@ -10372,7 +10374,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -10441,13 +10443,13 @@ function obtenir_carte(carte_id) {
                                     div("", "carte");
                                     div();
                                     if (!Jeu.adverse.main[n].cache) {
-                                        afficher_carte("adverse", "main", n);
+                                        afficher(afficher_carte("adverse", "main", n, "carte_side"));
                                     }
                                     else {
                                         afficher("???");
                                     }
                                     div_fin();
-                                    if (Jeu.adverse.main[n].cache) {
+                                    if (!Jeu.adverse.main[n].cache) {
                                         div();
                                         fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
                                         div_fin();
@@ -10456,7 +10458,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -10524,7 +10526,7 @@ function obtenir_carte(carte_id) {
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
                                     div("", "carte");
                                     div();
-                                    afficher_carte("joueur", "terrain", n);
+                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
                                     div_fin();
                                     if (Jeu.joueur.terrain[n].type == "Bâtiment" && Jeu.joueur.terrain[n].familles.includes("Oeuf")) {
                                         div();
@@ -10535,7 +10537,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -10607,7 +10609,7 @@ function obtenir_carte(carte_id) {
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
                                     div("", "carte");
                                     div();
-                                    afficher_carte("joueur", "terrain", n);
+                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
                                     div_fin();
                                     if (Jeu.joueur.terrain[n].type == "Créature") {
                                         div();
@@ -10618,7 +10620,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -10676,7 +10678,7 @@ function obtenir_carte(carte_id) {
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
                                     div("", "carte");
                                     div();
-                                    afficher_carte("joueur", "terrain", n);
+                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
                                     div_fin();
                                     if (Jeu.joueur.terrain[n].type == "Créature") {
                                         div();
@@ -10687,7 +10689,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -10745,7 +10747,7 @@ function obtenir_carte(carte_id) {
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
                                     div("", "carte");
                                     div();
-                                    afficher_carte("joueur", "terrain", n);
+                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
                                     div_fin();
                                     if (Jeu.joueur.terrain[n].type == "Créature") {
                                         div();
@@ -10756,7 +10758,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -10912,7 +10914,7 @@ function obtenir_carte(carte_id) {
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
                                     div("", "carte");
                                     div();
-                                    afficher_carte("joueur", "terrain", n);
+                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
                                     div_fin();
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].equipements.length < Jeu.joueur.terrain[n].equipement_max) {
                                         div();
@@ -10923,7 +10925,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -10996,7 +10998,7 @@ function obtenir_carte(carte_id) {
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
                                     div("", "carte");
                                     div();
-                                    afficher_carte("joueur", "terrain", n);
+                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
                                     div_fin();
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].equipements.length < Jeu.joueur.terrain[n].equipement_max) {
                                         div();
@@ -11007,7 +11009,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -11066,7 +11068,7 @@ function obtenir_carte(carte_id) {
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
                                     div("", "carte");
                                     div();
-                                    afficher_carte("joueur", "terrain", n);
+                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
                                     div_fin();
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].equipements.length < Jeu.joueur.terrain[n].equipement_max) {
                                         div();
@@ -11077,7 +11079,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -11141,7 +11143,7 @@ function obtenir_carte(carte_id) {
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
                                     div("", "carte");
                                     div();
-                                    afficher_carte("joueur", "terrain", n);
+                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
                                     div_fin();
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].equipements.length < Jeu.joueur.terrain[n].equipement_max) {
                                         div();
@@ -11152,7 +11154,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -11213,7 +11215,7 @@ function obtenir_carte(carte_id) {
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
                                     div("", "carte");
                                     div();
-                                    afficher_carte("joueur", "terrain", n);
+                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
                                     div_fin();
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].equipements.length < Jeu.joueur.terrain[n].equipement_max) {
                                         div();
@@ -11224,7 +11226,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -11320,7 +11322,7 @@ function obtenir_carte(carte_id) {
                                     div("", "carte");
                                     div();
                                     if (!Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                        afficher_carte("adverse", "terrain", n);
+                                        afficher(afficher_carte("adverse", "terrain", n, "carte_side"));
                                     }
                                     else {
                                         afficher("???");
@@ -11335,7 +11337,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -11416,7 +11418,7 @@ function obtenir_carte(carte_id) {
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
                                     div("", "carte");
                                     div();
-                                    afficher_carte("joueur", "terrain", n);
+                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
                                     div_fin();
                                     if (Jeu.joueur.terrain[n].type == "Créature") {
                                         div();
@@ -11427,7 +11429,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -11523,7 +11525,7 @@ function obtenir_carte(carte_id) {
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
                                     div("", "carte");
                                     div();
-                                    afficher_carte("joueur", "terrain", n);
+                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
                                     div_fin();
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].vie < Jeu.joueur.terrain[n].vie_max) {
                                         div();
@@ -11534,7 +11536,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -11661,7 +11663,7 @@ function obtenir_carte(carte_id) {
                                     div("", "carte");
                                     div();
                                     if (!Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                        afficher_carte("adverse", "terrain", n);
+                                        afficher(afficher_carte("adverse", "terrain", n, "carte_side"));
                                     }
                                     else {
                                         afficher("???");
@@ -11676,7 +11678,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -11740,7 +11742,7 @@ function obtenir_carte(carte_id) {
                                     div("", "carte");
                                     div();
                                     if (!Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                        afficher_carte("adverse", "terrain", n);
+                                        afficher(afficher_carte("adverse", "terrain", n, "carte_side"));
                                     }
                                     else {
                                         afficher("???");
@@ -11755,7 +11757,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -11851,7 +11853,7 @@ function obtenir_carte(carte_id) {
                                     div("", "carte");
                                     div();
                                     if (!Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                        afficher_carte("adverse", "terrain", n);
+                                        afficher(afficher_carte("adverse", "terrain", n, "carte_side"));
                                     }
                                     else {
                                         afficher("???");
@@ -11866,7 +11868,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -11927,7 +11929,7 @@ function obtenir_carte(carte_id) {
                                     div("", "carte");
                                     div();
                                     if (!Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                        afficher_carte("adverse", "terrain", n);
+                                        afficher(afficher_carte("adverse", "terrain", n, "carte_side"));
                                     }
                                     else {
                                         afficher("???");
@@ -11942,7 +11944,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -12201,7 +12203,7 @@ function obtenir_carte(carte_id) {
                                 for (let n = 0; n < Jeu.joueur.defausse.length; n++) {
                                     div("", "carte");
                                     div();
-                                    afficher_carte("joueur", "defausse", n);
+                                    afficher(afficher_carte("joueur", "defausse", n, "carte_side"));
                                     div_fin();
                                     if (Jeu.joueur.defausse[n].type == "Créature" && Jeu.joueur.defausse[n].familles.includes("Zombie")) {
                                         div();
@@ -12212,7 +12214,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -12285,7 +12287,7 @@ function obtenir_carte(carte_id) {
                                     div("", "carte");
                                     div();
                                     if (!Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                        afficher_carte("adverse", "terrain", n);
+                                        afficher(afficher_carte("adverse", "terrain", n, "carte_side"));
                                     }
                                     else {
                                         afficher("???");
@@ -12300,7 +12302,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -12364,7 +12366,7 @@ function obtenir_carte(carte_id) {
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
                                     div("", "carte");
                                     div();
-                                    afficher_carte("joueur", "terrain", n);
+                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
                                     div_fin();
                                     if (Jeu.joueur.terrain[n].type == "Créature" && (Jeu.joueur.terrain[n].vie < Jeu.joueur.terrain[n].vie_max && Jeu.joueur.terrain[n].poison > 0 || Jeu.joueur.terrain[n].brulure > 0 || Jeu.joueur.terrain[n].saignement > 0 || Jeu.joueur.terrain[n].contamination > 0 || Jeu.joueur.terrain[n].etourdissement || Jeu.joueur.terrain[n].silence)) {
                                         div();
@@ -12375,7 +12377,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -12457,7 +12459,7 @@ function obtenir_carte(carte_id) {
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
                                     div("", "carte");
                                     div();
-                                    afficher_carte("joueur", "terrain", n);
+                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
                                     div_fin();
                                     if (Jeu.joueur.terrain[n].type == "Créature" && !Jeu.joueur.terrain[n].camouflage) {
                                         div();
@@ -12468,7 +12470,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -12531,7 +12533,7 @@ function obtenir_carte(carte_id) {
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
                                     div("", "carte");
                                     div();
-                                    afficher_carte("joueur", "terrain", n);
+                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
                                     div_fin();
                                     if (Jeu.joueur.terrain[n].type == "Créature") {
                                         div();
@@ -12542,7 +12544,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -12605,7 +12607,7 @@ function obtenir_carte(carte_id) {
                                     div("", "carte");
                                     div();
                                     if (!Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                        afficher_carte("adverse", "terrain", n);
+                                        afficher(afficher_carte("adverse", "terrain", n, "carte_side"));
                                     }
                                     else {
                                         afficher("???");
@@ -12620,7 +12622,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -12761,7 +12763,7 @@ function obtenir_carte(carte_id) {
                                     div("", "carte");
                                     div();
                                     if (!Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                        afficher_carte("adverse", "terrain", n);
+                                        afficher(afficher_carte("adverse", "terrain", n, "carte_side"));
                                     }
                                     else {
                                         afficher("???");
@@ -12776,7 +12778,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -12854,7 +12856,7 @@ function obtenir_carte(carte_id) {
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
                                     div("", "carte");
                                     div();
-                                    afficher_carte("joueur", "terrain", n);
+                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
                                     div_fin();
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].vie < Jeu.joueur.terrain[n].vie_max) {
                                         div();
@@ -12865,7 +12867,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -12929,7 +12931,7 @@ function obtenir_carte(carte_id) {
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
                                     div("", "carte");
                                     div();
-                                    afficher_carte("joueur", "terrain", n);
+                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
                                     div_fin();
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].equipements.length < Jeu.joueur.terrain[n].equipement_max) {
                                         div();
@@ -12940,7 +12942,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -13069,7 +13071,7 @@ function obtenir_carte(carte_id) {
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
                                     div("", "carte");
                                     div();
-                                    afficher_carte("joueur", "terrain", n);
+                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
                                     div_fin();
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].familles.includes("Ogre")) {
                                         div();
@@ -13080,7 +13082,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -13110,7 +13112,7 @@ function obtenir_carte(carte_id) {
                                     div("", "carte");
                                     div();
                                     if (!Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                        afficher_carte("adverse", "terrain", n);
+                                        afficher(afficher_carte("adverse", "terrain", n, "carte_side"));
                                     }
                                     else {
                                         afficher("???");
@@ -13125,7 +13127,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -13202,7 +13204,7 @@ function obtenir_carte(carte_id) {
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
                                     div("", "carte");
                                     div();
-                                    afficher_carte("joueur", "terrain", n);
+                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
                                     div_fin();
                                     if (Jeu.joueur.terrain[n].type == "Bâtiment" && Jeu.joueur.terrain[n].vie < Jeu.joueur.terrain[n].vie_max) {
                                         div();
@@ -13213,7 +13215,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -13419,7 +13421,7 @@ function obtenir_carte(carte_id) {
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
                                     div("", "carte");
                                     div();
-                                    afficher_carte("joueur", "terrain", n);
+                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
                                     div_fin();
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].equipements.length < Jeu.joueur.terrain[n].equipement_max) {
                                         div();
@@ -13430,7 +13432,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -13494,7 +13496,7 @@ function obtenir_carte(carte_id) {
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
                                     div("", "carte");
                                     div();
-                                    afficher_carte("joueur", "terrain", n);
+                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
                                     div_fin();
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].equipements.length < Jeu.joueur.terrain[n].equipement_max) {
                                         div();
@@ -13505,7 +13507,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -13581,7 +13583,7 @@ function obtenir_carte(carte_id) {
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
                                     div("", "carte");
                                     div();
-                                    afficher_carte("joueur", "terrain", n);
+                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
                                     div_fin();
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].equipements.length < Jeu.joueur.terrain[n].equipement_max) {
                                         div();
@@ -13592,7 +13594,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -13654,7 +13656,7 @@ function obtenir_carte(carte_id) {
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
                                     div("", "carte");
                                     div();
-                                    afficher_carte("joueur", "terrain", n);
+                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
                                     div_fin();
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].equipements.length < Jeu.joueur.terrain[n].equipement_max) {
                                         div();
@@ -13665,7 +13667,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -13727,7 +13729,7 @@ function obtenir_carte(carte_id) {
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
                                     div("", "carte");
                                     div();
-                                    afficher_carte("joueur", "terrain", n);
+                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
                                     div_fin();
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].equipements.length < Jeu.joueur.terrain[n].equipement_max) {
                                         div();
@@ -13738,7 +13740,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -13801,7 +13803,7 @@ function obtenir_carte(carte_id) {
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
                                     div("", "carte");
                                     div();
-                                    afficher_carte("joueur", "terrain", n);
+                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
                                     div_fin();
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].equipements.length < Jeu.joueur.terrain[n].equipement_max) {
                                         div();
@@ -13812,7 +13814,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -13889,7 +13891,7 @@ function obtenir_carte(carte_id) {
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
                                     div("", "carte");
                                     div();
-                                    afficher_carte("joueur", "terrain", n);
+                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
                                     div_fin();
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].equipements.length < Jeu.joueur.terrain[n].equipement_max) {
                                         div();
@@ -13900,7 +13902,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -13961,7 +13963,7 @@ function obtenir_carte(carte_id) {
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
                                     div("", "carte");
                                     div();
-                                    afficher_carte("joueur", "terrain", n);
+                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
                                     div_fin();
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].equipements.length < Jeu.joueur.terrain[n].equipement_max) {
                                         div();
@@ -13972,7 +13974,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -14035,7 +14037,7 @@ function obtenir_carte(carte_id) {
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
                                     div("", "carte");
                                     div();
-                                    afficher_carte("joueur", "terrain", n);
+                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
                                     div_fin();
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].equipements.length < Jeu.joueur.terrain[n].equipement_max) {
                                         div();
@@ -14046,7 +14048,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -14115,7 +14117,7 @@ function obtenir_carte(carte_id) {
                                 saut();
                                 fonction("Inflige 3 dégâts à une Créature adverse sur le terrain", "Jeu.joueur.main[" + carte.slot + "].effet_pose(4)");
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -14138,7 +14140,7 @@ function obtenir_carte(carte_id) {
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
                                     div("", "carte");
                                     div();
-                                    afficher_carte("joueur", "terrain", n);
+                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
                                     div_fin();
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].equipements.length < Jeu.joueur.terrain[n].equipement_max) {
                                         div();
@@ -14149,7 +14151,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -14179,7 +14181,7 @@ function obtenir_carte(carte_id) {
                                     div("", "carte");
                                     div();
                                     if (!Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                        afficher_carte("adverse", "terrain", n);
+                                        afficher(afficher_carte("adverse", "terrain", n, "carte_side"));
                                     }
                                     else {
                                         afficher("???");
@@ -14193,7 +14195,7 @@ function obtenir_carte(carte_id) {
                                     div_fin();
                                 }
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -14270,7 +14272,7 @@ function obtenir_carte(carte_id) {
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
                                     div("", "carte");
                                     div();
-                                    afficher_carte("joueur", "terrain", n);
+                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
                                     div_fin();
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].equipements.length < Jeu.joueur.terrain[n].equipement_max) {
                                         div();
@@ -14281,7 +14283,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -14340,7 +14342,7 @@ function obtenir_carte(carte_id) {
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
                                     div("", "carte");
                                     div();
-                                    afficher_carte("joueur", "terrain", n);
+                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
                                     div_fin();
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].equipements.length < Jeu.joueur.terrain[n].equipement_max) {
                                         div();
@@ -14351,7 +14353,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -14410,7 +14412,7 @@ function obtenir_carte(carte_id) {
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
                                     div("", "carte");
                                     div();
-                                    afficher_carte("joueur", "terrain", n);
+                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
                                     div_fin();
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].equipements.length < Jeu.joueur.terrain[n].equipement_max) {
                                         div();
@@ -14421,7 +14423,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -14480,7 +14482,7 @@ function obtenir_carte(carte_id) {
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
                                     div("", "carte");
                                     div();
-                                    afficher_carte("joueur", "terrain", n);
+                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
                                     div_fin();
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].equipements.length < Jeu.joueur.terrain[n].equipement_max) {
                                         div();
@@ -14491,7 +14493,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -14550,7 +14552,7 @@ function obtenir_carte(carte_id) {
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
                                     div("", "carte");
                                     div();
-                                    afficher_carte("joueur", "terrain", n);
+                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
                                     div_fin();
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].equipements.length < Jeu.joueur.terrain[n].equipement_max) {
                                         div();
@@ -14561,7 +14563,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -14624,7 +14626,7 @@ function obtenir_carte(carte_id) {
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
                                     div("", "carte");
                                     div();
-                                    afficher_carte("joueur", "terrain", n);
+                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
                                     div_fin();
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].equipements.length < Jeu.joueur.terrain[n].equipement_max) {
                                         div();
@@ -14635,7 +14637,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -14695,7 +14697,7 @@ function obtenir_carte(carte_id) {
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
                                     div("", "carte");
                                     div();
-                                    afficher_carte("joueur", "terrain", n);
+                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
                                     div_fin();
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].equipements.length < Jeu.joueur.terrain[n].equipement_max) {
                                         div();
@@ -14706,7 +14708,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -14767,7 +14769,7 @@ function obtenir_carte(carte_id) {
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
                                     div("", "carte");
                                     div();
-                                    afficher_carte("joueur", "terrain", n);
+                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
                                     div_fin();
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].equipements.length < Jeu.joueur.terrain[n].equipement_max) {
                                         div();
@@ -14778,7 +14780,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -14839,7 +14841,7 @@ function obtenir_carte(carte_id) {
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
                                     div("", "carte");
                                     div();
-                                    afficher_carte("joueur", "terrain", n);
+                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
                                     div_fin();
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].equipements.length < Jeu.joueur.terrain[n].equipement_max) {
                                         div();
@@ -14850,7 +14852,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -14911,7 +14913,7 @@ function obtenir_carte(carte_id) {
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
                                     div("", "carte");
                                     div();
-                                    afficher_carte("joueur", "terrain", n);
+                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
                                     div_fin();
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].equipements.length < Jeu.joueur.terrain[n].equipement_max) {
                                         div();
@@ -14922,7 +14924,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -14987,7 +14989,7 @@ function obtenir_carte(carte_id) {
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
                                     div("", "carte");
                                     div();
-                                    afficher_carte("joueur", "terrain", n);
+                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
                                     div_fin();
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].equipements.length < Jeu.joueur.terrain[n].equipement_max) {
                                         div();
@@ -14998,7 +15000,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -15060,7 +15062,7 @@ function obtenir_carte(carte_id) {
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
                                     div("", "carte");
                                     div();
-                                    afficher_carte("joueur", "terrain", n);
+                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
                                     div_fin();
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].equipements.length < Jeu.joueur.terrain[n].equipement_max) {
                                         div();
@@ -15071,7 +15073,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -15202,7 +15204,7 @@ function obtenir_carte(carte_id) {
                                     div("", "carte");
                                     div();
                                     if (!Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                        afficher_carte("adverse", "terrain", n);
+                                        afficher(afficher_carte("adverse", "terrain", n, "carte_side"));
                                     }
                                     else {
                                         afficher("???");
@@ -15217,7 +15219,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -15398,7 +15400,7 @@ function obtenir_carte(carte_id) {
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
                                     div("", "carte");
                                     div();
-                                    afficher_carte("joueur", "terrain", n);
+                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
                                     div_fin();
                                     if (Jeu.joueur.terrain[n].type == "Créature" && !Jeu.joueur.terrain[n].camouflage) {
                                         div();
@@ -15409,7 +15411,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -15480,7 +15482,7 @@ function obtenir_carte(carte_id) {
                                     div("", "carte");
                                     div();
                                     if (!Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                        afficher_carte("adverse", "terrain", n);
+                                        afficher(afficher_carte("adverse", "terrain", n, "carte_side"));
                                     }
                                     else {
                                         afficher("???");
@@ -15495,7 +15497,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -15571,7 +15573,7 @@ function obtenir_carte(carte_id) {
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
                                     div("", "carte");
                                     div();
-                                    afficher_carte("joueur", "terrain", n);
+                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
                                     div_fin();
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].portee) {
                                         div();
@@ -15582,7 +15584,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -15645,7 +15647,7 @@ function obtenir_carte(carte_id) {
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
                                     div("", "carte");
                                     div();
-                                    afficher_carte("joueur", "terrain", n);
+                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
                                     div_fin();
                                     if (Jeu.joueur.terrain[n].type == "Créature") {
                                         div();
@@ -15656,7 +15658,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -15716,7 +15718,7 @@ function obtenir_carte(carte_id) {
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
                                     div("", "carte");
                                     div();
-                                    afficher_carte("joueur", "terrain", n);
+                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
                                     div_fin();
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].equipements.length < Jeu.joueur.terrain[n].equipement_max) {
                                         div();
@@ -15727,7 +15729,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -15793,7 +15795,7 @@ function obtenir_carte(carte_id) {
                                     div("", "carte");
                                     div();
                                     if (!Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                        afficher_carte("adverse", "terrain", n);
+                                        afficher(afficher_carte("adverse", "terrain", n, "carte_side"));
                                     }
                                     else {
                                         afficher("???");
@@ -15808,7 +15810,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -15884,7 +15886,7 @@ function obtenir_carte(carte_id) {
                                     div("", "carte");
                                     div();
                                     if (!Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                        afficher_carte("adverse", "terrain", n);
+                                        afficher(afficher_carte("adverse", "terrain", n, "carte_side"));
                                     }
                                     else {
                                         afficher("???");
@@ -15899,7 +15901,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -15970,7 +15972,7 @@ function obtenir_carte(carte_id) {
                                     div("", "carte");
                                     div();
                                     if (!Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                        afficher_carte("adverse", "terrain", n);
+                                        afficher(afficher_carte("adverse", "terrain", n, "carte_side"));
                                     }
                                     else {
                                         afficher("???");
@@ -15985,7 +15987,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -16085,7 +16087,7 @@ function obtenir_carte(carte_id) {
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
                                     div("", "carte");
                                     div();
-                                    afficher_carte("joueur", "terrain", n);
+                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
                                     div_fin();
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].cout[5] > 0 && !Jeu.joueur.terrain[n].esquive) {
                                         div();
@@ -16096,7 +16098,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -16163,7 +16165,7 @@ function obtenir_carte(carte_id) {
                                     div("", "carte");
                                     div();
                                     if (!Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                        afficher_carte("adverse", "terrain", n);
+                                        afficher(afficher_carte("adverse", "terrain", n, "carte_side"));
                                     }
                                     else {
                                         afficher("???");
@@ -16178,7 +16180,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -16273,7 +16275,7 @@ function obtenir_carte(carte_id) {
                                     div("", "carte");
                                     div();
                                     if (!Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                        afficher_carte("adverse", "terrain", n);
+                                        afficher(afficher_carte("adverse", "terrain", n, "carte_side"));
                                     }
                                     else {
                                         afficher("???");
@@ -16288,7 +16290,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -16485,7 +16487,7 @@ function obtenir_carte(carte_id) {
                                     div("", "carte");
                                     div();
                                     if (!Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                        afficher_carte("adverse", "terrain", n);
+                                        afficher(afficher_carte("adverse", "terrain", n, "carte_side"));
                                     }
                                     else {
                                         afficher("???");
@@ -16500,7 +16502,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -16568,7 +16570,7 @@ function obtenir_carte(carte_id) {
                                     div("", "carte");
                                     div();
                                     if (!Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                        afficher_carte("adverse", "terrain", n);
+                                        afficher(afficher_carte("adverse", "terrain", n, "carte_side"));
                                     }
                                     else {
                                         afficher("???");
@@ -16583,7 +16585,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -16656,7 +16658,7 @@ function obtenir_carte(carte_id) {
                                     div("", "carte");
                                     div();
                                     if (!Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                        afficher_carte("adverse", "terrain", n);
+                                        afficher(afficher_carte("adverse", "terrain", n, "carte_side"));
                                     }
                                     else {
                                         afficher("???");
@@ -16671,7 +16673,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -16739,7 +16741,7 @@ function obtenir_carte(carte_id) {
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
                                     div("", "carte");
                                     div();
-                                    afficher_carte("joueur", "terrain", n);
+                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
                                     div_fin();
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].vie < Jeu.joueur.terrain[n].vie_max) {
                                         div();
@@ -16750,7 +16752,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -16897,7 +16899,7 @@ function obtenir_carte(carte_id) {
                                     }
                                     div("", "carte");
                                     div();
-                                    afficher_carte("joueur", "terrain", n);
+                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
                                     div_fin();
                                     if (verifier2) {
                                         div();
@@ -16908,7 +16910,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -17009,7 +17011,7 @@ function obtenir_carte(carte_id) {
                                     }
                                     div("", "carte");
                                     div();
-                                    afficher_carte("adverse", "terrain", n);
+                                    afficher(afficher_carte("adverse", "terrain", n, "carte_side"));
                                     div_fin();
                                     if (verifier2) {
                                         div();
@@ -17020,7 +17022,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -17126,7 +17128,7 @@ function obtenir_carte(carte_id) {
                                     }
                                     div("", "carte");
                                     div();
-                                    afficher_carte("adverse", "terrain", n);
+                                    afficher(afficher_carte("adverse", "terrain", n, "carte_side"));
                                     div_fin();
                                     if (verifier2) {
                                         div();
@@ -17137,7 +17139,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -17309,7 +17311,7 @@ function obtenir_carte(carte_id) {
                                 for (let n = 0; n < Jeu.joueur.defausse.length; n++) {
                                     div("", "carte");
                                     div();
-                                    afficher_carte("joueur", "defausse", n);
+                                    afficher(afficher_carte("joueur", "defausse", n, "carte_side"));
                                     div_fin();
                                     if (Jeu.joueur.defausse[n].type == "Créature") {
                                         div();
@@ -17320,7 +17322,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -17660,7 +17662,7 @@ function obtenir_carte(carte_id) {
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
                                     div("", "carte");
                                     div();
-                                    afficher_carte("joueur", "terrain", n);
+                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
                                     div_fin();
                                     if (Jeu.joueur.terrain[n].type == "Créature" && !Jeu.joueur.terrain[n].protection) {
                                         div();
@@ -17671,7 +17673,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -17748,7 +17750,7 @@ function obtenir_carte(carte_id) {
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
                                     div("", "carte");
                                     div();
-                                    afficher_carte("joueur", "terrain", n);
+                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
                                     div_fin();
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].protection) {
                                         div();
@@ -17759,7 +17761,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -17892,7 +17894,7 @@ function obtenir_carte(carte_id) {
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
                                     div("", "carte");
                                     div();
-                                    afficher_carte("joueur", "terrain", n);
+                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
                                     div_fin();
                                     if (Jeu.joueur.terrain[n].type == "Créature") {
                                         div();
@@ -17903,7 +17905,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -18078,7 +18080,7 @@ function obtenir_carte(carte_id) {
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
                                     div("", "carte");
                                     div();
-                                    afficher_carte("joueur", "terrain", n);
+                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
                                     div_fin();
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].equipements.length < Jeu.joueur.terrain[n].equipement_max) {
                                         div();
@@ -18089,7 +18091,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -18194,7 +18196,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -18306,12 +18308,12 @@ function obtenir_carte(carte_id) {
             carte.vie_max = carte.vie = 20;
             carte.protection = true;
             carte.texte = function () {
-                return "Quand posé : Si le Meneur allié est blessé, le soigne de 5. Sinon, se donne 5 vie.";
+                return "Quand posé : Si le Meneur allié est blessé, le soigne de 10. Sinon, se donne 5 vie.";
             }
             carte.effet_pose = function () {
                 if (!statistique(carte, "silence")) {
                     if (Jeu[carte.camp].vie < Jeu[carte.camp].vie_max) {
-                        soin_direct(carte.camp, 5);
+                        soin_direct(carte.camp, 10);
                     }
                     else {
                         carte.vie += 5;
@@ -18337,12 +18339,12 @@ function obtenir_carte(carte_id) {
             carte.attaque = 20;
             carte.vie_max = carte.vie = 20;
             carte.texte = function () {
-                return "Quand posé : Si le Meneur allié est blessé, le soigne de 5. Sinon, donne 5 vie max au Meneur allié.";
+                return "Quand posé : Si le Meneur allié est blessé, le soigne de 10. Sinon, donne 5 vie max au Meneur allié.";
             }
             carte.effet_pose = function () {
                 if (!statistique(carte, "silence")) {
                     if (Jeu[carte.camp].vie < Jeu[carte.camp].vie_max) {
-                        soin_direct(carte.camp, 5);
+                        soin_direct(carte.camp, 10);
                     }
                     else {
                         Jeu[carte.camp].vie_max += 5;
@@ -18367,11 +18369,11 @@ function obtenir_carte(carte_id) {
             carte.attaque = 20;
             carte.vie_max = carte.vie = 20;
             carte.texte = function () {
-                return "Quand attaque : Si le Meneur allié est blessé, le soigne de 2. Sinon, inflige 8 dégâts à l'Unité attaquée.";
+                return "Quand attaque : Si le Meneur allié est blessé, le soigne de 4. Sinon, inflige 8 dégâts à l'Unité attaquée.";
             }
             carte.effet_attaque = function (defenseur) {
                 if (Jeu[carte.camp].vie < Jeu[carte.camp].vie_max) {
-                    soin_direct(carte.camp, 2);
+                    soin_direct(carte.camp, 4);
                 }
                 else {
                     degats(defenseur, 8);
@@ -18486,7 +18488,7 @@ function obtenir_carte(carte_id) {
                                     div("", "carte");
                                     div();
                                     if (!Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                        afficher_carte("adverse", "terrain", n);
+                                        afficher(afficher_carte("adverse", "terrain", n, "carte_side"));
                                     }
                                     else {
                                         afficher("???");
@@ -18501,7 +18503,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -18588,7 +18590,7 @@ function obtenir_carte(carte_id) {
                                     div("", "carte");
                                     div();
                                     if (!Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                        afficher_carte("adverse", "terrain", n);
+                                        afficher(afficher_carte("adverse", "terrain", n, "carte_side"));
                                     }
                                     else {
                                         afficher("???");
@@ -18603,7 +18605,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -18696,7 +18698,7 @@ function obtenir_carte(carte_id) {
                                 for (let n = 0; n < Jeu.joueur.main.length; n++) {
                                     div("", "carte");
                                     div();
-                                    afficher_carte("joueur", "main", n);
+                                    afficher(afficher_carte("joueur", "main", n, "carte_side"));
                                     div_fin();
                                     if (Jeu.joueur.main[n].familles.includes("Démon") && Jeu.joueur.main[n].type == "Créature") {
                                         div();
@@ -18707,7 +18709,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -18812,7 +18814,7 @@ function obtenir_carte(carte_id) {
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
                                     div("", "carte");
                                     div();
-                                    afficher_carte("joueur", "terrain", n);
+                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
                                     div_fin();
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].equipements.length < Jeu.joueur.terrain[n].equipement_max) {
                                         div();
@@ -18823,7 +18825,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -18918,7 +18920,7 @@ function obtenir_carte(carte_id) {
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
                                     div("", "carte");
                                     div();
-                                    afficher_carte("joueur", "terrain", n);
+                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
                                     div_fin();
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].equipements.length < Jeu.joueur.terrain[n].equipement_max) {
                                         div();
@@ -18929,7 +18931,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -19046,7 +19048,7 @@ function obtenir_carte(carte_id) {
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
                                     div("", "carte");
                                     div();
-                                    afficher_carte("joueur", "terrain", n);
+                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
                                     div_fin();
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].equipements.length < Jeu.joueur.terrain[n].equipement_max) {
                                         div();
@@ -19057,7 +19059,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -19162,7 +19164,7 @@ function obtenir_carte(carte_id) {
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
                                     div("", "carte");
                                     div();
-                                    afficher_carte("joueur", "terrain", n);
+                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
                                     div_fin();
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].equipements.length < Jeu.joueur.terrain[n].equipement_max) {
                                         div();
@@ -19173,7 +19175,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -19381,7 +19383,7 @@ function obtenir_carte(carte_id) {
                                     div("", "carte");
                                     div();
                                     if (!Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                        afficher_carte("adverse", "terrain", n);
+                                        afficher(afficher_carte("adverse", "terrain", n, "carte_side"));
                                     }
                                     else {
                                         afficher("???");
@@ -19396,7 +19398,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -19476,7 +19478,7 @@ function obtenir_carte(carte_id) {
                                     for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
                                         div("", "carte");
                                         div();
-                                        afficher_carte("joueur", "terrain", n);
+                                        afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
                                         div_fin();
                                         if (Jeu.joueur.terrain[n].type == "Créature") {
                                             div();
@@ -19502,7 +19504,7 @@ function obtenir_carte(carte_id) {
                                         div("", "carte");
                                         div();
                                         if (!Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                            afficher_carte("adverse", "terrain", n);
+                                            afficher(afficher_carte("adverse", "terrain", n, "carte_side"));
                                         }
                                         else {
                                             afficher("???");
@@ -19522,7 +19524,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -19674,7 +19676,7 @@ function obtenir_carte(carte_id) {
                                     div("", "carte");
                                     div();
                                     if (!Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                        afficher_carte("adverse", "terrain", n);
+                                        afficher(afficher_carte("adverse", "terrain", n, "carte_side"));
                                     }
                                     else {
                                         afficher("???");
@@ -19689,7 +19691,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -19762,7 +19764,7 @@ function obtenir_carte(carte_id) {
                                     div("", "carte");
                                     div();
                                     if (!Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                        afficher_carte("adverse", "terrain", n);
+                                        afficher(afficher_carte("adverse", "terrain", n, "carte_side"));
                                     }
                                     else {
                                         afficher("???");
@@ -19777,7 +19779,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -20126,7 +20128,7 @@ function obtenir_carte(carte_id) {
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
                                     div("", "carte");
                                     div();
-                                    afficher_carte("joueur", "terrain", n);
+                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
                                     div_fin();
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].vie < Jeu.joueur.terrain[n].vie_max) {
                                         div();
@@ -20137,7 +20139,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -20315,7 +20317,7 @@ function obtenir_carte(carte_id) {
                                 saut();
                                 fonction("Donne 3 vie à toutes les Créatures alliées sur le terrain", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2,2)");
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -20477,7 +20479,7 @@ function obtenir_carte(carte_id) {
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
                                     div("", "carte");
                                     div();
-                                    afficher_carte("joueur", "terrain", n);
+                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
                                     div_fin();
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].equipements.length < Jeu.joueur.terrain[n].equipement_max) {
                                         div();
@@ -20488,7 +20490,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -20547,7 +20549,7 @@ function obtenir_carte(carte_id) {
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
                                     div("", "carte");
                                     div();
-                                    afficher_carte("joueur", "terrain", n);
+                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
                                     div_fin();
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].equipements.length < Jeu.joueur.terrain[n].equipement_max) {
                                         div();
@@ -20558,7 +20560,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -20617,7 +20619,7 @@ function obtenir_carte(carte_id) {
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
                                     div("", "carte");
                                     div();
-                                    afficher_carte("joueur", "terrain", n);
+                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
                                     div_fin();
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].equipements.length < Jeu.joueur.terrain[n].equipement_max) {
                                         div();
@@ -20628,7 +20630,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -20792,7 +20794,7 @@ function obtenir_carte(carte_id) {
                                     div("", "carte");
                                     div();
                                     if (!Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                        afficher_carte("adverse", "terrain", n);
+                                        afficher(afficher_carte("adverse", "terrain", n, "carte_side"));
                                     }
                                     else {
                                         afficher("???");
@@ -20807,7 +20809,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -20871,7 +20873,7 @@ function obtenir_carte(carte_id) {
                                     div("", "carte");
                                     div();
                                     if (!Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                        afficher_carte("adverse", "terrain", n);
+                                        afficher(afficher_carte("adverse", "terrain", n, "carte_side"));
                                     }
                                     else {
                                         afficher("???");
@@ -20886,7 +20888,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -20988,7 +20990,7 @@ function obtenir_carte(carte_id) {
                                     div("", "carte");
                                     div();
                                     if (!Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                        afficher_carte("adverse", "terrain", n);
+                                        afficher(afficher_carte("adverse", "terrain", n, "carte_side"));
                                     }
                                     else {
                                         afficher("???");
@@ -21003,7 +21005,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -21126,7 +21128,7 @@ function obtenir_carte(carte_id) {
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
                                     div("", "carte");
                                     div();
-                                    afficher_carte("joueur", "terrain", n);
+                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
                                     div_fin();
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].familles.includes("Mage")) {
                                         div();
@@ -21137,7 +21139,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -21397,14 +21399,14 @@ function obtenir_carte(carte_id) {
         case 497:
             carte.nom = "Auberge";
             carte.type = "Bâtiment";
-            carte.cout[0] = 14;
+            carte.cout[0] = 15;
             carte.vente[0] = 7;
             carte.vie_max = carte.vie = 10;
             carte.texte = function () {
-                return "Au début de la phase de préparation : Soigne 2 à votre meneur.";
+                return "Au début de la phase de préparation : Soigne 5 à votre meneur.";
             }
             carte.effet_etage_debut = function () {
-                soin_direct(carte.camp, 2);
+                soin_direct(carte.camp, 5);
             }
             break;
         case 498:
@@ -21450,16 +21452,16 @@ function obtenir_carte(carte_id) {
             carte.nom = "Aubergiste";
             define_creature(carte);
             carte.familles.push("Humain");
-            carte.cout[0] = 9;
+            carte.cout[0] = 8;
             carte.vente[0] = 4;
             carte.attaque = 3;
             carte.vie_max = carte.vie = 3;
             carte.texte = function () {
-                return "Quand posé : Soigne 2 à votre meneur.";
+                return "Quand posé : Soigne 3 à votre meneur.";
             }
             carte.effet_pose = function () {
                 if (!statistique(carte, "silence")) {
-                    soin_direct(carte.camp, 2);
+                    soin_direct(carte.camp, 3);
                 }
                 deplacer(carte, "adverse", "terrain");
                 effet_pose(carte);
@@ -21524,12 +21526,12 @@ function obtenir_carte(carte_id) {
             carte.attaque = 2;
             carte.vie_max = carte.vie = 2;
             carte.texte = function () {
-                return "Quand posé : Inflige 1 dégât à votre meneur et pioche 2 cartes.";
+                return "Quand posé : Inflige 2 dégâts à votre meneur et pioche 2 cartes.";
             }
             carte.effet_pose = function () {
                 if (carte.camp == "joueur") {
                     if (!statistique(carte, "silence")) {
-                        degats_direct("joueur", 1);
+                        degats_direct("joueur", 2);
                     }
                     pioche("joueur");
                     deplacer(carte, carte.camp, "terrain");
@@ -21608,7 +21610,7 @@ function obtenir_carte(carte_id) {
                                     div("", "carte");
                                     div();
                                     if (!Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                        afficher_carte("adverse", "terrain", n);
+                                        afficher(afficher_carte("adverse", "terrain", n, "carte_side"));
                                     }
                                     else {
                                         afficher("???");
@@ -21623,7 +21625,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -21853,7 +21855,7 @@ function obtenir_carte(carte_id) {
                             saut();
                             fonction("Donne 1 Lumière max", "Jeu.joueur.main[" + carte.slot + "].effet_pose(4)");
                             div_fin();
-                            div("side", "affichage");
+                            div("carte_side", "affichage");
                             div_fin();
                             actualiser();
                             break;
@@ -21875,7 +21877,7 @@ function obtenir_carte(carte_id) {
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
                                     div("", "carte");
                                     div();
-                                    afficher_carte("joueur", "terrain", n);
+                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
                                     div_fin();
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].vie < Jeu.joueur.terrain[n].vie_max) {
                                         div();
@@ -21886,7 +21888,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -21950,7 +21952,7 @@ function obtenir_carte(carte_id) {
                             saut();
                             fonction("Donne 1 Feu max", "Jeu.joueur.main[" + carte.slot + "].effet_pose(4)");
                             div_fin();
-                            div("side", "affichage");
+                            div("carte_side", "affichage");
                             div_fin();
                             actualiser();
                             break;
@@ -21973,7 +21975,7 @@ function obtenir_carte(carte_id) {
                                     div("", "carte");
                                     div();
                                     if (!Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                        afficher_carte("adverse", "terrain", n);
+                                        afficher(afficher_carte("adverse", "terrain", n, "carte_side"));
                                     }
                                     else {
                                         afficher("???");
@@ -21988,7 +21990,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -22154,7 +22156,7 @@ function obtenir_carte(carte_id) {
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
                                     div("", "carte");
                                     div();
-                                    afficher_carte("joueur", "terrain", n);
+                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
                                     div_fin();
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].familles.includes("Militaire")) {
                                         div();
@@ -22165,7 +22167,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -22266,7 +22268,7 @@ function obtenir_carte(carte_id) {
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
                                     div("", "carte");
                                     div();
-                                    afficher_carte("joueur", "terrain", n);
+                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
                                     div_fin();
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].equipements.length < Jeu.joueur.terrain[n].equipement_max) {
                                         div();
@@ -22277,7 +22279,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -22475,7 +22477,7 @@ function obtenir_carte(carte_id) {
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
                                     div("", "carte");
                                     div();
-                                    afficher_carte("joueur", "terrain", n);
+                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
                                     div_fin();
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].equipements.length < Jeu.joueur.terrain[n].equipement_max) {
                                         div();
@@ -22486,7 +22488,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -22581,7 +22583,7 @@ function obtenir_carte(carte_id) {
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
                                     div("", "carte");
                                     div();
-                                    afficher_carte("joueur", "terrain", n);
+                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
                                     div_fin();
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].familles.includes("Fantôme") && (!Jeu.joueur.terrain[n].camouflage || !Jeu.joueur.terrain[n].rapidite)) {
                                         div();
@@ -22592,7 +22594,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -22672,7 +22674,7 @@ function obtenir_carte(carte_id) {
                                     for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
                                         div("", "carte");
                                         div();
-                                        afficher_carte("joueur", "terrain", n);
+                                        afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
                                         div_fin();
                                         if (Jeu.joueur.terrain[n].type == "Créature" && !Jeu.joueur.terrain[n].familles.includes("Fantôme")) {
                                             div();
@@ -22698,7 +22700,7 @@ function obtenir_carte(carte_id) {
                                         div("", "carte");
                                         div();
                                         if (!Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                            afficher_carte("adverse", "terrain", n);
+                                            afficher(afficher_carte("adverse", "terrain", n, "carte_side"));
                                         }
                                         else {
                                             afficher("???");
@@ -22718,7 +22720,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -22944,7 +22946,7 @@ function obtenir_carte(carte_id) {
                                 for (let n = 0; n < Jeu.joueur.boutique.length; n++) {
                                     div("", "carte");
                                     div();
-                                    afficher_carte("joueur", "boutique", n);
+                                    afficher(afficher_carte("joueur", "boutique", n, "carte_side"));
                                     div_fin();
                                     if (Jeu.joueur.boutique[n].type == "Créature") {
                                         div();
@@ -22955,7 +22957,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 div_fin();
                                 div_fin();
-                                div("side", "affichage");
+                                div("carte_side", "affichage");
                                 div_fin();
                                 actualiser();
                             }
@@ -23141,7 +23143,7 @@ function obtenir_carte(carte_id) {
             }
             carte.effet_pose = function () {
                 if (!statistique(carte, "silence")) {
-                    for (let n=0;n<2;n++) {
+                    for (let n = 0; n < 2; n++) {
                         let nouvelle_carte = obtenir_carte(13);
                         nouvelle_carte.vente = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
                         ajouter(nouvelle_carte, carte.camp, "terrain");
