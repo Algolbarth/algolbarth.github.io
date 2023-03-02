@@ -164,7 +164,6 @@ function nouvelle_partie() {
     ajouter(obtenir_carte(113), "joueur", "regions");
     ajouter(obtenir_carte(78), "joueur", "regions");
     ajouter(obtenir_carte(31), "joueur", "main");
-    ajouter(obtenir_carte(16), "joueur", "main");
     ajouter(obtenir_carte(1), "joueur", "terrain");
     for (let n = 0; n < Jeu.joueur.main.length; n++) {
         Jeu.joueur.main[n].cache = true;
