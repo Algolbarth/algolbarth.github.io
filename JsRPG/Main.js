@@ -208,22 +208,7 @@ function menu() {
 
 function joueur_voir() {
     div("main");
-    div("", "zone");
-    afficher("<u>Meneur :</u> " + Jeu.joueur.vie + " / " + Jeu.joueur.vie_max + " VIE");
-    saut();
-    for (let n = 0; n < Jeu.ressources.length; n++) {
-        if (Jeu.joueur.ressources[n].max > 0 || Jeu.joueur.ressources[n].courant > 0 || Jeu.joueur.ressources[n].reserve > 0) {
-            afficher(Jeu.ressources[n].nom + " : " + Jeu.joueur.ressources[n].courant + " / " + Jeu.joueur.ressources[n].max);
-            if (Jeu.joueur.ressources[n].reserve > 0) {
-                afficher(" + " + Jeu.joueur.ressources[n].reserve);
-            }
-            saut();
-        }
-    }
-    if (Jeu.ressource_sup > 0) {
-        fonction("Ajouter une ressource", "ressource_choisir()");
-        saut();
-    }
+    div("joueur_meneur", "zone");
     div_fin();
     saut();
     afficher("</i>");
@@ -246,18 +231,7 @@ function joueur_voir() {
 
 function adversaire_voir() {
     div("side");
-    div("", "zone");
-    afficher("<u>Meneur adverse :</u> " + Jeu.adverse.vie + " / " + Jeu.adverse.vie_max + " VIE");
-    saut();
-    for (let n = 0; n < Jeu.ressources.length; n++) {
-        if (Jeu.adverse.ressources[n].max > 0 || Jeu.adverse.ressources[n].courant > 0 || Jeu.adverse.ressources[n].reserve > 0) {
-            afficher(Jeu.ressources[n].nom + " : " + Jeu.adverse.ressources[n].courant + " / " + Jeu.adverse.ressources[n].max);
-            if (Jeu.adverse.ressources[n].reserve > 0) {
-                afficher(" + " + Jeu.adverse.ressources[n].reserve);
-            }
-            saut();
-        }
-    }
+    div("adverse_meneur", "zone");
     div_fin();
     saut();
     afficher("</i>");
@@ -276,6 +250,30 @@ function adversaire_voir() {
     div("adverse_defausse", "zone");
     div_fin();
     div_fin();
+}
+
+function afficher_meneur (camp) {
+    let texte = "";
+    texte += "<u>Meneur";
+    if (camp == "adverse") {
+        texte += " adverse";
+    }
+    texte += " :</u> " + Jeu[camp].vie + " / " + Jeu[camp].vie_max + " VIE";
+    texte += "<br/>";
+    for (let n = 0; n < Jeu.ressources.length; n++) {
+        if (Jeu[camp].ressources[n].max > 0 || Jeu[camp].ressources[n].courant > 0 || Jeu[camp].ressources[n].reserve > 0) {
+            texte += Jeu.ressources[n].nom + " : " + Jeu[camp].ressources[n].courant + " / " + Jeu[camp].ressources[n].max;
+            if (Jeu[camp].ressources[n].reserve > 0) {
+                texte += " + " + Jeu[camp].ressources[n].reserve;
+            }
+            texte += "<br/>";
+        }
+    }
+    if (camp == "joueur" && Jeu.ressource_sup > 0) {
+        texte += "<button onclick='javascript:ressource_choisir()'>Ajouter une ressource</button>";
+        texte += "<br/>";
+    }
+    div_actualiser(camp + "_meneur", texte);
 }
 
 function afficher_zone(camp, zone, nom, vide) {
@@ -353,11 +351,13 @@ function afficher_zone(camp, zone, nom, vide) {
 }
 
 function actualiser_zone() {
+    afficher_meneur("joueur");
     afficher_zone("joueur", "regions", "Régions");
     afficher_zone("joueur", "boutique", "Boutique", "Votre boutique est vide");
     afficher_zone("joueur", "main", "Main", "Votre main est vide");
     afficher_zone("joueur", "terrain", "Terrain", "Votre terrain est vide");
     afficher_zone("joueur", "defausse", "Défausse", "Votre défausse est vide");
+    afficher_meneur("adverse");
     afficher_zone("adverse", "regions", "Régions adverses");
     afficher_zone("adverse", "boutique", "Boutique adverse", "La boutique adverse est vide");
     afficher_zone("adverse", "main", "Main adverse", "La main adverse est vide");
@@ -675,7 +675,7 @@ function boutique_rafraichir() {
     if (Jeu.joueur.ressources[0].courant >= Jeu.boutique_niveau + 1) {
         Jeu.joueur.ressources[0].courant -= Jeu.boutique_niveau + 1;
         boutique_actualiser();
-        menu();
+        actualiser_zone();
     }
 }
 
@@ -750,7 +750,9 @@ function acheter(camp, boutique_slot) {
         }
         Jeu[camp].boutique[boutique_slot].verrouillage = false;
         deplacer(Jeu[camp].boutique[boutique_slot], camp, "main");
-        menu();
+        if (camp == "joueur") {
+            actualiser_zone();
+        }
         return true;
     }
     return false;
