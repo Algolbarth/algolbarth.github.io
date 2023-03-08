@@ -38,7 +38,7 @@ function obtenir_carte(carte_id) {
         resistance: 0,
         ephemere: false,
         temporaire: false,
-        decompte: 0,
+        compteur: 0,
         camouflage: false,
         gel: 0,
         etourdissement: false,
@@ -78,10 +78,11 @@ function obtenir_carte(carte_id) {
         effet_soin: function () { },
         effet_soin_carte: function () { },
         effet_equiper: function () { },
-        effet_decompte: function () { },
+        effet_compteur: function () { },
         effet_vente: function () { },
         effet_vente_carte: function () { },
         effet_etage_debut: function () { },
+        effet_etage_fin: function () { },
         boutique_generer: function () { },
         equipements: [],
         equipement_max: 0
@@ -2266,23 +2267,29 @@ function obtenir_carte(carte_id) {
             carte.vente[5] = 4;
             carte.vie_max = carte.vie = 3;
             carte.texte = function () {
-                return "Quand arrive sur le terrain : Lance un décompte de 3.<br/>Quand le décompte de cette carte est écoulé : Se détruit et crée " + effet_carte_voir_id(9, carte) + " dans la main.";
+                return "Quand arrive sur le terrain : S'applique 3 Compteur.<br/>A la fin d'une phase de combat : S'enlève 1 Compteur.<br/>Si cette carte n'a aucun Compteur : Se détruit et crée " + effet_carte_voir_id(9, carte) + " dans la main.";
             }
             carte.effet_ajouter = function () {
                 if (carte.zone == "terrain") {
-                    carte.decompte = 3;
+                    carte.compteur = 3;
                 }
             }
             carte.effet_enlever = function () {
                 if (carte.zone == "terrain") {
-                    carte.decompte = 0;
+                    carte.compteur = 0;
                 }
             }
-            carte.effet_decompte = function () {
-                let nouvelle_carte = obtenir_carte(9);
-                nouvelle_carte.vente = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-                ajouter(nouvelle_carte, carte.camp, "main");
-                carte.vie = 0;
+            carte.effet_etage_fin = function () {
+                carte.compteur--;
+                carte.effet_compteur();
+            }
+            carte.effet_compteur = function () {
+                if (carte.compteur == 0) {
+                    let nouvelle_carte = obtenir_carte(9);
+                    nouvelle_carte.vente = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+                    ajouter(nouvelle_carte, carte.camp, "main");
+                    carte.vie = 0;
+                }
             }
             break;
         case 64:
@@ -9138,23 +9145,29 @@ function obtenir_carte(carte_id) {
             carte.vente[5] = 1;
             carte.vie_max = carte.vie = 1;
             carte.texte = function () {
-                return "Quand arrive sur le terrain : Lance un décompte de 1.<br/>Quand le décompte de cette carte est écoulé : Se détruit et crée " + effet_carte_voir_id(119, carte) + " dans la main.";
+                return "Quand arrive sur le terrain : S'applique 1 Compteur.<br/>A la fin d'une phase de combat : S'enlève 1 Compteur.<br/>Si cette carte n'a aucun Compteur : Se détruit et crée " + effet_carte_voir_id(119, carte) + " dans la main.";
             }
             carte.effet_ajouter = function () {
                 if (carte.zone == "terrain") {
-                    carte.decompte = 1;
+                    carte.compteur = 1;
                 }
             }
             carte.effet_enlever = function () {
                 if (carte.zone == "terrain") {
-                    carte.decompte = 0;
+                    carte.compteur = 0;
                 }
             }
-            carte.effet_decompte = function () {
-                let nouvelle_carte = obtenir_carte(119);
-                nouvelle_carte.vente = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-                ajouter(nouvelle_carte, carte.camp, "main");
-                carte.vie = 0;
+            carte.effet_etage_fin = function () {
+                carte.compteur--;
+                carte.effet_compteur();
+            }
+            carte.effet_compteur = function () {
+                if (carte.compteur == 0) {
+                    let nouvelle_carte = obtenir_carte(119);
+                    nouvelle_carte.vente = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+                    ajouter(nouvelle_carte, carte.camp, "main");
+                    carte.vie = 0;
+                }
             }
             break;
         case 254:
@@ -9177,25 +9190,31 @@ function obtenir_carte(carte_id) {
             carte.vente[5] = 1;
             carte.vie_max = carte.vie = 1;
             carte.texte = function () {
-                return "Quand arrive sur le terrain : Lance un décompte de 1.<br/>Quand le décompte de cette carte est écoulé : Se détruit et crée 3 " + effet_carte_voir_id(254, carte) + " dans la main.";
+                return "Quand arrive sur le terrain : S'applique 1 Compteur.<br/>A la fin d'une phase de combat : S'enlève 1 Compteur.<br/>Si cette carte n'a aucun Compteur : Se détruit et crée 3 " + effet_carte_voir_id(254, carte) + " dans la main.";
             }
             carte.effet_ajouter = function () {
                 if (carte.zone == "terrain") {
-                    carte.decompte = 1;
+                    carte.compteur = 1;
                 }
             }
             carte.effet_enlever = function () {
                 if (carte.zone == "terrain") {
-                    carte.decompte = 0;
+                    carte.compteur = 0;
                 }
             }
-            carte.effet_decompte = function () {
-                for (let n = 0; n < 3; n++) {
-                    let nouvelle_carte = obtenir_carte(254);
-                    nouvelle_carte.vente = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-                    ajouter(nouvelle_carte, carte.camp, "main");
+            carte.effet_etage_fin = function () {
+                carte.compteur--;
+                carte.effet_compteur();
+            }
+            carte.effet_compteur = function () {
+                if (carte.compteur == 0) {
+                    for (let n = 0; n < 3; n++) {
+                        let nouvelle_carte = obtenir_carte(254);
+                        nouvelle_carte.vente = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+                        ajouter(nouvelle_carte, carte.camp, "main");
+                    }
+                    carte.vie = 0;
                 }
-                carte.vie = 0;
             }
             break;
         case 256:
@@ -10497,7 +10516,7 @@ function obtenir_carte(carte_id) {
             carte.cout[0] = 10;
             carte.vente[0] = 5;
             carte.texte = function () {
-                return "Met le décompte d'un Bâtiment allié Oeuf sur le terrain à 0.";
+                return "Met le Compteur d'un Bâtiment allié Oeuf sur le terrain à 0.";
             }
             carte.effet_pose = function (step, cible) {
                 if (carte.camp == "joueur") {
@@ -10543,8 +10562,8 @@ function obtenir_carte(carte_id) {
                             }
                             break;
                         case 2:
-                            Jeu.joueur.terrain[cible].decompte = 0;
-                            Jeu.joueur.terrain[cible].effet_decompte();
+                            Jeu.joueur.terrain[cible].compteur = 0;
+                            Jeu.joueur.terrain[cible].effet_compteur();
                             if (Jeu.joueur.terrain[cible].vie == 0) {
                                 mort(Jeu.joueur.terrain[cible]);
                             }
@@ -10566,8 +10585,8 @@ function obtenir_carte(carte_id) {
                         while (Jeu.adverse.terrain[best].type != "Bâtiment" || !Jeu.adverse.terrain[best].familles.includes("Oeuf")) {
                             best++;
                         }
-                        Jeu.adverse.terrain[best].decompte = 0;
-                        Jeu.adverse.terrain[best].effet_decompte();
+                        Jeu.adverse.terrain[best].compteur = 0;
+                        Jeu.adverse.terrain[best].effet_compteur();
                         if (Jeu.adverse.terrain[best].vie == 0) {
                             mort(Jeu.adverse.terrain[best]);
                         }
@@ -22779,23 +22798,29 @@ function obtenir_carte(carte_id) {
             carte.vente[5] = 8;
             carte.vie_max = carte.vie = 3;
             carte.texte = function () {
-                return "Quand arrive sur le terrain : Lance un décompte de 3.<br/>Quand le décompte de cette carte est écoulé : Se détruit et crée " + effet_carte_voir_id(67, carte) + " dans la main.";
+                return "Quand arrive sur le terrain : S'applique 3 Compteur.<br/>A la fin d'une phase de combat : S'enlève 1 Compteur.<br/>Si cette carte n'a aucun Compteur : Se détruit et crée " + effet_carte_voir_id(67, carte) + " dans la main.";
             }
             carte.effet_ajouter = function () {
                 if (carte.zone == "terrain") {
-                    carte.decompte = 3;
+                    carte.compteur = 3;
                 }
             }
             carte.effet_enlever = function () {
                 if (carte.zone == "terrain") {
-                    carte.decompte = 0;
+                    carte.compteur = 0;
                 }
             }
-            carte.effet_decompte = function () {
-                let nouvelle_carte = obtenir_carte(67);
-                nouvelle_carte.vente = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-                ajouter(nouvelle_carte, carte.camp, "main");
-                mort(carte);
+            carte.effet_etage_fin = function () {
+                carte.compteur--;
+                carte.effet_compteur();
+            }
+            carte.effet_compteur = function () {
+                if (carte.compteur == 0) {
+                    let nouvelle_carte = obtenir_carte(67);
+                    nouvelle_carte.vente = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+                    ajouter(nouvelle_carte, carte.camp, "main");
+                    carte.vie = 0;
+                }
             }
             break;
         case 534:

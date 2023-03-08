@@ -115,7 +115,7 @@ function accueil() {
     afficher("</center>");
     actualiser();
 }
-
+ 
 function nouvelle_partie() {
     Jeu.en_jeu = true;
     Jeu.joueur = {
@@ -252,7 +252,7 @@ function adversaire_voir() {
     div_fin();
 }
 
-function afficher_meneur (camp) {
+function afficher_meneur(camp) {
     let texte = "";
     texte += "<u>Meneur";
     if (camp == "adverse") {
@@ -363,9 +363,11 @@ function actualiser_zone() {
     afficher_zone("adverse", "main", "Main adverse", "La main adverse est vide");
     afficher_zone("adverse", "terrain", "Terrain adverse", "La terrain adverse est vide");
     afficher_zone("adverse", "defausse", "Défausse adverse", "La défausse adverse est vide");
+    fermer_carte("carte_main");
+    fermer_carte("carte_side");
 }
 
-function afficher_carte(camp, zone, slot, div="auto") {
+function afficher_carte(camp, zone, slot, div = "auto") {
     let carte = Jeu[camp][zone][slot];
     let texte = "";
     if (carte.verrouillage) {
@@ -380,7 +382,7 @@ function afficher_carte(camp, zone, slot, div="auto") {
             else {
                 string += ',"carte_side"';
             }
-        } 
+        }
         else {
             string += ',"' + div + '"';
         }
@@ -527,8 +529,8 @@ function carte_afficher(carte, div) {
         if (statistique(carte, "regeneration") > 0) {
             texte += effet_talent_voir("Régénération", carte, statistique(carte, "regeneration")) + "<br/>";
         }
-        if (carte.decompte > 0) {
-            texte += effet_talent_voir("Décompte", carte, carte.decompte) + "<br/>";
+        if (carte.compteur > 0) {
+            texte += effet_talent_voir("Compteur", carte, carte.compteur) + "<br/>";
         }
         if (carte.gel > 0) {
             texte += effet_talent_voir("Gel", carte, carte.gel) + "<br/>";
@@ -848,11 +850,8 @@ function etage_fin() {
         joueur_terrain[n].stat_etage = obtenir_carte(0);
         joueur_terrain[n].vie -= joueur_terrain[n].stat_tour.vie_max;
         joueur_terrain[n].stat_tour = obtenir_carte(0);
-        if (joueur_terrain[n].decompte > 0 && !statistique(joueur_terrain[n], "silence")) {
-            joueur_terrain[n].decompte--;
-            if (joueur_terrain[n].decompte == 0) {
-                joueur_terrain[n].effet_decompte();
-            }
+        if (!statistique(joueur_terrain[n], "silence")) {
+            joueur_terrain[n].effet_etage_fin();
         }
         if (statistique(joueur_terrain[n], "temporaire") && !statistique(joueur_terrain[n], "silence")) {
             enlever(joueur_terrain[n]);
@@ -915,11 +914,8 @@ function etage_fin() {
         adverse_terrain[n].stat_etage = obtenir_carte(0);
         adverse_terrain[n].vie -= adverse_terrain[n].stat_tour.vie_max;
         adverse_terrain[n].stat_tour = obtenir_carte(0);
-        if (adverse_terrain[n].decompte > 0 && !statistique(adverse_terrain[n], "silence")) {
-            adverse_terrain[n].decompte--;
-            if (adverse_terrain[n].decompte == 0) {
-                adverse_terrain[n].effet_decompte();
-            }
+        if (!statistique(adverse_terrain[n], "silence")) {
+            adverse_terrain[n].effet_etage_fin();
         }
         if (statistique(adverse_terrain[n], "temporaire") && !statistique(adverse_terrain[n], "silence")) {
             enlever(adverse_terrain[n]);
@@ -1642,8 +1638,8 @@ function talent_voir(talent, div, stack = false) {
         case "Régénération":
             texte += "Au début de chaque tour de combat, se soigne de " + stack + ".";
             break;
-        case "Décompte":
-            texte += "Diminue de 1 à la fin de la phase de combat.";
+        case "Compteur":
+            texte += "Débloque des effets supplémentaires.";
             break;
         case "Gel":
             texte += "Annule les " + stack + " prochaines attaques.";
