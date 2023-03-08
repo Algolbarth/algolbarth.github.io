@@ -11,8 +11,8 @@ function combat_nouveau() {
 
 function combat_debut_tour() {
     Jeu.combat.tour++;
-    Jeu.combat.attaquant = "joueur";
-    Jeu.combat.defenseur = "adverse";
+    Jeu.combat.attaquant = "adverse";
+    Jeu.combat.defenseur = "joueur";
     for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
         Jeu.joueur.terrain[n].vie -= Jeu.joueur.terrain[n].stat_tour.vie_max;
         Jeu.joueur.terrain[n].stat_tour = obtenir_carte(0);
@@ -70,6 +70,7 @@ function combat_continuer() {
         combat_defaite();
     }
     else {
+        swap();
         if (!combat_verifier_rapidite()) {
             swap();
             if (!combat_verifier_rapidite()) {
@@ -78,6 +79,7 @@ function combat_continuer() {
                     swap();
                     if (!combat_verifier_attaque()) {
                         combat_debut_tour();
+                        swap();
                         if (!combat_verifier_rapidite()) {
                             combat_verifier_attaque();
                         }
@@ -87,7 +89,6 @@ function combat_continuer() {
         }
         action();
         combat_afficher();
-        swap();
     }
 }
 
@@ -243,7 +244,6 @@ function trouver_defenseur() {
 
 function combat_afficher() {
     initialiser();
-    div("main");
     if (Jeu.combat.auto) {
         fonction("Désactiver mode auto", "combat_auto_off()");
     }
@@ -254,9 +254,12 @@ function combat_afficher() {
         afficher(" - ");
         fonction("Action suivante", "combat_continuer()");
     }
-    saut(2);
-    afficher("Vie : " + Jeu.joueur.vie + " / " + Jeu.joueur.vie_max);
-    saut(2);
+    afficher("<center>Tour " + Jeu.combat.tour + "</center>");
+    div("main");
+    div("", "zone");
+    afficher("Meneur : " + Jeu.joueur.vie + " / " + Jeu.joueur.vie_max + " VIE");
+    div_fin();
+    saut();
     div("", "zone");
     afficher("<u>Terrain :</u>");
     saut();
@@ -281,9 +284,10 @@ function combat_afficher() {
     div_fin();
     div_fin();
     div("side");
-    saut(2);
-    afficher("Vie adverse : " + Jeu.adverse.vie + " / " + Jeu.adverse.vie_max);
-    saut(2);
+    div("", "zone");
+    afficher("Meneur adverse : " + Jeu.adverse.vie + " / " + Jeu.adverse.vie_max + " VIE");
+    div_fin();
+    saut();
     div("", "zone");
     afficher("<u>Terrain adverse :</u>");
     saut();
