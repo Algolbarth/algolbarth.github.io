@@ -444,6 +444,14 @@ function carte_afficher(carte, div) {
         texte += "Neutre";
     }
     texte += "<br/>";
+    texte += "<u>Niveau  :</u> ";
+    if (cout_total(obtenir_carte(carte.id)) > 100) {
+        texte += 20;
+    }
+    else {
+        texte += parseInt((cout_total(obtenir_carte(carte.id)) - 1)/5) + 1;
+    }
+    texte += "<br/>";
     texte += "<u>Coût :</u> ";
     let premier_cout = true;
     for (let n = 0; n < carte.cout.length; n++) {

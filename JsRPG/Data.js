@@ -351,7 +351,7 @@ function obtenir_carte(carte_id) {
                 if (carte.camp == "joueur") {
                     if (!statistique(carte, "silence")) {
                         let verifier = false;
-                        for (let n = 0; n < Jeu.NOMBRE_CARTE; n++) {
+                        for (let n = 1; n <= Jeu.NOMBRE_CARTE; n++) {
                             if (Jeu.joueur.regions[Jeu.region_active].boutique_generer(obtenir_carte(n)) && obtenir_carte(n).type == "Objet" && obtenir_carte(n).familles.includes("Équipement")) {
                                 verifier = true;
                             }
@@ -1575,7 +1575,7 @@ function obtenir_carte(carte_id) {
             carte.attaque = 1;
             carte.vie_max = carte.vie = 1;
             carte.texte = function () {
-                return "Quand attaque : applique " + effet_talent_voir("Poison", carte, 2) + " à la Créature attaquée.";
+                return "Quand attaque : Applique " + effet_talent_voir("Poison", carte, 2) + " à la Créature attaquée.";
             }
             carte.effet_attaque = function (defenseur) {
                 if (defenseur.type == "Créature") {
@@ -2267,7 +2267,7 @@ function obtenir_carte(carte_id) {
             carte.vente[5] = 4;
             carte.vie_max = carte.vie = 3;
             carte.texte = function () {
-                return "Quand arrive sur le terrain : S'applique 3 Compteur.<br/>A la fin d'une phase de combat : S'enlève 1 Compteur.<br/>Si cette carte n'a aucun Compteur : Se détruit et crée " + effet_carte_voir_id(9, carte) + " dans la main.";
+                return "Quand arrive sur le terrain : S'applique 3 Compteur.<br/>A la fin de la phase de combat : S'enlève 1 Compteur.<br/>Si cette carte n'a aucun Compteur : Se détruit et crée " + effet_carte_voir_id(9, carte) + " dans la main.";
             }
             carte.effet_ajouter = function () {
                 if (carte.zone == "terrain") {
@@ -2533,7 +2533,7 @@ function obtenir_carte(carte_id) {
             }
             carte.effet_vente = function () {
                 let verifier = false;
-                for (let n = 0; n < Jeu.NOMBRE_CARTE; n++) {
+                for (let n = 1; n <= Jeu.NOMBRE_CARTE; n++) {
                     if (Jeu.joueur.regions[Jeu.region_active].boutique_generer(obtenir_carte(n)) && obtenir_carte(n).familles.includes("Sort")) {
                         verifier = true;
                     }
@@ -5917,7 +5917,7 @@ function obtenir_carte(carte_id) {
             carte.effet_pose = function () {
                 if (carte.camp == "joueur") {
                     let verifier = false;
-                    for (let n = 0; n < Jeu.NOMBRE_CARTE; n++) {
+                    for (let n = 1; n <= Jeu.NOMBRE_CARTE; n++) {
                         if (Jeu.joueur.regions[Jeu.region_active].boutique_generer(obtenir_carte(n)) && obtenir_carte(n).type == "Région") {
                             verifier = true;
                         }
@@ -6219,7 +6219,7 @@ function obtenir_carte(carte_id) {
                                 saut();
                                 afficher(carte.texte());
                                 saut(2);
-                                afficher("Choisissez une Créature adverse sur le terrain dont le coût total est de 4 ou moins : ");
+                                afficher("Choisissez une Créature adverse sur le terrain dont la vie est de 10 ou moins : ");
                                 saut(2);
                                 div("", "zone");
                                 afficher("<u>Terrain adverse :</u>");
@@ -6234,7 +6234,7 @@ function obtenir_carte(carte_id) {
                                         afficher("???");
                                     }
                                     div_fin();
-                                    if (Jeu.adverse.terrain[n].type == "Créature" && Jeu.adverse.terrain[n].vie <= 5 && !Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
+                                    if (Jeu.adverse.terrain[n].type == "Créature" && Jeu.adverse.terrain[n].vie <= 10 && !Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
                                         div();
                                         fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
                                         div_fin()
@@ -8720,7 +8720,7 @@ function obtenir_carte(carte_id) {
             carte.effet_pose = function () {
                 if (carte.camp == "joueur") {
                     let verifier = false;
-                    for (let n = 0; n < Jeu.NOMBRE_CARTE; n++) {
+                    for (let n = 1; n <= Jeu.NOMBRE_CARTE; n++) {
                         if (Jeu.joueur.regions[Jeu.region_active].boutique_generer(obtenir_carte(n)) && obtenir_carte(n).type == "Objet") {
                             verifier = true;
                         }
@@ -8752,7 +8752,7 @@ function obtenir_carte(carte_id) {
             carte.effet_pose = function () {
                 if (carte.camp == "joueur") {
                     let verifier = false;
-                    for (let n = 0; n < Jeu.NOMBRE_CARTE; n++) {
+                    for (let n = 1; n <= Jeu.NOMBRE_CARTE; n++) {
                         if (Jeu.joueur.regions[Jeu.region_active].boutique_generer(obtenir_carte(n)) && obtenir_carte(n).familles.includes("Sort")) {
                             verifier = true;
                         }
@@ -9145,7 +9145,7 @@ function obtenir_carte(carte_id) {
             carte.vente[5] = 1;
             carte.vie_max = carte.vie = 1;
             carte.texte = function () {
-                return "Quand arrive sur le terrain : S'applique 1 Compteur.<br/>A la fin d'une phase de combat : S'enlève 1 Compteur.<br/>Si cette carte n'a aucun Compteur : Se détruit et crée " + effet_carte_voir_id(119, carte) + " dans la main.";
+                return "Quand arrive sur le terrain : S'applique 1 Compteur.<br/>A la fin de la phase de combat : S'enlève 1 Compteur.<br/>Si cette carte n'a aucun Compteur : Se détruit et crée " + effet_carte_voir_id(119, carte) + " dans la main.";
             }
             carte.effet_ajouter = function () {
                 if (carte.zone == "terrain") {
@@ -9190,7 +9190,7 @@ function obtenir_carte(carte_id) {
             carte.vente[5] = 1;
             carte.vie_max = carte.vie = 1;
             carte.texte = function () {
-                return "Quand arrive sur le terrain : S'applique 1 Compteur.<br/>A la fin d'une phase de combat : S'enlève 1 Compteur.<br/>Si cette carte n'a aucun Compteur : Se détruit et crée 3 " + effet_carte_voir_id(254, carte) + " dans la main.";
+                return "Quand arrive sur le terrain : S'applique 1 Compteur.<br/>A la fin de la phase de combat : S'enlève 1 Compteur.<br/>Si cette carte n'a aucun Compteur : Se détruit et crée 3 " + effet_carte_voir_id(254, carte) + " dans la main.";
             }
             carte.effet_ajouter = function () {
                 if (carte.zone == "terrain") {
@@ -10038,15 +10038,29 @@ function obtenir_carte(carte_id) {
         case 269:
             carte.nom = "Carte";
             carte.type = "Objet";
-            carte.cout[0] = 5;
-            carte.vente[0] = 2;
+            carte.cout[0] = 8;
+            carte.vente[0] = 4;
             carte.texte = function () {
-                return "Bannis toutes les cartes alliées dans la boutique et pioche 5 cartes.";
+                return "Bannis toutes les cartes alliées dans la boutique et pioche jusqu'à 5 cartes différentes.";
             }
             carte.effet_pose = function () {
                 if (carte.camp == "joueur") {
                     Jeu.joueur.boutique = [];
-                    pioches("joueur", 5);
+                    let liste_carte = [];
+                    for (let n = 1; n <= Jeu.NOMBRE_CARTE; n++) {
+                        if (Jeu.joueur.regions[Jeu.region_active].boutique_generer(obtenir_carte(n))) {
+                            liste_carte.push(n);
+                        }
+                    }
+                    let array = [];
+                    while (array.length < 5 && array.length < liste_carte.length) {
+                        let carte_id = liste_carte[parseInt(Math.random() * liste_carte.length)];
+                        while (array.includes(carte_id)) {
+                            carte_id = liste_carte[parseInt(Math.random() * liste_carte.length)];
+                        }
+                        array.push(carte_id);
+                        pioche("joueur", obtenir_carte(carte_id));
+                    }
                     deplacer(carte, "joueur", "defausse");
                     effet_pose(carte);
                     menu();
@@ -10822,7 +10836,7 @@ function obtenir_carte(carte_id) {
                 if (carte.camp == "joueur") {
                     if (!statistique(carte, "silence")) {
                         let verifier = false;
-                        for (let n = 0; n < Jeu.NOMBRE_CARTE; n++) {
+                        for (let n = 1; n <= Jeu.NOMBRE_CARTE; n++) {
                             if (Jeu.joueur.regions[Jeu.region_active].boutique_generer(obtenir_carte(n)) && obtenir_carte(n).type == "Objet" && obtenir_carte(n).familles.includes("Potion")) {
                                 verifier = true;
                             }
@@ -10872,7 +10886,7 @@ function obtenir_carte(carte_id) {
             }
             carte.effet_vente = function () {
                 let verifier = false;
-                for (let n = 0; n < Jeu.NOMBRE_CARTE; n++) {
+                for (let n = 1; n <= Jeu.NOMBRE_CARTE; n++) {
                     if (Jeu.joueur.regions[Jeu.region_active].boutique_generer(obtenir_carte(n)) && obtenir_carte(n).type == "Objet" && obtenir_carte(n).familles.includes("Potion")) {
                         verifier = true;
                     }
@@ -10895,7 +10909,7 @@ function obtenir_carte(carte_id) {
             carte.stat_equipement.effet_etage_debut = function () {
                 if (carte.camp == "joueur") {
                     let verifier = false;
-                    for (let n = 0; n < Jeu.NOMBRE_CARTE; n++) {
+                    for (let n = 1; n <= Jeu.NOMBRE_CARTE; n++) {
                         if (Jeu.joueur.regions[Jeu.region_active].boutique_generer(obtenir_carte(n)) && obtenir_carte(n).familles.includes("Sort")) {
                             verifier = true;
                         }
@@ -11600,7 +11614,7 @@ function obtenir_carte(carte_id) {
             }
             carte.effet_pose = function () {
                 let verifier = false;
-                for (let n = 0; n < Jeu.NOMBRE_CARTE; n++) {
+                for (let n = 1; n <= Jeu.NOMBRE_CARTE; n++) {
                     if (Jeu.joueur.regions[Jeu.region_active].boutique_generer(obtenir_carte(n)) && obtenir_carte(n).familles.includes("Plante")) {
                         verifier = true;
                     }
@@ -12055,7 +12069,7 @@ function obtenir_carte(carte_id) {
             carte.effet_pose = function () {
                 if (carte.camp == "joueur") {
                     let verifier = false;
-                    for (let n = 0; n < Jeu.NOMBRE_CARTE; n++) {
+                    for (let n = 1; n <= Jeu.NOMBRE_CARTE; n++) {
                         if (Jeu.joueur.regions[Jeu.region_active].boutique_generer(obtenir_carte(n)) && obtenir_carte(n).type == "Objet" && obtenir_carte(n).familles.includes("Équipement")) {
                             verifier = true;
                         }
@@ -13285,7 +13299,7 @@ function obtenir_carte(carte_id) {
                 if (carte.camp == "joueur") {
                     if (!statistique(carte, "silence")) {
                         let verifier = false;
-                        for (let n = 0; n < Jeu.NOMBRE_CARTE; n++) {
+                        for (let n = 1; n <= Jeu.NOMBRE_CARTE; n++) {
                             if (Jeu.joueur.regions[Jeu.region_active].boutique_generer(obtenir_carte(n)) && obtenir_carte(n).type == "Objet" && obtenir_carte(n).familles.includes("Équipement")) {
                                 verifier = true;
                             }
@@ -13872,7 +13886,7 @@ function obtenir_carte(carte_id) {
             carte.stat_equipement.effet_etage_debut = function () {
                 if (carte.camp == "joueur") {
                     let verifier = false;
-                    for (let n = 0; n < Jeu.NOMBRE_CARTE; n++) {
+                    for (let n = 1; n <= Jeu.NOMBRE_CARTE; n++) {
                         if (Jeu.joueur.regions[Jeu.region_active].boutique_generer(obtenir_carte(n)) && obtenir_carte(n).familles.includes("Sort") && obtenir_carte(n).elements.includes("Arcane")) {
                             verifier = true;
                         }
@@ -16385,7 +16399,7 @@ function obtenir_carte(carte_id) {
                 if (carte.camp == "joueur") {
                     if (!statistique(carte, "silence")) {
                         let verifier = false;
-                        for (let n = 0; n < Jeu.NOMBRE_CARTE; n++) {
+                        for (let n = 1; n <= Jeu.NOMBRE_CARTE; n++) {
                             if (Jeu.joueur.regions[Jeu.region_active].boutique_generer(obtenir_carte(n)) && obtenir_carte(n).type == "Bâtiment") {
                                 verifier = true;
                             }
@@ -16449,7 +16463,7 @@ function obtenir_carte(carte_id) {
                 if (carte.camp == "joueur") {
                     if (!statistique(carte, "silence")) {
                         let verifier = false;
-                        for (let n = 0; n < Jeu.NOMBRE_CARTE; n++) {
+                        for (let n = 1; n <= Jeu.NOMBRE_CARTE; n++) {
                             if (Jeu.joueur.regions[Jeu.region_active].boutique_generer(obtenir_carte(n)) && obtenir_carte(n).type == "Objet" && obtenir_carte(n).familles.includes("Équipement")) {
                                 verifier = true;
                             }
@@ -17231,7 +17245,7 @@ function obtenir_carte(carte_id) {
                 if (carte.camp == "joueur") {
                     if (!statistique(carte, "silence")) {
                         let verifier = false;
-                        for (let n = 0; n < Jeu.NOMBRE_CARTE; n++) {
+                        for (let n = 1; n <= Jeu.NOMBRE_CARTE; n++) {
                             if (Jeu.joueur.regions[Jeu.region_active].boutique_generer(obtenir_carte(n)) && obtenir_carte(n).type == "Action") {
                                 verifier = true;
                             }
@@ -17450,7 +17464,7 @@ function obtenir_carte(carte_id) {
                 if (carte.camp == "joueur") {
                     if (!statistique(carte, "silence")) {
                         let verifier = false;
-                        for (let n = 0; n < Jeu.NOMBRE_CARTE; n++) {
+                        for (let n = 1; n <= Jeu.NOMBRE_CARTE; n++) {
                             if (Jeu.joueur.regions[Jeu.region_active].boutique_generer(obtenir_carte(n)) && obtenir_carte(n).type == "Créature" && obtenir_carte(n).familles.includes("Poisson")) {
                                 verifier = true;
                             }
@@ -17737,8 +17751,8 @@ function obtenir_carte(carte_id) {
         case 406:
             carte.nom = "Solide sur les appuis";
             carte.type = "Action";
-            carte.cout[0] = 5;
-            carte.vente[0] = 2;
+            carte.cout[0] = 10;
+            carte.vente[0] = 5;
             carte.texte = function () {
                 return "Donne 6 vie à une Créature alliée sur le terrain avec " + effet_talent_voir("Protection", carte) + ".";
             }
@@ -18431,7 +18445,7 @@ function obtenir_carte(carte_id) {
                 if (carte.camp == "joueur") {
                     if (!statistique(carte, "silence")) {
                         let verifier = false;
-                        for (let n = 0; n < Jeu.NOMBRE_CARTE; n++) {
+                        for (let n = 1; n <= Jeu.NOMBRE_CARTE; n++) {
                             if (Jeu.joueur.regions[Jeu.region_active].boutique_generer(obtenir_carte(n)) && obtenir_carte(n).familles.includes("Maladie")) {
                                 verifier = true;
                             }
@@ -19028,7 +19042,7 @@ function obtenir_carte(carte_id) {
             carte.stat_equipement.effet_etage_debut = function () {
                 if (carte.camp == "joueur") {
                     let verifier = false;
-                    for (let n = 0; n < Jeu.NOMBRE_CARTE; n++) {
+                    for (let n = 1; n <= Jeu.NOMBRE_CARTE; n++) {
                         if (Jeu.joueur.regions[Jeu.region_active].boutique_generer(obtenir_carte(n)) && obtenir_carte(n).familles.includes("Sort")) {
                             verifier = true;
                         }
@@ -21207,7 +21221,7 @@ function obtenir_carte(carte_id) {
             carte.effet_pose = function () {
                 if (carte.camp == "joueur") {
                     let verifier_1 = verifier_2 = verifier_3 = verifier_4 = verifier_5 = false;
-                    for (let n = 0; n < Jeu.NOMBRE_CARTE; n++) {
+                    for (let n = 1; n <= Jeu.NOMBRE_CARTE; n++) {
                         if (Jeu.joueur.regions[Jeu.region_active].boutique_generer(obtenir_carte(n))) {
                             if (obtenir_carte(n).type == "Région") {
                                 verifier_1 = true;
@@ -21283,7 +21297,7 @@ function obtenir_carte(carte_id) {
                 if (carte.camp == "joueur") {
                     if (!statistique(carte, "silence")) {
                         let verifier1 = verifier2 = false;
-                        for (let n = 0; n < Jeu.NOMBRE_CARTE; n++) {
+                        for (let n = 1; n <= Jeu.NOMBRE_CARTE; n++) {
                             if (Jeu.joueur.regions[Jeu.region_active].boutique_generer(obtenir_carte(n))) {
                                 if (obtenir_carte(n).type == "Action") {
                                     verifier1 = true;
@@ -21331,7 +21345,7 @@ function obtenir_carte(carte_id) {
             carte.effet_pose = function () {
                 if (carte.camp == "joueur") {
                     let verifier = false;
-                    for (let n = 0; n < Jeu.NOMBRE_CARTE; n++) {
+                    for (let n = 1; n <= Jeu.NOMBRE_CARTE; n++) {
                         if (Jeu.joueur.regions[Jeu.region_active].boutique_generer(obtenir_carte(n)) && obtenir_carte(n).type == "Région") {
                             verifier = true;
                         }
@@ -21363,7 +21377,7 @@ function obtenir_carte(carte_id) {
             carte.effet_pose = function () {
                 if (carte.camp == "joueur") {
                     let verifier = false;
-                    for (let n = 0; n < Jeu.NOMBRE_CARTE; n++) {
+                    for (let n = 1; n <= Jeu.NOMBRE_CARTE; n++) {
                         if (Jeu.joueur.regions[Jeu.region_active].boutique_generer(obtenir_carte(n)) && obtenir_carte(n).type == "Région") {
                             verifier = true;
                         }
@@ -21400,7 +21414,7 @@ function obtenir_carte(carte_id) {
             carte.effet_etage_debut = function () {
                 if (carte.camp == "joueur") {
                     let verifier = false;
-                    for (let n = 0; n < Jeu.NOMBRE_CARTE; n++) {
+                    for (let n = 1; n <= Jeu.NOMBRE_CARTE; n++) {
                         if (Jeu.joueur.regions[Jeu.region_active].boutique_generer(obtenir_carte(n)) && obtenir_carte(n).type == "Créature") {
                             verifier = true;
                         }
@@ -21443,7 +21457,7 @@ function obtenir_carte(carte_id) {
                 if (carte.camp == "joueur") {
                     if (!statistique(carte, "silence")) {
                         let verifier = false;
-                        for (let n = 0; n < Jeu.NOMBRE_CARTE; n++) {
+                        for (let n = 1; n <= Jeu.NOMBRE_CARTE; n++) {
                             if (Jeu.joueur.regions[Jeu.region_active].boutique_generer(obtenir_carte(n)) && obtenir_carte(n).type == "Créature") {
                                 verifier = true;
                             }
@@ -21521,7 +21535,7 @@ function obtenir_carte(carte_id) {
             carte.effet_etage_debut = function () {
                 if (carte.camp == "joueur") {
                     let verifier = false;
-                    for (let n = 0; n < Jeu.NOMBRE_CARTE; n++) {
+                    for (let n = 1; n <= Jeu.NOMBRE_CARTE; n++) {
                         verifier = true;
                         if (Jeu.joueur.regions[Jeu.region_active].boutique_generer(obtenir_carte(n)) && obtenir_carte(n).familles.includes("Équipement")) {
                         }
@@ -22435,7 +22449,7 @@ function obtenir_carte(carte_id) {
                 if (carte.camp == "joueur") {
                     if (!statistique(carte, "silence")) {
                         let verifier = false;
-                        for (let n = 0; n < Jeu.NOMBRE_CARTE; n++) {
+                        for (let n = 1; n <= Jeu.NOMBRE_CARTE; n++) {
                             if (Jeu.joueur.regions[Jeu.region_active].boutique_generer(obtenir_carte(n)) && obtenir_carte(n).type == "Bâtiment" && obtenir_carte(n).familles.includes("Piège")) {
                                 verifier = true;
                             }
@@ -22798,7 +22812,7 @@ function obtenir_carte(carte_id) {
             carte.vente[5] = 8;
             carte.vie_max = carte.vie = 3;
             carte.texte = function () {
-                return "Quand arrive sur le terrain : S'applique 3 Compteur.<br/>A la fin d'une phase de combat : S'enlève 1 Compteur.<br/>Si cette carte n'a aucun Compteur : Se détruit et crée " + effet_carte_voir_id(67, carte) + " dans la main.";
+                return "Quand arrive sur le terrain : S'applique 3 Compteur.<br/>A la fin de la phase de combat : S'enlève 1 Compteur.<br/>Si cette carte n'a aucun Compteur : Se détruit et crée " + effet_carte_voir_id(67, carte) + " dans la main.";
             }
             carte.effet_ajouter = function () {
                 if (carte.zone == "terrain") {

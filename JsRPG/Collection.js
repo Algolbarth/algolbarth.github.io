@@ -158,7 +158,7 @@ function collection_filtre() {
     }
     afficher("</select>");
     saut(2);
-    afficher("Niveau de boutique : <select id='filtre_boutique'>")
+    afficher("Niveau : <select id='filtre_boutique'>")
     afficher("<option value=" + '"Tous"' + ">Tous</option>");
     for (let n = 1; n <= 20; n++) {
         afficher("<option value=" + n);
