@@ -54,7 +54,7 @@ function obtenir_carte(carte_id) {
         effet_pose: function () {
             deplacer(carte, carte.camp, "terrain");
             effet_pose(carte);
-            menu();
+            actualiser_zone();
             return true;
         },
         effet_pose_carte: function () { },
@@ -118,43 +118,39 @@ function obtenir_carte(carte_id) {
                     switch (step) {
                         case 1:
                             if (verifier_equipement("joueur")) {
-                                initialiser();
-                                div("main");
-                                fonction("Annuler", "menu()");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez une Créature alliée équipable sur le terrain : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une Créature alliée équipable sur le terrain : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
-                                    div("", "carte");
-                                    div();
-                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
-                                    div_fin();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
+                                    texte += afficher_carte("joueur", "terrain", n, "carte_side");
+                                    texte += "</div>";
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].equipements.length < Jeu.joueur.terrain[n].equipement_max) {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div></div>";
+                                afficher_choix(texte);
                             }
                             break;
                         case 2:
                             equiper(Jeu.joueur.terrain[cible], carte);
                             effet_pose(carte);
                             enlever(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -187,43 +183,40 @@ function obtenir_carte(carte_id) {
                     switch (step) {
                         case 1:
                             if (verifier_soin_creature("joueur")) {
-                                initialiser();
-                                div("main");
-                                fonction("Annuler", "menu()");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez une Créature alliée blessée sur le terrain : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une Créature alliée blessée sur le terrain : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
-                                    div("", "carte");
-                                    div();
-                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
-                                    div_fin();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
+                                    texte += afficher_carte("joueur", "terrain", n, "carte_side");
+                                    texte += "</div>";
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].vie < Jeu.joueur.terrain[n].vie_max) {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             break;
                         case 2:
                             soin(Jeu.joueur.terrain[cible], 3);
                             deplacer(carte, "joueur", "defausse");
                             effet_pose(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -263,43 +256,40 @@ function obtenir_carte(carte_id) {
                     switch (step) {
                         case 1:
                             if (verifier_equipement("joueur")) {
-                                initialiser();
-                                div("main");
-                                fonction("Annuler", "menu()");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez une Créature alliée équipable sur le terrain : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une Créature alliée équipable sur le terrain : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
-                                    div("", "carte");
-                                    div();
-                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
-                                    div_fin();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
+                                    texte += afficher_carte("joueur", "terrain", n, "carte_side");
+                                    texte += "</div>";
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].equipements.length < Jeu.joueur.terrain[n].equipement_max) {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             break;
                         case 2:
                             equiper(Jeu.joueur.terrain[cible], carte);
                             effet_pose(carte);
                             enlever(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -366,7 +356,7 @@ function obtenir_carte(carte_id) {
                     }
                     deplacer(carte, "joueur", "terrain");
                     effet_pose(carte);
-                    menu();
+                    actualiser_zone();
                 }
                 else {
                     deplacer(carte, "adverse", "terrain");
@@ -398,7 +388,7 @@ function obtenir_carte(carte_id) {
                 }
                 deplacer(carte, carte.camp, "terrain");
                 effet_pose(carte);
-                menu();
+                actualiser_zone();
                 return true;
             }
             break;
@@ -422,53 +412,50 @@ function obtenir_carte(carte_id) {
                     switch (step) {
                         case 1:
                             if (verifier_cible("adverse", "terrain") && !statistique(carte, "silence")) {
-                                initialiser();
-                                div("main");
-                                fonction("Annuler", "menu()");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez une Unité adverse sur le terrain : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain adverse :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une Unité adverse sur le terrain : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain adverse :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.adverse.terrain.length; n++) {
-                                    div("", "carte");
-                                    div();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
                                     if (!Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                        afficher(afficher_carte("adverse", "terrain", n, "carte_side"));
+                                        texte += afficher_carte("adverse", "terrain", n, "carte_side");
                                     }
                                     else {
-                                        afficher("???");
+                                        texte += "???";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                     if (!Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             else {
                                 deplacer(carte, "joueur", "terrain");
                                 effet_pose(carte);
-                                menu();
+                                actualiser_zone();
                             }
                             break;
                         case 2:
                             degats(Jeu.adverse.terrain[cible], 4);
                             deplacer(carte, "joueur", "terrain");
                             effet_pose(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -508,48 +495,45 @@ function obtenir_carte(carte_id) {
                     switch (step) {
                         case 1:
                             if (verifier_soin_creature("joueur") && !statistique(carte, "silence")) {
-                                initialiser();
-                                div("main");
-                                fonction("Annuler", "menu()");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez une Créature alliée blessée sur le terrain : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une Créature alliée blessée sur le terrain : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
-                                    div("", "carte");
-                                    div();
-                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
-                                    div_fin();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
+                                    texte += afficher_carte("joueur", "terrain", n, "carte_side");
+                                    texte += "</div>";
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].vie < Jeu.joueur.terrain[n].vie_max) {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             else {
                                 deplacer(carte, "joueur", "terrain");
                                 effet_pose(carte);
-                                menu();
+                                actualiser_zone();
                             }
                             break;
                         case 2:
                             soin(Jeu.joueur.terrain[cible], 3);
                             deplacer(carte, "joueur", "terrain");
                             effet_pose(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -589,7 +573,7 @@ function obtenir_carte(carte_id) {
                 }
                 deplacer(carte, carte.camp, "terrain");
                 effet_pose(carte);
-                menu();
+                actualiser_zone();
                 return true;
             }
             carte.description = "L'implantation des humains sur un grand nombre de continent leur a permis de devenir les leaders du commerce et de réguler l'économie.";
@@ -663,48 +647,45 @@ function obtenir_carte(carte_id) {
                     switch (step) {
                         case 1:
                             if (verifier_cible("adverse", "terrain")) {
-                                initialiser();
-                                div("main");
-                                fonction("Annuler", "menu()");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez une Unité adverse sur le terrain : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain adverse :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une Unité adverse sur le terrain : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain adverse :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.adverse.terrain.length; n++) {
-                                    div("", "carte");
-                                    div();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
                                     if (!Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                        afficher(afficher_carte("adverse", "terrain", n, "carte_side"));
+                                        texte += afficher_carte("adverse", "terrain", n, "carte_side");
                                     }
                                     else {
-                                        afficher("???");
+                                        texte += "???";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                     if (!Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             break;
                         case 2:
                             degats(Jeu.adverse.terrain[cible], 5);
                             deplacer(carte, "joueur", "defausse");
                             effet_pose(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -747,7 +728,7 @@ function obtenir_carte(carte_id) {
                     }
                     deplacer(carte, carte.camp, "defausse");
                     effet_pose(carte);
-                    menu();
+                    actualiser_zone();
                     return true;
                 }
                 return false;
@@ -900,41 +881,38 @@ function obtenir_carte(carte_id) {
                     switch (step) {
                         case 1:
                             if (verifier_cible("adverse", "terrain")) {
-                                initialiser();
-                                div("main");
-                                fonction("Annuler", "menu()");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez une Unité adverse sur le terrain : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain adverse :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une Unité adverse sur le terrain : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain adverse :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.adverse.terrain.length; n++) {
-                                    div("", "carte");
-                                    div();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
                                     if (!Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                        afficher(afficher_carte("adverse", "terrain", n, "carte_side"));
+                                        texte += afficher_carte("adverse", "terrain", n, "carte_side");
                                     }
                                     else {
-                                        afficher("???");
+                                        texte += "???";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                     if (!Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             break;
                         case 2:
@@ -947,7 +925,7 @@ function obtenir_carte(carte_id) {
                             }
                             deplacer(carte, "joueur", "defausse");
                             effet_pose(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -995,7 +973,7 @@ function obtenir_carte(carte_id) {
                     pioche("joueur");
                     deplacer(carte, "joueur", "defausse");
                     effet_pose(carte);
-                    menu();
+                    actualiser_zone();
                 }
                 else {
                     return false;
@@ -1018,42 +996,39 @@ function obtenir_carte(carte_id) {
                     switch (step) {
                         case 1:
                             if (verifier_equipement("joueur")) {
-                                initialiser();
-                                div("main");
-                                fonction("Annuler", "menu()");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez une Créature alliée équipable sur le terrain : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une Créature alliée équipable sur le terrain : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
-                                    div("", "carte");
-                                    div();
-                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
-                                    div_fin();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
+                                    texte += afficher_carte("joueur", "terrain", n, "carte_side");
+                                    texte += "</div>";
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].equipements.length < Jeu.joueur.terrain[n].equipement_max) {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             break;
                         case 2:
                             equiper(Jeu.joueur.terrain[cible], carte);
                             enlever(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -1082,10 +1057,10 @@ function obtenir_carte(carte_id) {
             }
             carte.effet_pose = function () {
                 if (carte.camp == "joueur") {
-                    boutique_actualiser();
+                    boutique_afficher_choix(texte);
                     deplacer(carte, "joueur", "defausse");
                     effet_pose(carte);
-                    menu();
+                    actualiser_zone();
                 }
                 return false;
             }
@@ -1170,41 +1145,38 @@ function obtenir_carte(carte_id) {
                     switch (step) {
                         case 1:
                             if (verifier_boutique_or() && !statistique(carte, "silence")) {
-                                initialiser();
-                                div("main");
-                                fonction("Annuler", "menu()");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez une carte dans votre boutique : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Boutique :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une carte alliée dans la boutique : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Boutique :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.joueur.boutique.length; n++) {
-                                    div("", "carte");
-                                    div();
-                                    afficher(afficher_carte("joueur", "boutique", n, "carte_side"));
-                                    div_fin();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
+                                    texte += afficher_carte("joueur", "boutique", n, "carte_side");
+                                    texte += "</div>";
                                     if (Jeu.joueur.boutique[n].cout[0] > 0) {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             else {
                                 deplacer(carte, "joueur", "terrain");
                                 effet_pose(carte);
-                                menu();
+                                actualiser_zone();
                             }
                             break;
                         case 2:
@@ -1214,14 +1186,14 @@ function obtenir_carte(carte_id) {
                             }
                             deplacer(carte, "joueur", "terrain");
                             effet_pose(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
                 else {
                     deplacer(carte, "adverse", "terrain");
                     effet_pose(carte);
-                    menu();
+                    actualiser_zone();
                     return true;
                 }
             }
@@ -1250,7 +1222,7 @@ function obtenir_carte(carte_id) {
                     deplacer(carte, carte.camp, "terrain");
                     effet_pose(carte);
                     if (Jeu.joueur.vie > 0) {
-                        menu();
+                        actualiser_zone();
                     }
                     else {
                         game_over();
@@ -1293,34 +1265,31 @@ function obtenir_carte(carte_id) {
                     switch (step) {
                         case 1:
                             if (Jeu.joueur.defausse.length > 0) {
-                                initialiser();
-                                div("main");
-                                fonction("Annuler", "menu()");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez une carte alliée dans la défausse : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Défausse :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une carte alliée dans la défausse : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Défausse :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.joueur.defausse.length; n++) {
-                                    div("", "carte");
-                                    div();
-                                    afficher(afficher_carte("joueur", "defausse", n, "carte_side"));
-                                    div_fin();
-                                    div();
-                                    fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                    div_fin();
-                                    div_fin();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
+                                    texte += afficher_carte("joueur", "defausse", n, "carte_side");
+                                    texte += "</div>";
+                                    texte += "<div>";
+                                    texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")'>Cibler</button>";
+                                    texte += "</div>";
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             break;
                         case 2:
@@ -1330,7 +1299,7 @@ function obtenir_carte(carte_id) {
                             deplacer(Jeu.joueur.defausse[cible], "joueur", "main");
                             deplacer(carte, "joueur", "defausse");
                             effet_pose(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -1413,53 +1382,50 @@ function obtenir_carte(carte_id) {
                     switch (step) {
                         case 1:
                             if (verifier_cible_creature("adverse", "terrain") && !statistique(carte, "silence")) {
-                                initialiser();
-                                div("main");
-                                fonction("Annuler", "menu()");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez une Créature adverse sur le terrain : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain adverse :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une Créature adverse sur le terrain : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain adverse :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.adverse.terrain.length; n++) {
-                                    div("", "carte");
-                                    div();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
                                     if (!Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                        afficher(afficher_carte("adverse", "terrain", n, "carte_side"));
+                                        texte += afficher_carte("adverse", "terrain", n, "carte_side");
                                     }
                                     else {
-                                        afficher("???");
+                                        texte += "???";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                     if (Jeu.adverse.terrain[n].type == "Créature" && !Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             else {
                                 deplacer(carte, "joueur", "terrain");
                                 effet_pose(carte);
-                                menu();
+                                actualiser_zone();
                             }
                             break;
                         case 2:
                             mort(Jeu.adverse.terrain[cible]);
                             deplacer(carte, "joueur", "terrain");
                             effet_pose(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -1602,111 +1568,102 @@ function obtenir_carte(carte_id) {
                     switch (step) {
                         case 1:
                             if (verifier_equipement("joueur") || verifier_cible_creature("adverse", "terrain")) {
-                                initialiser();
-                                div("main");
-                                fonction("Annuler", "menu()");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez un effet : ");
-                                saut(2);
-                                fonction("Applique l'effet suivant à la Créature équipée : Quand attaque : applique Poison 2 à la Créature attaquée", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2)");
-                                saut();
-                                afficher("ou");
-                                saut();
-                                fonction("Applique Poison 4 à une Créature adverse sur le terrain", "Jeu.joueur.main[" + carte.slot + "].effet_pose(4)");
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                let texte = "";
+                                texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez un effet : ";
+                                texte += "<br/><br/>";
+                                texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2)'>Applique l'effet suivant à la Créature équipée : Quand attaque : applique Poison 2 à la Créature attaquée</button>";
+                                texte += "<br/>";
+                                texte += "ou";
+                                texte += "<br/>";
+                                texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(4)'>Applique Poison 4 à une Créature adverse sur le terrain</button>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             break;
                         case 2:
                             if (verifier_equipement("joueur")) {
-                                initialiser();
-                                div("main");
-                                fonction("Retour", "Jeu.joueur.main[" + carte.slot + "].effet_pose(1)");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher("Applique l'effet suivant à la Créature équipée : Quand attaque : applique Poison 2 à la Créature attaquée.");
-                                saut(2);
-                                afficher("Choisissez une Créature alliée équipable sur le terrain : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(1)'>Retour</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += "Applique l'effet suivant à la Créature équipée : Quand attaque : applique Poison 2 à la Créature attaquée.";
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une Créature alliée équipable sur le terrain : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
-                                    div("", "carte");
-                                    div();
-                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
-                                    div_fin();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
+                                    texte += afficher_carte("joueur", "terrain", n, "carte_side");
+                                    texte += "</div>";
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].equipements.length < Jeu.joueur.terrain[n].equipement_max) {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(3," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(3," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             break;
                         case 3:
                             equiper(Jeu.joueur.terrain[cible], carte);
                             effet_pose(carte);
                             enlever(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                         case 4:
                             if (verifier_cible_creature("adverse", "terrain")) {
-                                initialiser();
-                                div("main");
-                                fonction("Retour", "Jeu.joueur.main[" + carte.slot + "].effet_pose(1)");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher("Applique Poison 4 à une Créature adverse sur le terrain.");
-                                saut(2);
-                                afficher("Choisissez une Créature adverse sur le terrain : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain adverse :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(1)'>Retour</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += "Applique Poison 4 à une Créature adverse sur le terrain.";
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une Créature adverse sur le terrain : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain adverse :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.adverse.terrain.length; n++) {
-                                    div("", "carte");
-                                    div();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
                                     if (!Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                        afficher(afficher_carte("adverse", "terrain", n, "carte_side"));
+                                        texte += afficher_carte("adverse", "terrain", n, "carte_side");
                                     }
                                     else {
-                                        afficher("???");
+                                        texte += "???";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                     if (Jeu.adverse.terrain[n].type == "Créature" && !Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(5," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(5," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             break;
                         case 5:
                             Jeu.adverse.terrain[cible].poison += 4;
                             deplacer(carte, "joueur", "defausse");
                             effet_pose(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -1749,43 +1706,40 @@ function obtenir_carte(carte_id) {
                     switch (step) {
                         case 1:
                             if (verifier_poison("joueur")) {
-                                initialiser();
-                                div("main");
-                                fonction("Annuler", "menu()");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez une Créature alliée avec " + effet_talent_voir("Poison", carte) + " sur le terrain : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une Créature alliée avec " + effet_talent_voir("Poison", carte) + " sur le terrain : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
-                                    div("", "carte");
-                                    div();
-                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
-                                    div_fin();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
+                                    texte += afficher_carte("joueur", "terrain", n, "carte_side");
+                                    texte += "</div>";
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].poison > 0) {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             break;
                         case 2:
                             Jeu.joueur.terrain[cible].poison = 0;
                             deplacer(carte, "joueur", "defausse");
                             effet_pose(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -1877,39 +1831,36 @@ function obtenir_carte(carte_id) {
                     switch (step) {
                         case 1:
                             if (Jeu.joueur.boutique.length > 0 && !statistique(carte, "silence")) {
-                                initialiser();
-                                div("main");
-                                fonction("Annuler", "menu()");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez une carte dans la boutique : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Boutique :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une carte dans la boutique : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Boutique :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.joueur.boutique.length; n++) {
-                                    div("", "carte");
-                                    div();
-                                    afficher(afficher_carte("joueur", "boutique", n, "carte_side"));
-                                    div_fin();
-                                    div();
-                                    fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                    div_fin();
-                                    div_fin();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
+                                    texte += afficher_carte("joueur", "boutique", n, "carte_side");
+                                    texte += "</div>";
+                                    texte += "<div>";
+                                    texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")'>Cibler</button>";
+                                    texte += "</div>";
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             else {
                                 deplacer(carte, "joueur", "terrain");
                                 effet_pose(carte);
-                                menu();
+                                actualiser_zone();
                             }
                             break;
                         case 2:
@@ -1918,14 +1869,14 @@ function obtenir_carte(carte_id) {
                             enlever(Jeu.joueur.boutique[cible]);
                             deplacer(carte, "joueur", "terrain");
                             effet_pose(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
                 else {
                     deplacer(carte, "adverse", "terrain");
                     effet_pose(carte);
-                    menu();
+                    actualiser_zone();
                     return true;
                 }
             }
@@ -1943,36 +1894,33 @@ function obtenir_carte(carte_id) {
                     switch (step) {
                         case 1:
                             if (verifier_debuff("joueur")) {
-                                initialiser();
-                                div("main");
-                                fonction("Annuler", "menu()");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez une Créature alliée sur le terrain : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une Créature alliée sur le terrain : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
-                                    div("", "carte");
-                                    div();
-                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
-                                    div_fin();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
+                                    texte += afficher_carte("joueur", "terrain", n, "carte_side");
+                                    texte += "</div>";
                                     if (Jeu.joueur.terrain[n].type == "Créature" && (Jeu.joueur.terrain[n].poison > 0 || Jeu.joueur.terrain[n].brulure > 0 || Jeu.joueur.terrain[n].saignement > 0 || Jeu.joueur.terrain[n].contamination > 0 || Jeu.joueur.terrain[n].etourdissement || Jeu.joueur.terrain[n].silence)) {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             break;
                         case 2:
@@ -1985,7 +1933,7 @@ function obtenir_carte(carte_id) {
                             Jeu.joueur.terrain[cible].silence = false;
                             deplacer(carte, "joueur", "defausse");
                             effet_pose(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -2067,110 +2015,101 @@ function obtenir_carte(carte_id) {
                     switch (step) {
                         case 1:
                             if (verifier_equipement("joueur") || verifier_cible_creature("adverse", "terrain")) {
-                                initialiser();
-                                div("main");
-                                fonction("Annuler", "menu()");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez un effet : ");
-                                saut(2);
-                                fonction("Donne 1 attaque à la Créature équipée", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2)");
-                                saut();
-                                afficher("ou");
-                                saut();
-                                fonction("Inflige 1 dégât à une Créature adverse sur le terrain", "Jeu.joueur.main[" + carte.slot + "].effet_pose(4)");
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                let texte = "";
+                                texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez un effet : ";
+                                texte += "<br/><br/>";
+                                texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2)'>Donne 1 attaque à la Créature équipée</button>";
+                                texte += "<br/>";
+                                texte += "ou";
+                                texte += "<br/>";
+                                texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(4)'>Inflige 1 dégât à une Créature adverse sur le terrain</button>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             break;
                         case 2:
                             if (verifier_equipement("joueur")) {
-                                initialiser();
-                                div("main");
-                                fonction("Retour", "Jeu.joueur.main[" + carte.slot + "].effet_pose(1)");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher("Donne 1 attaque à la Créature équipée.");
-                                saut(2);
-                                afficher("Choisissez une Créature alliée équipable sur le terrain : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(1)'>Retour</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += "Donne 1 attaque à la Créature équipée.";
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une Créature alliée équipable sur le terrain : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
-                                    div("", "carte");
-                                    div();
-                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
-                                    div_fin();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
+                                    texte += afficher_carte("joueur", "terrain", n, "carte_side");
+                                    texte += "</div>";
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].equipements.length < Jeu.joueur.terrain[n].equipement_max) {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(3," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(3," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             break;
                         case 3:
                             equiper(Jeu.joueur.terrain[cible], carte);
                             effet_pose(carte);
                             enlever(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                         case 4:
                             if (verifier_cible_creature("adverse", "terrain")) {
-                                initialiser();
-                                div("main");
-                                fonction("Retour", "Jeu.joueur.main[" + carte.slot + "].effet_pose(1)");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher("Inflige 1 dégât à une Créature adverse sur le terrain.");
-                                saut(2);
-                                afficher("Choisissez une Créature adverse sur le terrain : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain adverse :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(1)'>Retour</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += "Inflige 1 dégât à une Créature adverse sur le terrain.";
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une Créature adverse sur le terrain : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain adverse :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.adverse.terrain.length; n++) {
-                                    div("", "carte");
-                                    div();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
                                     if (!Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                        afficher(afficher_carte("adverse", "terrain", n, "carte_side"));
+                                        texte += afficher_carte("adverse", "terrain", n, "carte_side");
                                     }
                                     else {
-                                        afficher("???");
+                                        texte += "???";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                     if (Jeu.adverse.terrain[n].type == "Créature" && !Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(5," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(5," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             break;
                         case 5:
                             degats(Jeu.adverse.terrain[cible], 1);
                             deplacer(carte, "joueur", "defausse");
                             effet_pose(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -2310,7 +2249,7 @@ function obtenir_carte(carte_id) {
                     if (carte.camp == "joueur") {
                         degats_direct("adverse", 3);
                         if (Jeu.adverse.vie > 0) {
-                            menu();
+                            actualiser_zone();
                         }
                         else {
                             combat_victoire();
@@ -2326,7 +2265,7 @@ function obtenir_carte(carte_id) {
                 }
                 else {
                     if (carte.camp == "joueur") {
-                        menu();
+                        actualiser_zone();
                     }
                     else {
                         return true;
@@ -2398,7 +2337,7 @@ function obtenir_carte(carte_id) {
                 }
                 deplacer(carte, carte.camp, "terrain");
                 effet_pose(carte);
-                menu();
+                actualiser_zone();
                 return true;
             }
             break;
@@ -2446,41 +2385,38 @@ function obtenir_carte(carte_id) {
                     switch (step) {
                         case 1:
                             if (verifier_cible_creature("adverse", "terrain")) {
-                                initialiser();
-                                div("main");
-                                fonction("Annuler", "menu()");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez une Créature adverse sur le terrain : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain adverse :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une Créature adverse sur le terrain : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain adverse :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.adverse.terrain.length; n++) {
-                                    div("", "carte");
-                                    div();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
                                     if (!Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                        afficher(afficher_carte("adverse", "terrain", n, "carte_side"));
+                                        texte += afficher_carte("adverse", "terrain", n, "carte_side");
                                     }
                                     else {
-                                        afficher("???");
+                                        texte += "???";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                     if (Jeu.adverse.terrain[n].type == "Créature" && !Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             break;
                         case 2:
@@ -2492,7 +2428,7 @@ function obtenir_carte(carte_id) {
                             }
                             deplacer(carte, "joueur", "defausse");
                             effet_pose(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -2560,48 +2496,45 @@ function obtenir_carte(carte_id) {
                     switch (step) {
                         case 1:
                             if (verifier_cible_creature("adverse", "terrain")) {
-                                initialiser();
-                                div("main");
-                                fonction("Annuler", "menu()");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez une Créature adverse sur le terrain : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain adverse :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une Créature adverse sur le terrain : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain adverse :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.adverse.terrain.length; n++) {
-                                    div("", "carte");
-                                    div();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
                                     if (!Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                        afficher(afficher_carte("adverse", "terrain", n, "carte_side"));
+                                        texte += afficher_carte("adverse", "terrain", n, "carte_side");
                                     }
                                     else {
-                                        afficher("???");
+                                        texte += "???";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                     if (Jeu.adverse.terrain[n].type == "Créature" && !Jeu.adverse.terrain[n].etourdissement && !Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             break;
                         case 2:
                             Jeu.adverse.terrain[cible].etourdissement = true;
                             deplacer(carte, "joueur", "defausse");
                             effet_pose(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -2640,79 +2573,76 @@ function obtenir_carte(carte_id) {
                     switch (step) {
                         case 1:
                             if (verifier_cible_creature("joueur", "terrain") || verifier_creature("adverse", "terrain")) {
-                                initialiser();
-                                div("main");
-                                fonction("Annuler", "menu()");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez une Créature sur le terrain : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une Créature sur le terrain : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain :</u>";
+                                texte += "<br/>";
                                 if (Jeu.joueur.terrain.length > 0) {
                                     for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
-                                        div("", "carte");
-                                        div();
-                                        afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
-                                        div_fin();
+                                        texte += "<div class='carte'>";
+                                        texte += "<div>";
+                                        texte += afficher_carte("joueur", "terrain", n, "carte_side");
+                                        texte += "</div>";
                                         if (Jeu.joueur.terrain[n].type == "Créature") {
-                                            div();
-                                            fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + '"joueur",' + n + ")");
-                                            div_fin();
+                                            texte += "<div>";
+                                            texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + '"joueur",' + n + ")'>Cibler</button>";
+                                            texte += "</div>";
                                         }
-                                        div_fin();
+                                        texte += "</div>";
                                     }
                                 }
                                 else {
-                                    afficher("<i>Votre terrain est vide</i>");
-                                    saut();
+                                    texte += "<i>Votre terrain est vide</i>";
+                                    texte += "<br/>";
                                 }
-                                div_fin();
-                                saut();
-                                afficher("Choisissez une Créature adverse sur le terrain : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain adverse :</u>");
-                                saut();
+                                texte += "</div>";
+                                texte += "<br/>";
+                                texte += "Choisissez une Créature adverse sur le terrain : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain adverse :</u>";
+                                texte += "<br/>";
                                 if (Jeu.adverse.terrain.length > 0) {
                                     for (let n = 0; n < Jeu.adverse.terrain.length; n++) {
-                                        div("", "carte");
-                                        div();
+                                        texte += "<div class='carte'>";
+                                        texte += "<div>";
                                         if (!Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                            afficher(afficher_carte("adverse", "terrain", n, "carte_side"));
+                                            texte += afficher_carte("adverse", "terrain", n, "carte_side");
                                         }
                                         else {
-                                            afficher("???");
+                                            texte += "???";
                                         }
-                                        div_fin();
+                                        texte += "</div>";
                                         if (Jeu.adverse.terrain[n].type == "Créature" && !Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                            div();
-                                            fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + '"adverse",' + n + ")");
-                                            div_fin();
+                                            texte += "<div>";
+                                            texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + '"adverse",' + n + ")'>Cibler</button>";
+                                            texte += "</div>";
                                         }
-                                        div_fin();
+                                        texte += "</div>";
                                     }
                                 }
                                 else {
-                                    afficher("<i>Le terrain adverse est vide</i>");
-                                    saut();
+                                    texte += "<i>Le terrain adverse est vide</i>";
+                                    texte += "<br/>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             break;
                         case 2:
                             deplacer(Jeu[cible_camp].terrain[cible_slot], cible_camp, "main");
                             deplacer(carte, "joueur", "defausse");
                             effet_pose(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -2760,7 +2690,7 @@ function obtenir_carte(carte_id) {
                     deplacer(carte, carte.camp, "terrain");
                 }
                 effet_pose(carte);
-                menu();
+                actualiser_zone();
                 return true;
             }
             carte.effet_mort = function () {
@@ -2858,7 +2788,7 @@ function obtenir_carte(carte_id) {
                 if (!verifier_region(carte.camp, 78)) {
                     deplacer(carte, carte.camp, "regions");
                     effet_pose(carte);
-                    menu();
+                    actualiser_zone();
                 }
             }
             carte.boutique_generer = function (nouvelle_carte) {
@@ -2882,7 +2812,7 @@ function obtenir_carte(carte_id) {
                 if (!verifier_region(carte.camp, 79)) {
                     deplacer(carte, carte.camp, "regions");
                     effet_pose(carte);
-                    menu();
+                    actualiser_zone();
                 }
             }
             carte.boutique_generer = function (nouvelle_carte) {
@@ -2905,48 +2835,45 @@ function obtenir_carte(carte_id) {
                     switch (step) {
                         case 1:
                             if (verifier_cible_creature("adverse", "terrain")) {
-                                initialiser();
-                                div("main");
-                                fonction("Annuler", "menu()");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez une Créature adverse sur le terrain : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain adverse :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une Créature adverse sur le terrain : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain adverse :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.adverse.terrain.length; n++) {
-                                    div("", "carte");
-                                    div();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
                                     if (!Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                        afficher(afficher_carte("adverse", "terrain", n, "carte_side"));
+                                        texte += afficher_carte("adverse", "terrain", n, "carte_side");
                                     }
                                     else {
-                                        afficher("???");
+                                        texte += "???";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                     if (Jeu.adverse.terrain[n].type == "Créature" && !Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             break;
                         case 2:
                             Jeu.adverse.terrain[cible].saignement += 2;
                             deplacer(carte, "joueur", "defausse");
                             effet_pose(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -2983,36 +2910,33 @@ function obtenir_carte(carte_id) {
                     switch (step) {
                         case 1:
                             if (verifier_creature("joueur", "terrain")) {
-                                initialiser();
-                                div("main");
-                                fonction("Annuler", "menu()");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez une Créature alliée sur le terrain : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une Créature alliée sur le terrain : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
-                                    div("", "carte");
-                                    div();
-                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
-                                    div_fin();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
+                                    texte += afficher_carte("joueur", "terrain", n, "carte_side");
+                                    texte += "</div>";
                                     if (Jeu.joueur.terrain[n].type == "Créature") {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             break;
                         case 2:
@@ -3021,7 +2945,7 @@ function obtenir_carte(carte_id) {
                             Jeu.joueur.terrain[cible].stat_etage.vie_max += 2;
                             deplacer(carte, "joueur", "defausse");
                             effet_pose(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -3055,79 +2979,76 @@ function obtenir_carte(carte_id) {
                     switch (step) {
                         case 1:
                             if (verifier_creature("joueur", "terrain") || verifier_creature("adverse", "terrain")) {
-                                initialiser();
-                                div("main");
-                                fonction("Annuler", "menu()");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez une Créature alliée sur le terrain : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une Créature alliée sur le terrain : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain :</u>";
+                                texte += "<br/>";
                                 if (Jeu.joueur.terrain.length > 0) {
                                     for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
-                                        div("", "carte");
-                                        div();
-                                        afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
-                                        div_fin();
+                                        texte += "<div class='carte'>";
+                                        texte += "<div>";
+                                        texte += afficher_carte("joueur", "terrain", n, "carte_side");
+                                        texte += "</div>";
                                         if (Jeu.joueur.terrain[n].type == "Créature") {
-                                            div();
-                                            fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + '"joueur",' + n + ")");
-                                            div_fin();
+                                            texte += "<div>";
+                                            texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + '"joueur",' + n + ")'>Cibler</button>";
+                                            texte += "</div>";
                                         }
-                                        div_fin();
+                                        texte += "</div>";
                                     }
                                 }
                                 else {
-                                    afficher("<i>Votre terrain est vide</i>");
-                                    saut();
+                                    texte += "<i>Votre terrain est vide</i>";
+                                    texte += "<br/>";
                                 }
-                                div_fin();
-                                saut();
-                                afficher("Choisissez une Créature adverse sur le terrain : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain adverse :</u>");
-                                saut();
+                                texte += "</div>";
+                                texte += "<br/>";
+                                texte += "Choisissez une Créature adverse sur le terrain : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain adverse :</u>";
+                                texte += "<br/>";
                                 if (Jeu.adverse.terrain.length > 0) {
                                     for (let n = 0; n < Jeu.adverse.terrain.length; n++) {
-                                        div("", "carte");
-                                        div();
+                                        texte += "<div class='carte'>";
+                                        texte += "<div>";
                                         if (!Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                            afficher(afficher_carte("adverse", "terrain", n, "carte_side"));
+                                            texte += afficher_carte("adverse", "terrain", n, "carte_side");
                                         }
                                         else {
-                                            afficher("???");
+                                            texte += "???";
                                         }
-                                        div_fin();
+                                        texte += "</div>";
                                         if (Jeu.adverse.terrain[n].type == "Créature") {
-                                            div();
-                                            fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + '"adverse",' + n + ")");
-                                            div_fin();
+                                            texte += "<div>";
+                                            texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + '"adverse",' + n + ")'>Cibler</button>";
+                                            texte += "</div>";
                                         }
-                                        div_fin();
+                                        texte += "</div>";
                                     }
                                 }
                                 else {
-                                    afficher("<i>Le terrain adverse est vide</i>");
-                                    saut();
+                                    texte += "<i>Le terrain adverse est vide</i>";
+                                    texte += "<br/>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             break;
                         case 2:
                             Jeu[camp].terrain[cible].silence = true;
                             deplacer(carte, "joueur", "defausse");
                             effet_pose(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -3311,7 +3232,7 @@ function obtenir_carte(carte_id) {
                 if (!verifier_region(carte.camp, 96)) {
                     deplacer(carte, carte.camp, "regions");
                     effet_pose(carte);
-                    menu();
+                    actualiser_zone();
                 }
             }
             carte.boutique_generer = function (nouvelle_carte) {
@@ -3335,7 +3256,7 @@ function obtenir_carte(carte_id) {
                 if (!verifier_region(carte.camp, 97)) {
                     deplacer(carte, carte.camp, "regions");
                     effet_pose(carte);
-                    menu();
+                    actualiser_zone();
                 }
             }
             carte.boutique_generer = function (nouvelle_carte) {
@@ -3359,7 +3280,7 @@ function obtenir_carte(carte_id) {
                 if (!verifier_region(carte.camp, 98)) {
                     deplacer(carte, carte.camp, "regions");
                     effet_pose(carte);
-                    menu();
+                    actualiser_zone();
                 }
             }
             carte.boutique_generer = function (nouvelle_carte) {
@@ -3383,7 +3304,7 @@ function obtenir_carte(carte_id) {
                 if (!verifier_region(carte.camp, 99)) {
                     deplacer(carte, carte.camp, "regions");
                     effet_pose(carte);
-                    menu();
+                    actualiser_zone();
                 }
             }
             carte.boutique_generer = function (nouvelle_carte) {
@@ -3407,7 +3328,7 @@ function obtenir_carte(carte_id) {
                 if (!verifier_region(carte.camp, 100)) {
                     deplacer(carte, carte.camp, "regions");
                     effet_pose(carte);
-                    menu();
+                    actualiser_zone();
                 }
             }
             carte.boutique_generer = function (nouvelle_carte) {
@@ -3431,7 +3352,7 @@ function obtenir_carte(carte_id) {
                 if (!verifier_region(carte.camp, 101)) {
                     deplacer(carte, carte.camp, "regions");
                     effet_pose(carte);
-                    menu();
+                    actualiser_zone();
                 }
             }
             carte.boutique_generer = function (nouvelle_carte) {
@@ -3455,7 +3376,7 @@ function obtenir_carte(carte_id) {
                 if (!verifier_region(carte.camp, 102)) {
                     deplacer(carte, carte.camp, "regions");
                     effet_pose(carte);
-                    menu();
+                    actualiser_zone();
                 }
             }
             carte.boutique_generer = function (nouvelle_carte) {
@@ -3479,7 +3400,7 @@ function obtenir_carte(carte_id) {
                 if (!verifier_region(carte.camp, 103)) {
                     deplacer(carte, carte.camp, "regions");
                     effet_pose(carte);
-                    menu();
+                    actualiser_zone();
                 }
             }
             carte.boutique_generer = function (nouvelle_carte) {
@@ -3503,7 +3424,7 @@ function obtenir_carte(carte_id) {
                 if (!verifier_region(carte.camp, 104)) {
                     deplacer(carte, carte.camp, "regions");
                     effet_pose(carte);
-                    menu();
+                    actualiser_zone();
                 }
             }
             carte.boutique_generer = function (nouvelle_carte) {
@@ -3527,7 +3448,7 @@ function obtenir_carte(carte_id) {
                 if (!verifier_region(carte.camp, 105)) {
                     deplacer(carte, carte.camp, "regions");
                     effet_pose(carte);
-                    menu();
+                    actualiser_zone();
                 }
             }
             carte.boutique_generer = function (nouvelle_carte) {
@@ -3551,7 +3472,7 @@ function obtenir_carte(carte_id) {
                 if (!verifier_region(carte.camp, 106)) {
                     deplacer(carte, carte.camp, "regions");
                     effet_pose(carte);
-                    menu();
+                    actualiser_zone();
                 }
             }
             carte.boutique_generer = function (nouvelle_carte) {
@@ -3576,43 +3497,40 @@ function obtenir_carte(carte_id) {
                     switch (step) {
                         case 1:
                             if (verifier_equipement("joueur")) {
-                                initialiser();
-                                div("main");
-                                fonction("Annuler", "menu()");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez une Créature alliée équipable sur le terrain : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une Créature alliée équipable sur le terrain : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
-                                    div("", "carte");
-                                    div();
-                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
-                                    div_fin();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
+                                    texte += afficher_carte("joueur", "terrain", n, "carte_side");
+                                    texte += "</div>";
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].equipements.length < Jeu.joueur.terrain[n].equipement_max) {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             break;
                         case 2:
                             equiper(Jeu.joueur.terrain[cible], carte);
                             effet_pose(carte);
                             enlever(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -3647,43 +3565,40 @@ function obtenir_carte(carte_id) {
                     switch (step) {
                         case 1:
                             if (verifier_equipement("joueur")) {
-                                initialiser();
-                                div("main");
-                                fonction("Annuler", "menu()");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez une Créature alliée équipable sur le terrain : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une Créature alliée équipable sur le terrain : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
-                                    div("", "carte");
-                                    div();
-                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
-                                    div_fin();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
+                                    texte += afficher_carte("joueur", "terrain", n, "carte_side");
+                                    texte += "</div>";
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].equipements.length < Jeu.joueur.terrain[n].equipement_max) {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             break;
                         case 2:
                             equiper(Jeu.joueur.terrain[cible], carte);
                             effet_pose(carte);
                             enlever(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -3717,43 +3632,40 @@ function obtenir_carte(carte_id) {
                     switch (step) {
                         case 1:
                             if (verifier_equipement("joueur")) {
-                                initialiser();
-                                div("main");
-                                fonction("Annuler", "menu()");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez une Créature alliée équipable sur le terrain : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une Créature alliée équipable sur le terrain : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
-                                    div("", "carte");
-                                    div();
-                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
-                                    div_fin();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
+                                    texte += afficher_carte("joueur", "terrain", n, "carte_side");
+                                    texte += "</div>";
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].equipements.length < Jeu.joueur.terrain[n].equipement_max) {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             break;
                         case 2:
                             equiper(Jeu.joueur.terrain[cible], carte);
                             effet_pose(carte);
                             enlever(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -3788,43 +3700,40 @@ function obtenir_carte(carte_id) {
                     switch (step) {
                         case 1:
                             if (verifier_equipement("joueur")) {
-                                initialiser();
-                                div("main");
-                                fonction("Annuler", "menu()");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez une Créature alliée équipable sur le terrain : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une Créature alliée équipable sur le terrain : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
-                                    div("", "carte");
-                                    div();
-                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
-                                    div_fin();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
+                                    texte += afficher_carte("joueur", "terrain", n, "carte_side");
+                                    texte += "</div>";
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].equipements.length < Jeu.joueur.terrain[n].equipement_max) {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             break;
                         case 2:
                             equiper(Jeu.joueur.terrain[cible], carte);
                             effet_pose(carte);
                             enlever(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -3859,43 +3768,40 @@ function obtenir_carte(carte_id) {
                     switch (step) {
                         case 1:
                             if (verifier_equipement("joueur")) {
-                                initialiser();
-                                div("main");
-                                fonction("Annuler", "menu()");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez une Créature alliée équipable sur le terrain : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une Créature alliée équipable sur le terrain : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
-                                    div("", "carte");
-                                    div();
-                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
-                                    div_fin();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
+                                    texte += afficher_carte("joueur", "terrain", n, "carte_side");
+                                    texte += "</div>";
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].equipements.length < Jeu.joueur.terrain[n].equipement_max) {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             break;
                         case 2:
                             equiper(Jeu.joueur.terrain[cible], carte);
                             effet_pose(carte);
                             enlever(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -3935,7 +3841,7 @@ function obtenir_carte(carte_id) {
                 if (!verifier_region(carte.camp, 113)) {
                     deplacer(carte, carte.camp, "regions");
                     effet_pose(carte);
-                    menu();
+                    actualiser_zone();
                 }
             }
             carte.boutique_generer = function (nouvelle_carte) {
@@ -4044,48 +3950,45 @@ function obtenir_carte(carte_id) {
                     switch (step) {
                         case 1:
                             if (verifier_cible("adverse", "terrain")) {
-                                initialiser();
-                                div("main");
-                                fonction("Annuler", "menu()");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez une Unité adverse : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain adverse :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une Unité adverse : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain adverse :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.adverse.terrain.length; n++) {
-                                    div("", "carte");
-                                    div();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
                                     if (!Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                        afficher(afficher_carte("adverse", "terrain", n, "carte_side"));
+                                        texte += afficher_carte("adverse", "terrain", n, "carte_side");
                                     }
                                     else {
-                                        afficher("???");
+                                        texte += "???";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                     if (!Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             break;
                         case 2:
                             degats(Jeu.adverse.terrain[cible], 1);
                             deplacer(carte, "joueur", "defausse");
                             effet_pose(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -4195,7 +4098,7 @@ function obtenir_carte(carte_id) {
                     }
                     deplacer(carte, "joueur", "terrain");
                     effet_pose(carte);
-                    menu();
+                    actualiser_zone();
                 }
                 else {
                     deplacer(carte, "adverse", "terrain");
@@ -4224,43 +4127,40 @@ function obtenir_carte(carte_id) {
                     switch (step) {
                         case 1:
                             if (verifier_equipement("joueur")) {
-                                initialiser();
-                                div("main");
-                                fonction("Annuler", "menu()");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez une Créature alliée équipable sur le terrain : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une Créature alliée équipable sur le terrain : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
-                                    div("", "carte");
-                                    div();
-                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
-                                    div_fin();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
+                                    texte += afficher_carte("joueur", "terrain", n, "carte_side");
+                                    texte += "</div>";
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].equipements.length < Jeu.joueur.terrain[n].equipement_max) {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             break;
                         case 2:
                             equiper(Jeu.joueur.terrain[cible], carte);
                             effet_pose(carte);
                             enlever(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -4298,7 +4198,7 @@ function obtenir_carte(carte_id) {
                 }
                 deplacer(carte, carte.camp, "terrain");
                 effet_pose(carte);
-                menu();
+                actualiser_zone();
                 return true;
             }
             break;
@@ -4321,7 +4221,7 @@ function obtenir_carte(carte_id) {
                 }
                 deplacer(carte, carte.camp, "terrain");
                 effet_pose(carte);
-                menu();
+                actualiser_zone();
                 return true;
             }
             break;
@@ -4344,7 +4244,7 @@ function obtenir_carte(carte_id) {
                 }
                 deplacer(carte, carte.camp, "terrain");
                 effet_pose(carte);
-                menu();
+                actualiser_zone();
                 return true;
             }
             break;
@@ -4367,7 +4267,7 @@ function obtenir_carte(carte_id) {
                 }
                 deplacer(carte, carte.camp, "terrain");
                 effet_pose(carte);
-                menu();
+                actualiser_zone();
                 return true;
             }
             break;
@@ -4390,7 +4290,7 @@ function obtenir_carte(carte_id) {
                 }
                 deplacer(carte, carte.camp, "terrain");
                 effet_pose(carte);
-                menu();
+                actualiser_zone();
                 return true;
             }
             break;
@@ -4413,7 +4313,7 @@ function obtenir_carte(carte_id) {
                 }
                 deplacer(carte, carte.camp, "terrain");
                 effet_pose(carte);
-                menu();
+                actualiser_zone();
                 return true;
             }
             break;
@@ -4436,7 +4336,7 @@ function obtenir_carte(carte_id) {
                 }
                 deplacer(carte, carte.camp, "terrain");
                 effet_pose(carte);
-                menu();
+                actualiser_zone();
                 return true;
             }
             break;
@@ -4459,7 +4359,7 @@ function obtenir_carte(carte_id) {
                 }
                 deplacer(carte, carte.camp, "terrain");
                 effet_pose(carte);
-                menu();
+                actualiser_zone();
                 return true;
             }
             break;
@@ -4482,7 +4382,7 @@ function obtenir_carte(carte_id) {
                 }
                 deplacer(carte, carte.camp, "terrain");
                 effet_pose(carte);
-                menu();
+                actualiser_zone();
                 return true;
             }
             break;
@@ -4505,7 +4405,7 @@ function obtenir_carte(carte_id) {
                 }
                 deplacer(carte, carte.camp, "terrain");
                 effet_pose(carte);
-                menu();
+                actualiser_zone();
                 return true;
             }
             break;
@@ -4528,7 +4428,7 @@ function obtenir_carte(carte_id) {
                 }
                 deplacer(carte, carte.camp, "terrain");
                 effet_pose(carte);
-                menu();
+                actualiser_zone();
                 return true;
             }
             break;
@@ -4551,7 +4451,7 @@ function obtenir_carte(carte_id) {
                 }
                 deplacer(carte, carte.camp, "terrain");
                 effet_pose(carte);
-                menu();
+                actualiser_zone();
                 return true;
             }
             break;
@@ -4567,41 +4467,40 @@ function obtenir_carte(carte_id) {
                 if (carte.camp == "joueur") {
                     switch (step) {
                         case 1:
-                            initialiser();
-                            div("main");
-                            fonction("Annuler", "menu()");
-                            saut(2);
-                            afficher(carte.nom);
-                            saut();
-                            afficher(carte.texte());
-                            saut(2);
-                            afficher("Choisissez une carte dans la boutique non-verrouillée : ");
-                            saut(2);
-                            div("", "zone");
-                            afficher("<u>Boutique :</u>");
-                            saut();
+                            let texte = "";
+
+                            texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                            texte += "<br/><br/>";
+                            texte += carte.nom;
+                            texte += "<br/>";
+                            texte += carte.texte();
+                            texte += "<br/><br/>";
+                            texte += "Choisissez une carte dans la boutique non-verrouillée : ";
+                            texte += "<br/><br/>";
+                            texte += "<div class='zone' style='width:48%;'>";
+                            texte += "<u>Boutique :</u>";
+                            texte += "<br/>";
                             for (let n = 0; n < Jeu.joueur.boutique.length; n++) {
-                                div("", "carte");
-                                div();
-                                afficher(afficher_carte("joueur", "boutique", n, "carte_side"));
-                                div_fin();
+                                texte += "<div class='carte'>";
+                                texte += "<div>";
+                                texte += afficher_carte("joueur", "boutique", n, "carte_side");
+                                texte += "</div>";
                                 if (!Jeu.joueur.boutique.verrouillage) {
-                                    div();
-                                    fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                    div_fin();
+                                    texte += "<div>";
+                                    texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")'>Cibler</button>";
+                                    texte += "</div>";
                                 }
-                                div_fin();
+                                texte += "</div>";
                             }
-                            div_fin();
-                            div_fin();
-                            div("carte_side", "affichage");
-                            div_fin();
-                            actualiser();
+                            texte += "</div>";
+                            texte += "</div>";
+                            
+                            afficher_choix(texte);
                             break;
                         case 2:
                             Jeu.joueur.boutique[cible].verrouillage = true;
                             deplacer(carte, "joueur", "defausse");
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -4773,7 +4672,7 @@ function obtenir_carte(carte_id) {
                     Jeu[carte.camp].ressources[2].max++;
                 }
                 deplacer(carte, carte.camp, "defausse");
-                menu();
+                actualiser_zone();
                 return true;
             }
             break;
@@ -4792,41 +4691,38 @@ function obtenir_carte(carte_id) {
                     switch (step) {
                         case 1:
                             if (verifier_cible_creature("adverse", "terrain")) {
-                                initialiser();
-                                div("main");
-                                fonction("Retour", "Jeu.joueur.main[" + carte.slot + "].effet_pose(1)");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez une Créature adverse sur le terrain : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain adverse :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(1)'>Retour</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une Créature adverse sur le terrain : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain adverse :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.adverse.terrain.length; n++) {
-                                    div("", "carte");
-                                    div();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
                                     if (!Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                        afficher(afficher_carte("adverse", "terrain", n, "carte_side"));
+                                        texte += afficher_carte("adverse", "terrain", n, "carte_side");
                                     }
                                     else {
-                                        afficher("???");
+                                        texte += "???";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                     if (Jeu.adverse.terrain[n].type == "Créature" && !Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             break;
                         case 2:
@@ -4838,7 +4734,7 @@ function obtenir_carte(carte_id) {
                             }
                             deplacer(carte, "joueur", "defausse");
                             effet_pose(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -4887,7 +4783,7 @@ function obtenir_carte(carte_id) {
                     Jeu[carte.camp].terrain[n].slot++;
                 }
                 deplacer(carte, carte.camp, "defausse");
-                menu();
+                actualiser_zone();
                 return true;
             }
             break;
@@ -4917,41 +4813,38 @@ function obtenir_carte(carte_id) {
                     switch (step) {
                         case 1:
                             if (verifier_cible_creature("adverse", "terrain")) {
-                                initialiser();
-                                div("main");
-                                fonction("Annuler", "menu()");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez une Créature adverse sur le terrain : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain adverse :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une Créature adverse sur le terrain : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain adverse :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.adverse.terrain.length; n++) {
-                                    div("", "carte");
-                                    div();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
                                     if (!Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                        afficher(afficher_carte("adverse", "terrain", n, "carte_side"));
+                                        texte += afficher_carte("adverse", "terrain", n, "carte_side");
                                     }
                                     else {
-                                        afficher("???");
+                                        texte += "???";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                     if (Jeu.adverse.terrain[n].type == "Créature" && !Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             break;
                         case 2:
@@ -4963,7 +4856,7 @@ function obtenir_carte(carte_id) {
                             }
                             deplacer(carte, "joueur", "defausse");
                             effet_pose(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -5012,7 +4905,7 @@ function obtenir_carte(carte_id) {
                     }
                     deplacer(carte, carte.camp, "defausse");
                     effet_pose(carte);
-                    menu();
+                    actualiser_zone();
                     return true;
                 }
                 return false;
@@ -5034,36 +4927,33 @@ function obtenir_carte(carte_id) {
                     switch (step) {
                         case 1:
                             if (verifier_creature("joueur", "terrain")) {
-                                initialiser();
-                                div("main");
-                                fonction("Annuler", "menu()");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez une Créature alliée sur le terrain : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une Créature alliée sur le terrain : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
-                                    div("", "carte");
-                                    div();
-                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
-                                    div_fin();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
+                                    texte += afficher_carte("joueur", "terrain", n, "carte_side");
+                                    texte += "</div>";
                                     if (Jeu.joueur.terrain[n].type == "Créature") {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             break;
                         case 2:
@@ -5079,7 +4969,7 @@ function obtenir_carte(carte_id) {
                             }
                             deplacer(carte, "joueur", "defausse");
                             effet_pose(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -5123,86 +5013,80 @@ function obtenir_carte(carte_id) {
                     switch (step) {
                         case 1:
                             if (verifier_cible("adverse", "terrain")) {
-                                initialiser();
-                                div("main");
-                                fonction("Annuler", "menu()");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez une première Unité adverse sur le terrain : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain adverse :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une première Unité adverse sur le terrain : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain adverse :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.adverse.terrain.length; n++) {
-                                    div("", "carte");
-                                    div();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
                                     if (!Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                        afficher(afficher_carte("adverse", "terrain", n, "carte_side"));
+                                        texte += afficher_carte("adverse", "terrain", n, "carte_side");
                                     }
                                     else {
-                                        afficher("???");
+                                        texte += "???";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                     if (!Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             break;
                         case 2:
                             if (sorcellerie("joueur") >= 2) {
-                                initialiser();
-                                div("main");
-                                fonction("Annuler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(1)");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez une deuxième Unité adverse sur le terrain : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain adverse :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(1)'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une deuxième Unité adverse sur le terrain : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain adverse :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.adverse.terrain.length; n++) {
-                                    div("", "carte");
-                                    div();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
                                     if (!Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                        afficher(afficher_carte("adverse", "terrain", n, "carte_side"));
+                                        texte += afficher_carte("adverse", "terrain", n, "carte_side");
                                     }
                                     else {
-                                        afficher("???");
+                                        texte += "???";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                     if (!Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(3," + cible1 + "," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(3," + cible1 + "," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             else {
                                 degats(Jeu.adverse.terrain[cible1], 2);
                                 deplacer(carte, "joueur", "defausse");
                                 effet_pose(carte);
-                                menu();
+                                actualiser_zone();
                             }
                             break;
                         case 3:
@@ -5215,7 +5099,7 @@ function obtenir_carte(carte_id) {
                             }
                             deplacer(carte, "joueur", "defausse");
                             effet_pose(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -5267,36 +5151,33 @@ function obtenir_carte(carte_id) {
                     switch (step) {
                         case 1:
                             if (verifier_creature("joueur", "defausse")) {
-                                initialiser();
-                                div("main");
-                                fonction("Annuler", "menu()");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez une Créature alliée dans la défausse : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Défausse :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une Créature alliée dans la défausse : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Défausse :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.joueur.defausse.length; n++) {
-                                    div("", "carte");
-                                    div();
-                                    afficher(afficher_carte("joueur", "defausse", n, "carte_side"));
-                                    div_fin();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
+                                    texte += afficher_carte("joueur", "defausse", n, "carte_side");
+                                    texte += "</div>";
                                     if (Jeu.joueur.defausse[n].type == "Créature") {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             break;
                         case 2:
@@ -5307,7 +5188,7 @@ function obtenir_carte(carte_id) {
                             deplacer(Jeu.joueur.defausse[cible], "joueur", "boutique");
                             deplacer(carte, "joueur", "defausse");
                             effet_pose(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -5331,72 +5212,66 @@ function obtenir_carte(carte_id) {
                 if (carte.camp == "joueur") {
                     switch (step) {
                         case 1:
-                            initialiser();
-                            div("main");
-                            fonction("Annuler", "menu()");
-                            saut(2);
-                            afficher(carte.nom);
-                            saut();
-                            afficher(carte.texte());
-                            saut(2);
-                            afficher("Choisissez un effet : ");
-                            saut(2);
+                            let texte = "";
+                            texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                            texte += "<br/><br/>";
+                            texte += carte.nom;
+                            texte += "<br/>";
+                            texte += carte.texte();
+                            texte += "<br/><br/>";
+                            texte += "Choisissez un effet : ";
+                            texte += "<br/><br/>";
                             if (sorcellerie("joueur") >= 5) {
-                                fonction("Soigne 10 à une Créature alliée sur le terrain", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2)");
-                                saut();
-                                afficher("ou");
-                                saut();
-                                fonction("Inflige 10 dégâts à une Créature adverse sur le terrain", "Jeu.joueur.main[" + carte.slot + "].effet_pose(4)");
+                                texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2)'>Soigne 10 à une Créature alliée sur le terrain</button>";
+                                texte += "<br/>";
+                                texte += "ou";
+                                texte += "<br/>";
+                                texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(4)'>Inflige 10 dégâts à une Créature adverse sur le terrain</button>";
                             }
                             else {
-                                fonction("Soigne 5 à une Créature alliée sur le terrain", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2)");
-                                saut();
-                                afficher("ou");
-                                saut();
-                                fonction("Inflige 5 dégâts à une Créature adverse sur le terrain", "Jeu.joueur.main[" + carte.slot + "].effet_pose(4)");
+                                texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2)'>Soigne 5 à une Créature alliée sur le terrain</button>";
+                                texte += "<br/>";
+                                texte += "ou";
+                                texte += "<br/>";
+                                texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(4)'>Inflige 5 dégâts à une Créature adverse sur le terrain</button>";
                             }
-                            div_fin();
-                            div("carte_side", "affichage");
-                            div_fin();
-                            actualiser();
+                            texte += "</div>";
+                            afficher_choix(texte);
                             break;
                         case 2:
                             if (verifier_soin_creature("joueur")) {
-                                initialiser();
-                                div("main");
-                                fonction("Retour", "Jeu.joueur.main[" + carte.slot + "].effet_pose(1)");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(1)'>Retour</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
                                 if (sorcellerie("joueur") >= 5) {
-                                    afficher("Soigne 10 à une Créature alliée sur le terrain.");
+                                    texte += "Soigne 10 à une Créature alliée sur le terrain.";
                                 }
                                 else {
-                                    afficher("Soigne 5 à une Créature alliée sur le terrain.");
+                                    texte += "Soigne 5 à une Créature alliée sur le terrain.";
                                 }
-                                saut(2);
-                                afficher("Choisissez une Créature alliée sur le terrain : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain :</u>");
-                                saut();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une Créature alliée sur le terrain : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
-                                    div("", "carte");
-                                    div();
-                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
-                                    div_fin();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
+                                    texte += afficher_carte("joueur", "terrain", n, "carte_side");
+                                    texte += "</div>";
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].vie < Jeu.joueur.terrain[n].vie_max) {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(3," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(3," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             break;
                         case 3:
@@ -5408,50 +5283,47 @@ function obtenir_carte(carte_id) {
                             }
                             effet_pose(carte);
                             enlever(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                         case 4:
                             if (verifier_cible_creature("adverse", "terrain")) {
-                                initialiser();
-                                div("main");
-                                fonction("Retour", "Jeu.joueur.main[" + carte.slot + "].effet_pose(1)");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(1)'>Retour</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
                                 if (sorcellerie("joueur") >= 5) {
-                                    afficher("Inflige 10 dégâts à une Créature adverse sur le terrain.");
+                                    texte += "Inflige 10 dégâts à une Créature adverse sur le terrain.";
                                 }
                                 else {
-                                    afficher("Inflige 5 dégâts à une Créature adverse sur le terrain.");
+                                    texte += "Inflige 5 dégâts à une Créature adverse sur le terrain.";
                                 }
-                                saut(2);
-                                afficher("Choisissez une Créature adverse sur le terrain : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain adverse :</u>");
-                                saut();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une Créature adverse sur le terrain : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain adverse :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.adverse.terrain.length; n++) {
-                                    div("", "carte");
-                                    div();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
                                     if (!Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                        afficher(afficher_carte("adverse", "terrain", n, "carte_side"));
+                                        texte += afficher_carte("adverse", "terrain", n, "carte_side");
                                     }
                                     else {
-                                        afficher("???");
+                                        texte += "???";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                     if (Jeu.adverse.terrain[n].type == "Créature" && !Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(5," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(5," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             break;
                         case 5:
@@ -5463,7 +5335,7 @@ function obtenir_carte(carte_id) {
                             }
                             deplacer(carte, "joueur", "defausse");
                             effet_pose(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -5523,75 +5395,69 @@ function obtenir_carte(carte_id) {
                     switch (step) {
                         case 1:
                             if (verifier_cible_creature("adverse", "terrain")) {
-                                initialiser();
-                                div("main");
-                                fonction("Annuler", "menu()");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez une Créature adverse sur le terrain : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain adverse :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une Créature adverse sur le terrain : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain adverse :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.adverse.terrain.length; n++) {
-                                    div("", "carte");
-                                    div();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
                                     if (!Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                        afficher(afficher_carte("adverse", "terrain", n, "carte_side"));
+                                        texte += afficher_carte("adverse", "terrain", n, "carte_side");
                                     }
                                     else {
-                                        afficher("???");
+                                        texte += "???";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                     if (Jeu.adverse.terrain[n].type == "Créature" && !Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             break;
                         case 2:
                             if (verifier_soin_creature("joueur")) {
-                                initialiser();
-                                div("main");
-                                fonction("Annuler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(1)");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez une Créature alliée sur le terrain : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(1)'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une Créature alliée sur le terrain : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
-                                    div("", "carte");
-                                    div();
-                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
-                                    div_fin();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
+                                    texte += afficher_carte("joueur", "terrain", n, "carte_side");
+                                    texte += "</div>";
                                     if (Jeu.joueur.terrain[n].type == "Créature") {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(3," + cible1 + "," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(3," + cible1 + "," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             else {
                                 if (sorcellerie("joueur") >= 10) {
@@ -5602,7 +5468,7 @@ function obtenir_carte(carte_id) {
                                 }
                                 deplacer(carte, "joueur", "defausse");
                                 effet_pose(carte);
-                                menu();
+                                actualiser_zone();
                             }
                             break;
                         case 3:
@@ -5616,7 +5482,7 @@ function obtenir_carte(carte_id) {
                             }
                             deplacer(carte, "joueur", "defausse");
                             effet_pose(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -5678,41 +5544,38 @@ function obtenir_carte(carte_id) {
                     switch (step) {
                         case 1:
                             if (verifier_cible("adverse", "terrain")) {
-                                initialiser();
-                                div("main");
-                                fonction("Annuler", "menu()");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez une Unité adverse sur le terrain : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain adverse :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une Unité adverse sur le terrain : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain adverse :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.adverse.terrain.length; n++) {
-                                    div("", "carte");
-                                    div();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
                                     if (!Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                        afficher(afficher_carte("adverse", "terrain", n, "carte_side"));
+                                        texte += afficher_carte("adverse", "terrain", n, "carte_side");
                                     }
                                     else {
-                                        afficher("???");
+                                        texte += "???";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                     if (!Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             break;
                         case 2:
@@ -5724,7 +5587,7 @@ function obtenir_carte(carte_id) {
                             }
                             deplacer(carte, "joueur", "defausse");
                             effet_pose(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -5778,7 +5641,7 @@ function obtenir_carte(carte_id) {
                 }
                 deplacer(carte, carte.camp, "terrain");
                 effet_pose(carte);
-                menu();
+                actualiser_zone();
                 return true;
             }
             break;
@@ -5932,7 +5795,7 @@ function obtenir_carte(carte_id) {
                         }
                         deplacer(carte, "joueur", "defausse");
                         effet_pose(carte);
-                        menu();
+                        actualiser_zone();
                     }
                 }
                 else {
@@ -6211,53 +6074,50 @@ function obtenir_carte(carte_id) {
                                 }
                             }
                             if (verifier && !statistique(carte, "silence")) {
-                                initialiser();
-                                div("main");
-                                fonction("Annuler", "menu()");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez une Créature adverse sur le terrain dont la vie est de 10 ou moins : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain adverse :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une Créature adverse sur le terrain dont la vie est de 10 ou moins : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain adverse :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.adverse.terrain.length; n++) {
-                                    div("", "carte");
-                                    div();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
                                     if (!Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                        afficher(afficher_carte("adverse", "terrain", n, "carte_side"));
+                                        texte += afficher_carte("adverse", "terrain", n, "carte_side");
                                     }
                                     else {
-                                        afficher("???");
+                                        texte += "???";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                     if (Jeu.adverse.terrain[n].type == "Créature" && Jeu.adverse.terrain[n].vie <= 10 && !Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")'>Cibler</button>";
                                         div_fin()
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             else {
                                 deplacer(carte, "joueur", "terrain");
                                 effet_pose(carte);
-                                menu();
+                                actualiser_zone();
                             }
                             break;
                         case 2:
                             deplacer(carte, "joueur", "terrain");
                             deplacer(Jeu.adverse.terrain[cible], "joueur", "terrain");
                             effet_pose(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -6302,43 +6162,40 @@ function obtenir_carte(carte_id) {
                     switch (step) {
                         case 1:
                             if (verifier_equipement("joueur")) {
-                                initialiser();
-                                div("main");
-                                fonction("Annuler", "menu()");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez une Créature alliée équipable sur le terrain : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une Créature alliée équipable sur le terrain : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
-                                    div("", "carte");
-                                    div();
-                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
-                                    div_fin();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
+                                    texte += afficher_carte("joueur", "terrain", n, "carte_side");
+                                    texte += "</div>";
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].equipements.length < Jeu.joueur.terrain[n].equipement_max) {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             break;
                         case 2:
                             equiper(Jeu.joueur.terrain[cible], carte);
                             effet_pose(carte);
                             enlever(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -6369,7 +6226,7 @@ function obtenir_carte(carte_id) {
             carte.effet_pose = function () {
                 Jeu[carte.camp].ressources[1].reserve++;
                 deplacer(carte, carte.camp, "defausse");
-                menu();
+                actualiser_zone();
                 return true;
             }
             break;
@@ -6385,7 +6242,7 @@ function obtenir_carte(carte_id) {
             carte.effet_pose = function () {
                 Jeu[carte.camp].ressources[2].reserve++;
                 deplacer(carte, carte.camp, "defausse");
-                menu();
+                actualiser_zone();
                 return true;
             }
             break;
@@ -6401,7 +6258,7 @@ function obtenir_carte(carte_id) {
             carte.effet_pose = function () {
                 Jeu[carte.camp].ressources[3].reserve++;
                 deplacer(carte, carte.camp, "defausse");
-                menu();
+                actualiser_zone();
                 return true;
             }
             break;
@@ -6417,7 +6274,7 @@ function obtenir_carte(carte_id) {
             carte.effet_pose = function () {
                 Jeu[carte.camp].ressources[4].reserve++;
                 deplacer(carte, carte.camp, "defausse");
-                menu();
+                actualiser_zone();
                 return true;
             }
             break;
@@ -6433,7 +6290,7 @@ function obtenir_carte(carte_id) {
             carte.effet_pose = function () {
                 Jeu[carte.camp].ressources[5].reserve++;
                 deplacer(carte, carte.camp, "defausse");
-                menu();
+                actualiser_zone();
                 return true;
             }
             break;
@@ -6449,7 +6306,7 @@ function obtenir_carte(carte_id) {
             carte.effet_pose = function () {
                 Jeu[carte.camp].ressources[6].reserve++;
                 deplacer(carte, carte.camp, "defausse");
-                menu();
+                actualiser_zone();
                 return true;
             }
             break;
@@ -6465,7 +6322,7 @@ function obtenir_carte(carte_id) {
             carte.effet_pose = function () {
                 Jeu[carte.camp].ressources[7].reserve++;
                 deplacer(carte, carte.camp, "defausse");
-                menu();
+                actualiser_zone();
                 return true;
             }
             break;
@@ -6481,7 +6338,7 @@ function obtenir_carte(carte_id) {
             carte.effet_pose = function () {
                 Jeu[carte.camp].ressources[8].reserve++;
                 deplacer(carte, carte.camp, "defausse");
-                menu();
+                actualiser_zone();
                 return true;
             }
             break;
@@ -6497,7 +6354,7 @@ function obtenir_carte(carte_id) {
             carte.effet_pose = function () {
                 Jeu[carte.camp].ressources[9].reserve++;
                 deplacer(carte, carte.camp, "defausse");
-                menu();
+                actualiser_zone();
                 return true;
             }
             break;
@@ -6513,7 +6370,7 @@ function obtenir_carte(carte_id) {
             carte.effet_pose = function () {
                 Jeu[carte.camp].ressources[10].reserve++;
                 deplacer(carte, carte.camp, "defausse");
-                menu();
+                actualiser_zone();
                 return true;
             }
             break;
@@ -6529,7 +6386,7 @@ function obtenir_carte(carte_id) {
             carte.effet_pose = function () {
                 Jeu[carte.camp].ressources[11].reserve++;
                 deplacer(carte, carte.camp, "defausse");
-                menu();
+                actualiser_zone();
                 return true;
             }
             break;
@@ -6545,7 +6402,7 @@ function obtenir_carte(carte_id) {
             carte.effet_pose = function () {
                 Jeu[carte.camp].ressources[12].reserve++;
                 deplacer(carte, carte.camp, "defausse");
-                menu();
+                actualiser_zone();
                 return true;
             }
             break;
@@ -6603,41 +6460,38 @@ function obtenir_carte(carte_id) {
                     switch (step) {
                         case 1:
                             if (verifier_creature("joueur", "terrain") && !statistique(carte, "silence")) {
-                                initialiser();
-                                div("main");
-                                fonction("Annuler", "menu()");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez une Créature alliée sur le terrain : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une Créature alliée sur le terrain : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
-                                    div("", "carte");
-                                    div();
-                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
-                                    div_fin();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
+                                    texte += afficher_carte("joueur", "terrain", n, "carte_side");
+                                    texte += "</div>";
                                     if (Jeu.joueur.terrain[n].type == "Créature") {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             else {
                                 deplacer(carte, "joueur", "terrain");
                                 effet_pose(carte);
-                                menu();
+                                actualiser_zone();
                             }
                             break;
                         case 2:
@@ -6647,7 +6501,7 @@ function obtenir_carte(carte_id) {
                             carte.vie_max++;
                             deplacer(carte, "joueur", "terrain");
                             effet_pose(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -6686,48 +6540,45 @@ function obtenir_carte(carte_id) {
                     switch (step) {
                         case 1:
                             if (verifier_cible_creature("adverse", "terrain")) {
-                                initialiser();
-                                div("main");
-                                fonction("Annuler", "menu()");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez une Créature adverse sur le terrain : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain adverse :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une Créature adverse sur le terrain : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain adverse :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.adverse.terrain.length; n++) {
-                                    div("", "carte");
-                                    div();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
                                     if (!Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                        afficher(afficher_carte("adverse", "terrain", n, "carte_side"));
+                                        texte += afficher_carte("adverse", "terrain", n, "carte_side");
                                     }
                                     else {
-                                        afficher("???");
+                                        texte += "???";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                     if (Jeu.adverse.terrain[n].type == "Créature" && (!Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence)) {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             break;
                         case 2:
                             mort(Jeu.adverse.terrain[cible]);
                             deplacer(carte, "joueur", "defausse");
                             effet_pose(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -6763,41 +6614,38 @@ function obtenir_carte(carte_id) {
                     switch (step) {
                         case 1:
                             if (verifier_creature("adverse", "terrain")) {
-                                initialiser();
-                                div("main");
-                                fonction("Annuler", "menu()");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez une Créature adverse sur le terrain dont la vie est inférieure ou égale à 10 : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain adverse :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une Créature adverse sur le terrain dont la vie est inférieure ou égale à 10 : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain adverse :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.adverse.terrain.length; n++) {
-                                    div("", "carte");
-                                    div();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
                                     if (!Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                        afficher(afficher_carte("adverse", "terrain", n, "carte_side"));
+                                        texte += afficher_carte("adverse", "terrain", n, "carte_side");
                                     }
                                     else {
-                                        afficher("???");
+                                        texte += "???";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                     if (Jeu.adverse.terrain[n].type == "Créature" && (!Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence)) {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             break;
                         case 2:
@@ -6807,7 +6655,7 @@ function obtenir_carte(carte_id) {
                             deplacer(carte, "joueur", "defausse");
                             effet_pose(carte);
                             if (Jeu.adverse.vie > 0) {
-                                menu();
+                                actualiser_zone();
                             }
                             else {
                                 combat_victoire();
@@ -6862,43 +6710,40 @@ function obtenir_carte(carte_id) {
                     switch (step) {
                         case 1:
                             if (verifier_soin_batiment("joueur")) {
-                                initialiser();
-                                div("main");
-                                fonction("Annuler", "menu()");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez un Bâtiment allié blessé sur le terrain : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez un Bâtiment allié blessé sur le terrain : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
-                                    div("", "carte");
-                                    div();
-                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
-                                    div_fin();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
+                                    texte += afficher_carte("joueur", "terrain", n, "carte_side");
+                                    texte += "</div>";
                                     if (Jeu.joueur.terrain[n].type == "Bâtiment" && Jeu.joueur.terrain[n].vie < Jeu.joueur.terrain[n].vie_max) {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             break;
                         case 2:
                             soin(Jeu.joueur.terrain[cible], Jeu.joueur.terrain[cible].vie_max - Jeu.joueur.terrain[cible].vie);
                             deplacer(carte, "joueur", "defausse");
                             effet_pose(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -6935,36 +6780,33 @@ function obtenir_carte(carte_id) {
                     switch (step) {
                         case 1:
                             if (verifier_batiment("joueur", "terrain")) {
-                                initialiser();
-                                div("main");
-                                fonction("Annuler", "menu()");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez un Bâtiment allié sur le terrain : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez un Bâtiment allié sur le terrain : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
-                                    div("", "carte");
-                                    div();
-                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
-                                    div_fin();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
+                                    texte += afficher_carte("joueur", "terrain", n, "carte_side");
+                                    texte += "</div>";
                                     if (Jeu.joueur.terrain[n].type == "Bâtiment") {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             break;
                         case 2:
@@ -6973,7 +6815,7 @@ function obtenir_carte(carte_id) {
                             Jeu.joueur.terrain[cible].vie_max += 5;
                             deplacer(carte, "joueur", "defausse");
                             effet_pose(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -7038,7 +6880,7 @@ function obtenir_carte(carte_id) {
                 Jeu[carte.camp].ressources[0].reserve += parseInt(Jeu[carte.camp].ressources[0].courant / 2);
                 Jeu[carte.camp].ressources[0].courant = 0;
                 deplacer(carte, carte.camp, "defausse");
-                menu();
+                actualiser_zone();
                 return true;
             }
             break;
@@ -7056,7 +6898,7 @@ function obtenir_carte(carte_id) {
                     Jeu[carte.camp].ressources[n].reserve++;
                 }
                 deplacer(carte, carte.camp, "defausse");
-                menu();
+                actualiser_zone();
                 return true;
             }
             break;
@@ -7117,36 +6959,33 @@ function obtenir_carte(carte_id) {
                     switch (step) {
                         case 1:
                             if (verifier_creature("joueur", "terrain")) {
-                                initialiser();
-                                div("main");
-                                fonction("Annuler", "menu()");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez une Créature alliée sur le terrain : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une Créature alliée sur le terrain : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
-                                    div("", "carte");
-                                    div();
-                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
-                                    div_fin();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
+                                    texte += afficher_carte("joueur", "terrain", n, "carte_side");
+                                    texte += "</div>";
                                     if (Jeu.joueur.terrain[n].type == "Créature") {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             break;
                         case 2:
@@ -7161,7 +7000,7 @@ function obtenir_carte(carte_id) {
                             }
                             deplacer(carte, "joueur", "defausse");
                             effet_pose(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -7203,36 +7042,33 @@ function obtenir_carte(carte_id) {
                     switch (step) {
                         case 1:
                             if (verifier_creature("joueur", "terrain")) {
-                                initialiser();
-                                div("main");
-                                fonction("Annuler", "menu()");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez une Créature alliée sur le terrain : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une Créature alliée sur le terrain : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
-                                    div("", "carte");
-                                    div();
-                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
-                                    div_fin();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
+                                    texte += afficher_carte("joueur", "terrain", n, "carte_side");
+                                    texte += "</div>";
                                     if (Jeu.joueur.terrain[n].type == "Créature") {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             break;
                         case 2:
@@ -7244,7 +7080,7 @@ function obtenir_carte(carte_id) {
                             }
                             deplacer(carte, "joueur", "defausse");
                             effet_pose(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -7287,36 +7123,33 @@ function obtenir_carte(carte_id) {
                     switch (step) {
                         case 1:
                             if (verifier_equipement("joueur")) {
-                                initialiser();
-                                div("main");
-                                fonction("Annuler", "menu()");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez une Créature alliée équipable sur le terrain : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une Créature alliée équipable sur le terrain : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
-                                    div("", "carte");
-                                    div();
-                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
-                                    div_fin();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
+                                    texte += afficher_carte("joueur", "terrain", n, "carte_side");
+                                    texte += "</div>";
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].equipements.length < Jeu.joueur.terrain[n].equipement_max) {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             break;
                         case 2:
@@ -7324,7 +7157,7 @@ function obtenir_carte(carte_id) {
                             Jeu.joueur.terrain[cible].camouflage = true;
                             effet_pose(carte);
                             enlever(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -7358,80 +7191,76 @@ function obtenir_carte(carte_id) {
                     switch (step) {
                         case 1:
                             if (verifier_creature("joueur", "terrain") && verifier_cible_creature("adverse", "terrain")) {
-                                initialiser();
-                                div("main");
-                                fonction("Annuler", "menu()");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez une Créature alliée sur le terrain : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une Créature alliée sur le terrain : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
-                                    div("", "carte");
-                                    div();
-                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
-                                    div_fin();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
+                                    texte += afficher_carte("joueur", "terrain", n, "carte_side");
+                                    texte += "</div>";
                                     if (Jeu.joueur.terrain[n].type == "Créature") {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             break;
                         case 2:
-                            initialiser();
-                            div("main");
-                            fonction("Retour", "Jeu.joueur.main[" + carte.slot + "].effet_pose(1)");
-                            saut(2);
-                            afficher(carte.nom);
-                            saut();
-                            afficher(carte.texte());
-                            saut(2);
-                            afficher("Choisissez une Unité adverse sur le terrain : ");
-                            saut(2);
-                            div("", "zone");
-                            afficher("<u>Terrain adverse :</u>");
-                            saut();
+                            let texte = "";
+
+                            texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(1)'>Retour</button>";
+                            texte += "<br/><br/>";
+                            texte += carte.nom;
+                            texte += "<br/>";
+                            texte += carte.texte();
+                            texte += "<br/><br/>";
+                            texte += "Choisissez une Unité adverse sur le terrain : ";
+                            texte += "<br/><br/>";
+                            texte += "<div class='zone' style='width:48%;'>";
+                            texte += "<u>Terrain adverse :</u>";
+                            texte += "<br/>";
                             for (let n = 0; n < Jeu.adverse.terrain.length; n++) {
-                                div("", "carte");
-                                div();
+                                texte += "<div class='carte'>";
+                                texte += "<div>";
                                 if (!Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                    afficher(afficher_carte("adverse", "terrain", n, "carte_side"));
+                                    texte += afficher_carte("adverse", "terrain", n, "carte_side");
                                 }
                                 else {
-                                    afficher("???");
+                                    texte += "???";
                                 }
-                                div_fin();
+                                texte += "</div>";
                                 if (!Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                    div();
-                                    fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(3," + cible1 + "," + n + ")");
-                                    div_fin();
+                                    texte += "<div>";
+                                    texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(3," + cible1 + "," + n + ")'>Cibler</button>";
+                                    texte += "</div>";
                                 }
-                                div_fin();
+                                texte += "</div>";
                             }
-                            div_fin();
-                            div_fin();
-                            div("carte_side", "affichage");
-                            div_fin();
-                            actualiser();
+                            texte += "</div>";
+                            texte += "</div>";
+                            
+                            afficher_choix(texte);
                             break;
                         case 3:
                             degats(Jeu.adverse.terrain[cible2], statistique(Jeu.joueur.terrain[cible1], "attaque"));
                             effet_pose(carte);
                             deplacer(carte, "joueur", "defausse");
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -7477,80 +7306,76 @@ function obtenir_carte(carte_id) {
                     switch (step) {
                         case 1:
                             if (verifier_creature("joueur", "terrain") && verifier_cible_creature("adverse", "terrain")) {
-                                initialiser();
-                                div("main");
-                                fonction("Annuler", "menu()");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez une Créature alliée sur le terrain : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une Créature alliée sur le terrain : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
-                                    div("", "carte");
-                                    div();
-                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
-                                    div_fin();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
+                                    texte += afficher_carte("joueur", "terrain", n, "carte_side");
+                                    texte += "</div>";
                                     if (Jeu.joueur.terrain[n].type == "Créature") {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             break;
                         case 2:
-                            initialiser();
-                            div("main");
-                            fonction("Retour", "Jeu.joueur.main[" + carte.slot + "].effet_pose(1)");
-                            saut(2);
-                            afficher(carte.nom);
-                            saut();
-                            afficher(carte.texte());
-                            saut(2);
-                            afficher("Choisissez une Unité adverse sur le terrain : ");
-                            saut(2);
-                            div("", "zone");
-                            afficher("<u>Terrain adverse :</u>");
-                            saut();
+                            let texte = "";
+
+                            texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(1)'>Retour</button>";
+                            texte += "<br/><br/>";
+                            texte += carte.nom;
+                            texte += "<br/>";
+                            texte += carte.texte();
+                            texte += "<br/><br/>";
+                            texte += "Choisissez une Unité adverse sur le terrain : ";
+                            texte += "<br/><br/>";
+                            texte += "<div class='zone' style='width:48%;'>";
+                            texte += "<u>Terrain adverse :</u>";
+                            texte += "<br/>";
                             for (let n = 0; n < Jeu.adverse.terrain.length; n++) {
-                                div("", "carte");
-                                div();
+                                texte += "<div class='carte'>";
+                                texte += "<div>";
                                 if (!Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                    afficher(afficher_carte("adverse", "terrain", n, "carte_side"));
+                                    texte += afficher_carte("adverse", "terrain", n, "carte_side");
                                 }
                                 else {
-                                    afficher("???");
+                                    texte += "???";
                                 }
-                                div_fin();
+                                texte += "</div>";
                                 if (!Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                    div();
-                                    fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(3," + cible1 + "," + n + ")");
-                                    div_fin();
+                                    texte += "<div>";
+                                    texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(3," + cible1 + "," + n + ")'>Cibler</button>";
+                                    texte += "</div>";
                                 }
-                                div_fin();
+                                texte += "</div>";
                             }
-                            div_fin();
-                            div_fin();
-                            div("carte_side", "affichage");
-                            div_fin();
-                            actualiser();
+                            texte += "</div>";
+                            texte += "</div>";
+                            
+                            afficher_choix(texte);
                             break;
                         case 3:
                             degats(Jeu.adverse.terrain[cible2], statistique(Jeu.joueur.terrain[cible1], "vie_max"));
                             effet_pose(carte);
                             deplacer(carte, "joueur", "defausse");
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -7596,43 +7421,40 @@ function obtenir_carte(carte_id) {
                     switch (step) {
                         case 1:
                             if (verifier_creature("joueur", "terrain") && Jeu.adverse.terrain.length > 0) {
-                                initialiser();
-                                div("main");
-                                fonction("Annuler", "menu()");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez une Créature alliée sur le terrain : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une Créature alliée sur le terrain : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
-                                    div("", "carte");
-                                    div();
-                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
-                                    div_fin();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
+                                    texte += afficher_carte("joueur", "terrain", n, "carte_side");
+                                    texte += "</div>";
                                     if (Jeu.joueur.terrain[n].type == "Créature") {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             break;
                         case 2:
                             degats(Jeu.adverse.terrain[0], statistique(Jeu.joueur.terrain[cible], "attaque"));
                             effet_pose(carte);
                             deplacer(carte, "joueur", "defausse");
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -7671,43 +7493,40 @@ function obtenir_carte(carte_id) {
                     switch (step) {
                         case 1:
                             if (verifier_brulure("joueur")) {
-                                initialiser();
-                                div("main");
-                                fonction("Annuler", "menu()");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez une Créature alliée avec " + effet_talent_voir("Brûlure", carte) + " sur le terrain : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une Créature alliée avec " + effet_talent_voir("Brûlure", carte) + " sur le terrain : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
-                                    div("", "carte");
-                                    div();
-                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
-                                    div_fin();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
+                                    texte += afficher_carte("joueur", "terrain", n, "carte_side");
+                                    texte += "</div>";
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].brulure > 0) {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             break;
                         case 2:
                             Jeu.joueur.terrain[cible].brulure = 0;
                             deplacer(carte, "joueur", "defausse");
                             effet_pose(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -7745,43 +7564,40 @@ function obtenir_carte(carte_id) {
                     switch (step) {
                         case 1:
                             if (verifier_gel("joueur")) {
-                                initialiser();
-                                div("main");
-                                fonction("Annuler", "menu()");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez une Créature alliée avec " + effet_talent_voir("Gel", carte) + " sur le terrain : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une Créature alliée avec " + effet_talent_voir("Gel", carte) + " sur le terrain : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
-                                    div("", "carte");
-                                    div();
-                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
-                                    div_fin();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
+                                    texte += afficher_carte("joueur", "terrain", n, "carte_side");
+                                    texte += "</div>";
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].gel > 0) {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             break;
                         case 2:
                             Jeu.joueur.terrain[cible].gel = 0;
                             deplacer(carte, "joueur", "defausse");
                             effet_pose(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -7820,43 +7636,40 @@ function obtenir_carte(carte_id) {
                     switch (step) {
                         case 1:
                             if (verifier_etourdissement("joueur")) {
-                                initialiser();
-                                div("main");
-                                fonction("Annuler", "menu()");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez une Créature alliée avec " + effet_talent_voir("Étourdissement", carte) + " sur le terrain : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une Créature alliée avec " + effet_talent_voir("Étourdissement", carte) + " sur le terrain : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
-                                    div("", "carte");
-                                    div();
-                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
-                                    div_fin();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
+                                    texte += afficher_carte("joueur", "terrain", n, "carte_side");
+                                    texte += "</div>";
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].etourdissement) {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             break;
                         case 2:
                             Jeu.joueur.terrain[cible].etourdissement = false;
                             deplacer(carte, "joueur", "defausse");
                             effet_pose(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -7893,43 +7706,40 @@ function obtenir_carte(carte_id) {
                     switch (step) {
                         case 1:
                             if (verifier_saignement("joueur")) {
-                                initialiser();
-                                div("main");
-                                fonction("Annuler", "menu()");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez une Créature alliée avec " + effet_talent_voir("Saignement", carte) + " sur le terrain : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une Créature alliée avec " + effet_talent_voir("Saignement", carte) + " sur le terrain : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
-                                    div("", "carte");
-                                    div();
-                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
-                                    div_fin();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
+                                    texte += afficher_carte("joueur", "terrain", n, "carte_side");
+                                    texte += "</div>";
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].saignement > 0) {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             break;
                         case 2:
                             Jeu.joueur.terrain[cible].saignement = 0;
                             deplacer(carte, "joueur", "defausse");
                             effet_pose(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -7969,48 +7779,45 @@ function obtenir_carte(carte_id) {
                     switch (step) {
                         case 1:
                             if (verifier_cible_creature("adverse", "terrain")) {
-                                initialiser();
-                                div("main");
-                                fonction("Annuler", "menu()");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez une Créature adverse sur le terrain : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain adverse :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une Créature adverse sur le terrain : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain adverse :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.adverse.terrain.length; n++) {
-                                    div("", "carte");
-                                    div();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
                                     if (!Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                        afficher(afficher_carte("adverse", "terrain", n, "carte_side"));
+                                        texte += afficher_carte("adverse", "terrain", n, "carte_side");
                                     }
                                     else {
-                                        afficher("???");
+                                        texte += "???";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                     if (Jeu.adverse.terrain[n].type == "Créature" && !Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             break;
                         case 2:
                             deplacer(carte, "joueur", "defausse");
                             deplacer(Jeu.adverse.terrain[cible], "joueur", "terrain");
                             effet_pose(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -8075,7 +7882,7 @@ function obtenir_carte(carte_id) {
                 }
                 deplacer(carte, carte.camp, "terrain");
                 effet_pose(carte);
-                menu();
+                actualiser_zone();
                 return true;
             }
             break;
@@ -8106,7 +7913,7 @@ function obtenir_carte(carte_id) {
                 }
                 deplacer(carte, carte.camp, "terrain");
                 effet_pose(carte);
-                menu();
+                actualiser_zone();
                 return true;
             }
             break;
@@ -8135,7 +7942,7 @@ function obtenir_carte(carte_id) {
                     }
                     deplacer(carte, "joueur", "defausse");
                     effet_pose(carte);
-                    menu();
+                    actualiser_zone();
                     return true;
                 }
                 return false;
@@ -8166,7 +7973,7 @@ function obtenir_carte(carte_id) {
                     }
                     deplacer(carte, "joueur", "defausse");
                     effet_pose(carte);
-                    menu();
+                    actualiser_zone();
                     return true;
                 }
                 return false;
@@ -8184,72 +7991,69 @@ function obtenir_carte(carte_id) {
                     switch (step) {
                         case 1:
                             if (verifier_creature("joueur", "terrain") || verifier_cible_creature("adverse", "terrain")) {
-                                initialiser();
-                                div("main");
-                                fonction("Annuler", "menu()");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez une Créature alliée sur le terrain : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une Créature alliée sur le terrain : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain :</u>";
+                                texte += "<br/>";
                                 if (Jeu.joueur.terrain.length > 0) {
                                     for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
-                                        div("", "carte");
-                                        div();
-                                        afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
-                                        div_fin();
+                                        texte += "<div class='carte'>";
+                                        texte += "<div>";
+                                        texte += afficher_carte("joueur", "terrain", n, "carte_side");
+                                        texte += "</div>";
                                         if (Jeu.joueur.terrain[n].type == "Créature") {
-                                            div();
-                                            fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + '"joueur",' + n + ")");
-                                            div_fin();
+                                            texte += "<div>";
+                                            texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + '"joueur",' + n + ")'>Cibler</button>";
+                                            texte += "</div>";
                                         }
-                                        div_fin();
+                                        texte += "</div>";
                                     }
                                 }
                                 else {
-                                    afficher("<i>Votre terrain est vide</i>");
-                                    saut();
+                                    texte += "<i>Votre terrain est vide</i>";
+                                    texte += "<br/>";
                                 }
-                                div_fin();
-                                saut();
-                                afficher("Choisissez une Créature adverse sur le terrain : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain adverse :</u>");
-                                saut();
+                                texte += "</div>";
+                                texte += "<br/>";
+                                texte += "Choisissez une Créature adverse sur le terrain : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain adverse :</u>";
+                                texte += "<br/>";
                                 if (Jeu.adverse.terrain.length > 0) {
                                     for (let n = 0; n < Jeu.adverse.terrain.length; n++) {
-                                        div("", "carte");
-                                        div();
+                                        texte += "<div class='carte'>";
+                                        texte += "<div>";
                                         if (!Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                            afficher(afficher_carte("adverse", "terrain", n, "carte_side"));
+                                            texte += afficher_carte("adverse", "terrain", n, "carte_side");
                                         }
                                         else {
-                                            afficher("???");
+                                            texte += "???";
                                         }
-                                        div_fin();
+                                        texte += "</div>";
                                         if (Jeu.adverse.terrain[n].type == "Créature" && !Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                            div();
-                                            fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + '"adverse",' + n + ")");
-                                            div_fin();
+                                            texte += "<div>";
+                                            texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + '"adverse",' + n + ")'>Cibler</button>";
+                                            texte += "</div>";
                                         }
-                                        div_fin();
+                                        texte += "</div>";
                                     }
                                 }
                                 else {
-                                    afficher("<i>Le terrain adverse est vide</i>");
-                                    saut();
+                                    texte += "<i>Le terrain adverse est vide</i>";
+                                    texte += "<br/>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             break;
                         case 2:
@@ -8259,7 +8063,7 @@ function obtenir_carte(carte_id) {
                             }
                             deplacer(carte, "joueur", "defausse");
                             effet_pose(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -8327,43 +8131,40 @@ function obtenir_carte(carte_id) {
                     switch (step) {
                         case 1:
                             if (verifier_equipement("joueur")) {
-                                initialiser();
-                                div("main");
-                                fonction("Annuler", "menu()");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez une Créature alliée équipable sur le terrain : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une Créature alliée équipable sur le terrain : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
-                                    div("", "carte");
-                                    div();
-                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
-                                    div_fin();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
+                                    texte += afficher_carte("joueur", "terrain", n, "carte_side");
+                                    texte += "</div>";
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].equipements.length < Jeu.joueur.terrain[n].equipement_max) {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             break;
                         case 2:
                             equiper(Jeu.joueur.terrain[cible], carte);
                             effet_pose(carte);
                             enlever(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -8397,36 +8198,33 @@ function obtenir_carte(carte_id) {
                     switch (step) {
                         case 1:
                             if (verifier_equipement("joueur")) {
-                                initialiser();
-                                div("main");
-                                fonction("Annuler", "menu()");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez une Créature alliée équipable sur le terrain : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une Créature alliée équipable sur le terrain : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
-                                    div("", "carte");
-                                    div();
-                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
-                                    div_fin();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
+                                    texte += afficher_carte("joueur", "terrain", n, "carte_side");
+                                    texte += "</div>";
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].equipements.length < Jeu.joueur.terrain[n].equipement_max) {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             break;
                         case 2:
@@ -8434,7 +8232,7 @@ function obtenir_carte(carte_id) {
                             equiper(Jeu.joueur.terrain[cible], carte);
                             effet_pose(carte);
                             enlever(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -8477,7 +8275,7 @@ function obtenir_carte(carte_id) {
                     deplacer(carte, carte.camp, "terrain");
                     effet_pose(carte);
                     if (Jeu.joueur.vie > 0) {
-                        menu();
+                        actualiser_zone();
                     }
                     else {
                         game_over();
@@ -8490,7 +8288,7 @@ function obtenir_carte(carte_id) {
                         }
                         deplacer(carte, carte.camp, "terrain");
                         effet_pose(carte);
-                        menu();
+                        actualiser_zone();
                     }
                 }
                 return true;
@@ -8510,71 +8308,65 @@ function obtenir_carte(carte_id) {
                 if (carte.camp == "joueur") {
                     switch (step) {
                         case 1:
-                            initialiser();
-                            div("main");
-                            fonction("Annuler", "menu()");
-                            saut(2);
-                            afficher(carte.nom);
-                            saut();
-                            afficher(carte.texte());
-                            saut(2);
-                            afficher("Choisissez un effet : ");
-                            saut(2);
-                            fonction("Soigne 2 à une Créature alliée sur le terrain", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2)");
-                            saut();
-                            afficher("ou");
-                            saut();
-                            fonction("Pioche 1 carte", "Jeu.joueur.main[" + carte.slot + "].effet_pose(4)");
-                            div_fin();
-                            div("carte_side", "affichage");
-                            div_fin();
-                            actualiser();
+                            let texte = "";
+                            texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                            texte += "<br/><br/>";
+                            texte += carte.nom;
+                            texte += "<br/>";
+                            texte += carte.texte();
+                            texte += "<br/><br/>";
+                            texte += "Choisissez un effet : ";
+                            texte += "<br/><br/>";
+                            texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2)'>Soigne 2 à une Créature alliée sur le terrain</button>";
+                            texte += "<br/>";
+                            texte += "ou";
+                            texte += "<br/>";
+                            texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(4)'>Pioche 1 carte</button>";
+                            texte += "</div>";
+                            afficher_choix(texte);
                             break;
                         case 2:
                             if (verifier_soin_creature("joueur")) {
-                                initialiser();
-                                div("main");
-                                fonction("Retour", "Jeu.joueur.main[" + carte.slot + "].effet_pose(1)");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher("Soigne 2 à une Créature alliée sur le terrain.");
-                                saut(2);
-                                afficher("Choisissez une Créature alliée sur le terrain : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(1)'>Retour</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += "Soigne 2 à une Créature alliée sur le terrain.";
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une Créature alliée sur le terrain : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
-                                    div("", "carte");
-                                    div();
-                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
-                                    div_fin();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
+                                    texte += afficher_carte("joueur", "terrain", n, "carte_side");
+                                    texte += "</div>";
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].vie < Jeu.joueur.terrain[n].vie_max) {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(3," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(3," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             break;
                         case 3:
                             soin(Jeu.joueur.terrain[cible], 2);
                             deplacer(carte, "joueur", "defausse");
                             effet_pose(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                         case 4:
                             pioche("joueur");
                             deplacer(carte, "joueur", "defausse");
                             effet_pose(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -8608,36 +8400,33 @@ function obtenir_carte(carte_id) {
                     switch (step) {
                         case 1:
                             if (verifier_creature("joueur", "defausse")) {
-                                initialiser();
-                                div("main");
-                                fonction("Annuler", "menu()");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez une Créature alliée dans la défausse : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Défausse :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une Créature alliée dans la défausse : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Défausse :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.joueur.defausse.length; n++) {
-                                    div("", "carte");
-                                    div();
-                                    afficher(afficher_carte("joueur", "defausse", n, "carte_side"));
-                                    div_fin();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
+                                    texte += afficher_carte("joueur", "defausse", n, "carte_side");
+                                    texte += "</div>";
                                     if (Jeu.joueur.defausse[n].type == "Créature") {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             break;
                         case 2:
@@ -8645,7 +8434,7 @@ function obtenir_carte(carte_id) {
                             deplacer(Jeu.joueur.defausse[cible], "joueur", "terrain");
                             deplacer(carte, "joueur", "defausse");
                             effet_pose(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -8733,7 +8522,7 @@ function obtenir_carte(carte_id) {
                         pioche("joueur", nouvelle_carte);
                         deplacer(carte, "joueur", "defausse");
                         effet_pose(carte);
-                        menu();
+                        actualiser_zone();
                     }
                 }
                 else {
@@ -8765,7 +8554,7 @@ function obtenir_carte(carte_id) {
                         pioche("joueur", nouvelle_carte);
                         deplacer(carte, "joueur", "defausse");
                         effet_pose(carte);
-                        menu();
+                        actualiser_zone();
                     }
                 }
                 else {
@@ -8825,43 +8614,40 @@ function obtenir_carte(carte_id) {
                     switch (step) {
                         case 1:
                             if (verifier_creature("joueur", "terrain")) {
-                                initialiser();
-                                div("main");
-                                fonction("Annuler", "menu()");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez une Créature alliée sur le terrain : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une Créature alliée sur le terrain : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
-                                    div("", "carte");
-                                    div();
-                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
-                                    div_fin();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
+                                    texte += afficher_carte("joueur", "terrain", n, "carte_side");
+                                    texte += "</div>";
                                     if (Jeu.joueur.terrain[n].type == "Créature") {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             break;
                         case 2:
                             Jeu.joueur.terrain[cible].regeneration += 2;
                             deplacer(carte, "joueur", "defausse");
                             effet_pose(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -8902,36 +8688,33 @@ function obtenir_carte(carte_id) {
                                 }
                             }
                             if (verifier) {
-                                initialiser();
-                                div("main");
-                                fonction("Annuler", "menu()");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez une Créature alliée sur le terrain : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une Créature alliée sur le terrain : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
-                                    div("", "carte");
-                                    div();
-                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
-                                    div_fin();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
+                                    texte += afficher_carte("joueur", "terrain", n, "carte_side");
+                                    texte += "</div>";
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].vie_max > 2) {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             break;
                         case 2:
@@ -8944,7 +8727,7 @@ function obtenir_carte(carte_id) {
                             }
                             deplacer(carte, "joueur", "defausse");
                             effet_pose(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -9002,36 +8785,33 @@ function obtenir_carte(carte_id) {
                                 }
                             }
                             if (verifier) {
-                                initialiser();
-                                div("main");
-                                fonction("Annuler", "menu()");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez une carte Plante dans la boutique : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Boutique :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une carte Plante dans la boutique : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Boutique :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.joueur.boutique.length; n++) {
-                                    div("", "carte");
-                                    div();
-                                    afficher(afficher_carte("joueur", "boutique", n, "carte_side"));
-                                    div_fin();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
+                                    texte += afficher_carte("joueur", "boutique", n, "carte_side");
+                                    texte += "</div>";
                                     if (Jeu.joueur.boutique[n].familles.includes("Plante") && Jeu.joueur.boutique[n].cout[3] > 0) {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             break;
                         case 2:
@@ -9041,7 +8821,7 @@ function obtenir_carte(carte_id) {
                             }
                             deplacer(carte, "joueur", "defausse");
                             effet_pose(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -9072,36 +8852,33 @@ function obtenir_carte(carte_id) {
                                 }
                             }
                             if (verifier) {
-                                initialiser();
-                                div("main");
-                                fonction("Annuler", "menu()");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez une Unité alliée Plante sur le terrain : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une Unité alliée Plante sur le terrain : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
-                                    div("", "carte");
-                                    div();
-                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
-                                    div_fin();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
+                                    texte += afficher_carte("joueur", "terrain", n, "carte_side");
+                                    texte += "</div>";
                                     if (["Créature", "Bâtiment"].includes(Jeu.joueur.terrain[n].type) && Jeu.joueur.terrain[n].familles.includes("Plante")) {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             break;
                         case 2:
@@ -9109,7 +8886,7 @@ function obtenir_carte(carte_id) {
                             Jeu.joueur.terrain[cible].vie_max += 10;
                             deplacer(carte, "joueur", "defausse");
                             effet_pose(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -9239,36 +9016,33 @@ function obtenir_carte(carte_id) {
                                 }
                             }
                             if (verifier) {
-                                initialiser();
-                                div("main");
-                                fonction("Annuler", "menu()");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez une Créature alliée non-Vampire sur le terrain : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une Créature alliée non-Vampire sur le terrain : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
-                                    div("", "carte");
-                                    div();
-                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
-                                    div_fin();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
+                                    texte += afficher_carte("joueur", "terrain", n, "carte_side");
+                                    texte += "</div>";
                                     if (Jeu.joueur.terrain[n].type == "Créature" && !Jeu.joueur.terrain[n].familles.includes("Vampire")) {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             break;
                         case 2:
@@ -9276,7 +9050,7 @@ function obtenir_carte(carte_id) {
                             Jeu.joueur.terrain[cible].familles.push("Vampire");
                             deplacer(carte, "joueur", "defausse");
                             effet_pose(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -9321,43 +9095,40 @@ function obtenir_carte(carte_id) {
                                 }
                             }
                             if (verifier) {
-                                initialiser();
-                                div("main");
-                                fonction("Annuler", "menu()");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez une Créature alliée sur le terrain : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une Créature alliée sur le terrain : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
-                                    div("", "carte");
-                                    div();
-                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
-                                    div_fin();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
+                                    texte += afficher_carte("joueur", "terrain", n, "carte_side");
+                                    texte += "</div>";
                                     if (Jeu.joueur.terrain[n].type == "Créature" && !Jeu.joueur.terrain[n].esquive) {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             break;
                         case 2:
                             Jeu.joueur.terrain[cible].esquive = true;
                             deplacer(carte, "joueur", "defausse");
                             effet_pose(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -9398,43 +9169,40 @@ function obtenir_carte(carte_id) {
                     switch (step) {
                         case 1:
                             if (verifier_equipement("joueur")) {
-                                initialiser();
-                                div("main");
-                                fonction("Annuler", "menu()");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez une Créature alliée équipable sur le terrain : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une Créature alliée équipable sur le terrain : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
-                                    div("", "carte");
-                                    div();
-                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
-                                    div_fin();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
+                                    texte += afficher_carte("joueur", "terrain", n, "carte_side");
+                                    texte += "</div>";
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].equipements.length < Jeu.joueur.terrain[n].equipement_max) {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             break;
                         case 2:
                             equiper(Jeu.joueur.terrain[cible], carte);
                             effet_pose(carte);
                             enlever(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -9468,43 +9236,40 @@ function obtenir_carte(carte_id) {
                     switch (step) {
                         case 1:
                             if (verifier_equipement("joueur")) {
-                                initialiser();
-                                div("main");
-                                fonction("Annuler", "menu()");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez une Créature alliée équipable sur le terrain : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une Créature alliée équipable sur le terrain : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
-                                    div("", "carte");
-                                    div();
-                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
-                                    div_fin();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
+                                    texte += afficher_carte("joueur", "terrain", n, "carte_side");
+                                    texte += "</div>";
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].equipements.length < Jeu.joueur.terrain[n].equipement_max) {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             break;
                         case 2:
                             equiper(Jeu.joueur.terrain[cible], carte);
                             effet_pose(carte);
                             enlever(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -9542,48 +9307,45 @@ function obtenir_carte(carte_id) {
                                 }
                             }
                             if (verifier) {
-                                initialiser();
-                                div("main");
-                                fonction("Annuler", "menu()");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez une Unité adverse sur le terrain : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain adverse :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une Unité adverse sur le terrain : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain adverse :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.adverse.terrain.length; n++) {
-                                    div("", "carte");
-                                    div();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
                                     if (!Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                        afficher(afficher_carte("adverse", "terrain", n, "carte_side"));
+                                        texte += afficher_carte("adverse", "terrain", n, "carte_side");
                                     }
                                     else {
-                                        afficher("???");
+                                        texte += "???";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                     if (Jeu.adverse.terrain[n].camouflage) {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             break;
                         case 2:
                             Jeu.adverse.terrain[cible].camouflage = false;
                             deplacer(carte, "joueur", "defausse");
                             effet_pose(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -9630,53 +9392,50 @@ function obtenir_carte(carte_id) {
                                 }
                             }
                             if (verifier) {
-                                initialiser();
-                                div("main");
-                                fonction("Annuler", "menu()");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez une carte adverse dans la main : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Main adverse :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une carte adverse dans la main : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Main adverse :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.adverse.main.length; n++) {
-                                    div("", "carte");
-                                    div();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
                                     if (!Jeu.adverse.main[n].cache) {
-                                        afficher(afficher_carte("adverse", "main", n, "carte_side"));
+                                        texte += afficher_carte("adverse", "main", n, "carte_side");
                                     }
                                     else {
-                                        afficher("???");
+                                        texte += "???";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                     if (Jeu.adverse.main[n].cache) {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             else {
                                 deplacer(carte, "joueur", "terrain");
                                 effet_pose(carte);
-                                menu();
+                                actualiser_zone();
                             }
                             break;
                         case 2:
                             Jeu.adverse.main[cible].cache = Jeu.adverse.main[cible].camouflage = false;
                             deplacer(carte, "joueur", "terrain");
                             effet_pose(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -9724,53 +9483,50 @@ function obtenir_carte(carte_id) {
                                 }
                             }
                             if (verifier) {
-                                initialiser();
-                                div("main");
-                                fonction("Annuler", "menu()");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez une carte adverse dans la boutique : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Boutique adverse :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une carte adverse dans la boutique : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Boutique adverse :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.adverse.boutique.length; n++) {
-                                    div("", "carte");
-                                    div();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
                                     if (!Jeu.adverse.boutique[n].cache) {
-                                        afficher(afficher_carte("adverse", "boutique", n, "carte_side"));
+                                        texte += afficher_carte("adverse", "boutique", n, "carte_side");
                                     }
                                     else {
-                                        afficher("???");
+                                        texte += "???";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                     if (Jeu.adverse.boutique[n].cache) {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             else {
                                 deplacer(carte, "joueur", "terrain");
                                 effet_pose(carte);
-                                menu();
+                                actualiser_zone();
                             }
                             break;
                         case 2:
                             Jeu.adverse.boutique[cible].cache = Jeu.adverse.boutique[cible].camouflage = false;
                             deplacer(carte, "joueur", "terrain");
                             effet_pose(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -9821,7 +9577,7 @@ function obtenir_carte(carte_id) {
                     }
                     deplacer(carte, carte.camp, "defausse");
                     effet_pose(carte);
-                    menu();
+                    actualiser_zone();
                     return true;
                 }
                 return false;
@@ -9852,7 +9608,7 @@ function obtenir_carte(carte_id) {
                     }
                     deplacer(carte, carte.camp, "defausse");
                     effet_pose(carte);
-                    menu();
+                    actualiser_zone();
                     return true;
                 }
                 return false;
@@ -9881,7 +9637,7 @@ function obtenir_carte(carte_id) {
                     }
                     deplacer(carte, carte.camp, "defausse");
                     effet_pose(carte);
-                    menu();
+                    actualiser_zone();
                     return true;
                 }
                 return false;
@@ -9912,7 +9668,7 @@ function obtenir_carte(carte_id) {
                     }
                     deplacer(carte, carte.camp, "defausse");
                     effet_pose(carte);
-                    menu();
+                    actualiser_zone();
                     return true;
                 }
                 return false;
@@ -9938,48 +9694,45 @@ function obtenir_carte(carte_id) {
                                 }
                             }
                             if (verifier) {
-                                initialiser();
-                                div("main");
-                                fonction("Annuler", "menu()");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez une Unité adverse sur le terrain : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain adverse :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une Unité adverse sur le terrain : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain adverse :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.adverse.terrain.length; n++) {
-                                    div("", "carte");
-                                    div();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
                                     if (!Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                        afficher(afficher_carte("adverse", "terrain", n, "carte_side"));
+                                        texte += afficher_carte("adverse", "terrain", n, "carte_side");
                                     }
                                     else {
-                                        afficher("???");
+                                        texte += "???";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                     if (Jeu.adverse.terrain[n].camouflage) {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             break;
                         case 2:
                             Jeu.adverse.terrain[cible].camouflage = false;
                             deplacer(carte, "joueur", "defausse");
                             effet_pose(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -10029,7 +9782,7 @@ function obtenir_carte(carte_id) {
                     }
                     deplacer(carte, carte.camp, "defausse");
                     effet_pose(carte);
-                    menu();
+                    actualiser_zone();
                     return true;
                 }
                 return false;
@@ -10063,7 +9816,7 @@ function obtenir_carte(carte_id) {
                     }
                     deplacer(carte, "joueur", "defausse");
                     effet_pose(carte);
-                    menu();
+                    actualiser_zone();
                 }
                 return false;
             }
@@ -10086,7 +9839,7 @@ function obtenir_carte(carte_id) {
                 }
                 deplacer(carte, carte.camp, "terrain");
                 effet_pose(carte);
-                menu();
+                actualiser_zone();
                 return true;
             }
             break;
@@ -10106,7 +9859,7 @@ function obtenir_carte(carte_id) {
                     }
                     deplacer(carte, carte.camp, "defausse");
                     effet_pose(carte);
-                    menu();
+                    actualiser_zone();
                     return true;
                 }
                 return false;
@@ -10124,7 +9877,7 @@ function obtenir_carte(carte_id) {
                 Jeu[carte.camp].ressources[0].reserve += 5;
                 deplacer(carte, carte.camp, "defausse");
                 effet_pose(carte);
-                menu();
+                actualiser_zone();
                 return true;
             }
             break;
@@ -10140,7 +9893,7 @@ function obtenir_carte(carte_id) {
                 Jeu[carte.camp].ressources[0].reserve++;
                 deplacer(carte, carte.camp, "defausse");
                 effet_pose(carte);
-                menu();
+                actualiser_zone();
                 return true;
             }
             break;
@@ -10185,37 +9938,34 @@ function obtenir_carte(carte_id) {
                 if (carte.camp == "joueur") {
                     switch (step) {
                         case 1:
-                            initialiser();
-                            div("main");
-                            fonction("Annuler", "menu()");
-                            saut(2);
-                            afficher(carte.nom);
-                            saut();
-                            afficher(carte.texte());
-                            saut(2);
-                            afficher("Choisissez un effet : ");
-                            saut(2);
-                            fonction("Pioche 6 cartes", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2)");
-                            saut();
-                            afficher("ou");
-                            saut();
-                            fonction("Donne 4 Or max", "Jeu.joueur.main[" + carte.slot + "].effet_pose(3)");
-                            div_fin();
-                            div("carte_side", "affichage");
-                            div_fin();
-                            actualiser();
+                            let texte = "";
+                            texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                            texte += "<br/><br/>";
+                            texte += carte.nom;
+                            texte += "<br/>";
+                            texte += carte.texte();
+                            texte += "<br/><br/>";
+                            texte += "Choisissez un effet : ";
+                            texte += "<br/><br/>";
+                            texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2)'>Pioche 6 cartes</button>";
+                            texte += "<br/>";
+                            texte += "ou";
+                            texte += "<br/>";
+                            texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(3)'>Donne 4 Or max</button>";
+                            texte += "</div>";
+                            afficher_choix(texte);
                             break;
                         case 2:
                             pioches("joueur", 6);
                             deplacer(carte, "joueur", "defausse");
                             effet_pose(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                         case 3:
                             Jeu.joueur.ressources[0].max += 4;
                             deplacer(carte, "joueur", "defausse");
                             effet_pose(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -10223,7 +9973,7 @@ function obtenir_carte(carte_id) {
                     Jeu.adverse.ressources[0].max += 4;
                     deplacer(carte, "adverse", "defausse");
                     effet_pose(carte);
-                    menu();
+                    actualiser_zone();
                     return true;
                 }
             }
@@ -10240,7 +9990,7 @@ function obtenir_carte(carte_id) {
                 Jeu[carte.camp].ressources[0].courant += Jeu[camp_oppose(carte.camp)].defausse.length;
                 deplacer(carte, carte.camp, "defausse");
                 effet_pose(carte);
-                menu();
+                actualiser_zone();
                 return true;
             }
             break;
@@ -10256,7 +10006,7 @@ function obtenir_carte(carte_id) {
                 Jeu[carte.camp].ressources[0].reserve += 10;
                 deplacer(carte, carte.camp, "defausse");
                 effet_pose(carte);
-                menu();
+                actualiser_zone();
                 return true;
             }
             break;
@@ -10273,48 +10023,45 @@ function obtenir_carte(carte_id) {
                     switch (step) {
                         case 1:
                             if (verifier_cible("adverse", "terrain") && Jeu.joueur.vie < Jeu.joueur.vie_max) {
-                                initialiser();
-                                div("main");
-                                fonction("Annuler", "menu()");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez une Unité adverse sur le terrain : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain adverse :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une Unité adverse sur le terrain : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain adverse :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.adverse.terrain.length; n++) {
-                                    div("", "carte");
-                                    div();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
                                     if (!Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                        afficher(afficher_carte("adverse", "terrain", n, "carte_side"));
+                                        texte += afficher_carte("adverse", "terrain", n, "carte_side");
                                     }
                                     else {
-                                        afficher("???");
+                                        texte += "???";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                     if (!Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             break;
                         case 2:
                             degats(Jeu.adverse.terrain[cible], Jeu.joueur.vie_max - Jeu.joueur.vie);
                             deplacer(carte, "joueur", "defausse");
                             effet_pose(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -10356,7 +10103,7 @@ function obtenir_carte(carte_id) {
                     pioche("joueur", nouvelle_carte);
                     deplacer(carte, "joueur", "defausse");
                     effet_pose(carte);
-                    menu();
+                    actualiser_zone();
                 }
                 return false;
             }
@@ -10380,43 +10127,40 @@ function obtenir_carte(carte_id) {
                                 }
                             }
                             if (verifier) {
-                                initialiser();
-                                div("main");
-                                fonction("Annuler", "menu()");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez une Créature alliée sur le terrain : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une Créature alliée sur le terrain : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
-                                    div("", "carte");
-                                    div();
-                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
-                                    div_fin();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
+                                    texte += afficher_carte("joueur", "terrain", n, "carte_side");
+                                    texte += "</div>";
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].vie_max > Jeu.joueur.terrain[n].vie) {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             break;
                         case 2:
                             Jeu.joueur.terrain[cible].stat_etage.attaque += Jeu.joueur.terrain[cible].vie_max - Jeu.joueur.terrain[cible].vie;
                             deplacer(carte, "joueur", "defausse");
                             effet_pose(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -10459,41 +10203,38 @@ function obtenir_carte(carte_id) {
                     switch (step) {
                         case 1:
                             if (Jeu.adverse.main.length > 0) {
-                                initialiser();
-                                div("main");
-                                fonction("Annuler", "menu()");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez une carte adverse dans la main : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Main adverse :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une carte adverse dans la main : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Main adverse :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.adverse.main.length; n++) {
-                                    div("", "carte");
-                                    div();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
                                     if (!Jeu.adverse.main[n].cache) {
-                                        afficher(afficher_carte("adverse", "main", n, "carte_side"));
+                                        texte += afficher_carte("adverse", "main", n, "carte_side");
                                     }
                                     else {
-                                        afficher("???");
+                                        texte += "???";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                     if (!Jeu.adverse.main[n].cache) {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             break;
                         case 2:
@@ -10501,7 +10242,7 @@ function obtenir_carte(carte_id) {
                             deplacer(Jeu.adverse.main[cible], "joueur", "main");
                             deplacer(carte, "joueur", "defausse");
                             effet_pose(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -10543,36 +10284,33 @@ function obtenir_carte(carte_id) {
                                 }
                             }
                             if (verifier) {
-                                initialiser();
-                                div("main");
-                                fonction("Annuler", "menu()");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez un Bâtiment allié Oeuf sur le terrain : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez un Bâtiment allié Oeuf sur le terrain : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
-                                    div("", "carte");
-                                    div();
-                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
-                                    div_fin();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
+                                    texte += afficher_carte("joueur", "terrain", n, "carte_side");
+                                    texte += "</div>";
                                     if (Jeu.joueur.terrain[n].type == "Bâtiment" && Jeu.joueur.terrain[n].familles.includes("Oeuf")) {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             break;
                         case 2:
@@ -10583,7 +10321,7 @@ function obtenir_carte(carte_id) {
                             }
                             deplacer(carte, "joueur", "defausse");
                             effet_pose(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -10626,43 +10364,40 @@ function obtenir_carte(carte_id) {
                     switch (step) {
                         case 1:
                             if (verifier_creature("joueur", "terrain")) {
-                                initialiser();
-                                div("main");
-                                fonction("Annuler", "menu()");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez une Créature alliée sur le terrain : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une Créature alliée sur le terrain : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
-                                    div("", "carte");
-                                    div();
-                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
-                                    div_fin();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
+                                    texte += afficher_carte("joueur", "terrain", n, "carte_side");
+                                    texte += "</div>";
                                     if (Jeu.joueur.terrain[n].type == "Créature") {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             break;
                         case 2:
                             Jeu.joueur.terrain[cible].stat_etage.attaque += 6;
                             deplacer(carte, "joueur", "defausse");
                             effet_pose(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -10695,43 +10430,40 @@ function obtenir_carte(carte_id) {
                     switch (step) {
                         case 1:
                             if (verifier_creature("joueur", "terrain")) {
-                                initialiser();
-                                div("main");
-                                fonction("Annuler", "menu()");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez une Créature alliée sur le terrain : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une Créature alliée sur le terrain : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
-                                    div("", "carte");
-                                    div();
-                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
-                                    div_fin();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
+                                    texte += afficher_carte("joueur", "terrain", n, "carte_side");
+                                    texte += "</div>";
                                     if (Jeu.joueur.terrain[n].type == "Créature") {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             break;
                         case 2:
                             Jeu.joueur.terrain[cible].stat_etage.defense += 4;
                             deplacer(carte, "joueur", "defausse");
                             effet_pose(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -10764,36 +10496,33 @@ function obtenir_carte(carte_id) {
                     switch (step) {
                         case 1:
                             if (verifier_creature("joueur", "terrain")) {
-                                initialiser();
-                                div("main");
-                                fonction("Annuler", "menu()");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez une Créature alliée sur le terrain : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une Créature alliée sur le terrain : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
-                                    div("", "carte");
-                                    div();
-                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
-                                    div_fin();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
+                                    texte += afficher_carte("joueur", "terrain", n, "carte_side");
+                                    texte += "</div>";
                                     if (Jeu.joueur.terrain[n].type == "Créature") {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             break;
                         case 2:
@@ -10801,7 +10530,7 @@ function obtenir_carte(carte_id) {
                             Jeu.joueur.terrain[cible].vie += 3;
                             deplacer(carte, "joueur", "defausse");
                             effet_pose(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -10851,7 +10580,7 @@ function obtenir_carte(carte_id) {
                     }
                     deplacer(carte, "joueur", "terrain");
                     effet_pose(carte);
-                    menu();
+                    actualiser_zone();
                 }
                 else {
                     deplacer(carte, "adverse", "terrain");
@@ -10931,43 +10660,40 @@ function obtenir_carte(carte_id) {
                     switch (step) {
                         case 1:
                             if (verifier_equipement("joueur")) {
-                                initialiser();
-                                div("main");
-                                fonction("Annuler", "menu()");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez une Créature alliée équipable sur le terrain : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une Créature alliée équipable sur le terrain : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
-                                    div("", "carte");
-                                    div();
-                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
-                                    div_fin();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
+                                    texte += afficher_carte("joueur", "terrain", n, "carte_side");
+                                    texte += "</div>";
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].equipements.length < Jeu.joueur.terrain[n].equipement_max) {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             break;
                         case 2:
                             equiper(Jeu.joueur.terrain[cible], carte);
                             effet_pose(carte);
                             enlever(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -11015,43 +10741,40 @@ function obtenir_carte(carte_id) {
                     switch (step) {
                         case 1:
                             if (verifier_equipement("joueur")) {
-                                initialiser();
-                                div("main");
-                                fonction("Annuler", "menu()");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez une Créature alliée équipable sur le terrain : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une Créature alliée équipable sur le terrain : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
-                                    div("", "carte");
-                                    div();
-                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
-                                    div_fin();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
+                                    texte += afficher_carte("joueur", "terrain", n, "carte_side");
+                                    texte += "</div>";
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].equipements.length < Jeu.joueur.terrain[n].equipement_max) {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             break;
                         case 2:
                             equiper(Jeu.joueur.terrain[cible], carte);
                             effet_pose(carte);
                             enlever(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -11085,36 +10808,33 @@ function obtenir_carte(carte_id) {
                     switch (step) {
                         case 1:
                             if (verifier_equipement("joueur")) {
-                                initialiser();
-                                div("main");
-                                fonction("Annuler", "menu()");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez une Créature alliée équipable sur le terrain : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une Créature alliée équipable sur le terrain : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
-                                    div("", "carte");
-                                    div();
-                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
-                                    div_fin();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
+                                    texte += afficher_carte("joueur", "terrain", n, "carte_side");
+                                    texte += "</div>";
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].equipements.length < Jeu.joueur.terrain[n].equipement_max) {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             break;
                         case 2:
@@ -11122,7 +10842,7 @@ function obtenir_carte(carte_id) {
                             equiper(Jeu.joueur.terrain[cible], carte);
                             effet_pose(carte);
                             enlever(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -11160,43 +10880,40 @@ function obtenir_carte(carte_id) {
                     switch (step) {
                         case 1:
                             if (verifier_equipement("joueur")) {
-                                initialiser();
-                                div("main");
-                                fonction("Annuler", "menu()");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez une Créature alliée équipable sur le terrain : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une Créature alliée équipable sur le terrain : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
-                                    div("", "carte");
-                                    div();
-                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
-                                    div_fin();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
+                                    texte += afficher_carte("joueur", "terrain", n, "carte_side");
+                                    texte += "</div>";
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].equipements.length < Jeu.joueur.terrain[n].equipement_max) {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             break;
                         case 2:
                             equiper(Jeu.joueur.terrain[cible], carte);
                             effet_pose(carte);
                             enlever(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -11232,43 +10949,40 @@ function obtenir_carte(carte_id) {
                     switch (step) {
                         case 1:
                             if (verifier_equipement("joueur")) {
-                                initialiser();
-                                div("main");
-                                fonction("Annuler", "menu()");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez une Créature alliée équipable sur le terrain : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une Créature alliée équipable sur le terrain : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
-                                    div("", "carte");
-                                    div();
-                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
-                                    div_fin();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
+                                    texte += afficher_carte("joueur", "terrain", n, "carte_side");
+                                    texte += "</div>";
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].equipements.length < Jeu.joueur.terrain[n].equipement_max) {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             break;
                         case 2:
                             equiper(Jeu.joueur.terrain[cible], carte);
                             effet_pose(carte);
                             enlever(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -11316,7 +11030,7 @@ function obtenir_carte(carte_id) {
                     }
                     deplacer(carte, carte.camp, "defausse");
                     effet_pose(carte);
-                    menu();
+                    actualiser_zone();
                     return true;
                 }
                 return false;
@@ -11338,41 +11052,38 @@ function obtenir_carte(carte_id) {
                     switch (step) {
                         case 1:
                             if (verifier_cible("adverse", "terrain")) {
-                                initialiser();
-                                div("main");
-                                fonction("Annuler", "menu()");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez une Unité adverse sur le terrain : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain adverse :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une Unité adverse sur le terrain : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain adverse :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.adverse.terrain.length; n++) {
-                                    div("", "carte");
-                                    div();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
                                     if (!Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                        afficher(afficher_carte("adverse", "terrain", n, "carte_side"));
+                                        texte += afficher_carte("adverse", "terrain", n, "carte_side");
                                     }
                                     else {
-                                        afficher("???");
+                                        texte += "???";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                     if (!Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             break;
                         case 2:
@@ -11385,7 +11096,7 @@ function obtenir_carte(carte_id) {
                             }
                             deplacer(carte, "joueur", "defausse");
                             effet_pose(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -11435,36 +11146,33 @@ function obtenir_carte(carte_id) {
                     switch (step) {
                         case 1:
                             if (verifier_creature("joueur", "terrain")) {
-                                initialiser();
-                                div("main");
-                                fonction("Annuler", "menu()");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez une Créature alliée sur le terrain : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une Créature alliée sur le terrain : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
-                                    div("", "carte");
-                                    div();
-                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
-                                    div_fin();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
+                                    texte += afficher_carte("joueur", "terrain", n, "carte_side");
+                                    texte += "</div>";
                                     if (Jeu.joueur.terrain[n].type == "Créature") {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             break;
                         case 2:
@@ -11476,7 +11184,7 @@ function obtenir_carte(carte_id) {
                             }
                             deplacer(carte, "joueur", "defausse");
                             effet_pose(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -11521,7 +11229,7 @@ function obtenir_carte(carte_id) {
                     }
                     deplacer(carte, carte.camp, "defausse");
                     effet_pose(carte);
-                    menu();
+                    actualiser_zone();
                     return true;
                 }
                 return false;
@@ -11542,43 +11250,40 @@ function obtenir_carte(carte_id) {
                     switch (step) {
                         case 1:
                             if (verifier_soin_creature("joueur")) {
-                                initialiser();
-                                div("main");
-                                fonction("Annuler", "menu()");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez une Créature alliée blessée sur le terrain : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une Créature alliée blessée sur le terrain : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
-                                    div("", "carte");
-                                    div();
-                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
-                                    div_fin();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
+                                    texte += afficher_carte("joueur", "terrain", n, "carte_side");
+                                    texte += "</div>";
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].vie < Jeu.joueur.terrain[n].vie_max) {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             break;
                         case 2:
                             soin(Jeu.joueur.terrain[cible], Jeu.joueur.terrain[cible].vie_max - Jeu.joueur.terrain[cible].vie);
                             deplacer(carte, "joueur", "defausse");
                             effet_pose(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -11629,7 +11334,7 @@ function obtenir_carte(carte_id) {
                     }
                     deplacer(carte, "joueur", "defausse");
                     effet_pose(carte);
-                    menu();
+                    actualiser_zone();
                     return true;
                 }
                 return false;
@@ -11658,7 +11363,7 @@ function obtenir_carte(carte_id) {
                     }
                     deplacer(carte, carte.camp, "defausse");
                     effet_pose(carte);
-                    menu();
+                    actualiser_zone();
                     return true;
                 }
                 return false;
@@ -11679,48 +11384,45 @@ function obtenir_carte(carte_id) {
                     switch (step) {
                         case 1:
                             if (verifier_cible("adverse", "terrain")) {
-                                initialiser();
-                                div("main");
-                                fonction("Annuler", "menu()");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez une Unité adverse sur le terrain : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain adverse :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une Unité adverse sur le terrain : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain adverse :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.adverse.terrain.length; n++) {
-                                    div("", "carte");
-                                    div();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
                                     if (!Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                        afficher(afficher_carte("adverse", "terrain", n, "carte_side"));
+                                        texte += afficher_carte("adverse", "terrain", n, "carte_side");
                                     }
                                     else {
-                                        afficher("???");
+                                        texte += "???";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                     if (!Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             break;
                         case 2:
                             degats(Jeu.adverse.terrain[cible], 5);
                             deplacer(carte, "joueur", "defausse");
                             effet_pose(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -11758,48 +11460,45 @@ function obtenir_carte(carte_id) {
                     switch (step) {
                         case 1:
                             if (verifier_cible_creature("adverse", "terrain")) {
-                                initialiser();
-                                div("main");
-                                fonction("Retour", "Jeu.joueur.main[" + carte.slot + "].effet_pose(1)");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez une Créature adverse sur le terrain : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain adverse :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(1)'>Retour</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une Créature adverse sur le terrain : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain adverse :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.adverse.terrain.length; n++) {
-                                    div("", "carte");
-                                    div();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
                                     if (!Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                        afficher(afficher_carte("adverse", "terrain", n, "carte_side"));
+                                        texte += afficher_carte("adverse", "terrain", n, "carte_side");
                                     }
                                     else {
-                                        afficher("???");
+                                        texte += "???";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                     if (Jeu.adverse.terrain[n].type == "Créature" && !Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             break;
                         case 2:
                             deplacer(Jeu.adverse.terrain[cible], "adverse", "terrain");
                             deplacer(carte, "joueur", "defausse");
                             effet_pose(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -11850,7 +11549,7 @@ function obtenir_carte(carte_id) {
                     }
                 }
                 deplacer(carte, carte.camp, "defausse");
-                menu();
+                actualiser_zone();
                 return true;
             }
             break;
@@ -11869,48 +11568,45 @@ function obtenir_carte(carte_id) {
                     switch (step) {
                         case 1:
                             if (verifier_creature("adverse", "terrain")) {
-                                initialiser();
-                                div("main");
-                                fonction("Annuler", "menu()");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez une Créature adverse sur le terrain : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain adverse :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une Créature adverse sur le terrain : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain adverse :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.adverse.terrain.length; n++) {
-                                    div("", "carte");
-                                    div();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
                                     if (!Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                        afficher(afficher_carte("adverse", "terrain", n, "carte_side"));
+                                        texte += afficher_carte("adverse", "terrain", n, "carte_side");
                                     }
                                     else {
-                                        afficher("???");
+                                        texte += "???";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                     if (Jeu.adverse.terrain[n].type == "Créature") {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             break;
                         case 2:
                             Jeu.adverse.terrain[cible].silence = true;
                             deplacer(carte, "joueur", "defausse");
                             effet_pose(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -11945,41 +11641,38 @@ function obtenir_carte(carte_id) {
                     switch (step) {
                         case 1:
                             if (verifier_cible_creature("adverse", "terrain")) {
-                                initialiser();
-                                div("main");
-                                fonction("Retour", "Jeu.joueur.main[" + carte.slot + "].effet_pose(1)");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez une Créature adverse sur le terrain : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain adverse :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(1)'>Retour</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une Créature adverse sur le terrain : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain adverse :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.adverse.terrain.length; n++) {
-                                    div("", "carte");
-                                    div();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
                                     if (!Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                        afficher(afficher_carte("adverse", "terrain", n, "carte_side"));
+                                        texte += afficher_carte("adverse", "terrain", n, "carte_side");
                                     }
                                     else {
-                                        afficher("???");
+                                        texte += "???";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                     if (Jeu.adverse.terrain[n].type == "Créature" && !Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             break;
                         case 2:
@@ -12011,7 +11704,7 @@ function obtenir_carte(carte_id) {
                             }
                             deplacer(carte, "joueur", "defausse");
                             effet_pose(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -12082,7 +11775,7 @@ function obtenir_carte(carte_id) {
                         pioche("joueur", nouvelle_carte);
                         deplacer(carte, "joueur", "defausse");
                         effet_pose(carte);
-                        menu();
+                        actualiser_zone();
                     }
                 }
                 else {
@@ -12109,7 +11802,7 @@ function obtenir_carte(carte_id) {
                 }
                 deplacer(carte, carte.camp, "defausse");
                 effet_pose(carte);
-                menu();
+                actualiser_zone();
                 return true;
             }
             break;
@@ -12137,7 +11830,7 @@ function obtenir_carte(carte_id) {
                     }
                     deplacer(carte, carte.camp, "defausse");
                     effet_pose(carte);
-                    menu();
+                    actualiser_zone();
                     return true;
                 }
                 return false;
@@ -12165,7 +11858,7 @@ function obtenir_carte(carte_id) {
                     }
                     deplacer(carte, carte.camp, "defausse");
                     effet_pose(carte);
-                    menu();
+                    actualiser_zone();
                     return true;
                 }
                 return false;
@@ -12194,7 +11887,7 @@ function obtenir_carte(carte_id) {
                 }
                 deplacer(carte, carte.camp, "defausse");
                 effet_pose(carte);
-                menu();
+                actualiser_zone();
                 return true;
             }
             break;
@@ -12220,36 +11913,33 @@ function obtenir_carte(carte_id) {
                                 }
                             }
                             if (verifier) {
-                                initialiser();
-                                div("main");
-                                fonction("Annuler", "menu()");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez une Créature alliée Zombie dans la défausse : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Défausse :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une Créature alliée Zombie dans la défausse : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Défausse :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.joueur.defausse.length; n++) {
-                                    div("", "carte");
-                                    div();
-                                    afficher(afficher_carte("joueur", "defausse", n, "carte_side"));
-                                    div_fin();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
+                                    texte += afficher_carte("joueur", "defausse", n, "carte_side");
+                                    texte += "</div>";
                                     if (Jeu.joueur.defausse[n].type == "Créature" && Jeu.joueur.defausse[n].familles.includes("Zombie")) {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             break;
                         case 2:
@@ -12257,7 +11947,7 @@ function obtenir_carte(carte_id) {
                             deplacer(Jeu.joueur.defausse[cible], "joueur", "terrain");
                             deplacer(carte, "joueur", "defausse");
                             effet_pose(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -12303,48 +11993,45 @@ function obtenir_carte(carte_id) {
                     switch (step) {
                         case 1:
                             if (verifier_cible_creature("adverse", "terrain")) {
-                                initialiser();
-                                div("main");
-                                fonction("Annuler", "menu()");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez une Créature adverse sur le terrain : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain adverse :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une Créature adverse sur le terrain : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain adverse :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.adverse.terrain.length; n++) {
-                                    div("", "carte");
-                                    div();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
                                     if (!Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                        afficher(afficher_carte("adverse", "terrain", n, "carte_side"));
+                                        texte += afficher_carte("adverse", "terrain", n, "carte_side");
                                     }
                                     else {
-                                        afficher("???");
+                                        texte += "???";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                     if (Jeu.adverse.terrain[n].type == "Créature" && !Jeu.adverse.terrain[n].etourdissement && !Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             break;
                         case 2:
                             Jeu.adverse.terrain[cible].etourdissement = true;
                             deplacer(carte, "joueur", "defausse");
                             effet_pose(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -12383,36 +12070,33 @@ function obtenir_carte(carte_id) {
                     switch (step) {
                         case 1:
                             if (verifier_debuff("joueur") || verifier_soin_creature("joueur")) {
-                                initialiser();
-                                div("main");
-                                fonction("Annuler", "menu()");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez une Créature alliée sur le terrain : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une Créature alliée sur le terrain : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
-                                    div("", "carte");
-                                    div();
-                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
-                                    div_fin();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
+                                    texte += afficher_carte("joueur", "terrain", n, "carte_side");
+                                    texte += "</div>";
                                     if (Jeu.joueur.terrain[n].type == "Créature" && (Jeu.joueur.terrain[n].vie < Jeu.joueur.terrain[n].vie_max && Jeu.joueur.terrain[n].poison > 0 || Jeu.joueur.terrain[n].brulure > 0 || Jeu.joueur.terrain[n].saignement > 0 || Jeu.joueur.terrain[n].contamination > 0 || Jeu.joueur.terrain[n].etourdissement || Jeu.joueur.terrain[n].silence)) {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             break;
                         case 2:
@@ -12426,7 +12110,7 @@ function obtenir_carte(carte_id) {
                             Jeu.joueur.terrain[cible].silence = false;
                             deplacer(carte, "joueur", "defausse");
                             effet_pose(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -12476,43 +12160,40 @@ function obtenir_carte(carte_id) {
                                 }
                             }
                             if (verifier) {
-                                initialiser();
-                                div("main");
-                                fonction("Annuler", "menu()");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez une Créature alliée sur le terrain : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une Créature alliée sur le terrain : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
-                                    div("", "carte");
-                                    div();
-                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
-                                    div_fin();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
+                                    texte += afficher_carte("joueur", "terrain", n, "carte_side");
+                                    texte += "</div>";
                                     if (Jeu.joueur.terrain[n].type == "Créature" && !Jeu.joueur.terrain[n].camouflage) {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             break;
                         case 2:
                             Jeu.joueur.terrain[cible].camouflage = true;
                             deplacer(carte, "joueur", "defausse");
                             effet_pose(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -12550,36 +12231,33 @@ function obtenir_carte(carte_id) {
                     switch (step) {
                         case 1:
                             if (verifier_creature("joueur", "terrain")) {
-                                initialiser();
-                                div("main");
-                                fonction("Annuler", "menu()");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez une Créature alliée sur le terrain : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une Créature alliée sur le terrain : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
-                                    div("", "carte");
-                                    div();
-                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
-                                    div_fin();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
+                                    texte += afficher_carte("joueur", "terrain", n, "carte_side");
+                                    texte += "</div>";
                                     if (Jeu.joueur.terrain[n].type == "Créature") {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             break;
                         case 2:
@@ -12587,7 +12265,7 @@ function obtenir_carte(carte_id) {
                             Jeu.joueur.terrain[cible].vol_de_vie += 2;
                             deplacer(carte, "joueur", "defausse");
                             effet_pose(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -12623,41 +12301,38 @@ function obtenir_carte(carte_id) {
                     switch (step) {
                         case 1:
                             if (verifier_cible_creature("adverse", "terrain")) {
-                                initialiser();
-                                div("main");
-                                fonction("Retour", "Jeu.joueur.main[" + carte.slot + "].effet_pose(1)");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez une Créature adverse sur le terrain : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain adverse :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(1)'>Retour</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une Créature adverse sur le terrain : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain adverse :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.adverse.terrain.length; n++) {
-                                    div("", "carte");
-                                    div();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
                                     if (!Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                        afficher(afficher_carte("adverse", "terrain", n, "carte_side"));
+                                        texte += afficher_carte("adverse", "terrain", n, "carte_side");
                                     }
                                     else {
-                                        afficher("???");
+                                        texte += "???";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                     if (Jeu.adverse.terrain[n].type == "Créature" && !Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             break;
                         case 2:
@@ -12701,7 +12376,7 @@ function obtenir_carte(carte_id) {
                             }
                             deplacer(carte, "joueur", "defausse");
                             effet_pose(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -12779,41 +12454,38 @@ function obtenir_carte(carte_id) {
                                 }
                             }
                             if (verifier) {
-                                initialiser();
-                                div("main");
-                                fonction("Annuler", "menu()");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez une Unité adverse sur le terrain : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain adverse :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une Unité adverse sur le terrain : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain adverse :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.adverse.terrain.length; n++) {
-                                    div("", "carte");
-                                    div();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
                                     if (!Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                        afficher(afficher_carte("adverse", "terrain", n, "carte_side"));
+                                        texte += afficher_carte("adverse", "terrain", n, "carte_side");
                                     }
                                     else {
-                                        afficher("???");
+                                        texte += "???";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                     if (Jeu.adverse.terrain[n].gel > 0 && (!Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence)) {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             break;
                         case 2:
@@ -12825,7 +12497,7 @@ function obtenir_carte(carte_id) {
                             }
                             deplacer(carte, "joueur", "defausse");
                             effet_pose(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -12873,43 +12545,40 @@ function obtenir_carte(carte_id) {
                     switch (step) {
                         case 1:
                             if (verifier_soin_creature("joueur")) {
-                                initialiser();
-                                div("main");
-                                fonction("Annuler", "menu()");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez une Créature alliée blessée sur le terrain : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une Créature alliée blessée sur le terrain : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
-                                    div("", "carte");
-                                    div();
-                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
-                                    div_fin();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
+                                    texte += afficher_carte("joueur", "terrain", n, "carte_side");
+                                    texte += "</div>";
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].vie < Jeu.joueur.terrain[n].vie_max) {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             break;
                         case 2:
                             soin(Jeu.joueur.terrain[cible], 5);
                             deplacer(carte, "joueur", "defausse");
                             effet_pose(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -12948,43 +12617,40 @@ function obtenir_carte(carte_id) {
                     switch (step) {
                         case 1:
                             if (verifier_equipement("joueur")) {
-                                initialiser();
-                                div("main");
-                                fonction("Annuler", "menu()");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez une Créature alliée équipable sur le terrain : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une Créature alliée équipable sur le terrain : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
-                                    div("", "carte");
-                                    div();
-                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
-                                    div_fin();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
+                                    texte += afficher_carte("joueur", "terrain", n, "carte_side");
+                                    texte += "</div>";
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].equipements.length < Jeu.joueur.terrain[n].equipement_max) {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             break;
                         case 2:
                             equiper(Jeu.joueur.terrain[cible], carte);
                             effet_pose(carte);
                             enlever(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -13031,7 +12697,7 @@ function obtenir_carte(carte_id) {
                     }
                     deplacer(carte, carte.camp, "defausse");
                     effet_pose(carte);
-                    menu();
+                    actualiser_zone();
                     return true;
                 }
             }
@@ -13060,7 +12726,7 @@ function obtenir_carte(carte_id) {
                     }
                     deplacer(carte, carte.camp, "defausse");
                     effet_pose(carte);
-                    menu();
+                    actualiser_zone();
                     return true;
                 }
                 return false;
@@ -13088,36 +12754,33 @@ function obtenir_carte(carte_id) {
                                 }
                             }
                             if (verifier && verifier_cible_creature("adverse", "terrain")) {
-                                initialiser();
-                                div("main");
-                                fonction("Annuler", "menu()");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez une Créature alliée Ogre sur le terrain : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une Créature alliée Ogre sur le terrain : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
-                                    div("", "carte");
-                                    div();
-                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
-                                    div_fin();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
+                                    texte += afficher_carte("joueur", "terrain", n, "carte_side");
+                                    texte += "</div>";
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].familles.includes("Ogre")) {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             break;
                         case 2:
@@ -13128,48 +12791,45 @@ function obtenir_carte(carte_id) {
                                 }
                             }
                             if (verifier2) {
-                                initialiser();
-                                div("main");
-                                fonction("Retour", "Jeu.joueur.main[" + carte.slot + "].effet_pose(1)");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez une Unité adverse sur le terrain : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain adverse :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(1)'>Retour</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une Unité adverse sur le terrain : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain adverse :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.adverse.terrain.length; n++) {
-                                    div("", "carte");
-                                    div();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
                                     if (!Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                        afficher(afficher_carte("adverse", "terrain", n, "carte_side"));
+                                        texte += afficher_carte("adverse", "terrain", n, "carte_side");
                                     }
                                     else {
-                                        afficher("???");
+                                        texte += "???";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                     if (statistique(Jeu.joueur.terrain[cible1], "attaque") >= Jeu.adverse.terrain[n].vie && Jeu.adverse.terrain[n].type == "Créature" && (!Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence)) {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(3," + cible1 + "," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(3," + cible1 + "," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             break;
                         case 3:
                             mort(Jeu.adverse.terrain[cible2]);
                             effet_pose(carte);
                             deplacer(carte, "joueur", "defausse");
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -13221,43 +12881,40 @@ function obtenir_carte(carte_id) {
                     switch (step) {
                         case 1:
                             if (verifier_soin_batiment("joueur")) {
-                                initialiser();
-                                div("main");
-                                fonction("Annuler", "menu()");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez un Bâtiment allié blessé sur le terrain : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez un Bâtiment allié blessé sur le terrain : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
-                                    div("", "carte");
-                                    div();
-                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
-                                    div_fin();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
+                                    texte += afficher_carte("joueur", "terrain", n, "carte_side");
+                                    texte += "</div>";
                                     if (Jeu.joueur.terrain[n].type == "Bâtiment" && Jeu.joueur.terrain[n].vie < Jeu.joueur.terrain[n].vie_max) {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             break;
                         case 2:
                             soin(Jeu.joueur.terrain[cible], 5);
                             deplacer(carte, "joueur", "defausse");
                             effet_pose(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -13314,7 +12971,7 @@ function obtenir_carte(carte_id) {
                     }
                     deplacer(carte, "joueur", "terrain");
                     effet_pose(carte);
-                    menu();
+                    actualiser_zone();
                 }
                 else {
                     deplacer(carte, "adverse", "terrain");
@@ -13412,7 +13069,7 @@ function obtenir_carte(carte_id) {
                 }
                 deplacer(carte, carte.camp, "terrain");
                 effet_pose(carte);
-                menu();
+                actualiser_zone();
                 return true;
             }
             break;
@@ -13438,43 +13095,40 @@ function obtenir_carte(carte_id) {
                     switch (step) {
                         case 1:
                             if (verifier_equipement("joueur")) {
-                                initialiser();
-                                div("main");
-                                fonction("Annuler", "menu()");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez une Créature alliée équipable sur le terrain : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une Créature alliée équipable sur le terrain : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
-                                    div("", "carte");
-                                    div();
-                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
-                                    div_fin();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
+                                    texte += afficher_carte("joueur", "terrain", n, "carte_side");
+                                    texte += "</div>";
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].equipements.length < Jeu.joueur.terrain[n].equipement_max) {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             break;
                         case 2:
                             equiper(Jeu.joueur.terrain[cible], carte);
                             effet_pose(carte);
                             enlever(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -13513,43 +13167,40 @@ function obtenir_carte(carte_id) {
                     switch (step) {
                         case 1:
                             if (verifier_equipement("joueur")) {
-                                initialiser();
-                                div("main");
-                                fonction("Annuler", "menu()");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez une Créature alliée équipable sur le terrain : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une Créature alliée équipable sur le terrain : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
-                                    div("", "carte");
-                                    div();
-                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
-                                    div_fin();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
+                                    texte += afficher_carte("joueur", "terrain", n, "carte_side");
+                                    texte += "</div>";
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].equipements.length < Jeu.joueur.terrain[n].equipement_max) {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             break;
                         case 2:
                             equiper(Jeu.joueur.terrain[cible], carte);
                             effet_pose(carte);
                             enlever(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -13600,43 +13251,40 @@ function obtenir_carte(carte_id) {
                     switch (step) {
                         case 1:
                             if (verifier_equipement("joueur")) {
-                                initialiser();
-                                div("main");
-                                fonction("Annuler", "menu()");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez une Créature alliée équipable sur le terrain : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une Créature alliée équipable sur le terrain : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
-                                    div("", "carte");
-                                    div();
-                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
-                                    div_fin();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
+                                    texte += afficher_carte("joueur", "terrain", n, "carte_side");
+                                    texte += "</div>";
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].equipements.length < Jeu.joueur.terrain[n].equipement_max) {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             break;
                         case 2:
                             equiper(Jeu.joueur.terrain[cible], carte);
                             effet_pose(carte);
                             enlever(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -13673,43 +13321,40 @@ function obtenir_carte(carte_id) {
                     switch (step) {
                         case 1:
                             if (verifier_equipement("joueur")) {
-                                initialiser();
-                                div("main");
-                                fonction("Annuler", "menu()");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez une Créature alliée équipable sur le terrain : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une Créature alliée équipable sur le terrain : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
-                                    div("", "carte");
-                                    div();
-                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
-                                    div_fin();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
+                                    texte += afficher_carte("joueur", "terrain", n, "carte_side");
+                                    texte += "</div>";
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].equipements.length < Jeu.joueur.terrain[n].equipement_max) {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             break;
                         case 2:
                             equiper(Jeu.joueur.terrain[cible], carte);
                             effet_pose(carte);
                             enlever(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -13746,43 +13391,40 @@ function obtenir_carte(carte_id) {
                     switch (step) {
                         case 1:
                             if (verifier_equipement("joueur")) {
-                                initialiser();
-                                div("main");
-                                fonction("Annuler", "menu()");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez une Créature alliée équipable sur le terrain : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une Créature alliée équipable sur le terrain : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
-                                    div("", "carte");
-                                    div();
-                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
-                                    div_fin();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
+                                    texte += afficher_carte("joueur", "terrain", n, "carte_side");
+                                    texte += "</div>";
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].equipements.length < Jeu.joueur.terrain[n].equipement_max) {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             break;
                         case 2:
                             equiper(Jeu.joueur.terrain[cible], carte);
                             effet_pose(carte);
                             enlever(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -13820,43 +13462,40 @@ function obtenir_carte(carte_id) {
                     switch (step) {
                         case 1:
                             if (verifier_equipement("joueur")) {
-                                initialiser();
-                                div("main");
-                                fonction("Annuler", "menu()");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez une Créature alliée équipable sur le terrain : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une Créature alliée équipable sur le terrain : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
-                                    div("", "carte");
-                                    div();
-                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
-                                    div_fin();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
+                                    texte += afficher_carte("joueur", "terrain", n, "carte_side");
+                                    texte += "</div>";
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].equipements.length < Jeu.joueur.terrain[n].equipement_max) {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             break;
                         case 2:
                             equiper(Jeu.joueur.terrain[cible], carte);
                             effet_pose(carte);
                             enlever(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -13908,43 +13547,40 @@ function obtenir_carte(carte_id) {
                     switch (step) {
                         case 1:
                             if (verifier_equipement("joueur")) {
-                                initialiser();
-                                div("main");
-                                fonction("Annuler", "menu()");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez une Créature alliée équipable sur le terrain : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une Créature alliée équipable sur le terrain : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
-                                    div("", "carte");
-                                    div();
-                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
-                                    div_fin();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
+                                    texte += afficher_carte("joueur", "terrain", n, "carte_side");
+                                    texte += "</div>";
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].equipements.length < Jeu.joueur.terrain[n].equipement_max) {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             break;
                         case 2:
                             equiper(Jeu.joueur.terrain[cible], carte);
                             effet_pose(carte);
                             enlever(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -13980,43 +13616,40 @@ function obtenir_carte(carte_id) {
                     switch (step) {
                         case 1:
                             if (verifier_equipement("joueur")) {
-                                initialiser();
-                                div("main");
-                                fonction("Annuler", "menu()");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez une Créature alliée équipable sur le terrain : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une Créature alliée équipable sur le terrain : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
-                                    div("", "carte");
-                                    div();
-                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
-                                    div_fin();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
+                                    texte += afficher_carte("joueur", "terrain", n, "carte_side");
+                                    texte += "</div>";
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].equipements.length < Jeu.joueur.terrain[n].equipement_max) {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             break;
                         case 2:
                             equiper(Jeu.joueur.terrain[cible], carte);
                             effet_pose(carte);
                             enlever(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -14054,43 +13687,40 @@ function obtenir_carte(carte_id) {
                     switch (step) {
                         case 1:
                             if (verifier_equipement("joueur")) {
-                                initialiser();
-                                div("main");
-                                fonction("Annuler", "menu()");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez une Créature alliée équipable sur le terrain : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une Créature alliée équipable sur le terrain : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
-                                    div("", "carte");
-                                    div();
-                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
-                                    div_fin();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
+                                    texte += afficher_carte("joueur", "terrain", n, "carte_side");
+                                    texte += "</div>";
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].equipements.length < Jeu.joueur.terrain[n].equipement_max) {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             break;
                         case 2:
                             equiper(Jeu.joueur.terrain[cible], carte);
                             effet_pose(carte);
                             enlever(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -14134,110 +13764,101 @@ function obtenir_carte(carte_id) {
                                 }
                             }
                             if (verifier_equipement("joueur") || verifier_cible_creature("adverse", "terrain") || verifier) {
-                                initialiser();
-                                div("main");
-                                fonction("Annuler", "menu()");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez un effet : ");
-                                saut(2);
-                                fonction("Applique l'effet suivant à la Créature équipée : Quand tue une Créature : Se donne Camouflage", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2)");
-                                saut();
-                                afficher("ou");
-                                saut();
-                                fonction("Inflige 3 dégâts à une Créature adverse sur le terrain", "Jeu.joueur.main[" + carte.slot + "].effet_pose(4)");
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                let texte = "";
+                                texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez un effet : ";
+                                texte += "<br/><br/>";
+                                texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2)'>Applique l'effet suivant à la Créature équipée : Quand tue une Créature : Se donne Camouflage</button>";
+                                texte += "<br/>";
+                                texte += "ou";
+                                texte += "<br/>";
+                                texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(4)'>Inflige 3 dégâts à une Créature adverse sur le terrain</button>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             break;
                         case 2:
                             if (verifier_equipement("joueur")) {
-                                initialiser();
-                                div("main");
-                                fonction("Retour", "Jeu.joueur.main[" + carte.slot + "].effet_pose(1)");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher("Applique l'effet suivant à la Créature équipée : Quand tue une Créature : Se donne Camouflage.");
-                                saut(2);
-                                afficher("Choisissez une Créature alliée équipable sur le terrain : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(1)'>Retour</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += "Applique l'effet suivant à la Créature équipée : Quand tue une Créature : Se donne Camouflage.";
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une Créature alliée équipable sur le terrain : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
-                                    div("", "carte");
-                                    div();
-                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
-                                    div_fin();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
+                                    texte += afficher_carte("joueur", "terrain", n, "carte_side");
+                                    texte += "</div>";
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].equipements.length < Jeu.joueur.terrain[n].equipement_max) {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(3," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(3," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             break;
                         case 3:
                             equiper(Jeu.joueur.terrain[cible1], carte);
                             effet_pose(carte);
                             enlever(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                         case 4:
                             if (verifier_cible_creature("adverse", "terrain")) {
-                                initialiser();
-                                div("main");
-                                fonction("Retour", "Jeu.joueur.main[" + carte.slot + "].effet_pose(1)");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher("Applique Camouflage à une Créature alliée sur le terrain et inflige 3 dégâts à une Créature adverse sur le terrain.");
-                                saut(2);
-                                afficher("Choisissez une Créature adverse sur le terrain : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain adverse :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(1)'>Retour</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += "Applique Camouflage à une Créature alliée sur le terrain et inflige 3 dégâts à une Créature adverse sur le terrain.";
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une Créature adverse sur le terrain : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain adverse :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.adverse.terrain.length; n++) {
-                                    div("", "carte");
-                                    div();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
                                     if (!Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                        afficher(afficher_carte("adverse", "terrain", n, "carte_side"));
+                                        texte += afficher_carte("adverse", "terrain", n, "carte_side");
                                     }
                                     else {
-                                        afficher("???");
+                                        texte += "???";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                     if (Jeu.adverse.terrain[n].type == "Créature" && !Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(5," + cible1 + ", " + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(5," + cible1 + ", " + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             break;
                         case 5:
                             degats(Jeu.adverse.terrain[cible2], 3);
                             deplacer(carte, "joueur", "defausse");
                             effet_pose(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -14289,43 +13910,40 @@ function obtenir_carte(carte_id) {
                     switch (step) {
                         case 1:
                             if (verifier_equipement("joueur")) {
-                                initialiser();
-                                div("main");
-                                fonction("Annuler", "menu()");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez une Créature alliée équipable sur le terrain : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une Créature alliée équipable sur le terrain : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
-                                    div("", "carte");
-                                    div();
-                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
-                                    div_fin();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
+                                    texte += afficher_carte("joueur", "terrain", n, "carte_side");
+                                    texte += "</div>";
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].equipements.length < Jeu.joueur.terrain[n].equipement_max) {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             break;
                         case 2:
                             equiper(Jeu.joueur.terrain[cible], carte);
                             effet_pose(carte);
                             enlever(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -14359,43 +13977,40 @@ function obtenir_carte(carte_id) {
                     switch (step) {
                         case 1:
                             if (verifier_equipement("joueur")) {
-                                initialiser();
-                                div("main");
-                                fonction("Annuler", "menu()");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez une Créature alliée équipable sur le terrain : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une Créature alliée équipable sur le terrain : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
-                                    div("", "carte");
-                                    div();
-                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
-                                    div_fin();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
+                                    texte += afficher_carte("joueur", "terrain", n, "carte_side");
+                                    texte += "</div>";
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].equipements.length < Jeu.joueur.terrain[n].equipement_max) {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             break;
                         case 2:
                             equiper(Jeu.joueur.terrain[cible], carte);
                             effet_pose(carte);
                             enlever(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -14429,43 +14044,40 @@ function obtenir_carte(carte_id) {
                     switch (step) {
                         case 1:
                             if (verifier_equipement("joueur")) {
-                                initialiser();
-                                div("main");
-                                fonction("Annuler", "menu()");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez une Créature alliée équipable sur le terrain : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une Créature alliée équipable sur le terrain : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
-                                    div("", "carte");
-                                    div();
-                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
-                                    div_fin();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
+                                    texte += afficher_carte("joueur", "terrain", n, "carte_side");
+                                    texte += "</div>";
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].equipements.length < Jeu.joueur.terrain[n].equipement_max) {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             break;
                         case 2:
                             equiper(Jeu.joueur.terrain[cible], carte);
                             effet_pose(carte);
                             enlever(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -14499,43 +14111,40 @@ function obtenir_carte(carte_id) {
                     switch (step) {
                         case 1:
                             if (verifier_equipement("joueur")) {
-                                initialiser();
-                                div("main");
-                                fonction("Annuler", "menu()");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez une Créature alliée équipable sur le terrain : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une Créature alliée équipable sur le terrain : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
-                                    div("", "carte");
-                                    div();
-                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
-                                    div_fin();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
+                                    texte += afficher_carte("joueur", "terrain", n, "carte_side");
+                                    texte += "</div>";
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].equipements.length < Jeu.joueur.terrain[n].equipement_max) {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             break;
                         case 2:
                             equiper(Jeu.joueur.terrain[cible], carte);
                             effet_pose(carte);
                             enlever(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -14569,36 +14178,33 @@ function obtenir_carte(carte_id) {
                     switch (step) {
                         case 1:
                             if (verifier_equipement("joueur")) {
-                                initialiser();
-                                div("main");
-                                fonction("Annuler", "menu()");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez une Créature alliée équipable sur le terrain : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une Créature alliée équipable sur le terrain : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
-                                    div("", "carte");
-                                    div();
-                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
-                                    div_fin();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
+                                    texte += afficher_carte("joueur", "terrain", n, "carte_side");
+                                    texte += "</div>";
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].equipements.length < Jeu.joueur.terrain[n].equipement_max) {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             break;
                         case 2:
@@ -14606,7 +14212,7 @@ function obtenir_carte(carte_id) {
                             equiper(Jeu.joueur.terrain[cible], carte);
                             effet_pose(carte);
                             enlever(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -14643,42 +14249,39 @@ function obtenir_carte(carte_id) {
                     switch (step) {
                         case 1:
                             if (verifier_equipement("joueur")) {
-                                initialiser();
-                                div("main");
-                                fonction("Annuler", "menu()");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez une Créature alliée équipable sur le terrain : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une Créature alliée équipable sur le terrain : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
-                                    div("", "carte");
-                                    div();
-                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
-                                    div_fin();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
+                                    texte += afficher_carte("joueur", "terrain", n, "carte_side");
+                                    texte += "</div>";
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].equipements.length < Jeu.joueur.terrain[n].equipement_max) {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             break;
                         case 2:
                             equiper(Jeu.joueur.terrain[cible], carte);
                             enlever(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -14714,43 +14317,40 @@ function obtenir_carte(carte_id) {
                     switch (step) {
                         case 1:
                             if (verifier_equipement("joueur")) {
-                                initialiser();
-                                div("main");
-                                fonction("Annuler", "menu()");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez une Créature alliée équipable sur le terrain : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une Créature alliée équipable sur le terrain : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
-                                    div("", "carte");
-                                    div();
-                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
-                                    div_fin();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
+                                    texte += afficher_carte("joueur", "terrain", n, "carte_side");
+                                    texte += "</div>";
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].equipements.length < Jeu.joueur.terrain[n].equipement_max) {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             break;
                         case 2:
                             equiper(Jeu.joueur.terrain[cible], carte);
                             effet_pose(carte);
                             enlever(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -14786,43 +14386,40 @@ function obtenir_carte(carte_id) {
                     switch (step) {
                         case 1:
                             if (verifier_equipement("joueur")) {
-                                initialiser();
-                                div("main");
-                                fonction("Annuler", "menu()");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez une Créature alliée équipable sur le terrain : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une Créature alliée équipable sur le terrain : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
-                                    div("", "carte");
-                                    div();
-                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
-                                    div_fin();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
+                                    texte += afficher_carte("joueur", "terrain", n, "carte_side");
+                                    texte += "</div>";
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].equipements.length < Jeu.joueur.terrain[n].equipement_max) {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             break;
                         case 2:
                             equiper(Jeu.joueur.terrain[cible], carte);
                             effet_pose(carte);
                             enlever(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -14858,43 +14455,40 @@ function obtenir_carte(carte_id) {
                     switch (step) {
                         case 1:
                             if (verifier_equipement("joueur")) {
-                                initialiser();
-                                div("main");
-                                fonction("Annuler", "menu()");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez une Créature alliée équipable sur le terrain : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une Créature alliée équipable sur le terrain : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
-                                    div("", "carte");
-                                    div();
-                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
-                                    div_fin();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
+                                    texte += afficher_carte("joueur", "terrain", n, "carte_side");
+                                    texte += "</div>";
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].equipements.length < Jeu.joueur.terrain[n].equipement_max) {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             break;
                         case 2:
                             equiper(Jeu.joueur.terrain[cible], carte);
                             effet_pose(carte);
                             enlever(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -14930,36 +14524,33 @@ function obtenir_carte(carte_id) {
                     switch (step) {
                         case 1:
                             if (verifier_equipement("joueur")) {
-                                initialiser();
-                                div("main");
-                                fonction("Annuler", "menu()");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez une Créature alliée équipable sur le terrain : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une Créature alliée équipable sur le terrain : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
-                                    div("", "carte");
-                                    div();
-                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
-                                    div_fin();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
+                                    texte += afficher_carte("joueur", "terrain", n, "carte_side");
+                                    texte += "</div>";
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].equipements.length < Jeu.joueur.terrain[n].equipement_max) {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             break;
                         case 2:
@@ -14967,7 +14558,7 @@ function obtenir_carte(carte_id) {
                             equiper(Jeu.joueur.terrain[cible], carte);
                             effet_pose(carte);
                             enlever(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -15006,42 +14597,39 @@ function obtenir_carte(carte_id) {
                     switch (step) {
                         case 1:
                             if (verifier_equipement("joueur")) {
-                                initialiser();
-                                div("main");
-                                fonction("Annuler", "menu()");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez une Créature alliée équipable sur le terrain : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une Créature alliée équipable sur le terrain : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
-                                    div("", "carte");
-                                    div();
-                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
-                                    div_fin();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
+                                    texte += afficher_carte("joueur", "terrain", n, "carte_side");
+                                    texte += "</div>";
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].equipements.length < Jeu.joueur.terrain[n].equipement_max) {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             break;
                         case 2:
                             equiper(Jeu.joueur.terrain[cible], carte);
                             enlever(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -15079,43 +14667,40 @@ function obtenir_carte(carte_id) {
                     switch (step) {
                         case 1:
                             if (verifier_equipement("joueur")) {
-                                initialiser();
-                                div("main");
-                                fonction("Annuler", "menu()");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez une Créature alliée équipable sur le terrain : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une Créature alliée équipable sur le terrain : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
-                                    div("", "carte");
-                                    div();
-                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
-                                    div_fin();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
+                                    texte += afficher_carte("joueur", "terrain", n, "carte_side");
+                                    texte += "</div>";
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].equipements.length < Jeu.joueur.terrain[n].equipement_max) {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             break;
                         case 2:
                             equiper(Jeu.joueur.terrain[cible], carte);
                             effet_pose(carte);
                             enlever(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -15177,7 +14762,7 @@ function obtenir_carte(carte_id) {
                 }
                 deplacer(carte, carte.camp, "terrain");
                 effet_pose(carte);
-                menu();
+                actualiser_zone();
                 return true;
             }
             break;
@@ -15220,53 +14805,50 @@ function obtenir_carte(carte_id) {
                     switch (step) {
                         case 1:
                             if (verifier_cible_creature("adverse", "terrain") && !statistique(carte, "silence")) {
-                                initialiser();
-                                div("main");
-                                fonction("Annuler", "menu()");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez une Créature adverse sur le terrain : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain adverse :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une Créature adverse sur le terrain : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain adverse :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.adverse.terrain.length; n++) {
-                                    div("", "carte");
-                                    div();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
                                     if (!Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                        afficher(afficher_carte("adverse", "terrain", n, "carte_side"));
+                                        texte += afficher_carte("adverse", "terrain", n, "carte_side");
                                     }
                                     else {
-                                        afficher("???");
+                                        texte += "???";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                     if (Jeu.adverse.terrain[n].type == "Créature" && !Jeu.adverse.terrain[n].etourdissement && !Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             else {
                                 deplacer(carte, "joueur", "terrain");
                                 effet_pose(carte);
-                                menu();
+                                actualiser_zone();
                             }
                             break;
                         case 2:
                             Jeu.adverse.terrain[cible].etourdissement = true;
                             deplacer(carte, "joueur", "terrain");
                             effet_pose(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -15350,7 +14932,7 @@ function obtenir_carte(carte_id) {
                 }
                 deplacer(carte, carte.camp, "terrain");
                 effet_pose(carte);
-                menu();
+                actualiser_zone();
                 return true;
             }
             break;
@@ -15417,48 +14999,45 @@ function obtenir_carte(carte_id) {
                                 }
                             }
                             if (verifier && !statistique(carte, "silence")) {
-                                initialiser();
-                                div("main");
-                                fonction("Annuler", "menu()");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez une Créature alliée sur le terrain : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une Créature alliée sur le terrain : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
-                                    div("", "carte");
-                                    div();
-                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
-                                    div_fin();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
+                                    texte += afficher_carte("joueur", "terrain", n, "carte_side");
+                                    texte += "</div>";
                                     if (Jeu.joueur.terrain[n].type == "Créature" && !Jeu.joueur.terrain[n].camouflage) {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             else {
                                 deplacer(carte, "joueur", "terrain");
                                 effet_pose(carte);
-                                menu();
+                                actualiser_zone();
                             }
                             break;
                         case 2:
                             Jeu.joueur.terrain[cible].camouflage = true;
                             deplacer(carte, "joueur", "terrain");
                             effet_pose(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -15498,46 +15077,43 @@ function obtenir_carte(carte_id) {
                     switch (step) {
                         case 1:
                             if (verifier_cible("adverse", "terrain") && !statistique(carte, "silence")) {
-                                initialiser();
-                                div("main");
-                                fonction("Annuler", "menu()");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez une Unité adverse sur le terrain : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain adverse :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une Unité adverse sur le terrain : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain adverse :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.adverse.terrain.length; n++) {
-                                    div("", "carte");
-                                    div();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
                                     if (!Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                        afficher(afficher_carte("adverse", "terrain", n, "carte_side"));
+                                        texte += afficher_carte("adverse", "terrain", n, "carte_side");
                                     }
                                     else {
-                                        afficher("???");
+                                        texte += "???";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                     if (!Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             else {
                                 deplacer(carte, "joueur", "terrain");
                                 effet_pose(carte);
-                                menu();
+                                actualiser_zone();
                             }
                             break;
                         case 2:
@@ -15546,7 +15122,7 @@ function obtenir_carte(carte_id) {
                             }
                             deplacer(carte, "joueur", "terrain");
                             effet_pose(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -15585,61 +15161,58 @@ function obtenir_carte(carte_id) {
                         case 1:
                             let verifier = false;
                             for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
-                                if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].portee) {
+                                if (Jeu.joueur.terrain[n].type == "Créature" && statistique(Jeu.joueur.terrain[n], "portee")) {
                                     verifier = true;
                                 }
                             }
                             if (verifier) {
-                                initialiser();
-                                div("main");
-                                fonction("Annuler", "menu()");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez une Créature alliée sur le terrain avec Portée : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une Créature alliée sur le terrain avec Portée : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
-                                    div("", "carte");
-                                    div();
-                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
-                                    div_fin();
-                                    if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].portee) {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                        div_fin();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
+                                    texte += afficher_carte("joueur", "terrain", n, "carte_side");
+                                    texte += "</div>";
+                                    if (Jeu.joueur.terrain[n].type == "Créature" && statistique(Jeu.joueur.terrain[n], "portee")) {
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             break;
                         case 2:
                             Jeu.joueur.terrain[cible].stat_etage.attaque += 12;
                             deplacer(carte, "joueur", "defausse");
                             effet_pose(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
                 else {
                     let verifier = false;
                     for (let n = 0; n < Jeu.adverse.terrain.length; n++) {
-                        if (Jeu.adverse.terrain[n].type == "Créature" && Jeu.adverse.terrain[n].portee) {
+                        if (Jeu.adverse.terrain[n].type == "Créature" && statistique(Jeu.adverse.terrain[n], "portee")) {
                             verifier = true;
                         }
                     }
                     if (verifier) {
                         let best = 0;
-                        while (Jeu.adverse.terrain[best].type != "Créature" || !Jeu.adverse.terrain[best].portee) {
+                        while (Jeu.adverse.terrain[best].type != "Créature" || !statistique(Jeu.adverse.terrain[best], "portee")) {
                             best++;
                         }
                         Jeu.adverse.terrain[best].stat_etage.attaque += 12;
@@ -15664,43 +15237,40 @@ function obtenir_carte(carte_id) {
                     switch (step) {
                         case 1:
                             if (verifier_creature("joueur", "terrain")) {
-                                initialiser();
-                                div("main");
-                                fonction("Annuler", "menu()");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez une Créature alliée sur le terrain : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une Créature alliée sur le terrain : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
-                                    div("", "carte");
-                                    div();
-                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
-                                    div_fin();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
+                                    texte += afficher_carte("joueur", "terrain", n, "carte_side");
+                                    texte += "</div>";
                                     if (Jeu.joueur.terrain[n].type == "Créature") {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             break;
                         case 2:
                             Jeu.joueur.terrain[cible].vie_sup = 10;
                             deplacer(carte, "joueur", "defausse");
                             effet_pose(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -15720,7 +15290,7 @@ function obtenir_carte(carte_id) {
             }
             break;
         case 365:
-            carte.nom = "Égide du gardien";
+            carte.nom = "Targe du gardien";
             carte.type = "Objet";
             carte.familles.push("Équipement", "Armure");
             carte.cout[0] = 6;
@@ -15728,50 +15298,47 @@ function obtenir_carte(carte_id) {
             carte.stat_equipement.defense = 3;
             carte.stat_equipement.protection = true;
             carte.texte = function () {
-                return "Donne 2 défense et applique " + effet_talent_voir("Protection", carte) + " à la Créature équipée.";
+                return "Donne 3 défense et applique " + effet_talent_voir("Protection", carte) + " à la Créature équipée.";
             }
             carte.effet_pose = function (step, cible) {
                 if (carte.camp == "joueur") {
                     switch (step) {
                         case 1:
                             if (verifier_equipement("joueur")) {
-                                initialiser();
-                                div("main");
-                                fonction("Annuler", "menu()");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez une Créature alliée équipable sur le terrain : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une Créature alliée équipable sur le terrain : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
-                                    div("", "carte");
-                                    div();
-                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
-                                    div_fin();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
+                                    texte += afficher_carte("joueur", "terrain", n, "carte_side");
+                                    texte += "</div>";
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].equipements.length < Jeu.joueur.terrain[n].equipement_max) {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             break;
                         case 2:
                             equiper(Jeu.joueur.terrain[cible], carte);
                             effet_pose(carte);
                             enlever(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -15811,48 +15378,45 @@ function obtenir_carte(carte_id) {
                                 }
                             }
                             if (verifier) {
-                                initialiser();
-                                div("main");
-                                fonction("Annuler", "menu()");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez une Créature adverse sur le terrain : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain adverse :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une Créature adverse sur le terrain : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain adverse :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.adverse.terrain.length; n++) {
-                                    div("", "carte");
-                                    div();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
                                     if (!Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                        afficher(afficher_carte("adverse", "terrain", n, "carte_side"));
+                                        texte += afficher_carte("adverse", "terrain", n, "carte_side");
                                     }
                                     else {
-                                        afficher("???");
+                                        texte += "???";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                     if (Jeu.adverse.terrain[n].type == "Créature" && !Jeu.adverse.terrain[n].elements.includes("Eau") && (!Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence)) {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             break;
                         case 2:
                             mort(Jeu.adverse.terrain[cible]);
                             deplacer(carte, "joueur", "defausse");
                             effet_pose(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -15902,48 +15466,45 @@ function obtenir_carte(carte_id) {
                                 }
                             }
                             if (verifier) {
-                                initialiser();
-                                div("main");
-                                fonction("Annuler", "menu()");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez une Créature adverse sur le terrain : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain adverse :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une Créature adverse sur le terrain : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain adverse :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.adverse.terrain.length; n++) {
-                                    div("", "carte");
-                                    div();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
                                     if (!Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                        afficher(afficher_carte("adverse", "terrain", n, "carte_side"));
+                                        texte += afficher_carte("adverse", "terrain", n, "carte_side");
                                     }
                                     else {
-                                        afficher("???");
+                                        texte += "???";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                     if (Jeu.adverse.terrain[n].type == "Créature" && !Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             break;
                         case 2:
                             Jeu.adverse.terrain[cible].etourdissement = true;
                             deplacer(carte, "joueur", "defausse");
                             effet_pose(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -15988,41 +15549,38 @@ function obtenir_carte(carte_id) {
                     switch (step) {
                         case 1:
                             if (verifier_cible_creature("adverse", "terrain")) {
-                                initialiser();
-                                div("main");
-                                fonction("Retour", "Jeu.joueur.main[" + carte.slot + "].effet_pose(1)");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez une Créature adverse sur le terrain : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain adverse :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(1)'>Retour</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une Créature adverse sur le terrain : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain adverse :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.adverse.terrain.length; n++) {
-                                    div("", "carte");
-                                    div();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
                                     if (!Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                        afficher(afficher_carte("adverse", "terrain", n, "carte_side"));
+                                        texte += afficher_carte("adverse", "terrain", n, "carte_side");
                                     }
                                     else {
-                                        afficher("???");
+                                        texte += "???";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                     if (Jeu.adverse.terrain[n].type == "Créature" && !Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             break;
                         case 2:
@@ -16047,7 +15605,7 @@ function obtenir_carte(carte_id) {
                             }
                             deplacer(carte, "joueur", "defausse");
                             effet_pose(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -16104,43 +15662,40 @@ function obtenir_carte(carte_id) {
                                 }
                             }
                             if (verifier) {
-                                initialiser();
-                                div("main");
-                                fonction("Annuler", "menu()");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez une Créature alliée ayant un coût supérieur ou égal à 1 en Air sur le terrain : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une Créature alliée ayant un coût supérieur ou égal à 1 en Air sur le terrain : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
-                                    div("", "carte");
-                                    div();
-                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
-                                    div_fin();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
+                                    texte += afficher_carte("joueur", "terrain", n, "carte_side");
+                                    texte += "</div>";
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].cout[5] > 0 && !Jeu.joueur.terrain[n].esquive) {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             break;
                         case 2:
                             Jeu.joueur.terrain[cible].esquive = true;
                             deplacer(carte, "joueur", "defausse");
                             effet_pose(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -16181,41 +15736,38 @@ function obtenir_carte(carte_id) {
                     switch (step) {
                         case 1:
                             if (verifier_cible("adverse", "terrain")) {
-                                initialiser();
-                                div("main");
-                                fonction("Annuler", "menu()");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez une Unité adverse sur le terrain : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain adverse :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une Unité adverse sur le terrain : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain adverse :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.adverse.terrain.length; n++) {
-                                    div("", "carte");
-                                    div();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
                                     if (!Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                        afficher(afficher_carte("adverse", "terrain", n, "carte_side"));
+                                        texte += afficher_carte("adverse", "terrain", n, "carte_side");
                                     }
                                     else {
-                                        afficher("???");
+                                        texte += "???";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                     if (!Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             break;
                         case 2:
@@ -16235,7 +15787,7 @@ function obtenir_carte(carte_id) {
                             }
                             deplacer(carte, "joueur", "defausse");
                             effet_pose(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -16291,48 +15843,45 @@ function obtenir_carte(carte_id) {
                     switch (step) {
                         case 1:
                             if (verifier_cible_creature("adverse", "terrain")) {
-                                initialiser();
-                                div("main");
-                                fonction("Annuler", "menu()");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez une Créature adverse sur le terrain : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain adverse :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une Créature adverse sur le terrain : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain adverse :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.adverse.terrain.length; n++) {
-                                    div("", "carte");
-                                    div();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
                                     if (!Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                        afficher(afficher_carte("adverse", "terrain", n, "carte_side"));
+                                        texte += afficher_carte("adverse", "terrain", n, "carte_side");
                                     }
                                     else {
-                                        afficher("???");
+                                        texte += "???";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                     if (Jeu.adverse.terrain[n].type == "Créature" && !Jeu.adverse.terrain[n].etourdissement && !Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             break;
                         case 2:
                             Jeu.adverse.terrain[cible].etourdissement = true;
                             deplacer(carte, "joueur", "defausse");
                             effet_pose(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -16414,7 +15963,7 @@ function obtenir_carte(carte_id) {
                     }
                     deplacer(carte, "joueur", "terrain");
                     effet_pose(carte);
-                    menu();
+                    actualiser_zone();
                 }
                 else {
                     deplacer(carte, "adverse", "terrain");
@@ -16442,7 +15991,7 @@ function obtenir_carte(carte_id) {
                 }
                 deplacer(carte, carte.camp, "terrain");
                 effet_pose(carte);
-                menu();
+                actualiser_zone();
                 return true;
             }
             break;
@@ -16478,7 +16027,7 @@ function obtenir_carte(carte_id) {
                     }
                     deplacer(carte, "joueur", "terrain");
                     effet_pose(carte);
-                    menu();
+                    actualiser_zone();
                 }
                 else {
                     deplacer(carte, "adverse", "terrain");
@@ -16503,48 +16052,45 @@ function obtenir_carte(carte_id) {
                     switch (step) {
                         case 1:
                             if (verifier_cible("adverse", "terrain") && sorcellerie("joueur") > 0) {
-                                initialiser();
-                                div("main");
-                                fonction("Annuler", "menu()");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez une Unité adverse sur le terrain : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain adverse :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une Unité adverse sur le terrain : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain adverse :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.adverse.terrain.length; n++) {
-                                    div("", "carte");
-                                    div();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
                                     if (!Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                        afficher(afficher_carte("adverse", "terrain", n, "carte_side"));
+                                        texte += afficher_carte("adverse", "terrain", n, "carte_side");
                                     }
                                     else {
-                                        afficher("???");
+                                        texte += "???";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                     if (!Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             break;
                         case 2:
                             degats(Jeu.adverse.terrain[cible], sorcellerie("joueur"));
                             deplacer(carte, "joueur", "defausse");
                             effet_pose(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -16586,53 +16132,50 @@ function obtenir_carte(carte_id) {
                     switch (step) {
                         case 1:
                             if (verifier_cible_batiment("adverse", "terrain") && !statistique(carte, "silence")) {
-                                initialiser();
-                                div("main");
-                                fonction("Annuler", "menu()");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez une Créature adverse sur le terrain : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain adverse :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une Créature adverse sur le terrain : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain adverse :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.adverse.terrain.length; n++) {
-                                    div("", "carte");
-                                    div();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
                                     if (!Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                        afficher(afficher_carte("adverse", "terrain", n, "carte_side"));
+                                        texte += afficher_carte("adverse", "terrain", n, "carte_side");
                                     }
                                     else {
-                                        afficher("???");
+                                        texte += "???";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                     if (Jeu.adverse.terrain[n].type == "Bâtiment" && !Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             else {
                                 deplacer(carte, "joueur", "terrain");
                                 effet_pose(carte);
-                                menu();
+                                actualiser_zone();
                             }
                             break;
                         case 2:
                             mort(Jeu.adverse.terrain[cible]);
                             deplacer(carte, "joueur", "terrain");
                             effet_pose(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -16674,48 +16217,45 @@ function obtenir_carte(carte_id) {
                                 }
                             }
                             if (verifier) {
-                                initialiser();
-                                div("main");
-                                fonction("Annuler", "menu()");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez une Créature adverse : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain adverse :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une Créature adverse : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain adverse :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.adverse.terrain.length; n++) {
-                                    div("", "carte");
-                                    div();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
                                     if (!Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                        afficher(afficher_carte("adverse", "terrain", n, "carte_side"));
+                                        texte += afficher_carte("adverse", "terrain", n, "carte_side");
                                     }
                                     else {
-                                        afficher("???");
+                                        texte += "???";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                     if (Jeu.adverse.terrain[n].type == "Créature" && Jeu.adverse.terrain[n].vie_sup > 0 && (!Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence)) {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             break;
                         case 2:
                             Jeu.adverse.terrain[cible].vie_sup = 0;
                             deplacer(carte, "joueur", "defausse");
                             effet_pose(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -16758,43 +16298,40 @@ function obtenir_carte(carte_id) {
                     switch (step) {
                         case 1:
                             if (verifier_soin_creature("joueur")) {
-                                initialiser();
-                                div("main");
-                                fonction("Annuler", "menu()");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez une Créature alliée blessée sur le terrain : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une Créature alliée blessée sur le terrain : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
-                                    div("", "carte");
-                                    div();
-                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
-                                    div_fin();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
+                                    texte += afficher_carte("joueur", "terrain", n, "carte_side");
+                                    texte += "</div>";
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].vie < Jeu.joueur.terrain[n].vie_max) {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             break;
                         case 2:
                             soin(Jeu.joueur.terrain[cible], Jeu.joueur.terrain[cible].vie_max - Jeu.joueur.terrain[cible].vie);
                             deplacer(carte, "joueur", "defausse");
                             effet_pose(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -16837,7 +16374,7 @@ function obtenir_carte(carte_id) {
                     }
                     deplacer(carte, carte.camp, "defausse");
                     effet_pose(carte);
-                    menu();
+                    actualiser_zone();
                     return true;
                 }
                 return false;
@@ -16863,7 +16400,7 @@ function obtenir_carte(carte_id) {
                     }
                     deplacer(carte, "joueur", "defausse");
                     effet_pose(carte);
-                    menu();
+                    actualiser_zone();
                     return true;
                 }
                 return false;
@@ -16908,19 +16445,18 @@ function obtenir_carte(carte_id) {
                                 }
                             }
                             if (verifier) {
-                                initialiser();
-                                div("main");
-                                fonction("Annuler", "menu()");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez une Créature alliée équipée d'un Objet Arme sur le terrain : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une Créature alliée équipée d'un Objet Arme sur le terrain : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
                                     let verifier2 = false;
                                     if (Jeu.joueur.terrain[n].type == "Créature") {
@@ -16930,29 +16466,27 @@ function obtenir_carte(carte_id) {
                                             }
                                         }
                                     }
-                                    div("", "carte");
-                                    div();
-                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
-                                    div_fin();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
+                                    texte += afficher_carte("joueur", "terrain", n, "carte_side");
+                                    texte += "</div>";
                                     if (verifier2) {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             break;
                         case 2:
                             Jeu.joueur.terrain[cible].attaque += 5;
                             deplacer(carte, "joueur", "defausse");
                             effet_pose(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -17020,19 +16554,18 @@ function obtenir_carte(carte_id) {
                                 }
                             }
                             if (verifier) {
-                                initialiser();
-                                div("main");
-                                fonction("Annuler", "menu()");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez une Créature adverse équipée d'un Objet Arme sur le terrain : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain adverse :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une Créature adverse équipée d'un Objet Arme sur le terrain : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain adverse :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.adverse.terrain.length; n++) {
                                     let verifier2 = false;
                                     if (Jeu.adverse.terrain[n].type == "Créature") {
@@ -17042,22 +16575,20 @@ function obtenir_carte(carte_id) {
                                             }
                                         }
                                     }
-                                    div("", "carte");
-                                    div();
-                                    afficher(afficher_carte("adverse", "terrain", n, "carte_side"));
-                                    div_fin();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
+                                    texte += afficher_carte("adverse", "terrain", n, "carte_side");
+                                    texte += "</div>";
                                     if (verifier2) {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             break;
                         case 2:
@@ -17070,7 +16601,7 @@ function obtenir_carte(carte_id) {
                             }
                             deplacer(carte, "joueur", "defausse");
                             effet_pose(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -17137,19 +16668,18 @@ function obtenir_carte(carte_id) {
                                 }
                             }
                             if (verifier) {
-                                initialiser();
-                                div("main");
-                                fonction("Annuler", "menu()");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez une Créature adverse équipée d'un Objet Armure sur le terrain : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain adverse :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une Créature adverse équipée d'un Objet Armure sur le terrain : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain adverse :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.adverse.terrain.length; n++) {
                                     let verifier2 = false;
                                     if (Jeu.adverse.terrain[n].type == "Créature") {
@@ -17159,22 +16689,20 @@ function obtenir_carte(carte_id) {
                                             }
                                         }
                                     }
-                                    div("", "carte");
-                                    div();
-                                    afficher(afficher_carte("adverse", "terrain", n, "carte_side"));
-                                    div_fin();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
+                                    texte += afficher_carte("adverse", "terrain", n, "carte_side");
+                                    texte += "</div>";
                                     if (verifier2) {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             break;
                         case 2:
@@ -17187,7 +16715,7 @@ function obtenir_carte(carte_id) {
                             }
                             deplacer(carte, "joueur", "defausse");
                             effet_pose(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -17260,7 +16788,7 @@ function obtenir_carte(carte_id) {
                     }
                     deplacer(carte, "joueur", "terrain");
                     effet_pose(carte);
-                    menu();
+                    actualiser_zone();
                 }
                 else {
                     deplacer(carte, "adverse", "terrain");
@@ -17328,36 +16856,33 @@ function obtenir_carte(carte_id) {
                     switch (step) {
                         case 1:
                             if (verifier_creature("joueur", "defausse")) {
-                                initialiser();
-                                div("main");
-                                fonction("Annuler", "menu()");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez une Créature alliée dans la défausse : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Défausse :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une Créature alliée dans la défausse : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Défausse :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.joueur.defausse.length; n++) {
-                                    div("", "carte");
-                                    div();
-                                    afficher(afficher_carte("joueur", "defausse", n, "carte_side"));
-                                    div_fin();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
+                                    texte += afficher_carte("joueur", "defausse", n, "carte_side");
+                                    texte += "</div>";
                                     if (Jeu.joueur.defausse[n].type == "Créature") {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             break;
                         case 2:
@@ -17365,7 +16890,7 @@ function obtenir_carte(carte_id) {
                             deplacer(Jeu.joueur.defausse[cible], "joueur", "main");
                             deplacer(carte, "joueur", "defausse");
                             effet_pose(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -17479,7 +17004,7 @@ function obtenir_carte(carte_id) {
                     }
                     deplacer(carte, "joueur", "terrain");
                     effet_pose(carte);
-                    menu();
+                    actualiser_zone();
                 }
                 else {
                     deplacer(carte, "adverse", "terrain");
@@ -17518,7 +17043,7 @@ function obtenir_carte(carte_id) {
                 }
                 deplacer(carte, carte.camp, "terrain");
                 effet_pose(carte);
-                menu();
+                actualiser_zone();
                 return true;
             }
             break;
@@ -17539,7 +17064,7 @@ function obtenir_carte(carte_id) {
                 }
                 deplacer(carte, carte.camp, "defausse");
                 effet_pose(carte);
-                menu();
+                actualiser_zone();
                 return true;
             }
             break;
@@ -17607,7 +17132,7 @@ function obtenir_carte(carte_id) {
                 }
                 deplacer(carte, carte.camp, "terrain");
                 effet_pose(carte);
-                menu();
+                actualiser_zone();
                 return true;
             }
             break;
@@ -17679,43 +17204,40 @@ function obtenir_carte(carte_id) {
                                 }
                             }
                             if (verifier) {
-                                initialiser();
-                                div("main");
-                                fonction("Annuler", "menu()");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez une Créature alliée sur le terrain : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une Créature alliée sur le terrain : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
-                                    div("", "carte");
-                                    div();
-                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
-                                    div_fin();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
+                                    texte += afficher_carte("joueur", "terrain", n, "carte_side");
+                                    texte += "</div>";
                                     if (Jeu.joueur.terrain[n].type == "Créature" && !Jeu.joueur.terrain[n].protection) {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             break;
                         case 2:
                             Jeu.joueur.terrain[cible].protection = true;
                             deplacer(carte, "joueur", "defausse");
                             effet_pose(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -17767,36 +17289,33 @@ function obtenir_carte(carte_id) {
                                 }
                             }
                             if (verifier) {
-                                initialiser();
-                                div("main");
-                                fonction("Annuler", "menu()");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez une Créature alliée sur le terrain avec Protection : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une Créature alliée sur le terrain avec Protection : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
-                                    div("", "carte");
-                                    div();
-                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
-                                    div_fin();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
+                                    texte += afficher_carte("joueur", "terrain", n, "carte_side");
+                                    texte += "</div>";
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].protection) {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             break;
                         case 2:
@@ -17804,7 +17323,7 @@ function obtenir_carte(carte_id) {
                             Jeu.joueur.terrain[cible].vie_max += 6;
                             deplacer(carte, "joueur", "defausse");
                             effet_pose(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -17911,48 +17430,45 @@ function obtenir_carte(carte_id) {
                     switch (step) {
                         case 1:
                             if (verifier_creature("joueur", "terrain")) {
-                                initialiser();
-                                div("main");
-                                fonction("Annuler", "menu()");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez une Créature alliée sur le terrain : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une Créature alliée sur le terrain : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
-                                    div("", "carte");
-                                    div();
-                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
-                                    div_fin();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
+                                    texte += afficher_carte("joueur", "terrain", n, "carte_side");
+                                    texte += "</div>";
                                     if (Jeu.joueur.terrain[n].type == "Créature") {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             else {
                                 deplacer(carte, "joueur", "terrain");
                                 effet_pose(carte);
-                                menu();
+                                actualiser_zone();
                             }
                             break;
                         case 2:
                             Jeu.joueur.terrain[cible].stat_etage.attaque += 6;
                             deplacer(carte, "joueur", "terrain");
                             effet_pose(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -18005,7 +17521,7 @@ function obtenir_carte(carte_id) {
                     }
                     deplacer(carte, "joueur", "defausse");
                     effet_pose(carte);
-                    menu();
+                    actualiser_zone();
                     return true;
                 }
                 return false;
@@ -18097,43 +17613,40 @@ function obtenir_carte(carte_id) {
                     switch (step) {
                         case 1:
                             if (verifier_equipement("joueur")) {
-                                initialiser();
-                                div("main");
-                                fonction("Annuler", "menu()");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez une Créature alliée équipable sur le terrain : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une Créature alliée équipable sur le terrain : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
-                                    div("", "carte");
-                                    div();
-                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
-                                    div_fin();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
+                                    texte += afficher_carte("joueur", "terrain", n, "carte_side");
+                                    texte += "</div>";
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].equipements.length < Jeu.joueur.terrain[n].equipement_max) {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             break;
                         case 2:
                             equiper(Jeu.joueur.terrain[cible], carte);
                             effet_pose(carte);
                             enlever(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -18171,7 +17684,7 @@ function obtenir_carte(carte_id) {
                 }
                 deplacer(carte, carte.camp, "terrain");
                 effet_pose(carte);
-                menu();
+                actualiser_zone();
                 return true;
             }
             break;
@@ -18208,35 +17721,32 @@ function obtenir_carte(carte_id) {
                     switch (step) {
                         case 1:
                             if (!statistique(carte, "silence")) {
-                                initialiser();
-                                div("main");
-                                fonction("Annuler", "menu()");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez un Élément : ");
-                                saut(2);
+                                let texte = "";
+                                texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez un Élément : ";
+                                texte += "<br/><br/>";
                                 for (let n = 0; n < Jeu.ressources.length; n++) {
                                     if (n == 0) {
-                                        fonction("Neutre", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2,0)");
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2,0)'>Neutre</button>";
                                     }
                                     else {
-                                        fonction(Jeu.ressources[n].nom, "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")'>" + Jeu.ressources[n].nom + "</button>";
                                     }
-                                    saut();
+                                    texte += "<br/>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             else {
                                 deplacer(carte, "joueur", "terrain");
                                 effet_pose(carte);
-                                menu();
+                                actualiser_zone();
                             }
                             break;
                         case 2:
@@ -18246,7 +17756,7 @@ function obtenir_carte(carte_id) {
                             }
                             deplacer(carte, "joueur", "terrain");
                             effet_pose(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -18281,7 +17791,7 @@ function obtenir_carte(carte_id) {
                 }
                 deplacer(carte, carte.camp, "terrain");
                 effet_pose(carte);
-                menu();
+                actualiser_zone();
                 return true;
             }
             break;
@@ -18302,7 +17812,7 @@ function obtenir_carte(carte_id) {
                     }
                 }
                 deplacer(carte, carte.camp, "defausse");
-                menu();
+                actualiser_zone();
                 return true;
             }
             break;
@@ -18355,7 +17865,7 @@ function obtenir_carte(carte_id) {
                 }
                 deplacer(carte, carte.camp, "terrain");
                 effet_pose(carte);
-                menu();
+                actualiser_zone();
                 return true;
             }
             break;
@@ -18385,7 +17895,7 @@ function obtenir_carte(carte_id) {
                 }
                 deplacer(carte, carte.camp, "terrain");
                 effet_pose(carte);
-                menu();
+                actualiser_zone();
                 return true;
             }
             break;
@@ -18460,7 +17970,7 @@ function obtenir_carte(carte_id) {
                     }
                     deplacer(carte, "joueur", "terrain");
                     effet_pose(carte);
-                    menu();
+                    actualiser_zone();
                 }
                 else {
                     deplacer(carte, "adverse", "terrain");
@@ -18504,53 +18014,50 @@ function obtenir_carte(carte_id) {
                     switch (step) {
                         case 1:
                             if (verifier_cible_creature("adverse", "terrain")) {
-                                initialiser();
-                                div("main");
-                                fonction("Annuler", "menu()");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez une Créature adverse sur le terrain : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain adverse :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une Créature adverse sur le terrain : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain adverse :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.adverse.terrain.length; n++) {
-                                    div("", "carte");
-                                    div();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
                                     if (!Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                        afficher(afficher_carte("adverse", "terrain", n, "carte_side"));
+                                        texte += afficher_carte("adverse", "terrain", n, "carte_side");
                                     }
                                     else {
-                                        afficher("???");
+                                        texte += "???";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                     if (Jeu.adverse.terrain[n].type == "Créature" && !Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             else {
                                 deplacer(carte, "joueur", "terrain");
                                 effet_pose(carte);
-                                menu();
+                                actualiser_zone();
                             }
                             break;
                         case 2:
                             Jeu.adverse.terrain[cible].contamination += 2;
                             deplacer(carte, "joueur", "terrain");
                             effet_pose(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -18606,41 +18113,38 @@ function obtenir_carte(carte_id) {
                     switch (step) {
                         case 1:
                             if (verifier_contamination("adverse")) {
-                                initialiser();
-                                div("main");
-                                fonction("Annuler", "menu()");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez une Créature adverse sur le terrain : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain adverse :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une Créature adverse sur le terrain : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain adverse :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.adverse.terrain.length; n++) {
-                                    div("", "carte");
-                                    div();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
                                     if (!Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                        afficher(afficher_carte("adverse", "terrain", n, "carte_side"));
+                                        texte += afficher_carte("adverse", "terrain", n, "carte_side");
                                     }
                                     else {
-                                        afficher("???");
+                                        texte += "???";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                     if (Jeu.adverse.terrain[n].type == "Créature" && Jeu.adverse.terrain[n].contamination > 0 && !Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             break;
                         case 2:
@@ -18656,7 +18160,7 @@ function obtenir_carte(carte_id) {
                             }
                             deplacer(carte, "joueur", "defausse");
                             effet_pose(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -18715,48 +18219,45 @@ function obtenir_carte(carte_id) {
                                 }
                             }
                             if (verifier && !statistique(carte, "silence")) {
-                                initialiser();
-                                div("main");
-                                fonction("Annuler", "menu()");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez une Créature Démon dans la main : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Main :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une Créature Démon dans la main : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Main :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.joueur.main.length; n++) {
-                                    div("", "carte");
-                                    div();
-                                    afficher(afficher_carte("joueur", "main", n, "carte_side"));
-                                    div_fin();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
+                                    texte += afficher_carte("joueur", "main", n, "carte_side");
+                                    texte += "</div>";
                                     if (Jeu.joueur.main[n].familles.includes("Démon") && Jeu.joueur.main[n].type == "Créature") {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             else {
                                 deplacer(carte, "joueur", "terrain");
                                 effet_pose(carte);
-                                menu();
+                                actualiser_zone();
                             }
                             break;
                         case 2:
                             deplacer(Jeu.joueur.main[cible], "joueur", "terrain");
                             deplacer(carte, "joueur", "terrain");
                             effet_pose(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -18802,7 +18303,7 @@ function obtenir_carte(carte_id) {
                     }
                     deplacer(carte, "joueur", "terrain");
                     effet_pose(carte);
-                    menu();
+                    actualiser_zone();
                 }
                 else {
                     deplacer(carte, "adverse", "terrain");
@@ -18831,43 +18332,40 @@ function obtenir_carte(carte_id) {
                     switch (step) {
                         case 1:
                             if (verifier_equipement("joueur")) {
-                                initialiser();
-                                div("main");
-                                fonction("Annuler", "menu()");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez une Créature alliée équipable sur le terrain : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une Créature alliée équipable sur le terrain : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
-                                    div("", "carte");
-                                    div();
-                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
-                                    div_fin();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
+                                    texte += afficher_carte("joueur", "terrain", n, "carte_side");
+                                    texte += "</div>";
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].equipements.length < Jeu.joueur.terrain[n].equipement_max) {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             break;
                         case 2:
                             equiper(Jeu.joueur.terrain[cible], carte);
                             effet_pose(carte);
                             enlever(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -18908,7 +18406,7 @@ function obtenir_carte(carte_id) {
                     }
                     deplacer(carte, "joueur", "terrain");
                     effet_pose(carte);
-                    menu();
+                    actualiser_zone();
                 }
                 else {
                     deplacer(carte, "adverse", "terrain");
@@ -18937,43 +18435,40 @@ function obtenir_carte(carte_id) {
                     switch (step) {
                         case 1:
                             if (verifier_equipement("joueur")) {
-                                initialiser();
-                                div("main");
-                                fonction("Annuler", "menu()");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez une Créature alliée équipable sur le terrain : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une Créature alliée équipable sur le terrain : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
-                                    div("", "carte");
-                                    div();
-                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
-                                    div_fin();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
+                                    texte += afficher_carte("joueur", "terrain", n, "carte_side");
+                                    texte += "</div>";
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].equipements.length < Jeu.joueur.terrain[n].equipement_max) {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             break;
                         case 2:
                             equiper(Jeu.joueur.terrain[cible], carte);
                             effet_pose(carte);
                             enlever(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -19014,7 +18509,7 @@ function obtenir_carte(carte_id) {
                     }
                     deplacer(carte, "joueur", "terrain");
                     effet_pose(carte);
-                    menu();
+                    actualiser_zone();
                 }
                 else {
                     deplacer(carte, "adverse", "terrain");
@@ -19065,43 +18560,40 @@ function obtenir_carte(carte_id) {
                     switch (step) {
                         case 1:
                             if (verifier_equipement("joueur")) {
-                                initialiser();
-                                div("main");
-                                fonction("Annuler", "menu()");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez une Créature alliée équipable sur le terrain : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une Créature alliée équipable sur le terrain : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
-                                    div("", "carte");
-                                    div();
-                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
-                                    div_fin();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
+                                    texte += afficher_carte("joueur", "terrain", n, "carte_side");
+                                    texte += "</div>";
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].equipements.length < Jeu.joueur.terrain[n].equipement_max) {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             break;
                         case 2:
                             equiper(Jeu.joueur.terrain[cible], carte);
                             effet_pose(carte);
                             enlever(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -19143,7 +18635,7 @@ function obtenir_carte(carte_id) {
                 }
                 deplacer(carte, carte.camp, "terrain");
                 effet_pose(carte);
-                menu();
+                actualiser_zone();
                 return true;
             }
             break;
@@ -19181,42 +18673,39 @@ function obtenir_carte(carte_id) {
                     switch (step) {
                         case 1:
                             if (verifier_equipement("joueur")) {
-                                initialiser();
-                                div("main");
-                                fonction("Annuler", "menu()");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez une Créature alliée équipable sur le terrain : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une Créature alliée équipable sur le terrain : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
-                                    div("", "carte");
-                                    div();
-                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
-                                    div_fin();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
+                                    texte += afficher_carte("joueur", "terrain", n, "carte_side");
+                                    texte += "</div>";
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].equipements.length < Jeu.joueur.terrain[n].equipement_max) {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             break;
                         case 2:
                             equiper(Jeu.joueur.terrain[cible], carte);
                             enlever(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -19376,7 +18865,7 @@ function obtenir_carte(carte_id) {
                 }
                 deplacer(carte, carte.camp, "terrain");
                 effet_pose(carte);
-                menu();
+                actualiser_zone();
                 return true;
             }
             break;
@@ -19399,41 +18888,38 @@ function obtenir_carte(carte_id) {
                                 }
                             }
                             if (verifier_cible("adverse", "terrain") && verifier) {
-                                initialiser();
-                                div("main");
-                                fonction("Annuler", "menu()");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez une Unité adverse : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain adverse :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une Unité adverse : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain adverse :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.adverse.terrain.length; n++) {
-                                    div("", "carte");
-                                    div();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
                                     if (!Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                        afficher(afficher_carte("adverse", "terrain", n, "carte_side"));
+                                        texte += afficher_carte("adverse", "terrain", n, "carte_side");
                                     }
                                     else {
-                                        afficher("???");
+                                        texte += "???";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                     if (!Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             break;
                         case 2:
@@ -19446,7 +18932,7 @@ function obtenir_carte(carte_id) {
                             degats(Jeu.adverse.terrain[cible], damage);
                             deplacer(carte, "joueur", "defausse");
                             effet_pose(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -19494,72 +18980,69 @@ function obtenir_carte(carte_id) {
                     switch (step) {
                         case 1:
                             if (verifier_creature("joueur", "terrain") || verifier_cible_creature("adverse", "terrain")) {
-                                initialiser();
-                                div("main");
-                                fonction("Annuler", "menu()");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez une Créature alliée sur le terrain : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une Créature alliée sur le terrain : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain :</u>";
+                                texte += "<br/>";
                                 if (Jeu.joueur.terrain.length > 0) {
                                     for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
-                                        div("", "carte");
-                                        div();
-                                        afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
-                                        div_fin();
+                                        texte += "<div class='carte'>";
+                                        texte += "<div>";
+                                        texte += afficher_carte("joueur", "terrain", n, "carte_side");
+                                        texte += "</div>";
                                         if (Jeu.joueur.terrain[n].type == "Créature") {
-                                            div();
-                                            fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + '"joueur",' + n + ")");
-                                            div_fin();
+                                            texte += "<div>";
+                                            texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + '"joueur",' + n + ")'>Cibler</button>";
+                                            texte += "</div>";
                                         }
-                                        div_fin();
+                                        texte += "</div>";
                                     }
                                 }
                                 else {
-                                    afficher("<i>Votre terrain est vide</i>");
-                                    saut();
+                                    texte += "<i>Votre terrain est vide</i>";
+                                    texte += "<br/>";
                                 }
-                                div_fin();
-                                saut();
-                                afficher("Choisissez une Créature adverse sur le terrain : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain adverse :</u>");
-                                saut();
+                                texte += "</div>";
+                                texte += "<br/>";
+                                texte += "Choisissez une Créature adverse sur le terrain : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain adverse :</u>";
+                                texte += "<br/>";
                                 if (Jeu.adverse.terrain.length > 0) {
                                     for (let n = 0; n < Jeu.adverse.terrain.length; n++) {
-                                        div("", "carte");
-                                        div();
+                                        texte += "<div class='carte'>";
+                                        texte += "<div>";
                                         if (!Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                            afficher(afficher_carte("adverse", "terrain", n, "carte_side"));
+                                            texte += afficher_carte("adverse", "terrain", n, "carte_side");
                                         }
                                         else {
-                                            afficher("???");
+                                            texte += "???";
                                         }
-                                        div_fin();
+                                        texte += "</div>";
                                         if (Jeu.adverse.terrain[n].type == "Créature" && !Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                            div();
-                                            fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + '"adverse",' + n + ")");
-                                            div_fin();
+                                            texte += "<div>";
+                                            texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + '"adverse",' + n + ")'>Cibler</button>";
+                                            texte += "</div>";
                                         }
-                                        div_fin();
+                                        texte += "</div>";
                                     }
                                 }
                                 else {
-                                    afficher("<i>Le terrain adverse est vide</i>");
-                                    saut();
+                                    texte += "<i>Le terrain adverse est vide</i>";
+                                    texte += "<br/>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             break;
                         case 2:
@@ -19567,7 +19050,7 @@ function obtenir_carte(carte_id) {
                             degats(Jeu[cible_camp].terrain[cible], 2);
                             deplacer(carte, "joueur", "defausse");
                             effet_pose(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -19643,7 +19126,7 @@ function obtenir_carte(carte_id) {
                     }
                     deplacer(carte, carte.camp, "defausse");
                     effet_pose(carte);
-                    menu();
+                    actualiser_zone();
                     return true;
                 }
                 return false;
@@ -19667,7 +19150,7 @@ function obtenir_carte(carte_id) {
                     }
                     deplacer(carte, carte.camp, "defausse");
                     effet_pose(carte);
-                    menu();
+                    actualiser_zone();
                     return true;
                 }
                 return false;
@@ -19692,53 +19175,50 @@ function obtenir_carte(carte_id) {
                     switch (step) {
                         case 1:
                             if (verifier_cible("adverse", "terrain") && !statistique(carte, "silence")) {
-                                initialiser();
-                                div("main");
-                                fonction("Annuler", "menu()");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez une Unité adverse sur le terrain : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain adverse :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une Unité adverse sur le terrain : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain adverse :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.adverse.terrain.length; n++) {
-                                    div("", "carte");
-                                    div();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
                                     if (!Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                        afficher(afficher_carte("adverse", "terrain", n, "carte_side"));
+                                        texte += afficher_carte("adverse", "terrain", n, "carte_side");
                                     }
                                     else {
-                                        afficher("???");
+                                        texte += "???";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                     if (!Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             else {
                                 deplacer(carte, "joueur", "terrain");
                                 effet_pose(carte);
-                                menu();
+                                actualiser_zone();
                             }
                             break;
                         case 2:
                             degats(Jeu.adverse.terrain[cible], 1);
                             deplacer(carte, "joueur", "terrain");
                             effet_pose(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -19780,53 +19260,50 @@ function obtenir_carte(carte_id) {
                     switch (step) {
                         case 1:
                             if (verifier_cible("adverse", "terrain") && !statistique(carte, "silence")) {
-                                initialiser();
-                                div("main");
-                                fonction("Annuler", "menu()");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez une Unité adverse sur le terrain : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain adverse :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une Unité adverse sur le terrain : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain adverse :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.adverse.terrain.length; n++) {
-                                    div("", "carte");
-                                    div();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
                                     if (!Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                        afficher(afficher_carte("adverse", "terrain", n, "carte_side"));
+                                        texte += afficher_carte("adverse", "terrain", n, "carte_side");
                                     }
                                     else {
-                                        afficher("???");
+                                        texte += "???";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                     if (!Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             else {
                                 deplacer(carte, "joueur", "terrain");
                                 effet_pose(carte);
-                                menu();
+                                actualiser_zone();
                             }
                             break;
                         case 2:
                             degats(Jeu.adverse.terrain[cible], 1);
                             deplacer(carte, "joueur", "terrain");
                             effet_pose(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -19872,7 +19349,7 @@ function obtenir_carte(carte_id) {
                 }
                 deplacer(carte, carte.camp, "terrain");
                 effet_pose(carte);
-                menu();
+                actualiser_zone();
                 return true;
             }
             break;
@@ -19912,7 +19389,7 @@ function obtenir_carte(carte_id) {
                 }
                 deplacer(carte, carte.camp, "terrain");
                 effet_pose(carte);
-                menu();
+                actualiser_zone();
                 return true;
             }
             break;
@@ -19976,7 +19453,7 @@ function obtenir_carte(carte_id) {
                 }
                 deplacer(carte, carte.camp, "terrain");
                 effet_pose(carte);
-                menu();
+                actualiser_zone();
                 return true;
             }
             break;
@@ -20007,7 +19484,7 @@ function obtenir_carte(carte_id) {
                 }
                 deplacer(carte, carte.camp, "terrain");
                 effet_pose(carte);
-                menu();
+                actualiser_zone();
                 return true;
             }
             break;
@@ -20036,7 +19513,7 @@ function obtenir_carte(carte_id) {
                 }
                 deplacer(carte, carte.camp, "terrain");
                 effet_pose(carte);
-                menu();
+                actualiser_zone();
                 return true;
             }
             break;
@@ -20063,7 +19540,7 @@ function obtenir_carte(carte_id) {
                 }
                 deplacer(carte, carte.camp, "terrain");
                 effet_pose(carte);
-                menu();
+                actualiser_zone();
                 return true;
             }
             break;
@@ -20093,7 +19570,7 @@ function obtenir_carte(carte_id) {
                 }
                 deplacer(carte, carte.camp, "terrain");
                 effet_pose(carte);
-                menu();
+                actualiser_zone();
                 return true;
             }
             break;
@@ -20123,7 +19600,7 @@ function obtenir_carte(carte_id) {
                 }
                 deplacer(carte, carte.camp, "terrain");
                 effet_pose(carte);
-                menu();
+                actualiser_zone();
                 return true;
             }
             break;
@@ -20145,48 +19622,45 @@ function obtenir_carte(carte_id) {
                     switch (step) {
                         case 1:
                             if (verifier_soin_creature("joueur") && !statistique(carte, "silence")) {
-                                initialiser();
-                                div("main");
-                                fonction("Annuler", "menu()");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez une Créature alliée blessée sur le terrain : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une Créature alliée blessée sur le terrain : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
-                                    div("", "carte");
-                                    div();
-                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
-                                    div_fin();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
+                                    texte += afficher_carte("joueur", "terrain", n, "carte_side");
+                                    texte += "</div>";
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].vie < Jeu.joueur.terrain[n].vie_max) {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             else {
                                 deplacer(carte, "joueur", "terrain");
                                 effet_pose(carte);
-                                menu();
+                                actualiser_zone();
                             }
                             break;
                         case 2:
                             soin(Jeu.joueur.terrain[cible], 3);
                             deplacer(carte, "joueur", "terrain");
                             effet_pose(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -20241,7 +19715,7 @@ function obtenir_carte(carte_id) {
                 }
                 deplacer(carte, carte.camp, "terrain");
                 effet_pose(carte);
-                menu();
+                actualiser_zone();
                 return true;
             }
             break;
@@ -20277,7 +19751,7 @@ function obtenir_carte(carte_id) {
                 }
                 deplacer(carte, carte.camp, "terrain");
                 effet_pose(carte);
-                menu();
+                actualiser_zone();
                 return true;
             }
             break;
@@ -20312,7 +19786,7 @@ function obtenir_carte(carte_id) {
                 }
                 deplacer(carte, carte.camp, "terrain");
                 effet_pose(carte);
-                menu();
+                actualiser_zone();
                 return true;
             }
             break;
@@ -20334,30 +19808,27 @@ function obtenir_carte(carte_id) {
                     switch (step) {
                         case 1:
                             if (verifier_creature("joueur", "terrain") && !statistique(carte, "silence")) {
-                                initialiser();
-                                div("main");
-                                fonction("Annuler", "menu()");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez un effet : ");
-                                saut(2);
-                                fonction("Donne 6 attaque à toutes les Créatures alliées sur le terrain", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2,1)");
-                                saut();
-                                afficher("ou");
-                                saut();
-                                fonction("Donne 3 vie à toutes les Créatures alliées sur le terrain", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2,2)");
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                let texte = "";
+                                texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez un effet : ";
+                                texte += "<br/><br/>";
+                                texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2,1)'>Donne 6 attaque à toutes les Créatures alliées sur le terrain</button>";
+                                texte += "<br/>";
+                                texte += "ou";
+                                texte += "<br/>";
+                                texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2,2)'>Donne 3 vie à toutes les Créatures alliées sur le terrain</button>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             else {
                                 deplacer(carte, "joueur", "terrain");
                                 effet_pose(carte);
-                                menu();
+                                actualiser_zone();
                             }
                             break;
                         case 2:
@@ -20378,7 +19849,7 @@ function obtenir_carte(carte_id) {
                             }
                             deplacer(carte, "joueur", "terrain");
                             effet_pose(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -20434,7 +19905,7 @@ function obtenir_carte(carte_id) {
                 }
                 deplacer(carte, carte.camp, "terrain");
                 effet_pose(carte);
-                menu();
+                actualiser_zone();
                 return true;
             }
             break;
@@ -20474,7 +19945,7 @@ function obtenir_carte(carte_id) {
                 }
                 deplacer(carte, carte.camp, "terrain");
                 effet_pose(carte);
-                menu();
+                actualiser_zone();
                 return true;
             }
             break;
@@ -20496,43 +19967,40 @@ function obtenir_carte(carte_id) {
                     switch (step) {
                         case 1:
                             if (verifier_equipement("joueur")) {
-                                initialiser();
-                                div("main");
-                                fonction("Annuler", "menu()");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez une Créature alliée équipable sur le terrain : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une Créature alliée équipable sur le terrain : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
-                                    div("", "carte");
-                                    div();
-                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
-                                    div_fin();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
+                                    texte += afficher_carte("joueur", "terrain", n, "carte_side");
+                                    texte += "</div>";
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].equipements.length < Jeu.joueur.terrain[n].equipement_max) {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             break;
                         case 2:
                             equiper(Jeu.joueur.terrain[cible], carte);
                             effet_pose(carte);
                             enlever(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -20566,43 +20034,40 @@ function obtenir_carte(carte_id) {
                     switch (step) {
                         case 1:
                             if (verifier_equipement("joueur")) {
-                                initialiser();
-                                div("main");
-                                fonction("Annuler", "menu()");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez une Créature alliée équipable sur le terrain : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une Créature alliée équipable sur le terrain : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
-                                    div("", "carte");
-                                    div();
-                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
-                                    div_fin();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
+                                    texte += afficher_carte("joueur", "terrain", n, "carte_side");
+                                    texte += "</div>";
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].equipements.length < Jeu.joueur.terrain[n].equipement_max) {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             break;
                         case 2:
                             equiper(Jeu.joueur.terrain[cible], carte);
                             effet_pose(carte);
                             enlever(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -20636,43 +20101,40 @@ function obtenir_carte(carte_id) {
                     switch (step) {
                         case 1:
                             if (verifier_equipement("joueur")) {
-                                initialiser();
-                                div("main");
-                                fonction("Annuler", "menu()");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez une Créature alliée équipable sur le terrain : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une Créature alliée équipable sur le terrain : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
-                                    div("", "carte");
-                                    div();
-                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
-                                    div_fin();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
+                                    texte += afficher_carte("joueur", "terrain", n, "carte_side");
+                                    texte += "</div>";
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].equipements.length < Jeu.joueur.terrain[n].equipement_max) {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             break;
                         case 2:
                             equiper(Jeu.joueur.terrain[cible], carte);
                             effet_pose(carte);
                             enlever(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -20789,7 +20251,7 @@ function obtenir_carte(carte_id) {
                     }
                     deplacer(carte, carte.camp, "defausse");
                     effet_pose(carte);
-                    menu();
+                    actualiser_zone();
                     return true;
                 }
                 return false;
@@ -20810,48 +20272,45 @@ function obtenir_carte(carte_id) {
                     switch (step) {
                         case 1:
                             if (verifier_cible_creature("adverse", "terrain")) {
-                                initialiser();
-                                div("main");
-                                fonction("Retour", "Jeu.joueur.main[" + carte.slot + "].effet_pose(1)");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez une Créature adverse sur le terrain : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain adverse :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(1)'>Retour</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une Créature adverse sur le terrain : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain adverse :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.adverse.terrain.length; n++) {
-                                    div("", "carte");
-                                    div();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
                                     if (!Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                        afficher(afficher_carte("adverse", "terrain", n, "carte_side"));
+                                        texte += afficher_carte("adverse", "terrain", n, "carte_side");
                                     }
                                     else {
-                                        afficher("???");
+                                        texte += "???";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                     if (Jeu.adverse.terrain[n].type == "Créature" && !Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             break;
                         case 2:
                             Jeu.adverse.terrain[cible].poison += 10;
                             deplacer(carte, "joueur", "defausse");
                             effet_pose(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -20889,41 +20348,38 @@ function obtenir_carte(carte_id) {
                                 }
                             }
                             if (verifier) {
-                                initialiser();
-                                div("main");
-                                fonction("Annuler", "menu()");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez une Unité adverse : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain adverse :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une Unité adverse : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain adverse :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.adverse.terrain.length; n++) {
-                                    div("", "carte");
-                                    div();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
                                     if (!Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                        afficher(afficher_carte("adverse", "terrain", n, "carte_side"));
+                                        texte += afficher_carte("adverse", "terrain", n, "carte_side");
                                     }
                                     else {
-                                        afficher("???");
+                                        texte += "???";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                     if (!Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             break;
                         case 2:
@@ -20933,7 +20389,7 @@ function obtenir_carte(carte_id) {
                             }
                             deplacer(carte, "joueur", "defausse");
                             effet_pose(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -21006,41 +20462,38 @@ function obtenir_carte(carte_id) {
                     switch (step) {
                         case 1:
                             if (verifier_contamination("adverse")) {
-                                initialiser();
-                                div("main");
-                                fonction("Annuler", "menu()");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez une Créature adverse sur le terrain : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain adverse :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une Créature adverse sur le terrain : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain adverse :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.adverse.terrain.length; n++) {
-                                    div("", "carte");
-                                    div();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
                                     if (!Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                        afficher(afficher_carte("adverse", "terrain", n, "carte_side"));
+                                        texte += afficher_carte("adverse", "terrain", n, "carte_side");
                                     }
                                     else {
-                                        afficher("???");
+                                        texte += "???";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                     if (Jeu.adverse.terrain[n].type == "Créature" && Jeu.adverse.terrain[n].contamination > 0 && !Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             break;
                         case 2:
@@ -21048,7 +20501,7 @@ function obtenir_carte(carte_id) {
                             Jeu.adverse.terrain[cible - 1].contamination = 0;
                             deplacer(carte, "joueur", "defausse");
                             effet_pose(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -21092,7 +20545,7 @@ function obtenir_carte(carte_id) {
                 }
                 deplacer(carte, carte.camp, "terrain");
                 effet_pose(carte);
-                menu();
+                actualiser_zone();
                 return true;
             }
             break;
@@ -21118,7 +20571,7 @@ function obtenir_carte(carte_id) {
                 }
                 deplacer(carte, carte.camp, "terrain");
                 effet_pose(carte);
-                menu();
+                actualiser_zone();
                 return true;
             }
             break;
@@ -21145,48 +20598,45 @@ function obtenir_carte(carte_id) {
                                 }
                             }
                             if (verifier) {
-                                initialiser();
-                                div("main");
-                                fonction("Annuler", "menu()");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez une Créature Mage alliée sur le terrain : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une Créature Mage alliée sur le terrain : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
-                                    div("", "carte");
-                                    div();
-                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
-                                    div_fin();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
+                                    texte += afficher_carte("joueur", "terrain", n, "carte_side");
+                                    texte += "</div>";
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].familles.includes("Mage")) {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             else {
                                 deplacer(carte, "joueur", "terrain");
                                 effet_pose(carte);
-                                menu();
+                                actualiser_zone();
                             }
                             break;
                         case 2:
                             Jeu.joueur.terrain[cible].sorcellerie++;
                             deplacer(carte, "joueur", "terrain");
                             effet_pose(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -21274,7 +20724,7 @@ function obtenir_carte(carte_id) {
                         }
                         deplacer(carte, "joueur", "defausse");
                         effet_pose(carte);
-                        menu();
+                        actualiser_zone();
                     }
                 }
                 else {
@@ -21325,7 +20775,7 @@ function obtenir_carte(carte_id) {
                     }
                     deplacer(carte, "joueur", "terrain");
                     effet_pose(carte);
-                    menu();
+                    actualiser_zone();
                 }
                 else {
                     deplacer(carte, "adverse", "terrain");
@@ -21358,7 +20808,7 @@ function obtenir_carte(carte_id) {
                         pioche("joueur", nouvelle_carte);
                         deplacer(carte, "joueur", "defausse");
                         effet_pose(carte);
-                        menu();
+                        actualiser_zone();
                     }
                 }
                 else {
@@ -21393,7 +20843,7 @@ function obtenir_carte(carte_id) {
                         }
                         deplacer(carte, "joueur", "defausse");
                         effet_pose(carte);
-                        menu();
+                        actualiser_zone();
                     }
                 }
                 else {
@@ -21472,7 +20922,7 @@ function obtenir_carte(carte_id) {
                     }
                     deplacer(carte, "joueur", "terrain");
                     effet_pose(carte);
-                    menu();
+                    actualiser_zone();
                 }
                 else {
                     deplacer(carte, "adverse", "terrain");
@@ -21498,7 +20948,7 @@ function obtenir_carte(carte_id) {
                 }
                 deplacer(carte, "adverse", "terrain");
                 effet_pose(carte);
-                menu();
+                actualiser_zone();
                 return true;
             }
             break;
@@ -21570,7 +21020,7 @@ function obtenir_carte(carte_id) {
                     deplacer(carte, carte.camp, "terrain");
                     effet_pose(carte);
                     if (Jeu.joueur.vie > 0) {
-                        menu();
+                        actualiser_zone();
                     }
                     else {
                         game_over();
@@ -21626,41 +21076,38 @@ function obtenir_carte(carte_id) {
                     switch (step) {
                         case 1:
                             if (verifier_cible("adverse", "terrain")) {
-                                initialiser();
-                                div("main");
-                                fonction("Annuler", "menu()");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez une Unité adverse : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain adverse :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une Unité adverse : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain adverse :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.adverse.terrain.length; n++) {
-                                    div("", "carte");
-                                    div();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
                                     if (!Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                        afficher(afficher_carte("adverse", "terrain", n, "carte_side"));
+                                        texte += afficher_carte("adverse", "terrain", n, "carte_side");
                                     }
                                     else {
-                                        afficher("???");
+                                        texte += "???";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                     if (!Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             break;
                         case 2:
@@ -21679,7 +21126,7 @@ function obtenir_carte(carte_id) {
                             }
                             deplacer(carte, "joueur", "defausse");
                             effet_pose(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -21746,7 +21193,7 @@ function obtenir_carte(carte_id) {
                 }
                 deplacer(carte, carte.camp, "terrain");
                 effet_pose(carte);
-                menu();
+                actualiser_zone();
                 return true;
             }
             break;
@@ -21770,7 +21217,7 @@ function obtenir_carte(carte_id) {
                 }
                 deplacer(carte, carte.camp, "terrain");
                 effet_pose(carte);
-                menu();
+                actualiser_zone();
                 return true;
             }
             break;
@@ -21799,7 +21246,7 @@ function obtenir_carte(carte_id) {
                 }
                 deplacer(carte, carte.camp, "terrain");
                 effet_pose(carte);
-                menu();
+                actualiser_zone();
                 return true;
             }
             break;
@@ -21827,7 +21274,7 @@ function obtenir_carte(carte_id) {
                 }
                 deplacer(carte, carte.camp, "terrain");
                 effet_pose(carte);
-                menu();
+                actualiser_zone();
                 return true;
             }
             break;
@@ -21872,71 +21319,65 @@ function obtenir_carte(carte_id) {
                 if (carte.camp == "joueur") {
                     switch (step) {
                         case 1:
-                            initialiser();
-                            div("main");
-                            fonction("Annuler", "menu()");
-                            saut(2);
-                            afficher(carte.nom);
-                            saut();
-                            afficher(carte.texte());
-                            saut(2);
-                            afficher("Choisissez un effet : ");
-                            saut(2);
-                            fonction("Soigne 3 à une Créature alliée sur le terrain", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2)");
-                            saut();
-                            afficher("ou");
-                            saut();
-                            fonction("Donne 1 Lumière max", "Jeu.joueur.main[" + carte.slot + "].effet_pose(4)");
-                            div_fin();
-                            div("carte_side", "affichage");
-                            div_fin();
-                            actualiser();
+                            let texte = "";
+                            texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                            texte += "<br/><br/>";
+                            texte += carte.nom;
+                            texte += "<br/>";
+                            texte += carte.texte();
+                            texte += "<br/><br/>";
+                            texte += "Choisissez un effet : ";
+                            texte += "<br/><br/>";
+                            texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2)'>Soigne 3 à une Créature alliée sur le terrain</button>";
+                            texte += "<br/>";
+                            texte += "ou";
+                            texte += "<br/>";
+                            texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(4)'>Donne 1 Lumière max</button>";
+                            texte += "</div>";
+                            afficher_choix(texte);
                             break;
                         case 2:
                             if (verifier_soin_creature("joueur")) {
-                                initialiser();
-                                div("main");
-                                fonction("Retour", "Jeu.joueur.main[" + carte.slot + "].effet_pose(1)");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher("Soigne 3 à une Créature alliée sur le terrain.");
-                                saut(2);
-                                afficher("Choisissez une Créature alliée sur le terrain : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(1)'>Retour</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += "Soigne 3 à une Créature alliée sur le terrain.";
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une Créature alliée sur le terrain : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
-                                    div("", "carte");
-                                    div();
-                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
-                                    div_fin();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
+                                    texte += afficher_carte("joueur", "terrain", n, "carte_side");
+                                    texte += "</div>";
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].vie < Jeu.joueur.terrain[n].vie_max) {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(3," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(3," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             break;
                         case 3:
                             soin(Jeu.joueur.terrain[cible], 3);
                             deplacer(carte, "joueur", "defausse");
                             effet_pose(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                         case 4:
                             Jeu.joueur.ressources[10].max++;
                             deplacer(carte, "joueur", "defausse");
                             effet_pose(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -21969,76 +21410,70 @@ function obtenir_carte(carte_id) {
                 if (carte.camp == "joueur") {
                     switch (step) {
                         case 1:
-                            initialiser();
-                            div("main");
-                            fonction("Annuler", "menu()");
-                            saut(2);
-                            afficher(carte.nom);
-                            saut();
-                            afficher(carte.texte());
-                            saut(2);
-                            afficher("Choisissez un effet : ");
-                            saut(2);
-                            fonction("Inflige 3 dégâts à une Unité adverse sur le terrain", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2)");
-                            saut();
-                            afficher("ou");
-                            saut();
-                            fonction("Donne 1 Feu max", "Jeu.joueur.main[" + carte.slot + "].effet_pose(4)");
-                            div_fin();
-                            div("carte_side", "affichage");
-                            div_fin();
-                            actualiser();
+                            let texte = "";
+                            texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                            texte += "<br/><br/>";
+                            texte += carte.nom;
+                            texte += "<br/>";
+                            texte += carte.texte();
+                            texte += "<br/><br/>";
+                            texte += "Choisissez un effet : ";
+                            texte += "<br/><br/>";
+                            texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2)'>Inflige 3 dégâts à une Unité adverse sur le terrain</button>";
+                            texte += "<br/>";
+                            texte += "ou";
+                            texte += "<br/>";
+                            texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(4)'>Donne 1 Feu max</button>";
+                            texte += "</div>";
+                            afficher_choix(texte);
                             break;
                         case 2:
                             if (verifier_cible("adverse", "terrain")) {
-                                initialiser();
-                                div("main");
-                                fonction("Retour", "Jeu.joueur.main[" + carte.slot + "].effet_pose(1)");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher("Inflige 3 dégâts à une Unité adverse sur le terrain.");
-                                saut(2);
-                                afficher("Choisissez une Unité adverse sur le terrain : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain adverse :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(1)'>Retour</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += "Inflige 3 dégâts à une Unité adverse sur le terrain.";
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une Unité adverse sur le terrain : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain adverse :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.adverse.terrain.length; n++) {
-                                    div("", "carte");
-                                    div();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
                                     if (!Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                        afficher(afficher_carte("adverse", "terrain", n, "carte_side"));
+                                        texte += afficher_carte("adverse", "terrain", n, "carte_side");
                                     }
                                     else {
-                                        afficher("???");
+                                        texte += "???";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                     if (!Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(3," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(3," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             break;
                         case 3:
                             degats(Jeu.adverse.terrain[cible], 3);
                             deplacer(carte, "joueur", "defausse");
                             effet_pose(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                         case 4:
                             Jeu.joueur.ressources[1].max++;
                             deplacer(carte, "joueur", "defausse");
                             effet_pose(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -22078,7 +21513,7 @@ function obtenir_carte(carte_id) {
                 }
                 deplacer(carte, carte.camp, "defausse");
                 effet_pose(carte);
-                menu();
+                actualiser_zone();
                 return true;
             }
             break;
@@ -22099,7 +21534,7 @@ function obtenir_carte(carte_id) {
                 ajouter(nouvelle_carte, carte.camp, "terrain");
                 deplacer(carte, carte.camp, "terrain");
                 effet_pose(carte);
-                menu();
+                actualiser_zone();
                 return true;
             }
             break;
@@ -22122,7 +21557,7 @@ function obtenir_carte(carte_id) {
                 }
                 deplacer(carte, carte.camp, "terrain");
                 effet_pose(carte);
-                menu();
+                actualiser_zone();
                 return true;
             }
             break;
@@ -22149,7 +21584,7 @@ function obtenir_carte(carte_id) {
                 }
                 deplacer(carte, carte.camp, "terrain");
                 effet_pose(carte);
-                menu();
+                actualiser_zone();
                 return true;
             }
             break;
@@ -22173,36 +21608,33 @@ function obtenir_carte(carte_id) {
                                 }
                             }
                             if (verifier) {
-                                initialiser();
-                                div("main");
-                                fonction("Annuler", "menu()");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez une Créature Militaire alliée sur le terrain : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une Créature Militaire alliée sur le terrain : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
-                                    div("", "carte");
-                                    div();
-                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
-                                    div_fin();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
+                                    texte += afficher_carte("joueur", "terrain", n, "carte_side");
+                                    texte += "</div>";
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].familles.includes("Militaire")) {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             break;
                         case 2:
@@ -22211,7 +21643,7 @@ function obtenir_carte(carte_id) {
                             Jeu.joueur.terrain[cible].vie_max += 5;
                             deplacer(carte, "joueur", "defausse");
                             effet_pose(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -22285,43 +21717,40 @@ function obtenir_carte(carte_id) {
                     switch (step) {
                         case 1:
                             if (verifier_equipement("joueur")) {
-                                initialiser();
-                                div("main");
-                                fonction("Annuler", "menu()");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez une Créature alliée équipable sur le terrain : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une Créature alliée équipable sur le terrain : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
-                                    div("", "carte");
-                                    div();
-                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
-                                    div_fin();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
+                                    texte += afficher_carte("joueur", "terrain", n, "carte_side");
+                                    texte += "</div>";
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].equipements.length < Jeu.joueur.terrain[n].equipement_max) {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             break;
                         case 2:
                             equiper(Jeu.joueur.terrain[cible], carte);
                             effet_pose(carte);
                             enlever(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -22464,7 +21893,7 @@ function obtenir_carte(carte_id) {
                     }
                     deplacer(carte, "joueur", "terrain");
                     effet_pose(carte);
-                    menu();
+                    actualiser_zone();
                 }
                 else {
                     deplacer(carte, "adverse", "terrain");
@@ -22494,43 +21923,40 @@ function obtenir_carte(carte_id) {
                     switch (step) {
                         case 1:
                             if (verifier_equipement("joueur")) {
-                                initialiser();
-                                div("main");
-                                fonction("Annuler", "menu()");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez une Créature alliée équipable sur le terrain : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une Créature alliée équipable sur le terrain : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
-                                    div("", "carte");
-                                    div();
-                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
-                                    div_fin();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
+                                    texte += afficher_carte("joueur", "terrain", n, "carte_side");
+                                    texte += "</div>";
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].equipements.length < Jeu.joueur.terrain[n].equipement_max) {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             break;
                         case 2:
                             equiper(Jeu.joueur.terrain[cible], carte);
                             effet_pose(carte);
                             enlever(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -22600,36 +22026,33 @@ function obtenir_carte(carte_id) {
                                 }
                             }
                             if (verifier) {
-                                initialiser();
-                                div("main");
-                                fonction("Annuler", "menu()");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez une Créature alliée sur le terrain : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une Créature alliée sur le terrain : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
-                                    div("", "carte");
-                                    div();
-                                    afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
-                                    div_fin();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
+                                    texte += afficher_carte("joueur", "terrain", n, "carte_side");
+                                    texte += "</div>";
                                     if (Jeu.joueur.terrain[n].type == "Créature" && Jeu.joueur.terrain[n].familles.includes("Fantôme") && (!Jeu.joueur.terrain[n].camouflage || !Jeu.joueur.terrain[n].rapidite)) {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             break;
                         case 2:
@@ -22637,7 +22060,7 @@ function obtenir_carte(carte_id) {
                             Jeu.joueur.terrain[cible].stat_etage.rapidite = true;
                             deplacer(carte, "joueur", "defausse");
                             effet_pose(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -22690,72 +22113,69 @@ function obtenir_carte(carte_id) {
                                 }
                             }
                             if (verifier1 || verifier2) {
-                                initialiser();
-                                div("main");
-                                fonction("Annuler", "menu()");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez une Créature non-Fantôme sur le terrain : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une Créature non-Fantôme sur le terrain : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain :</u>";
+                                texte += "<br/>";
                                 if (verifier1) {
                                     for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
-                                        div("", "carte");
-                                        div();
-                                        afficher(afficher_carte("joueur", "terrain", n, "carte_side"));
-                                        div_fin();
+                                        texte += "<div class='carte'>";
+                                        texte += "<div>";
+                                        texte += afficher_carte("joueur", "terrain", n, "carte_side");
+                                        texte += "</div>";
                                         if (Jeu.joueur.terrain[n].type == "Créature" && !Jeu.joueur.terrain[n].familles.includes("Fantôme")) {
-                                            div();
-                                            fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + '"joueur",' + n + ")");
-                                            div_fin();
+                                            texte += "<div>";
+                                            texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + '"joueur",' + n + ")'>Cibler</button>";
+                                            texte += "</div>";
                                         }
-                                        div_fin();
+                                        texte += "</div>";
                                     }
                                 }
                                 else {
-                                    afficher("<i>Votre terrain est vide</i>");
-                                    saut();
+                                    texte += "<i>Votre terrain est vide</i>";
+                                    texte += "<br/>";
                                 }
-                                div_fin();
-                                saut();
-                                afficher("Choisissez une Créature non-Fantôme adverse sur le terrain : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Terrain adverse :</u>");
-                                saut();
+                                texte += "</div>";
+                                texte += "<br/>";
+                                texte += "Choisissez une Créature non-Fantôme adverse sur le terrain : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain adverse :</u>";
+                                texte += "<br/>";
                                 if (verifier2) {
                                     for (let n = 0; n < Jeu.adverse.terrain.length; n++) {
-                                        div("", "carte");
-                                        div();
+                                        texte += "<div class='carte'>";
+                                        texte += "<div>";
                                         if (!Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                            afficher(afficher_carte("adverse", "terrain", n, "carte_side"));
+                                            texte += afficher_carte("adverse", "terrain", n, "carte_side");
                                         }
                                         else {
-                                            afficher("???");
+                                            texte += "???";
                                         }
-                                        div_fin();
+                                        texte += "</div>";
                                         if (Jeu.adverse.terrain[n].type == "Créature" && !Jeu.adverse.terrain[n].familles.includes("Fantôme") && !Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
-                                            div();
-                                            fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + '"adverse",' + n + ")");
-                                            div_fin();
+                                            texte += "<div>";
+                                            texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + '"adverse",' + n + ")'>Cibler</button>";
+                                            texte += "</div>";
                                         }
-                                        div_fin();
+                                        texte += "</div>";
                                     }
                                 }
                                 else {
-                                    afficher("<i>Le terrain adverse est vide</i>");
-                                    saut();
+                                    texte += "<i>Le terrain adverse est vide</i>";
+                                    texte += "<br/>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             break;
                         case 2:
@@ -22763,7 +22183,7 @@ function obtenir_carte(carte_id) {
                             Jeu[cible_camp].terrain[cible].ephemere = true;
                             deplacer(carte, "joueur", "defausse");
                             effet_pose(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -22969,41 +22389,38 @@ function obtenir_carte(carte_id) {
                                 }
                             }
                             if (verifier && !statistique(carte, "silence")) {
-                                initialiser();
-                                div("main");
-                                fonction("Annuler", "menu()");
-                                saut(2);
-                                afficher(carte.nom);
-                                saut();
-                                afficher(carte.texte());
-                                saut(2);
-                                afficher("Choisissez une carte dans la boutique : ");
-                                saut(2);
-                                div("", "zone");
-                                afficher("<u>Boutique :</u>");
-                                saut();
+                                let texte = "";
+                                texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une carte dans la boutique : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Boutique :</u>";
+                                texte += "<br/>";
                                 for (let n = 0; n < Jeu.joueur.boutique.length; n++) {
-                                    div("", "carte");
-                                    div();
-                                    afficher(afficher_carte("joueur", "boutique", n, "carte_side"));
-                                    div_fin();
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
+                                    texte += afficher_carte("joueur", "boutique", n, "carte_side");
+                                    texte += "</div>";
                                     if (Jeu.joueur.boutique[n].type == "Créature") {
-                                        div();
-                                        fonction("Cibler", "Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")");
-                                        div_fin();
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
                                     }
-                                    div_fin();
+                                    texte += "</div>";
                                 }
-                                div_fin();
-                                div_fin();
-                                div("carte_side", "affichage");
-                                div_fin();
-                                actualiser();
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
                             }
                             else {
                                 deplacer(carte, "joueur", "terrain");
                                 effet_pose(carte);
-                                menu();
+                                actualiser_zone();
                             }
                             break;
                         case 2:
@@ -23013,7 +22430,7 @@ function obtenir_carte(carte_id) {
                             enlever(Jeu.joueur.boutique[cible]);
                             deplacer(carte, "joueur", "terrain");
                             effet_pose(carte);
-                            menu();
+                            actualiser_zone();
                             break;
                     }
                 }
@@ -23055,7 +22472,7 @@ function obtenir_carte(carte_id) {
                     }
                     deplacer(carte, "joueur", "terrain");
                     effet_pose(carte);
-                    menu();
+                    actualiser_zone();
                     return true;
                 }
                 else {
@@ -23195,7 +22612,7 @@ function obtenir_carte(carte_id) {
                 }
                 deplacer(carte, carte.camp, "terrain");
                 effet_pose(carte);
-                menu();
+                actualiser_zone();
                 return true;
             }
             break;

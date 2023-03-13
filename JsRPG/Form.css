@@ -78,7 +78,7 @@ button.menu:hover {
 }
 
 .attaquant:hover {
-    background: rgb(99, 21, 21);
+    background: rgb(75, 17, 17);
 }
 
 .action {
@@ -147,6 +147,18 @@ button.menu:hover {
     width: 50%;
     height: 50%;
     scrollbar-width: none;
+}
+
+#choix {
+    position: fixed;
+    display: none;
+    background: #8a4b14;
+    height: 45em;
+    width: 100%;
+    left: 0;
+    top: 0;
+    padding-top: 0.3em;
+    padding-left: 0.3em;
 }
 
 #description {

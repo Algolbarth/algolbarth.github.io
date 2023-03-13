@@ -161,9 +161,14 @@ function nouvelle_partie() {
     Jeu.ressource_sup = 1;
     Jeu.region_active = 0;
     Jeu.combat.etat = false;
+    menu();
     ajouter(obtenir_carte(113), "joueur", "regions");
     ajouter(obtenir_carte(78), "joueur", "regions");
     ajouter(obtenir_carte(31), "joueur", "main");
+    ajouter(obtenir_carte(363), "joueur", "main");
+    ajouter(obtenir_carte(363), "joueur", "main");
+    ajouter(obtenir_carte(482), "joueur", "main");
+    ajouter(obtenir_carte(333), "joueur", "main");
     ajouter(obtenir_carte(1), "joueur", "terrain");
     for (let n = 0; n < Jeu.joueur.main.length; n++) {
         Jeu.joueur.main[n].cache = true;
@@ -175,7 +180,7 @@ function nouvelle_partie() {
     adversaire_jouer();
     adversaire_acheter();
     adversaire_generer(3);
-    menu();
+    actualiser_zone();
 }
 
 function menu() {
@@ -196,6 +201,8 @@ function menu() {
     afficher("</center>");
     joueur_voir();
     adversaire_voir();
+    div("choix", "");
+    div_fin();
     div("carte_main", "affichage");
     div_fin();
     div("carte_side", "affichage");
@@ -365,6 +372,7 @@ function actualiser_zone() {
     afficher_zone("adverse", "defausse", "Défausse adverse", "La défausse adverse est vide");
     fermer_carte("carte_main");
     fermer_carte("carte_side");
+    fermer_choix();
 }
 
 function afficher_carte(camp, zone, slot, div = "auto") {
@@ -652,6 +660,15 @@ function carte_afficher(carte, div) {
 
 function fermer_carte(div) {
     document.getElementById(div).setAttribute("style", "display : none");
+}
+
+function afficher_choix (texte) {
+    div_actualiser("choix", texte);
+    document.getElementById("choix").setAttribute("style", "display : block");
+}
+
+function fermer_choix() {
+    document.getElementById("choix").setAttribute("style", "display : none");
 }
 
 function ressource_choisir() {
@@ -1205,7 +1222,7 @@ function monter(camp, zone, slot) {
     Jeu[camp][zone][slot - 1] = carte;
     carte.slot--;
     trans.slot++;
-    menu();
+    actualiser_zone();
 }
 
 function descendre(camp, zone, slot) {
@@ -1215,7 +1232,7 @@ function descendre(camp, zone, slot) {
     Jeu[camp][zone][slot + 1] = carte;
     carte.slot++;
     trans.slot--;
-    menu();
+    actualiser_zone();
 }
 
 function soin(carte, montant) {
