@@ -1,6 +1,6 @@
 function collection() {
     initialiser();
-    fonction("Retour", "accueil()");
+    fonction("Retour", "son_bouton();accueil()");
     afficher("<center>");
     fonction("Filtrer", "collection_filtre()");
     afficher(" Trier par <select id='tri' onchange='collection_tri_appliquer()'>")

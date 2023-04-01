@@ -17,7 +17,7 @@ function demarrage() {
         ],
         types: ["Créature", "Bâtiment", "Objet", "Action", "Région"],
         familles: [],
-        NOMBRE_CARTE: 546,
+        NOMBRE_CARTE: 547,
         NOMBRE_HISTOIRE: 4,
         NOMBRE_MUSIQUE: 4,
         combat: {
@@ -37,8 +37,10 @@ function demarrage() {
         musique: {
             audio: new Audio(),
             liste: [],
-            slot: 0
-        }
+            slot: 0,
+            bruitage_volume: 0
+        },
+        compte: {}
     }
     for (let n = 1; n <= Jeu.NOMBRE_CARTE; n++) {
         let carte = obtenir_carte(n);
@@ -70,31 +72,15 @@ function verifier_famille(famille) {
     return false;
 }
 
-function musique() {
-    for (let n = 1; n <= Jeu.NOMBRE_MUSIQUE; n++) {
-        Jeu.musique.liste.push(n);
-    }
-    shuffle(Jeu.musique.liste);
-    Jeu.musique.slot = 0;
-    Jeu.musique.audio.src = "Musique/" + Jeu.musique.liste[Jeu.musique.slot] + ".mp3";
-    Jeu.musique.audio.play();
-    Jeu.musique.audio.addEventListener('ended', function () {
-        Jeu.musique.slot++;
-        if (Jeu.musique.slot > Jeu.NOMBRE_MUSIQUE) {
-            Jeu.musique.slot = 0;
-        }
-        Jeu.musique.audio.src = "Musique/" + Jeu.musique.liste[Jeu.musique.slot] + ".mp3";
-        Jeu.musique.audio.play();
-    }, true);
-}
-
 function ecran_titre() {
     initialiser();
     afficher("<center><img src='Images/Title.png' style='width:30em;border:solid;border-width:5px;'/>");
     saut();
     afficher("Version BETA");
     saut(3);
-    fonction("Se connecter", "musique();accueil()", "menu");
+    fonction("Se connecter", "connecter()", "menu");
+    saut(2);
+    fonction("Créer un compte", "inscription()", "menu");
     afficher("</center>");
     actualiser();
 }
@@ -105,17 +91,19 @@ function accueil() {
     saut();
     afficher("Version BETA");
     saut(3);
-    fonction("Jouer", "nouvelle_partie()", "menu");
+    fonction("Jouer", "son_bouton();nouvelle_partie()", "menu");
     saut(2);
-    fonction("Bibliothèque", "collection_init();collection()", "menu");
+    fonction("Bibliothèque", "son_bouton();collection_init();collection()", "menu");
     saut(2);
-    fonction("Univers", "lore()", "menu");
+    fonction("Compte", "son_bouton();compte()", "menu");
     saut(2);
-    fonction("Options", "option_menu()", "menu");
+    fonction("Univers", "son_bouton();lore()", "menu");
+    saut(2);
+    fonction("Options", "son_bouton();option_menu()", "menu");
     afficher("</center>");
     actualiser();
 }
- 
+
 function nouvelle_partie() {
     Jeu.en_jeu = true;
     Jeu.joueur = {
@@ -183,13 +171,13 @@ function menu() {
     initialiser();
     div("", "bar");
     div("", "flex");
-    fonction("Options", "option_jeu()");
+    fonction("Options", "son_bouton();option_jeu()");
     div_fin();
     div("", "flex");
-    fonction("Combattre", "combat_nouveau()");
+    fonction("Combattre", "son_bouton();combat_nouveau()");
     div_fin();
     div("", "flex");
-    fonction("Options", "option_jeu()");
+    fonction("Options", "son_bouton();option_jeu()");
     div_fin();
     div_fin();
     afficher("<center>");
@@ -273,7 +261,7 @@ function afficher_meneur(camp) {
         }
     }
     if (camp == "joueur" && Jeu.ressource_sup > 0) {
-        texte += "<button onclick='javascript:ressource_choisir()'>Ajouter une ressource</button>";
+        texte += "<button onclick='javascript:son_bouton();ressource_choisir()'>Ajouter une ressource</button>";
         texte += "<br/>";
     }
     div_actualiser(camp + "_meneur", texte);
@@ -291,7 +279,7 @@ function afficher_zone(camp, zone, nom, vide) {
         texte += "<button onclick='javascript:boutique_rafraichir()'>Actualiser</button>";
         texte += " (" + (Jeu.boutique_niveau + 1) + " Or)";
         texte += " - ";
-        texte += "<button onclick='javascript:boutique_verrouiller()'>Verrouiller</button>";
+        texte += "<button onclick='javascript:son_bouton();boutique_verrouiller()'>Verrouiller</button>";
         texte += " - <i>" + Jeu.joueur.boutique.length + " carte";
         if (Jeu.joueur.boutique.length > 1) {
             texte += "s";
@@ -313,11 +301,11 @@ function afficher_zone(camp, zone, nom, vide) {
             texte += "<div>";
             if (camp == "joueur" && ((zone == "terrain" && Jeu[camp][zone][n].type == "Créature" || (statistique(Jeu[camp][zone][n], "mobile") && !statistique(Jeu[camp][zone][n], "silence"))) || (zone == "main"))) {
                 if (n > 0) {
-                    texte += "<button onclick='javascript:monter(" + '"joueur","' + zone + '",' + n + ")'>&#8679</button>";
+                    texte += "<button onclick='javascript:son_bouton();monter(" + '"joueur","' + zone + '",' + n + ")'>&#8679</button>";
                     texte += " ";
                 }
                 if (n < Jeu[camp][zone].length - 1) {
-                    texte += "<button onclick='javascript:descendre(" + '"joueur","' + zone + '",' + n + ")'>&#8681</button>";
+                    texte += "<button onclick='javascript:son_bouton();descendre(" + '"joueur","' + zone + '",' + n + ")'>&#8681</button>";
                     texte += " ";
                 }
             }
@@ -366,9 +354,9 @@ function actualiser_zone() {
     afficher_zone("adverse", "main", "Main adverse", "La main adverse est vide");
     afficher_zone("adverse", "terrain", "Terrain adverse", "La terrain adverse est vide");
     afficher_zone("adverse", "defausse", "Défausse adverse", "La défausse adverse est vide");
-    fermer_carte("carte_main");
-    fermer_carte("carte_side");
-    fermer_choix();
+    document.getElementById("carte_main").setAttribute("style", "display : none");
+    document.getElementById("carte_side").setAttribute("style", "display : none");
+    document.getElementById("choix").setAttribute("style", "display : none");
 }
 
 function afficher_carte(camp, zone, slot, div = "auto") {
@@ -652,19 +640,23 @@ function carte_afficher(carte, div) {
     texte += "<br/> <div id='description'><span id='contenu'>" + carte.description + "</span></div>";
     div_actualiser(div, texte);
     document.getElementById(div).setAttribute("style", "display : block");
+    son_carte();
 }
 
 function fermer_carte(div) {
     document.getElementById(div).setAttribute("style", "display : none");
+    son_carte();
 }
 
 function afficher_choix (texte) {
     div_actualiser("choix", texte);
     document.getElementById("choix").setAttribute("style", "display : block");
+    son_carte();
 }
 
 function fermer_choix() {
     document.getElementById("choix").setAttribute("style", "display : none");
+    son_carte();
 }
 
 function ressource_choisir() {
@@ -697,6 +689,7 @@ function cout_total(carte) {
 function boutique_rafraichir() {
     if (Jeu.joueur.ressources[0].courant >= Jeu.boutique_niveau + 1) {
         Jeu.joueur.ressources[0].courant -= Jeu.boutique_niveau + 1;
+        son_boutique();
         boutique_actualiser();
         actualiser_zone();
     }
@@ -737,6 +730,7 @@ function boutique_ameliorer() {
         Jeu.boutique_niveau++;
         Jeu.boutique_amelioration = Jeu.boutique_niveau * 5;
         actualiser_zone();
+        son_boutique();
     }
 }
 
@@ -775,6 +769,7 @@ function acheter(camp, boutique_slot) {
         deplacer(Jeu[camp].boutique[boutique_slot], camp, "main");
         if (camp == "joueur") {
             actualiser_zone();
+            son_achat();
         }
         return true;
     }
@@ -787,12 +782,12 @@ function vendre(zone, slot) {
     }
     for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
         if (!statistique(Jeu.joueur.terrain[n], "silence")) {
-            Jeu.joueur.terrain[n].effet_vente_carte();
+            Jeu.joueur.terrain[n].effet_vente_autre();
         }
     }
     for (let n = 0; n < Jeu.adverse.terrain.length; n++) {
         if (!statistique(Jeu.adverse.terrain[n], "silence")) {
-            Jeu.adverse.terrain[n].effet_vente_carte();
+            Jeu.adverse.terrain[n].effet_vente_autre();
         }
     }
     for (let n = 0; n < Jeu.ressources.length; n++) {
@@ -800,6 +795,7 @@ function vendre(zone, slot) {
     }
     enlever(Jeu.joueur[zone][slot]);
     actualiser_zone();
+    son_vente();
 }
 
 function etage_suivant() {
@@ -1296,12 +1292,12 @@ function mort(carte) {
     carte.effet_mort();
     for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
         if (!statistique(Jeu.joueur.terrain[n], "silence")) {
-            Jeu.joueur.terrain[n].effet_mort_carte(carte);
+            Jeu.joueur.terrain[n].effet_mort_autre(carte);
         }
     }
     for (let n = 0; n < Jeu.adverse.terrain.length; n++) {
         if (!statistique(Jeu.adverse.terrain[n], "silence")) {
-            Jeu.adverse.terrain[n].effet_mort_carte(carte);
+            Jeu.adverse.terrain[n].effet_mort_autre(carte);
         }
     }
 }
@@ -1366,7 +1362,7 @@ function poser(slot) {
     Jeu.joueur.main[slot].effet_pose(1);
 }
 
-function effet_pose(carte) {
+function effet_pose_carte(carte) {
     carte.cache = false;
     let joueur_terrain = [];
     for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
@@ -1378,17 +1374,17 @@ function effet_pose(carte) {
     }
     for (let n = 0; n < joueur_terrain.length; n++) {
         if (!statistique(joueur_terrain[n], "silence")) {
-            joueur_terrain[n].effet_pose_carte(carte);
+            joueur_terrain[n].effet_pose_autre(carte);
             for (let i = 0; i < joueur_terrain[n].equipements.length; i++) {
-                joueur_terrain[n].equipements[i].effet_pose_carte(joueur_terrain[n], carte);
+                joueur_terrain[n].equipements[i].effet_pose_autre(joueur_terrain[n], carte);
             }
         }
     }
     for (let n = 0; n < adverse_terrain.length; n++) {
         if (!statistique(adverse_terrain[n], "silence")) {
-            adverse_terrain[n].effet_pose_carte(carte);
+            adverse_terrain[n].effet_pose_autre(carte);
             for (let i = 0; i < adverse_terrain[n].equipements.length; i++) {
-                adverse_terrain[n].equipements[i].effet_pose_carte(adverse_terrain[n], carte);
+                adverse_terrain[n].equipements[i].effet_pose_autre(adverse_terrain[n], carte);
             }
         }
     }
@@ -1712,16 +1708,13 @@ function talent_voir(talent, div, stack = false) {
             break;
     }
     div_actualiser(div, texte);
+    son_carte();
 }
 
 function define_creature(carte) {
     carte.type == "Créature";
     carte.action_max = 1;
     carte.equipement_max = 1;
-}
-
-function shuffle(array) {
-    array.sort(() => Math.random() - 0.5);
 }
 
 function afficher_message(message) {
@@ -1735,4 +1728,51 @@ function afficher_message(message) {
 
 function fermer_message() {
     document.getElementById("message").setAttribute("style", "display : none");
+}
+
+function son_bouton () {
+    son("Button");
+}
+
+function son_carte () {
+    son("Card");
+}
+
+function son_achat () {
+    son("Buy");
+}
+
+function son_vente () {
+    son("Sell");
+}
+
+function son_boutique () {
+    son("Shop");
+}
+
+function son (file) {
+    let bruit = new Audio();
+    bruit.disableWebAudio = true;
+    bruit.src = "Musique/" + file + ".mp3";
+    bruit.autostart = true;
+    bruit.volume = Jeu.musique.bruitage_volume;
+    bruit.play();
+}
+
+function musique() {
+    for (let n = 1; n <= Jeu.NOMBRE_MUSIQUE; n++) {
+        Jeu.musique.liste.push(n);
+    }
+    Jeu.musique.liste.sort(() => Math.random() - 0.5);
+    Jeu.musique.slot = 0;
+    Jeu.musique.audio.src = "Musique/" + Jeu.musique.liste[Jeu.musique.slot] + ".mp3";
+    Jeu.musique.audio.play();
+    Jeu.musique.audio.addEventListener('ended', function () {
+        Jeu.musique.slot++;
+        if (Jeu.musique.slot > Jeu.NOMBRE_MUSIQUE) {
+            Jeu.musique.slot = 0;
+        }
+        Jeu.musique.audio.src = "Musique/" + Jeu.musique.liste[Jeu.musique.slot] + ".mp3";
+        Jeu.musique.audio.play();
+    }, true);
 }

@@ -248,7 +248,7 @@ function combat_afficher() {
         fonction("Désactiver mode auto", "combat_auto_off()");
     }
     else {
-        fonction("Options", "option_combat()");
+        fonction("Options", "son_bouton();option_combat()");
         afficher(" - ");
         fonction("Activer mode auto", "combat_auto_on()");
         afficher(" - ");

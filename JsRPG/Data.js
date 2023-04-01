@@ -53,11 +53,11 @@ function obtenir_carte(carte_id) {
         description: "...",
         effet_pose: function () {
             deplacer(carte, carte.camp, "terrain");
-            effet_pose(carte);
+            effet_pose_carte(carte);
             actualiser_zone();
             return true;
         },
-        effet_pose_carte: function () { },
+        effet_pose_autre: function () { },
         effet_ajouter: function () { },
         effet_enlever: function () { },
         effet_action: function () { },
@@ -71,16 +71,16 @@ function obtenir_carte(carte_id) {
                 deplacer(carte, carte.camp, "defausse");
             }
         },
-        effet_mort_carte: function () { },
+        effet_mort_autre: function () { },
         effet_tour_debut: function () { },
         effet_degat: function () { },
         effet_tuer: function () { },
         effet_soin: function () { },
-        effet_soin_carte: function () { },
+        effet_soin_autre: function () { },
         effet_equiper: function () { },
         effet_compteur: function () { },
         effet_vente: function () { },
-        effet_vente_carte: function () { },
+        effet_vente_autre: function () { },
         effet_etage_debut: function () { },
         effet_etage_fin: function () { },
         boutique_generer: function () { },
@@ -148,7 +148,7 @@ function obtenir_carte(carte_id) {
                             break;
                         case 2:
                             equiper(Jeu.joueur.terrain[cible], carte);
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             enlever(carte);
                             actualiser_zone();
                             break;
@@ -161,7 +161,7 @@ function obtenir_carte(carte_id) {
                             best++;
                         }
                         equiper(Jeu.adverse.terrain[best], carte);
-                        effet_pose(carte);
+                        effet_pose_carte(carte);
                         enlever(carte);
                         return true;
                     }
@@ -215,7 +215,7 @@ function obtenir_carte(carte_id) {
                         case 2:
                             soin(Jeu.joueur.terrain[cible], 3);
                             deplacer(carte, "joueur", "defausse");
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             actualiser_zone();
                             break;
                     }
@@ -233,7 +233,7 @@ function obtenir_carte(carte_id) {
                         }
                         soin(Jeu.adverse.terrain[best], 3);
                         deplacer(carte, "adverse", "defausse");
-                        effet_pose(carte);
+                        effet_pose_carte(carte);
                         return true;
                     }
                     return false;
@@ -287,7 +287,7 @@ function obtenir_carte(carte_id) {
                             break;
                         case 2:
                             equiper(Jeu.joueur.terrain[cible], carte);
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             enlever(carte);
                             actualiser_zone();
                             break;
@@ -300,7 +300,7 @@ function obtenir_carte(carte_id) {
                             best++;
                         }
                         equiper(Jeu.adverse.terrain[best], carte);
-                        effet_pose(carte);
+                        effet_pose_carte(carte);
                         enlever(carte);
                         return true;
                     }
@@ -355,12 +355,12 @@ function obtenir_carte(carte_id) {
                         }
                     }
                     deplacer(carte, "joueur", "terrain");
-                    effet_pose(carte);
+                    effet_pose_carte(carte);
                     actualiser_zone();
                 }
                 else {
                     deplacer(carte, "adverse", "terrain");
-                    effet_pose(carte);
+                    effet_pose_carte(carte);
                     return true;
                 }
             }
@@ -387,7 +387,7 @@ function obtenir_carte(carte_id) {
                     }
                 }
                 deplacer(carte, carte.camp, "terrain");
-                effet_pose(carte);
+                effet_pose_carte(carte);
                 actualiser_zone();
                 return true;
             }
@@ -447,14 +447,14 @@ function obtenir_carte(carte_id) {
                             }
                             else {
                                 deplacer(carte, "joueur", "terrain");
-                                effet_pose(carte);
+                                effet_pose_carte(carte);
                                 actualiser_zone();
                             }
                             break;
                         case 2:
                             degats(Jeu.adverse.terrain[cible], 4);
                             deplacer(carte, "joueur", "terrain");
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             actualiser_zone();
                             break;
                     }
@@ -473,7 +473,7 @@ function obtenir_carte(carte_id) {
                         degats(Jeu.joueur.terrain[best], 4);
                     }
                     deplacer(carte, "adverse", "terrain");
-                    effet_pose(carte);
+                    effet_pose_carte(carte);
                     return true;
                 }
             }
@@ -525,14 +525,14 @@ function obtenir_carte(carte_id) {
                             }
                             else {
                                 deplacer(carte, "joueur", "terrain");
-                                effet_pose(carte);
+                                effet_pose_carte(carte);
                                 actualiser_zone();
                             }
                             break;
                         case 2:
                             soin(Jeu.joueur.terrain[cible], 3);
                             deplacer(carte, "joueur", "terrain");
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             actualiser_zone();
                             break;
                     }
@@ -551,7 +551,7 @@ function obtenir_carte(carte_id) {
                         soin(Jeu.adverse.terrain[best], 3);
                     }
                     deplacer(carte, "adverse", "terrain");
-                    effet_pose(carte);
+                    effet_pose_carte(carte);
                     return true;
                 }
             }
@@ -572,7 +572,7 @@ function obtenir_carte(carte_id) {
                     Jeu[carte.camp].ressources[0].max++;
                 }
                 deplacer(carte, carte.camp, "terrain");
-                effet_pose(carte);
+                effet_pose_carte(carte);
                 actualiser_zone();
                 return true;
             }
@@ -684,7 +684,7 @@ function obtenir_carte(carte_id) {
                         case 2:
                             degats(Jeu.adverse.terrain[cible], 5);
                             deplacer(carte, "joueur", "defausse");
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             actualiser_zone();
                             break;
                     }
@@ -702,7 +702,7 @@ function obtenir_carte(carte_id) {
                         }
                         degats(Jeu.joueur.terrain[best], 5);
                         deplacer(carte, "adverse", "defausse");
-                        effet_pose(carte);
+                        effet_pose_carte(carte);
                         return true;
                     }
                     return false;
@@ -727,7 +727,7 @@ function obtenir_carte(carte_id) {
                         degats(array[n], 1);
                     }
                     deplacer(carte, carte.camp, "defausse");
-                    effet_pose(carte);
+                    effet_pose_carte(carte);
                     actualiser_zone();
                     return true;
                 }
@@ -924,7 +924,7 @@ function obtenir_carte(carte_id) {
                                 degats(carte_cible, 5);
                             }
                             deplacer(carte, "joueur", "defausse");
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             actualiser_zone();
                             break;
                     }
@@ -952,7 +952,7 @@ function obtenir_carte(carte_id) {
                             degats(Jeu.joueur.terrain[best], 5);
                         }
                         deplacer(carte, "adverse", "defausse");
-                        effet_pose(carte);
+                        effet_pose_carte(carte);
                         return true;
                     }
                     return false;
@@ -972,7 +972,7 @@ function obtenir_carte(carte_id) {
                 if (carte.camp == "joueur") {
                     pioche("joueur");
                     deplacer(carte, "joueur", "defausse");
-                    effet_pose(carte);
+                    effet_pose_carte(carte);
                     actualiser_zone();
                 }
                 else {
@@ -1039,7 +1039,7 @@ function obtenir_carte(carte_id) {
                             best++;
                         }
                         equiper(Jeu.adverse.terrain[best], carte);
-                        effet_pose(carte);
+                        effet_pose_carte(carte);
                         enlever(carte);
                         return true;
                     }
@@ -1059,7 +1059,7 @@ function obtenir_carte(carte_id) {
                 if (carte.camp == "joueur") {
                     boutique_afficher_choix(texte);
                     deplacer(carte, "joueur", "defausse");
-                    effet_pose(carte);
+                    effet_pose_carte(carte);
                     actualiser_zone();
                 }
                 return false;
@@ -1133,12 +1133,12 @@ function obtenir_carte(carte_id) {
             carte.nom = "Négociant";
             define_creature(carte);
             carte.familles.push("Humain");
-            carte.cout[0] = 7;
-            carte.vente[0] = 3;
+            carte.cout[0] = 10;
+            carte.vente[0] = 5;
             carte.attaque = 3;
             carte.vie_max = carte.vie = 3;
             carte.texte = function () {
-                return "Quand posé : Diminue le coût d'une carte alliée dans la boutique de 2 Or.";
+                return "Quand posé : Diminue le coût d'une carte alliée dans la boutique de 5 Or.";
             }
             carte.effet_pose = function (step, cible) {
                 if (carte.camp == "joueur") {
@@ -1175,24 +1175,24 @@ function obtenir_carte(carte_id) {
                             }
                             else {
                                 deplacer(carte, "joueur", "terrain");
-                                effet_pose(carte);
+                                effet_pose_carte(carte);
                                 actualiser_zone();
                             }
                             break;
                         case 2:
-                            Jeu.joueur.boutique[cible].cout[0] -= 2;
+                            Jeu.joueur.boutique[cible].cout[0] -= 5;
                             if (Jeu.joueur.boutique[cible].cout[0] < 0) {
                                 Jeu.joueur.boutique[cible].cout[0] = 0;
                             }
                             deplacer(carte, "joueur", "terrain");
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             actualiser_zone();
                             break;
                     }
                 }
                 else {
                     deplacer(carte, "adverse", "terrain");
-                    effet_pose(carte);
+                    effet_pose_carte(carte);
                     actualiser_zone();
                     return true;
                 }
@@ -1220,7 +1220,7 @@ function obtenir_carte(carte_id) {
                         degats_direct("joueur", 10);
                     }
                     deplacer(carte, carte.camp, "terrain");
-                    effet_pose(carte);
+                    effet_pose_carte(carte);
                     if (Jeu.joueur.vie > 0) {
                         actualiser_zone();
                     }
@@ -1234,7 +1234,7 @@ function obtenir_carte(carte_id) {
                             degats_direct("adverse", 10);
                         }
                         deplacer(carte, carte.camp, "terrain");
-                        effet_pose(carte);
+                        effet_pose_carte(carte);
                         return true;
                     }
                     return false;
@@ -1298,7 +1298,7 @@ function obtenir_carte(carte_id) {
                             }
                             deplacer(Jeu.joueur.defausse[cible], "joueur", "main");
                             deplacer(carte, "joueur", "defausse");
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             actualiser_zone();
                             break;
                     }
@@ -1316,7 +1316,7 @@ function obtenir_carte(carte_id) {
                         }
                         deplacer(Jeu.adverse.defausse[best], "adverse", "main");
                         deplacer(carte, "adverse", "defausse");
-                        effet_pose(carte);
+                        effet_pose_carte(carte);
                         return true;
                     }
                     return false;
@@ -1417,14 +1417,14 @@ function obtenir_carte(carte_id) {
                             }
                             else {
                                 deplacer(carte, "joueur", "terrain");
-                                effet_pose(carte);
+                                effet_pose_carte(carte);
                                 actualiser_zone();
                             }
                             break;
                         case 2:
                             mort(Jeu.adverse.terrain[cible]);
                             deplacer(carte, "joueur", "terrain");
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             actualiser_zone();
                             break;
                     }
@@ -1443,7 +1443,7 @@ function obtenir_carte(carte_id) {
                         mort(Jeu.joueur.terrain[best]);
                     }
                     deplacer(carte, "adverse", "terrain");
-                    effet_pose(carte);
+                    effet_pose_carte(carte);
                     return true;
                 }
             }
@@ -1487,7 +1487,7 @@ function obtenir_carte(carte_id) {
             carte.texte = function () {
                 return "Quand une Créature alliée est posée : Se donne 1 attaque et 1 vie.";
             }
-            carte.effet_pose_carte = function (carte_pose) {
+            carte.effet_vente_autre = function (carte_pose) {
                 if (carte_pose.camp == carte.camp && carte_pose.type == "Créature") {
                     carte.attaque++;
                     carte.vie++;
@@ -1510,7 +1510,7 @@ function obtenir_carte(carte_id) {
             carte.texte = function () {
                 return "Quand une Créature meurt : Se donne 1 attaque et 1 vie.";
             }
-            carte.effet_mort_carte = function (carte_mort) {
+            carte.effet_vente_autre = function (carte_mort) {
                 if (carte_mort.type == "Créature") {
                     carte.attaque++;
                     carte.vie++;
@@ -1619,7 +1619,7 @@ function obtenir_carte(carte_id) {
                             break;
                         case 3:
                             equiper(Jeu.joueur.terrain[cible], carte);
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             enlever(carte);
                             actualiser_zone();
                             break;
@@ -1662,7 +1662,7 @@ function obtenir_carte(carte_id) {
                         case 5:
                             Jeu.adverse.terrain[cible].poison += 4;
                             deplacer(carte, "joueur", "defausse");
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             actualiser_zone();
                             break;
                     }
@@ -1674,7 +1674,7 @@ function obtenir_carte(carte_id) {
                             best++;
                         }
                         equiper(Jeu.adverse.terrain[best], carte);
-                        effet_pose(carte);
+                        effet_pose_carte(carte);
                         enlever(carte);
                         return true;
                     }
@@ -1685,7 +1685,7 @@ function obtenir_carte(carte_id) {
                         }
                         Jeu.joueur.terrain[best].poison += 4;
                         deplacer(carte, "adverse", "defausse");
-                        effet_pose(carte);
+                        effet_pose_carte(carte);
                         return true;
                     }
                     return false;
@@ -1738,7 +1738,7 @@ function obtenir_carte(carte_id) {
                         case 2:
                             Jeu.joueur.terrain[cible].poison = 0;
                             deplacer(carte, "joueur", "defausse");
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             actualiser_zone();
                             break;
                     }
@@ -1756,7 +1756,7 @@ function obtenir_carte(carte_id) {
                         }
                         Jeu.adverse.terrain[best].poison = 0;
                         deplacer(carte, "adverse", "defausse");
-                        effet_pose(carte);
+                        effet_pose_carte(carte);
                         return true;
                     }
                     return false;
@@ -1859,7 +1859,7 @@ function obtenir_carte(carte_id) {
                             }
                             else {
                                 deplacer(carte, "joueur", "terrain");
-                                effet_pose(carte);
+                                effet_pose_carte(carte);
                                 actualiser_zone();
                             }
                             break;
@@ -1868,14 +1868,14 @@ function obtenir_carte(carte_id) {
                             carte.vie_max++;
                             enlever(Jeu.joueur.boutique[cible]);
                             deplacer(carte, "joueur", "terrain");
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             actualiser_zone();
                             break;
                     }
                 }
                 else {
                     deplacer(carte, "adverse", "terrain");
-                    effet_pose(carte);
+                    effet_pose_carte(carte);
                     actualiser_zone();
                     return true;
                 }
@@ -1932,7 +1932,7 @@ function obtenir_carte(carte_id) {
                             Jeu.joueur.terrain[cible].etourdissement = false;
                             Jeu.joueur.terrain[cible].silence = false;
                             deplacer(carte, "joueur", "defausse");
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             actualiser_zone();
                             break;
                     }
@@ -1955,7 +1955,7 @@ function obtenir_carte(carte_id) {
                         Jeu.adverse.terrain[best].etourdissement = false;
                         Jeu.adverse.terrain[best].silence = false;
                         deplacer(carte, "adverse", "defausse");
-                        effet_pose(carte);
+                        effet_pose_carte(carte);
                         return true;
                     }
                     return false;
@@ -2066,7 +2066,7 @@ function obtenir_carte(carte_id) {
                             break;
                         case 3:
                             equiper(Jeu.joueur.terrain[cible], carte);
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             enlever(carte);
                             actualiser_zone();
                             break;
@@ -2108,7 +2108,7 @@ function obtenir_carte(carte_id) {
                         case 5:
                             degats(Jeu.adverse.terrain[cible], 1);
                             deplacer(carte, "joueur", "defausse");
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             actualiser_zone();
                             break;
                     }
@@ -2120,7 +2120,7 @@ function obtenir_carte(carte_id) {
                             best++;
                         }
                         equiper(Jeu.adverse.terrain[best], carte);
-                        effet_pose(carte);
+                        effet_pose_carte(carte);
                         enlever(carte);
                         return true;
                     }
@@ -2136,7 +2136,7 @@ function obtenir_carte(carte_id) {
                         }
                         degats(Jeu.joueur.terrain[n], 1);
                         deplacer(carte, "adverse", "defausse");
-                        effet_pose(carte);
+                        effet_pose_carte(carte);
                         return true;
                     }
                     return false;
@@ -2244,7 +2244,7 @@ function obtenir_carte(carte_id) {
             }
             carte.effet_pose = function () {
                 deplacer(carte, carte.camp, "terrain");
-                effet_pose(carte);
+                effet_pose_carte(carte);
                 if (!statistique(carte, "silence")) {
                     if (carte.camp == "joueur") {
                         degats_direct("adverse", 3);
@@ -2336,7 +2336,7 @@ function obtenir_carte(carte_id) {
                     }
                 }
                 deplacer(carte, carte.camp, "terrain");
-                effet_pose(carte);
+                effet_pose_carte(carte);
                 actualiser_zone();
                 return true;
             }
@@ -2427,7 +2427,7 @@ function obtenir_carte(carte_id) {
                                 Jeu.adverse.terrain[n].slot++;
                             }
                             deplacer(carte, "joueur", "defausse");
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             actualiser_zone();
                             break;
                     }
@@ -2450,7 +2450,7 @@ function obtenir_carte(carte_id) {
                             Jeu.joueur.terrain[n].slot++;
                         }
                         deplacer(carte, "adverse", "defausse");
-                        effet_pose(carte);
+                        effet_pose_carte(carte);
                         return true;
                     }
                     return false;
@@ -2533,7 +2533,7 @@ function obtenir_carte(carte_id) {
                         case 2:
                             Jeu.adverse.terrain[cible].etourdissement = true;
                             deplacer(carte, "joueur", "defausse");
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             actualiser_zone();
                             break;
                     }
@@ -2551,7 +2551,7 @@ function obtenir_carte(carte_id) {
                         }
                         Jeu.joueur.terrain[best].etourdissement = true;
                         deplacer(carte, "adverse", "defausse");
-                        effet_pose(carte);
+                        effet_pose_carte(carte);
                         return true;
                     }
                     return false;
@@ -2641,7 +2641,7 @@ function obtenir_carte(carte_id) {
                         case 2:
                             deplacer(Jeu[cible_camp].terrain[cible_slot], cible_camp, "main");
                             deplacer(carte, "joueur", "defausse");
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             actualiser_zone();
                             break;
                     }
@@ -2659,7 +2659,7 @@ function obtenir_carte(carte_id) {
                         }
                         deplacer(Jeu.joueur.terrain[best], "joueur", "main");
                         deplacer(carte, "adverse", "defausse");
-                        effet_pose(carte);
+                        effet_pose_carte(carte);
                         return true;
                     }
                     return false;
@@ -2689,7 +2689,7 @@ function obtenir_carte(carte_id) {
                 else {
                     deplacer(carte, carte.camp, "terrain");
                 }
-                effet_pose(carte);
+                effet_pose_carte(carte);
                 actualiser_zone();
                 return true;
             }
@@ -2771,7 +2771,7 @@ function obtenir_carte(carte_id) {
             carte.texte = function () {
                 return "Quand vous vendez une carte : Donne 1 Or.";
             }
-            carte.effet_vente_carte = function () {
+            carte.effet_vente_autre = function () {
                 if (carte.camp == "joueur") {
                     Jeu.joueur.ressources[0].courant++;
                 }
@@ -2787,7 +2787,7 @@ function obtenir_carte(carte_id) {
             carte.effet_pose = function () {
                 if (!verifier_region(carte.camp, 78)) {
                     deplacer(carte, carte.camp, "regions");
-                    effet_pose(carte);
+                    effet_pose_carte(carte);
                     actualiser_zone();
                 }
             }
@@ -2811,7 +2811,7 @@ function obtenir_carte(carte_id) {
             carte.effet_pose = function () {
                 if (!verifier_region(carte.camp, 79)) {
                     deplacer(carte, carte.camp, "regions");
-                    effet_pose(carte);
+                    effet_pose_carte(carte);
                     actualiser_zone();
                 }
             }
@@ -2872,7 +2872,7 @@ function obtenir_carte(carte_id) {
                         case 2:
                             Jeu.adverse.terrain[cible].saignement += 2;
                             deplacer(carte, "joueur", "defausse");
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             actualiser_zone();
                             break;
                     }
@@ -2890,7 +2890,7 @@ function obtenir_carte(carte_id) {
                         }
                         Jeu.joueur.terrain[best].saignement += 2;
                         deplacer(carte, "adverse", "defausse");
-                        effet_pose(carte);
+                        effet_pose_carte(carte);
                         return true;
                     }
                     return false;
@@ -2944,7 +2944,7 @@ function obtenir_carte(carte_id) {
                             Jeu.joueur.terrain[cible].vie += 2;
                             Jeu.joueur.terrain[cible].stat_etage.vie_max += 2;
                             deplacer(carte, "joueur", "defausse");
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             actualiser_zone();
                             break;
                     }
@@ -2959,7 +2959,7 @@ function obtenir_carte(carte_id) {
                         Jeu.adverse.terrain[best].vie += 2;
                         Jeu.adverse.terrain[best].stat_etage.vie_max += 2;
                         deplacer(carte, "adverse", "defausse");
-                        effet_pose(carte);
+                        effet_pose_carte(carte);
                         return true;
                     }
                     return false;
@@ -3047,7 +3047,7 @@ function obtenir_carte(carte_id) {
                         case 2:
                             Jeu[camp].terrain[cible].silence = true;
                             deplacer(carte, "joueur", "defausse");
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             actualiser_zone();
                             break;
                     }
@@ -3060,7 +3060,7 @@ function obtenir_carte(carte_id) {
                         }
                         Jeu.joueur.terrain[best].silence = true;
                         deplacer(carte, "adverse", "defausse");
-                        effet_pose(carte);
+                        effet_pose_carte(carte);
                         return true;
                     }
                     return false;
@@ -3231,7 +3231,7 @@ function obtenir_carte(carte_id) {
             carte.effet_pose = function () {
                 if (!verifier_region(carte.camp, 96)) {
                     deplacer(carte, carte.camp, "regions");
-                    effet_pose(carte);
+                    effet_pose_carte(carte);
                     actualiser_zone();
                 }
             }
@@ -3255,7 +3255,7 @@ function obtenir_carte(carte_id) {
             carte.effet_pose = function () {
                 if (!verifier_region(carte.camp, 97)) {
                     deplacer(carte, carte.camp, "regions");
-                    effet_pose(carte);
+                    effet_pose_carte(carte);
                     actualiser_zone();
                 }
             }
@@ -3279,7 +3279,7 @@ function obtenir_carte(carte_id) {
             carte.effet_pose = function () {
                 if (!verifier_region(carte.camp, 98)) {
                     deplacer(carte, carte.camp, "regions");
-                    effet_pose(carte);
+                    effet_pose_carte(carte);
                     actualiser_zone();
                 }
             }
@@ -3303,7 +3303,7 @@ function obtenir_carte(carte_id) {
             carte.effet_pose = function () {
                 if (!verifier_region(carte.camp, 99)) {
                     deplacer(carte, carte.camp, "regions");
-                    effet_pose(carte);
+                    effet_pose_carte(carte);
                     actualiser_zone();
                 }
             }
@@ -3327,7 +3327,7 @@ function obtenir_carte(carte_id) {
             carte.effet_pose = function () {
                 if (!verifier_region(carte.camp, 100)) {
                     deplacer(carte, carte.camp, "regions");
-                    effet_pose(carte);
+                    effet_pose_carte(carte);
                     actualiser_zone();
                 }
             }
@@ -3351,7 +3351,7 @@ function obtenir_carte(carte_id) {
             carte.effet_pose = function () {
                 if (!verifier_region(carte.camp, 101)) {
                     deplacer(carte, carte.camp, "regions");
-                    effet_pose(carte);
+                    effet_pose_carte(carte);
                     actualiser_zone();
                 }
             }
@@ -3375,7 +3375,7 @@ function obtenir_carte(carte_id) {
             carte.effet_pose = function () {
                 if (!verifier_region(carte.camp, 102)) {
                     deplacer(carte, carte.camp, "regions");
-                    effet_pose(carte);
+                    effet_pose_carte(carte);
                     actualiser_zone();
                 }
             }
@@ -3399,7 +3399,7 @@ function obtenir_carte(carte_id) {
             carte.effet_pose = function () {
                 if (!verifier_region(carte.camp, 103)) {
                     deplacer(carte, carte.camp, "regions");
-                    effet_pose(carte);
+                    effet_pose_carte(carte);
                     actualiser_zone();
                 }
             }
@@ -3423,7 +3423,7 @@ function obtenir_carte(carte_id) {
             carte.effet_pose = function () {
                 if (!verifier_region(carte.camp, 104)) {
                     deplacer(carte, carte.camp, "regions");
-                    effet_pose(carte);
+                    effet_pose_carte(carte);
                     actualiser_zone();
                 }
             }
@@ -3447,7 +3447,7 @@ function obtenir_carte(carte_id) {
             carte.effet_pose = function () {
                 if (!verifier_region(carte.camp, 105)) {
                     deplacer(carte, carte.camp, "regions");
-                    effet_pose(carte);
+                    effet_pose_carte(carte);
                     actualiser_zone();
                 }
             }
@@ -3471,7 +3471,7 @@ function obtenir_carte(carte_id) {
             carte.effet_pose = function () {
                 if (!verifier_region(carte.camp, 106)) {
                     deplacer(carte, carte.camp, "regions");
-                    effet_pose(carte);
+                    effet_pose_carte(carte);
                     actualiser_zone();
                 }
             }
@@ -3528,7 +3528,7 @@ function obtenir_carte(carte_id) {
                             break;
                         case 2:
                             equiper(Jeu.joueur.terrain[cible], carte);
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             enlever(carte);
                             actualiser_zone();
                             break;
@@ -3541,7 +3541,7 @@ function obtenir_carte(carte_id) {
                             best++;
                         }
                         equiper(Jeu.adverse.terrain[best], carte);
-                        effet_pose(carte);
+                        effet_pose_carte(carte);
                         enlever(carte);
                         return true;
                     }
@@ -3596,7 +3596,7 @@ function obtenir_carte(carte_id) {
                             break;
                         case 2:
                             equiper(Jeu.joueur.terrain[cible], carte);
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             enlever(carte);
                             actualiser_zone();
                             break;
@@ -3609,7 +3609,7 @@ function obtenir_carte(carte_id) {
                             best++;
                         }
                         equiper(Jeu.adverse.terrain[best], carte);
-                        effet_pose(carte);
+                        effet_pose_carte(carte);
                         enlever(carte);
                         return true;
                     }
@@ -3663,7 +3663,7 @@ function obtenir_carte(carte_id) {
                             break;
                         case 2:
                             equiper(Jeu.joueur.terrain[cible], carte);
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             enlever(carte);
                             actualiser_zone();
                             break;
@@ -3676,7 +3676,7 @@ function obtenir_carte(carte_id) {
                             best++;
                         }
                         equiper(Jeu.adverse.terrain[best], carte);
-                        effet_pose(carte);
+                        effet_pose_carte(carte);
                         enlever(carte);
                         return true;
                     }
@@ -3731,7 +3731,7 @@ function obtenir_carte(carte_id) {
                             break;
                         case 2:
                             equiper(Jeu.joueur.terrain[cible], carte);
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             enlever(carte);
                             actualiser_zone();
                             break;
@@ -3744,7 +3744,7 @@ function obtenir_carte(carte_id) {
                             best++;
                         }
                         equiper(Jeu.adverse.terrain[best], carte);
-                        effet_pose(carte);
+                        effet_pose_carte(carte);
                         enlever(carte);
                         return true;
                     }
@@ -3799,7 +3799,7 @@ function obtenir_carte(carte_id) {
                             break;
                         case 2:
                             equiper(Jeu.joueur.terrain[cible], carte);
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             enlever(carte);
                             actualiser_zone();
                             break;
@@ -3812,7 +3812,7 @@ function obtenir_carte(carte_id) {
                             best++;
                         }
                         equiper(Jeu.adverse.terrain[best], carte);
-                        effet_pose(carte);
+                        effet_pose_carte(carte);
                         enlever(carte);
                         return true;
                     }
@@ -3840,7 +3840,7 @@ function obtenir_carte(carte_id) {
             carte.effet_pose = function () {
                 if (!verifier_region(carte.camp, 113)) {
                     deplacer(carte, carte.camp, "regions");
-                    effet_pose(carte);
+                    effet_pose_carte(carte);
                     actualiser_zone();
                 }
             }
@@ -3987,7 +3987,7 @@ function obtenir_carte(carte_id) {
                         case 2:
                             degats(Jeu.adverse.terrain[cible], 1);
                             deplacer(carte, "joueur", "defausse");
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             actualiser_zone();
                             break;
                     }
@@ -4005,7 +4005,7 @@ function obtenir_carte(carte_id) {
                         }
                         degats(Jeu.joueur.terrain[best], 1);
                         deplacer(carte, "adverse", "defausse");
-                        effet_pose(carte);
+                        effet_pose_carte(carte);
                         return true;
                     }
                     return false;
@@ -4097,12 +4097,12 @@ function obtenir_carte(carte_id) {
                         ajouter(nouvelle_carte, "joueur", "boutique");
                     }
                     deplacer(carte, "joueur", "terrain");
-                    effet_pose(carte);
+                    effet_pose_carte(carte);
                     actualiser_zone();
                 }
                 else {
                     deplacer(carte, "adverse", "terrain");
-                    effet_pose(carte);
+                    effet_pose_carte(carte);
                     return true;
                 }
             }
@@ -4158,7 +4158,7 @@ function obtenir_carte(carte_id) {
                             break;
                         case 2:
                             equiper(Jeu.joueur.terrain[cible], carte);
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             enlever(carte);
                             actualiser_zone();
                             break;
@@ -4171,7 +4171,7 @@ function obtenir_carte(carte_id) {
                             best++;
                         }
                         equiper(Jeu.adverse.terrain[best], carte);
-                        effet_pose(carte);
+                        effet_pose_carte(carte);
                         enlever(carte);
                         return true;
                     }
@@ -4197,7 +4197,7 @@ function obtenir_carte(carte_id) {
                     Jeu[carte.camp].ressources[1].max++;
                 }
                 deplacer(carte, carte.camp, "terrain");
-                effet_pose(carte);
+                effet_pose_carte(carte);
                 actualiser_zone();
                 return true;
             }
@@ -4220,7 +4220,7 @@ function obtenir_carte(carte_id) {
                     Jeu[carte.camp].ressources[2].max++;
                 }
                 deplacer(carte, carte.camp, "terrain");
-                effet_pose(carte);
+                effet_pose_carte(carte);
                 actualiser_zone();
                 return true;
             }
@@ -4243,7 +4243,7 @@ function obtenir_carte(carte_id) {
                     Jeu[carte.camp].ressources[3].max++;
                 }
                 deplacer(carte, carte.camp, "terrain");
-                effet_pose(carte);
+                effet_pose_carte(carte);
                 actualiser_zone();
                 return true;
             }
@@ -4266,7 +4266,7 @@ function obtenir_carte(carte_id) {
                     Jeu[carte.camp].ressources[4].max++;
                 }
                 deplacer(carte, carte.camp, "terrain");
-                effet_pose(carte);
+                effet_pose_carte(carte);
                 actualiser_zone();
                 return true;
             }
@@ -4289,7 +4289,7 @@ function obtenir_carte(carte_id) {
                     Jeu[carte.camp].ressources[5].max++;
                 }
                 deplacer(carte, carte.camp, "terrain");
-                effet_pose(carte);
+                effet_pose_carte(carte);
                 actualiser_zone();
                 return true;
             }
@@ -4312,7 +4312,7 @@ function obtenir_carte(carte_id) {
                     Jeu[carte.camp].ressources[6].max++;
                 }
                 deplacer(carte, carte.camp, "terrain");
-                effet_pose(carte);
+                effet_pose_carte(carte);
                 actualiser_zone();
                 return true;
             }
@@ -4335,7 +4335,7 @@ function obtenir_carte(carte_id) {
                     Jeu[carte.camp].ressources[7].max++;
                 }
                 deplacer(carte, carte.camp, "terrain");
-                effet_pose(carte);
+                effet_pose_carte(carte);
                 actualiser_zone();
                 return true;
             }
@@ -4358,7 +4358,7 @@ function obtenir_carte(carte_id) {
                     Jeu[carte.camp].ressources[8].max++;
                 }
                 deplacer(carte, carte.camp, "terrain");
-                effet_pose(carte);
+                effet_pose_carte(carte);
                 actualiser_zone();
                 return true;
             }
@@ -4381,7 +4381,7 @@ function obtenir_carte(carte_id) {
                     Jeu[carte.camp].ressources[9].max++;
                 }
                 deplacer(carte, carte.camp, "terrain");
-                effet_pose(carte);
+                effet_pose_carte(carte);
                 actualiser_zone();
                 return true;
             }
@@ -4404,7 +4404,7 @@ function obtenir_carte(carte_id) {
                     Jeu[carte.camp].ressources[10].max++;
                 }
                 deplacer(carte, carte.camp, "terrain");
-                effet_pose(carte);
+                effet_pose_carte(carte);
                 actualiser_zone();
                 return true;
             }
@@ -4427,7 +4427,7 @@ function obtenir_carte(carte_id) {
                     Jeu[carte.camp].ressources[11].max++;
                 }
                 deplacer(carte, carte.camp, "terrain");
-                effet_pose(carte);
+                effet_pose_carte(carte);
                 actualiser_zone();
                 return true;
             }
@@ -4450,7 +4450,7 @@ function obtenir_carte(carte_id) {
                     Jeu[carte.camp].ressources[12].max++;
                 }
                 deplacer(carte, carte.camp, "terrain");
-                effet_pose(carte);
+                effet_pose_carte(carte);
                 actualiser_zone();
                 return true;
             }
@@ -4494,7 +4494,7 @@ function obtenir_carte(carte_id) {
                             }
                             texte += "</div>";
                             texte += "</div>";
-                            
+
                             afficher_choix(texte);
                             break;
                         case 2:
@@ -4733,7 +4733,7 @@ function obtenir_carte(carte_id) {
                                 Jeu.adverse.terrain[cible].poison += 4;
                             }
                             deplacer(carte, "joueur", "defausse");
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             actualiser_zone();
                             break;
                     }
@@ -4751,7 +4751,7 @@ function obtenir_carte(carte_id) {
                             Jeu.joueur.terrain[best].poison += 4;
                         }
                         deplacer(carte, "adverse", "defausse");
-                        effet_pose(carte);
+                        effet_pose_carte(carte);
                         return true;
                     }
                     return false;
@@ -4855,7 +4855,7 @@ function obtenir_carte(carte_id) {
                                 deplacer(Jeu.adverse.terrain[cible], "adverse", "main");
                             }
                             deplacer(carte, "joueur", "defausse");
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             actualiser_zone();
                             break;
                     }
@@ -4877,7 +4877,7 @@ function obtenir_carte(carte_id) {
                             degats(carte_cible, 2);
                         }
                         deplacer(carte, "adverse", "defausse");
-                        effet_pose(carte);
+                        effet_pose_carte(carte);
                         return true;
                     }
                     return false;
@@ -4904,7 +4904,7 @@ function obtenir_carte(carte_id) {
                         degats(Jeu[camp_oppose(carte.camp)].terrain[0], 6);
                     }
                     deplacer(carte, carte.camp, "defausse");
-                    effet_pose(carte);
+                    effet_pose_carte(carte);
                     actualiser_zone();
                     return true;
                 }
@@ -4968,7 +4968,7 @@ function obtenir_carte(carte_id) {
                                 Jeu.joueur.terrain[cible].vie_max += 3;
                             }
                             deplacer(carte, "joueur", "defausse");
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             actualiser_zone();
                             break;
                     }
@@ -4990,7 +4990,7 @@ function obtenir_carte(carte_id) {
                             Jeu.adverse.terrain[best].vie_max += 3;
                         }
                         deplacer(carte, "adverse", "defausse");
-                        effet_pose(carte);
+                        effet_pose_carte(carte);
                         return true;
                     }
                     return false;
@@ -5085,7 +5085,7 @@ function obtenir_carte(carte_id) {
                             else {
                                 degats(Jeu.adverse.terrain[cible1], 2);
                                 deplacer(carte, "joueur", "defausse");
-                                effet_pose(carte);
+                                effet_pose_carte(carte);
                                 actualiser_zone();
                             }
                             break;
@@ -5098,7 +5098,7 @@ function obtenir_carte(carte_id) {
                                 degats(Jeu.adverse.terrain[cible2], 2);
                             }
                             deplacer(carte, "joueur", "defausse");
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             actualiser_zone();
                             break;
                     }
@@ -5128,7 +5128,7 @@ function obtenir_carte(carte_id) {
                             degats(Jeu.joueur.terrain[best], 2);
                         }
                         deplacer(carte, "adverse", "defausse");
-                        effet_pose(carte);
+                        effet_pose_carte(carte);
                         return true;
                     }
                     return false;
@@ -5187,7 +5187,7 @@ function obtenir_carte(carte_id) {
                             }
                             deplacer(Jeu.joueur.defausse[cible], "joueur", "boutique");
                             deplacer(carte, "joueur", "defausse");
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             actualiser_zone();
                             break;
                     }
@@ -5281,7 +5281,7 @@ function obtenir_carte(carte_id) {
                             else {
                                 soin(Jeu.joueur.terrain[cible], 5);
                             }
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             enlever(carte);
                             actualiser_zone();
                             break;
@@ -5334,7 +5334,7 @@ function obtenir_carte(carte_id) {
                                 degats(Jeu.adverse.terrain[cible], 5);
                             }
                             deplacer(carte, "joueur", "defausse");
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             actualiser_zone();
                             break;
                     }
@@ -5352,7 +5352,7 @@ function obtenir_carte(carte_id) {
                             soin(Jeu.adverse.terrain[best], 5);
                         }
                         deplacer(carte, "adverse", "defausse");
-                        effet_pose(carte);
+                        effet_pose_carte(carte);
                         return true;
                     }
                     else if (verifier_cible_creature("joueur", "terrain")) {
@@ -5372,7 +5372,7 @@ function obtenir_carte(carte_id) {
                             degats(Jeu.joueur.terrain[best], 5);
                         }
                         deplacer(carte, "adverse", "defausse");
-                        effet_pose(carte);
+                        effet_pose_carte(carte);
                         return true;
                     }
                     return false;
@@ -5467,7 +5467,7 @@ function obtenir_carte(carte_id) {
                                     degats(Jeu.adverse.terrain[cible1], 5);
                                 }
                                 deplacer(carte, "joueur", "defausse");
-                                effet_pose(carte);
+                                effet_pose_carte(carte);
                                 actualiser_zone();
                             }
                             break;
@@ -5481,7 +5481,7 @@ function obtenir_carte(carte_id) {
                                 soin(Jeu.joueur.terrain[cible2], 5);
                             }
                             deplacer(carte, "joueur", "defausse");
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             actualiser_zone();
                             break;
                     }
@@ -5521,7 +5521,7 @@ function obtenir_carte(carte_id) {
                             }
                         }
                         deplacer(carte, "adverse", "defausse");
-                        effet_pose(carte);
+                        effet_pose_carte(carte);
                         return true;
                     }
                     return false;
@@ -5586,7 +5586,7 @@ function obtenir_carte(carte_id) {
                                 Jeu.adverse.terrain[cible].gel = 1;
                             }
                             deplacer(carte, "joueur", "defausse");
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             actualiser_zone();
                             break;
                     }
@@ -5609,7 +5609,7 @@ function obtenir_carte(carte_id) {
                             Jeu.joueur.terrain[best].gel = 1;
                         }
                         deplacer(carte, "adverse", "defausse");
-                        effet_pose(carte);
+                        effet_pose_carte(carte);
                         return true;
                     }
                     return false;
@@ -5640,7 +5640,7 @@ function obtenir_carte(carte_id) {
                     }
                 }
                 deplacer(carte, carte.camp, "terrain");
-                effet_pose(carte);
+                effet_pose_carte(carte);
                 actualiser_zone();
                 return true;
             }
@@ -5794,7 +5794,7 @@ function obtenir_carte(carte_id) {
                             pioche("joueur", nouvelle_carte);
                         }
                         deplacer(carte, "joueur", "defausse");
-                        effet_pose(carte);
+                        effet_pose_carte(carte);
                         actualiser_zone();
                     }
                 }
@@ -6109,14 +6109,14 @@ function obtenir_carte(carte_id) {
                             }
                             else {
                                 deplacer(carte, "joueur", "terrain");
-                                effet_pose(carte);
+                                effet_pose_carte(carte);
                                 actualiser_zone();
                             }
                             break;
                         case 2:
                             deplacer(carte, "joueur", "terrain");
                             deplacer(Jeu.adverse.terrain[cible], "joueur", "terrain");
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             actualiser_zone();
                             break;
                     }
@@ -6141,7 +6141,7 @@ function obtenir_carte(carte_id) {
                         }
                         deplacer(Jeu.joueur.terrain[best], "adverse", "terrain");
                     }
-                    effet_pose(carte);
+                    effet_pose_carte(carte);
                     return true;
                 }
             }
@@ -6193,7 +6193,7 @@ function obtenir_carte(carte_id) {
                             break;
                         case 2:
                             equiper(Jeu.joueur.terrain[cible], carte);
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             enlever(carte);
                             actualiser_zone();
                             break;
@@ -6206,7 +6206,7 @@ function obtenir_carte(carte_id) {
                             best++;
                         }
                         equiper(Jeu.adverse.terrain[best], carte);
-                        effet_pose(carte);
+                        effet_pose_carte(carte);
                         enlever(carte);
                         return true;
                     }
@@ -6490,7 +6490,7 @@ function obtenir_carte(carte_id) {
                             }
                             else {
                                 deplacer(carte, "joueur", "terrain");
-                                effet_pose(carte);
+                                effet_pose_carte(carte);
                                 actualiser_zone();
                             }
                             break;
@@ -6500,7 +6500,7 @@ function obtenir_carte(carte_id) {
                             carte.vie++;
                             carte.vie_max++;
                             deplacer(carte, "joueur", "terrain");
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             actualiser_zone();
                             break;
                     }
@@ -6522,7 +6522,7 @@ function obtenir_carte(carte_id) {
                         carte.vie_max++;
                     }
                     deplacer(carte, "adverse", "terrain");
-                    effet_pose(carte);
+                    effet_pose_carte(carte);
                     return true;
                 }
             }
@@ -6577,7 +6577,7 @@ function obtenir_carte(carte_id) {
                         case 2:
                             mort(Jeu.adverse.terrain[cible]);
                             deplacer(carte, "joueur", "defausse");
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             actualiser_zone();
                             break;
                     }
@@ -6596,7 +6596,7 @@ function obtenir_carte(carte_id) {
                         mort(Jeu.joueur.terrain[best]);
                     }
                     deplacer(carte, "adverse", "defausse");
-                    effet_pose(carte);
+                    effet_pose_carte(carte);
                     return true;
                 }
             }
@@ -6653,7 +6653,7 @@ function obtenir_carte(carte_id) {
                                 degats_direct("adverse", 5);
                             }
                             deplacer(carte, "joueur", "defausse");
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             if (Jeu.adverse.vie > 0) {
                                 actualiser_zone();
                             }
@@ -6682,7 +6682,7 @@ function obtenir_carte(carte_id) {
                             }
                         }
                         deplacer(carte, "adverse", "defausse");
-                        effet_pose(carte);
+                        effet_pose_carte(carte);
                         if (degats(Jeu.joueur.terrain[best], 10).mort) {
                             degats_direct("joueur", 5);
                             if (Jeu.joueur.vie <= 0) {
@@ -6742,7 +6742,7 @@ function obtenir_carte(carte_id) {
                         case 2:
                             soin(Jeu.joueur.terrain[cible], Jeu.joueur.terrain[cible].vie_max - Jeu.joueur.terrain[cible].vie);
                             deplacer(carte, "joueur", "defausse");
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             actualiser_zone();
                             break;
                     }
@@ -6760,7 +6760,7 @@ function obtenir_carte(carte_id) {
                         }
                         soin(Jeu.adverse.terrain[best], Jeu.adverse.terrain[best].vie_max - Jeu.adverse.terrain[best].vie);
                         deplacer(carte, "adverse", "defausse");
-                        effet_pose(carte);
+                        effet_pose_carte(carte);
                         return true;
                     }
                     return false;
@@ -6814,7 +6814,7 @@ function obtenir_carte(carte_id) {
                             Jeu.joueur.terrain[cible].vie += 5;
                             Jeu.joueur.terrain[cible].vie_max += 5;
                             deplacer(carte, "joueur", "defausse");
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             actualiser_zone();
                             break;
                     }
@@ -6829,7 +6829,7 @@ function obtenir_carte(carte_id) {
                         Jeu.adverse.terrain[best].vie += 5;
                         Jeu.adverse.terrain[best].vie_max += 5;
                         deplacer(carte, "adverse", "defausse");
-                        effet_pose(carte);
+                        effet_pose_carte(carte);
                         return true;
                     }
                     return false;
@@ -6999,7 +6999,7 @@ function obtenir_carte(carte_id) {
                                 Jeu.joueur.terrain[cible].vie_max += 5;
                             }
                             deplacer(carte, "joueur", "defausse");
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             actualiser_zone();
                             break;
                     }
@@ -7019,7 +7019,7 @@ function obtenir_carte(carte_id) {
                             Jeu.adverse.terrain[best].vie_max += 5;
                         }
                         deplacer(carte, "adverse", "defausse");
-                        effet_pose(carte);
+                        effet_pose_carte(carte);
                         return true;
                     }
                     return false;
@@ -7079,7 +7079,7 @@ function obtenir_carte(carte_id) {
                                 Jeu.joueur.terrain[cible].defense += 5;
                             }
                             deplacer(carte, "joueur", "defausse");
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             actualiser_zone();
                             break;
                     }
@@ -7097,7 +7097,7 @@ function obtenir_carte(carte_id) {
                             Jeu.adverse.terrain[best].defense += 5;
                         }
                         deplacer(carte, "adverse", "defausse");
-                        effet_pose(carte);
+                        effet_pose_carte(carte);
                         return true;
                     }
                     return false;
@@ -7155,7 +7155,7 @@ function obtenir_carte(carte_id) {
                         case 2:
                             equiper(Jeu.joueur.terrain[cible], carte);
                             Jeu.joueur.terrain[cible].camouflage = true;
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             enlever(carte);
                             actualiser_zone();
                             break;
@@ -7169,7 +7169,7 @@ function obtenir_carte(carte_id) {
                         }
                         equiper(Jeu.adverse.terrain[best], carte);
                         Jeu.adverse.terrain[best].camouflage = true;
-                        effet_pose(carte);
+                        effet_pose_carte(carte);
                         enlever(carte);
                         return true;
                     }
@@ -7253,12 +7253,12 @@ function obtenir_carte(carte_id) {
                             }
                             texte += "</div>";
                             texte += "</div>";
-                            
+
                             afficher_choix(texte);
                             break;
                         case 3:
                             degats(Jeu.adverse.terrain[cible2], statistique(Jeu.joueur.terrain[cible1], "attaque"));
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             deplacer(carte, "joueur", "defausse");
                             actualiser_zone();
                             break;
@@ -7285,7 +7285,7 @@ function obtenir_carte(carte_id) {
                             }
                         }
                         degats(Jeu.joueur.terrain[best2], statistique(Jeu.adverse.terrain[best1], "attaque"));
-                        effet_pose(carte);
+                        effet_pose_carte(carte);
                         enlever(carte);
                         return true;
                     }
@@ -7368,12 +7368,12 @@ function obtenir_carte(carte_id) {
                             }
                             texte += "</div>";
                             texte += "</div>";
-                            
+
                             afficher_choix(texte);
                             break;
                         case 3:
                             degats(Jeu.adverse.terrain[cible2], statistique(Jeu.joueur.terrain[cible1], "vie_max"));
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             deplacer(carte, "joueur", "defausse");
                             actualiser_zone();
                             break;
@@ -7400,7 +7400,7 @@ function obtenir_carte(carte_id) {
                             }
                         }
                         degats(Jeu.joueur.terrain[best2], statistique(Jeu.adverse.terrain[best1], "vie_max"));
-                        effet_pose(carte);
+                        effet_pose_carte(carte);
                         enlever(carte);
                         return true;
                     }
@@ -7452,7 +7452,7 @@ function obtenir_carte(carte_id) {
                             break;
                         case 2:
                             degats(Jeu.adverse.terrain[0], statistique(Jeu.joueur.terrain[cible], "attaque"));
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             deplacer(carte, "joueur", "defausse");
                             actualiser_zone();
                             break;
@@ -7470,7 +7470,7 @@ function obtenir_carte(carte_id) {
                             }
                         }
                         degats(Jeu.joueur.terrain[0], statistique(Jeu.adverse.terrain[best], "attaque"));
-                        effet_pose(carte);
+                        effet_pose_carte(carte);
                         enlever(carte);
                         return true;
                     }
@@ -7525,7 +7525,7 @@ function obtenir_carte(carte_id) {
                         case 2:
                             Jeu.joueur.terrain[cible].brulure = 0;
                             deplacer(carte, "joueur", "defausse");
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             actualiser_zone();
                             break;
                     }
@@ -7543,7 +7543,7 @@ function obtenir_carte(carte_id) {
                         }
                         Jeu.adverse.terrain[best].brulure = 0;
                         deplacer(carte, "adverse", "defausse");
-                        effet_pose(carte);
+                        effet_pose_carte(carte);
                         return true;
                     }
                     return false;
@@ -7596,7 +7596,7 @@ function obtenir_carte(carte_id) {
                         case 2:
                             Jeu.joueur.terrain[cible].gel = 0;
                             deplacer(carte, "joueur", "defausse");
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             actualiser_zone();
                             break;
                     }
@@ -7614,7 +7614,7 @@ function obtenir_carte(carte_id) {
                         }
                         Jeu.adverse.terrain[best].gel = 0;
                         deplacer(carte, "adverse", "defausse");
-                        effet_pose(carte);
+                        effet_pose_carte(carte);
                         return true;
                     }
                     return false;
@@ -7668,7 +7668,7 @@ function obtenir_carte(carte_id) {
                         case 2:
                             Jeu.joueur.terrain[cible].etourdissement = false;
                             deplacer(carte, "joueur", "defausse");
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             actualiser_zone();
                             break;
                     }
@@ -7686,7 +7686,7 @@ function obtenir_carte(carte_id) {
                         }
                         Jeu.adverse.terrain[best].etourdissement = false;
                         deplacer(carte, "adverse", "defausse");
-                        effet_pose(carte);
+                        effet_pose_carte(carte);
                         return true;
                     }
                     return false;
@@ -7738,7 +7738,7 @@ function obtenir_carte(carte_id) {
                         case 2:
                             Jeu.joueur.terrain[cible].saignement = 0;
                             deplacer(carte, "joueur", "defausse");
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             actualiser_zone();
                             break;
                     }
@@ -7756,7 +7756,7 @@ function obtenir_carte(carte_id) {
                         }
                         Jeu.adverse.terrain[best].saignement = 0;
                         deplacer(carte, "adverse", "defausse");
-                        effet_pose(carte);
+                        effet_pose_carte(carte);
                         return true;
                     }
                     return false;
@@ -7816,7 +7816,7 @@ function obtenir_carte(carte_id) {
                         case 2:
                             deplacer(carte, "joueur", "defausse");
                             deplacer(Jeu.adverse.terrain[cible], "joueur", "terrain");
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             actualiser_zone();
                             break;
                     }
@@ -7834,7 +7834,7 @@ function obtenir_carte(carte_id) {
                         }
                         deplacer(Jeu.joueur.terrain[best], "adverse", "terrain");
                         deplacer(carte, "adverse", "defausse");
-                        effet_pose(carte);
+                        effet_pose_carte(carte);
                         return true;
                     }
                     return false;
@@ -7881,7 +7881,7 @@ function obtenir_carte(carte_id) {
                     }
                 }
                 deplacer(carte, carte.camp, "terrain");
-                effet_pose(carte);
+                effet_pose_carte(carte);
                 actualiser_zone();
                 return true;
             }
@@ -7912,7 +7912,7 @@ function obtenir_carte(carte_id) {
                     pioche("joueur");
                 }
                 deplacer(carte, carte.camp, "terrain");
-                effet_pose(carte);
+                effet_pose_carte(carte);
                 actualiser_zone();
                 return true;
             }
@@ -7941,7 +7941,7 @@ function obtenir_carte(carte_id) {
                         }
                     }
                     deplacer(carte, "joueur", "defausse");
-                    effet_pose(carte);
+                    effet_pose_carte(carte);
                     actualiser_zone();
                     return true;
                 }
@@ -7972,7 +7972,7 @@ function obtenir_carte(carte_id) {
                         }
                     }
                     deplacer(carte, "joueur", "defausse");
-                    effet_pose(carte);
+                    effet_pose_carte(carte);
                     actualiser_zone();
                     return true;
                 }
@@ -8062,7 +8062,7 @@ function obtenir_carte(carte_id) {
                                 soin(Jeu[cible_camp].terrain[cible], 2);
                             }
                             deplacer(carte, "joueur", "defausse");
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             actualiser_zone();
                             break;
                     }
@@ -8090,7 +8090,7 @@ function obtenir_carte(carte_id) {
                             soin(Jeu.adverse.terrain[best], 2);
                         }
                         deplacer(carte, "adverse", "defausse");
-                        effet_pose(carte);
+                        effet_pose_carte(carte);
                         return true;
                     }
                     else if (verifier2) {
@@ -8108,7 +8108,7 @@ function obtenir_carte(carte_id) {
                             soin(Jeu.joueur.terrain[best], 2);
                         }
                         deplacer(carte, "adverse", "defausse");
-                        effet_pose(carte);
+                        effet_pose_carte(carte);
                         return true;
                     }
                     return false;
@@ -8162,7 +8162,7 @@ function obtenir_carte(carte_id) {
                             break;
                         case 2:
                             equiper(Jeu.joueur.terrain[cible], carte);
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             enlever(carte);
                             actualiser_zone();
                             break;
@@ -8175,7 +8175,7 @@ function obtenir_carte(carte_id) {
                             best++;
                         }
                         equiper(Jeu.adverse.terrain[best], carte);
-                        effet_pose(carte);
+                        effet_pose_carte(carte);
                         enlever(carte);
                         return true;
                     }
@@ -8230,7 +8230,7 @@ function obtenir_carte(carte_id) {
                         case 2:
                             Jeu.joueur.terrain[cible].vie_sup += 4;
                             equiper(Jeu.joueur.terrain[cible], carte);
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             enlever(carte);
                             actualiser_zone();
                             break;
@@ -8244,7 +8244,7 @@ function obtenir_carte(carte_id) {
                         }
                         Jeu.adverse.terrain[best].vie_sup += 4;
                         equiper(Jeu.adverse.terrain[best], carte);
-                        effet_pose(carte);
+                        effet_pose_carte(carte);
                         enlever(carte);
                         return true;
                     }
@@ -8273,7 +8273,7 @@ function obtenir_carte(carte_id) {
                         degats_direct("joueur", 2);
                     }
                     deplacer(carte, carte.camp, "terrain");
-                    effet_pose(carte);
+                    effet_pose_carte(carte);
                     if (Jeu.joueur.vie > 0) {
                         actualiser_zone();
                     }
@@ -8287,7 +8287,7 @@ function obtenir_carte(carte_id) {
                             degats_direct("adverse", 2);
                         }
                         deplacer(carte, carte.camp, "terrain");
-                        effet_pose(carte);
+                        effet_pose_carte(carte);
                         actualiser_zone();
                     }
                 }
@@ -8359,13 +8359,13 @@ function obtenir_carte(carte_id) {
                         case 3:
                             soin(Jeu.joueur.terrain[cible], 2);
                             deplacer(carte, "joueur", "defausse");
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             actualiser_zone();
                             break;
                         case 4:
                             pioche("joueur");
                             deplacer(carte, "joueur", "defausse");
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             actualiser_zone();
                             break;
                     }
@@ -8378,7 +8378,7 @@ function obtenir_carte(carte_id) {
                         }
                         soin(Jeu.adverse.terrain[best], 2);
                         deplacer(carte, "adverse", "defausse");
-                        effet_pose(carte);
+                        effet_pose_carte(carte);
                         return true;
                     }
                     return false;
@@ -8433,7 +8433,7 @@ function obtenir_carte(carte_id) {
                             Jeu.joueur.defausse[cible].vie = Jeu.joueur.defausse[cible].vie_max;
                             deplacer(Jeu.joueur.defausse[cible], "joueur", "terrain");
                             deplacer(carte, "joueur", "defausse");
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             actualiser_zone();
                             break;
                     }
@@ -8452,7 +8452,7 @@ function obtenir_carte(carte_id) {
                         Jeu.adverse.defausse[best].vie = Jeu.adverse.defausse[best].vie_max;
                         deplacer(Jeu.adverse.defausse[best], "adverse", "terrain");
                         deplacer(carte, "adverse", "defausse");
-                        effet_pose(carte);
+                        effet_pose_carte(carte);
                         return true;
                     }
                     return false;
@@ -8469,7 +8469,7 @@ function obtenir_carte(carte_id) {
             carte.texte = function () {
                 return "Quand une Créature adverse est posée : Lui inflige 3 dégâts et se détruit.";
             }
-            carte.effet_pose_carte = function (carte_pose) {
+            carte.effet_vente_autre = function (carte_pose) {
                 if (carte_pose.zone == "terrain" && carte_pose.camp != carte.camp && carte_pose.type == "Créature") {
                     degats(carte_pose, 3);
                     mort(carte);
@@ -8521,7 +8521,7 @@ function obtenir_carte(carte_id) {
                         }
                         pioche("joueur", nouvelle_carte);
                         deplacer(carte, "joueur", "defausse");
-                        effet_pose(carte);
+                        effet_pose_carte(carte);
                         actualiser_zone();
                     }
                 }
@@ -8553,7 +8553,7 @@ function obtenir_carte(carte_id) {
                         }
                         pioche("joueur", nouvelle_carte);
                         deplacer(carte, "joueur", "defausse");
-                        effet_pose(carte);
+                        effet_pose_carte(carte);
                         actualiser_zone();
                     }
                 }
@@ -8646,7 +8646,7 @@ function obtenir_carte(carte_id) {
                         case 2:
                             Jeu.joueur.terrain[cible].regeneration += 2;
                             deplacer(carte, "joueur", "defausse");
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             actualiser_zone();
                             break;
                     }
@@ -8659,7 +8659,7 @@ function obtenir_carte(carte_id) {
                         }
                         Jeu.adverse.terrain[best].regeneration += 2;
                         deplacer(carte, "adverse", "defausse");
-                        effet_pose(carte);
+                        effet_pose_carte(carte);
                         return true;
                     }
                     return false;
@@ -8726,7 +8726,7 @@ function obtenir_carte(carte_id) {
                                 Jeu.joueur.terrain[cible].vie = Jeu.joueur.terrain[cible].vie_max;
                             }
                             deplacer(carte, "joueur", "defausse");
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             actualiser_zone();
                             break;
                     }
@@ -8756,7 +8756,7 @@ function obtenir_carte(carte_id) {
                             Jeu.adverse.terrain[best].vie = Jeu.adverse.terrain[best].vie_max;
                         }
                         deplacer(carte, "adverse", "defausse");
-                        effet_pose(carte);
+                        effet_pose_carte(carte);
                         return true;
                     }
                     return false;
@@ -8820,7 +8820,7 @@ function obtenir_carte(carte_id) {
                                 Jeu.joueur.boutique[cible].cout[3] = 0;
                             }
                             deplacer(carte, "joueur", "defausse");
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             actualiser_zone();
                             break;
                     }
@@ -8885,7 +8885,7 @@ function obtenir_carte(carte_id) {
                             Jeu.joueur.terrain[cible].vie += 10;
                             Jeu.joueur.terrain[cible].vie_max += 10;
                             deplacer(carte, "joueur", "defausse");
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             actualiser_zone();
                             break;
                     }
@@ -8905,7 +8905,7 @@ function obtenir_carte(carte_id) {
                         Jeu.adverse.terrain[best].vie += 10;
                         Jeu.adverse.terrain[best].vie_max += 10;
                         deplacer(carte, "adverse", "defausse");
-                        effet_pose(carte);
+                        effet_pose_carte(carte);
                         return true;
                     }
                     return false;
@@ -9049,7 +9049,7 @@ function obtenir_carte(carte_id) {
                             Jeu.joueur.terrain[cible].vol_de_vie += 2;
                             Jeu.joueur.terrain[cible].familles.push("Vampire");
                             deplacer(carte, "joueur", "defausse");
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             actualiser_zone();
                             break;
                     }
@@ -9069,7 +9069,7 @@ function obtenir_carte(carte_id) {
                         Jeu.adverse.terrain[best].vol_de_vie += 2;
                         Jeu.adverse.terrain[best].familles.push("Vampire");
                         deplacer(carte, "adverse", "defausse");
-                        effet_pose(carte);
+                        effet_pose_carte(carte);
                         return true;
                     }
                     return false;
@@ -9127,7 +9127,7 @@ function obtenir_carte(carte_id) {
                         case 2:
                             Jeu.joueur.terrain[cible].esquive = true;
                             deplacer(carte, "joueur", "defausse");
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             actualiser_zone();
                             break;
                     }
@@ -9146,7 +9146,7 @@ function obtenir_carte(carte_id) {
                         }
                         Jeu.adverse.terrain[best].esquive = true;
                         deplacer(carte, "adverse", "defausse");
-                        effet_pose(carte);
+                        effet_pose_carte(carte);
                         return true;
                     }
                     return false;
@@ -9200,7 +9200,7 @@ function obtenir_carte(carte_id) {
                             break;
                         case 2:
                             equiper(Jeu.joueur.terrain[cible], carte);
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             enlever(carte);
                             actualiser_zone();
                             break;
@@ -9213,7 +9213,7 @@ function obtenir_carte(carte_id) {
                             best++;
                         }
                         equiper(Jeu.adverse.terrain[best], carte);
-                        effet_pose(carte);
+                        effet_pose_carte(carte);
                         enlever(carte);
                         return true;
                     }
@@ -9267,7 +9267,7 @@ function obtenir_carte(carte_id) {
                             break;
                         case 2:
                             equiper(Jeu.joueur.terrain[cible], carte);
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             enlever(carte);
                             actualiser_zone();
                             break;
@@ -9280,7 +9280,7 @@ function obtenir_carte(carte_id) {
                             best++;
                         }
                         equiper(Jeu.adverse.terrain[best], carte);
-                        effet_pose(carte);
+                        effet_pose_carte(carte);
                         enlever(carte);
                         return true;
                     }
@@ -9344,7 +9344,7 @@ function obtenir_carte(carte_id) {
                         case 2:
                             Jeu.adverse.terrain[cible].camouflage = false;
                             deplacer(carte, "joueur", "defausse");
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             actualiser_zone();
                             break;
                     }
@@ -9363,7 +9363,7 @@ function obtenir_carte(carte_id) {
                         }
                         Jeu.joueur.terrain[best].camouflage = false;
                         deplacer(carte, "adverse", "defausse");
-                        effet_pose(carte);
+                        effet_pose_carte(carte);
                         return true;
                     }
                     return false;
@@ -9427,14 +9427,14 @@ function obtenir_carte(carte_id) {
                             }
                             else {
                                 deplacer(carte, "joueur", "terrain");
-                                effet_pose(carte);
+                                effet_pose_carte(carte);
                                 actualiser_zone();
                             }
                             break;
                         case 2:
                             Jeu.adverse.main[cible].cache = Jeu.adverse.main[cible].camouflage = false;
                             deplacer(carte, "joueur", "terrain");
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             actualiser_zone();
                             break;
                     }
@@ -9454,7 +9454,7 @@ function obtenir_carte(carte_id) {
                         Jeu.joueur.main[best].cache = Jeu.joueur.main[best].camouflage = false;
                     }
                     deplacer(carte, "adverse", "terrain");
-                    effet_pose(carte);
+                    effet_pose_carte(carte);
                     return true;
                 }
             }
@@ -9518,14 +9518,14 @@ function obtenir_carte(carte_id) {
                             }
                             else {
                                 deplacer(carte, "joueur", "terrain");
-                                effet_pose(carte);
+                                effet_pose_carte(carte);
                                 actualiser_zone();
                             }
                             break;
                         case 2:
                             Jeu.adverse.boutique[cible].cache = Jeu.adverse.boutique[cible].camouflage = false;
                             deplacer(carte, "joueur", "terrain");
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             actualiser_zone();
                             break;
                     }
@@ -9545,7 +9545,7 @@ function obtenir_carte(carte_id) {
                         Jeu.joueur.boutique[best].cache = Jeu.joueur.boutique[best].camouflage = false;
                     }
                     deplacer(carte, "adverse", "terrain");
-                    effet_pose(carte);
+                    effet_pose_carte(carte);
                     return true;
                 }
             }
@@ -9576,7 +9576,7 @@ function obtenir_carte(carte_id) {
                         }
                     }
                     deplacer(carte, carte.camp, "defausse");
-                    effet_pose(carte);
+                    effet_pose_carte(carte);
                     actualiser_zone();
                     return true;
                 }
@@ -9607,7 +9607,7 @@ function obtenir_carte(carte_id) {
                         }
                     }
                     deplacer(carte, carte.camp, "defausse");
-                    effet_pose(carte);
+                    effet_pose_carte(carte);
                     actualiser_zone();
                     return true;
                 }
@@ -9636,7 +9636,7 @@ function obtenir_carte(carte_id) {
                         }
                     }
                     deplacer(carte, carte.camp, "defausse");
-                    effet_pose(carte);
+                    effet_pose_carte(carte);
                     actualiser_zone();
                     return true;
                 }
@@ -9667,7 +9667,7 @@ function obtenir_carte(carte_id) {
                         }
                     }
                     deplacer(carte, carte.camp, "defausse");
-                    effet_pose(carte);
+                    effet_pose_carte(carte);
                     actualiser_zone();
                     return true;
                 }
@@ -9731,7 +9731,7 @@ function obtenir_carte(carte_id) {
                         case 2:
                             Jeu.adverse.terrain[cible].camouflage = false;
                             deplacer(carte, "joueur", "defausse");
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             actualiser_zone();
                             break;
                     }
@@ -9750,7 +9750,7 @@ function obtenir_carte(carte_id) {
                         }
                         Jeu.joueur.terrain[best].camouflage = false;
                         deplacer(carte, "adverse", "defausse");
-                        effet_pose(carte);
+                        effet_pose_carte(carte);
                         return true;
                     }
                     return false;
@@ -9781,7 +9781,7 @@ function obtenir_carte(carte_id) {
                         }
                     }
                     deplacer(carte, carte.camp, "defausse");
-                    effet_pose(carte);
+                    effet_pose_carte(carte);
                     actualiser_zone();
                     return true;
                 }
@@ -9815,7 +9815,7 @@ function obtenir_carte(carte_id) {
                         pioche("joueur", obtenir_carte(carte_id));
                     }
                     deplacer(carte, "joueur", "defausse");
-                    effet_pose(carte);
+                    effet_pose_carte(carte);
                     actualiser_zone();
                 }
                 return false;
@@ -9838,7 +9838,7 @@ function obtenir_carte(carte_id) {
                     Jeu[camp_oppose(carte.camp)].ressources[0].courant = 0;
                 }
                 deplacer(carte, carte.camp, "terrain");
-                effet_pose(carte);
+                effet_pose_carte(carte);
                 actualiser_zone();
                 return true;
             }
@@ -9858,7 +9858,7 @@ function obtenir_carte(carte_id) {
                         Jeu[camp_oppose(carte.camp)].ressources[0].courant = 0;
                     }
                     deplacer(carte, carte.camp, "defausse");
-                    effet_pose(carte);
+                    effet_pose_carte(carte);
                     actualiser_zone();
                     return true;
                 }
@@ -9876,7 +9876,7 @@ function obtenir_carte(carte_id) {
             carte.effet_pose = function () {
                 Jeu[carte.camp].ressources[0].reserve += 5;
                 deplacer(carte, carte.camp, "defausse");
-                effet_pose(carte);
+                effet_pose_carte(carte);
                 actualiser_zone();
                 return true;
             }
@@ -9892,7 +9892,7 @@ function obtenir_carte(carte_id) {
             carte.effet_pose = function () {
                 Jeu[carte.camp].ressources[0].reserve++;
                 deplacer(carte, carte.camp, "defausse");
-                effet_pose(carte);
+                effet_pose_carte(carte);
                 actualiser_zone();
                 return true;
             }
@@ -9958,13 +9958,13 @@ function obtenir_carte(carte_id) {
                         case 2:
                             pioches("joueur", 6);
                             deplacer(carte, "joueur", "defausse");
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             actualiser_zone();
                             break;
                         case 3:
                             Jeu.joueur.ressources[0].max += 4;
                             deplacer(carte, "joueur", "defausse");
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             actualiser_zone();
                             break;
                     }
@@ -9972,7 +9972,7 @@ function obtenir_carte(carte_id) {
                 else {
                     Jeu.adverse.ressources[0].max += 4;
                     deplacer(carte, "adverse", "defausse");
-                    effet_pose(carte);
+                    effet_pose_carte(carte);
                     actualiser_zone();
                     return true;
                 }
@@ -9989,7 +9989,7 @@ function obtenir_carte(carte_id) {
             carte.effet_pose = function () {
                 Jeu[carte.camp].ressources[0].courant += Jeu[camp_oppose(carte.camp)].defausse.length;
                 deplacer(carte, carte.camp, "defausse");
-                effet_pose(carte);
+                effet_pose_carte(carte);
                 actualiser_zone();
                 return true;
             }
@@ -10005,7 +10005,7 @@ function obtenir_carte(carte_id) {
             carte.effet_pose = function () {
                 Jeu[carte.camp].ressources[0].reserve += 10;
                 deplacer(carte, carte.camp, "defausse");
-                effet_pose(carte);
+                effet_pose_carte(carte);
                 actualiser_zone();
                 return true;
             }
@@ -10060,7 +10060,7 @@ function obtenir_carte(carte_id) {
                         case 2:
                             degats(Jeu.adverse.terrain[cible], Jeu.joueur.vie_max - Jeu.joueur.vie);
                             deplacer(carte, "joueur", "defausse");
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             actualiser_zone();
                             break;
                     }
@@ -10079,7 +10079,7 @@ function obtenir_carte(carte_id) {
                         }
                         degats(Jeu.joueur.terrain[best], dif_vie);
                         deplacer(carte, "adverse", "defausse");
-                        effet_pose(carte);
+                        effet_pose_carte(carte);
                         return true;
                     }
                     return false;
@@ -10102,7 +10102,7 @@ function obtenir_carte(carte_id) {
                     }
                     pioche("joueur", nouvelle_carte);
                     deplacer(carte, "joueur", "defausse");
-                    effet_pose(carte);
+                    effet_pose_carte(carte);
                     actualiser_zone();
                 }
                 return false;
@@ -10159,7 +10159,7 @@ function obtenir_carte(carte_id) {
                         case 2:
                             Jeu.joueur.terrain[cible].stat_etage.attaque += Jeu.joueur.terrain[cible].vie_max - Jeu.joueur.terrain[cible].vie;
                             deplacer(carte, "joueur", "defausse");
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             actualiser_zone();
                             break;
                     }
@@ -10183,7 +10183,7 @@ function obtenir_carte(carte_id) {
                         }
                         Jeu.adverse.terrain[best].stat_etage.attaque += Jeu.adverse.terrain[best].vie_max - Jeu.adverse.terrain[best].vie;
                         deplacer(carte, "adverse", "defausse");
-                        effet_pose(carte);
+                        effet_pose_carte(carte);
                         return true;
                     }
                     return false;
@@ -10241,7 +10241,7 @@ function obtenir_carte(carte_id) {
                             Jeu.adverse.main[cible].cache = Jeu.adverse.main[cible].camouflage = false;
                             deplacer(Jeu.adverse.main[cible], "joueur", "main");
                             deplacer(carte, "joueur", "defausse");
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             actualiser_zone();
                             break;
                     }
@@ -10257,7 +10257,7 @@ function obtenir_carte(carte_id) {
                         Jeu.joueur.main[best].cache = Jeu.joueur.main[best].camouflage = false;
                         deplacer(Jeu.joueur.main[best], "adverse", "main");
                         deplacer(carte, "adverse", "defausse");
-                        effet_pose(carte);
+                        effet_pose_carte(carte);
                         return true;
                     }
                     return false;
@@ -10320,7 +10320,7 @@ function obtenir_carte(carte_id) {
                                 mort(Jeu.joueur.terrain[cible]);
                             }
                             deplacer(carte, "joueur", "defausse");
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             actualiser_zone();
                             break;
                     }
@@ -10343,7 +10343,7 @@ function obtenir_carte(carte_id) {
                             mort(Jeu.adverse.terrain[best]);
                         }
                         deplacer(carte, "adverse", "defausse");
-                        effet_pose(carte);
+                        effet_pose_carte(carte);
                         return true;
                     }
                     return false;
@@ -10396,7 +10396,7 @@ function obtenir_carte(carte_id) {
                         case 2:
                             Jeu.joueur.terrain[cible].stat_etage.attaque += 6;
                             deplacer(carte, "joueur", "defausse");
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             actualiser_zone();
                             break;
                     }
@@ -10409,7 +10409,7 @@ function obtenir_carte(carte_id) {
                         }
                         Jeu.adverse.terrain[best].stat_etage.attaque += 6;
                         deplacer(carte, "adverse", "defausse");
-                        effet_pose(carte);
+                        effet_pose_carte(carte);
                         return true;
                     }
                     return false;
@@ -10462,7 +10462,7 @@ function obtenir_carte(carte_id) {
                         case 2:
                             Jeu.joueur.terrain[cible].stat_etage.defense += 4;
                             deplacer(carte, "joueur", "defausse");
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             actualiser_zone();
                             break;
                     }
@@ -10475,7 +10475,7 @@ function obtenir_carte(carte_id) {
                         }
                         Jeu.adverse.terrain[best].stat_etage.defense += 4;
                         deplacer(carte, "adverse", "defausse");
-                        effet_pose(carte);
+                        effet_pose_carte(carte);
                         return true;
                     }
                     return false;
@@ -10529,7 +10529,7 @@ function obtenir_carte(carte_id) {
                             Jeu.joueur.terrain[cible].stat_etage.vie_max += 3;
                             Jeu.joueur.terrain[cible].vie += 3;
                             deplacer(carte, "joueur", "defausse");
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             actualiser_zone();
                             break;
                     }
@@ -10543,7 +10543,7 @@ function obtenir_carte(carte_id) {
                         Jeu.adverse.terrain[best].stat_etage.vie_max += 3;
                         Jeu.adverse.terrain[best].vie += 3;
                         deplacer(carte, "adverse", "defausse");
-                        effet_pose(carte);
+                        effet_pose_carte(carte);
                         return true;
                     }
                     return false;
@@ -10579,12 +10579,12 @@ function obtenir_carte(carte_id) {
                         }
                     }
                     deplacer(carte, "joueur", "terrain");
-                    effet_pose(carte);
+                    effet_pose_carte(carte);
                     actualiser_zone();
                 }
                 else {
                     deplacer(carte, "adverse", "terrain");
-                    effet_pose(carte);
+                    effet_pose_carte(carte);
                     return true;
                 }
             }
@@ -10691,7 +10691,7 @@ function obtenir_carte(carte_id) {
                             break;
                         case 2:
                             equiper(Jeu.joueur.terrain[cible], carte);
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             enlever(carte);
                             actualiser_zone();
                             break;
@@ -10704,7 +10704,7 @@ function obtenir_carte(carte_id) {
                             best++;
                         }
                         equiper(Jeu.adverse.terrain[best], carte);
-                        effet_pose(carte);
+                        effet_pose_carte(carte);
                         enlever(carte);
                         return true;
                     }
@@ -10772,7 +10772,7 @@ function obtenir_carte(carte_id) {
                             break;
                         case 2:
                             equiper(Jeu.joueur.terrain[cible], carte);
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             enlever(carte);
                             actualiser_zone();
                             break;
@@ -10785,7 +10785,7 @@ function obtenir_carte(carte_id) {
                             best++;
                         }
                         equiper(Jeu.adverse.terrain[best], carte);
-                        effet_pose(carte);
+                        effet_pose_carte(carte);
                         enlever(carte);
                         return true;
                     }
@@ -10840,7 +10840,7 @@ function obtenir_carte(carte_id) {
                         case 2:
                             Jeu.joueur.terrain[cible].vie += 2;
                             equiper(Jeu.joueur.terrain[cible], carte);
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             enlever(carte);
                             actualiser_zone();
                             break;
@@ -10854,7 +10854,7 @@ function obtenir_carte(carte_id) {
                         }
                         Jeu.adverse.terrain[best].vie += 2;
                         equiper(Jeu.adverse.terrain[best], carte);
-                        effet_pose(carte);
+                        effet_pose_carte(carte);
                         enlever(carte);
                         return true;
                     }
@@ -10911,7 +10911,7 @@ function obtenir_carte(carte_id) {
                             break;
                         case 2:
                             equiper(Jeu.joueur.terrain[cible], carte);
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             enlever(carte);
                             actualiser_zone();
                             break;
@@ -10924,7 +10924,7 @@ function obtenir_carte(carte_id) {
                             best++;
                         }
                         equiper(Jeu.adverse.terrain[best], carte);
-                        effet_pose(carte);
+                        effet_pose_carte(carte);
                         enlever(carte);
                         return true;
                     }
@@ -10980,7 +10980,7 @@ function obtenir_carte(carte_id) {
                             break;
                         case 2:
                             equiper(Jeu.joueur.terrain[cible], carte);
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             enlever(carte);
                             actualiser_zone();
                             break;
@@ -10993,7 +10993,7 @@ function obtenir_carte(carte_id) {
                             best++;
                         }
                         equiper(Jeu.adverse.terrain[best], carte);
-                        effet_pose(carte);
+                        effet_pose_carte(carte);
                         enlever(carte);
                         return true;
                     }
@@ -11029,7 +11029,7 @@ function obtenir_carte(carte_id) {
                         }
                     }
                     deplacer(carte, carte.camp, "defausse");
-                    effet_pose(carte);
+                    effet_pose_carte(carte);
                     actualiser_zone();
                     return true;
                 }
@@ -11095,7 +11095,7 @@ function obtenir_carte(carte_id) {
                                 degats(carte_cible, 20);
                             }
                             deplacer(carte, "joueur", "defausse");
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             actualiser_zone();
                             break;
                     }
@@ -11123,7 +11123,7 @@ function obtenir_carte(carte_id) {
                             degats(Jeu.joueur.terrain[best], 20);
                         }
                         deplacer(carte, "adverse", "defausse");
-                        effet_pose(carte);
+                        effet_pose_carte(carte);
                         return true;
                     }
                     return false;
@@ -11183,7 +11183,7 @@ function obtenir_carte(carte_id) {
                                 Jeu.joueur.terrain[cible].vie_sup = 10;
                             }
                             deplacer(carte, "joueur", "defausse");
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             actualiser_zone();
                             break;
                     }
@@ -11201,7 +11201,7 @@ function obtenir_carte(carte_id) {
                             Jeu.adverse.terrain[best].vie_sup = 10;
                         }
                         deplacer(carte, "adverse", "defausse");
-                        effet_pose(carte);
+                        effet_pose_carte(carte);
                         return true;
                     }
                     return false;
@@ -11228,7 +11228,7 @@ function obtenir_carte(carte_id) {
                         degats(array[n], 3);
                     }
                     deplacer(carte, carte.camp, "defausse");
-                    effet_pose(carte);
+                    effet_pose_carte(carte);
                     actualiser_zone();
                     return true;
                 }
@@ -11282,7 +11282,7 @@ function obtenir_carte(carte_id) {
                         case 2:
                             soin(Jeu.joueur.terrain[cible], Jeu.joueur.terrain[cible].vie_max - Jeu.joueur.terrain[cible].vie);
                             deplacer(carte, "joueur", "defausse");
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             actualiser_zone();
                             break;
                     }
@@ -11300,7 +11300,7 @@ function obtenir_carte(carte_id) {
                         }
                         soin(Jeu.adverse.terrain[best], Jeu.adverse.terrain[best].vie_max - Jeu.adverse.terrain[best].vie);
                         deplacer(carte, "adverse", "defausse");
-                        effet_pose(carte);
+                        effet_pose_carte(carte);
                         return true;
                     }
                     return false;
@@ -11333,7 +11333,7 @@ function obtenir_carte(carte_id) {
                         pioche("joueur", nouvelle_carte);
                     }
                     deplacer(carte, "joueur", "defausse");
-                    effet_pose(carte);
+                    effet_pose_carte(carte);
                     actualiser_zone();
                     return true;
                 }
@@ -11362,7 +11362,7 @@ function obtenir_carte(carte_id) {
                         }
                     }
                     deplacer(carte, carte.camp, "defausse");
-                    effet_pose(carte);
+                    effet_pose_carte(carte);
                     actualiser_zone();
                     return true;
                 }
@@ -11421,7 +11421,7 @@ function obtenir_carte(carte_id) {
                         case 2:
                             degats(Jeu.adverse.terrain[cible], 5);
                             deplacer(carte, "joueur", "defausse");
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             actualiser_zone();
                             break;
                     }
@@ -11439,7 +11439,7 @@ function obtenir_carte(carte_id) {
                         }
                         degats(Jeu.joueur.terrain[best], 5);
                         deplacer(carte, "adverse", "defausse");
-                        effet_pose(carte);
+                        effet_pose_carte(carte);
                         return true;
                     }
                     return false;
@@ -11497,7 +11497,7 @@ function obtenir_carte(carte_id) {
                         case 2:
                             deplacer(Jeu.adverse.terrain[cible], "adverse", "terrain");
                             deplacer(carte, "joueur", "defausse");
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             actualiser_zone();
                             break;
                     }
@@ -11510,7 +11510,7 @@ function obtenir_carte(carte_id) {
                         }
                         deplacer(Jeu.joueur.terrain[best], "joueur", "terrain");
                         deplacer(carte, "adverse", "defausse");
-                        effet_pose(carte);
+                        effet_pose_carte(carte);
                         return true;
                     }
                     return false;
@@ -11605,7 +11605,7 @@ function obtenir_carte(carte_id) {
                         case 2:
                             Jeu.adverse.terrain[cible].silence = true;
                             deplacer(carte, "joueur", "defausse");
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             actualiser_zone();
                             break;
                     }
@@ -11618,7 +11618,7 @@ function obtenir_carte(carte_id) {
                         }
                         Jeu.joueur.terrain[best].silence = true;
                         deplacer(carte, "adverse", "defausse");
-                        effet_pose(carte);
+                        effet_pose_carte(carte);
                         return true;
                     }
                     return false;
@@ -11703,7 +11703,7 @@ function obtenir_carte(carte_id) {
                                 degats(cible_3, damage);
                             }
                             deplacer(carte, "joueur", "defausse");
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             actualiser_zone();
                             break;
                     }
@@ -11741,7 +11741,7 @@ function obtenir_carte(carte_id) {
                             degats(cible_3, damage);
                         }
                         deplacer(carte, "adverse", "defausse");
-                        effet_pose(carte);
+                        effet_pose_carte(carte);
                         return true;
                     }
                     return false;
@@ -11774,7 +11774,7 @@ function obtenir_carte(carte_id) {
                         }
                         pioche("joueur", nouvelle_carte);
                         deplacer(carte, "joueur", "defausse");
-                        effet_pose(carte);
+                        effet_pose_carte(carte);
                         actualiser_zone();
                     }
                 }
@@ -11801,7 +11801,7 @@ function obtenir_carte(carte_id) {
                     ajouter(nouvelle_carte, carte.camp, "terrain");
                 }
                 deplacer(carte, carte.camp, "defausse");
-                effet_pose(carte);
+                effet_pose_carte(carte);
                 actualiser_zone();
                 return true;
             }
@@ -11829,7 +11829,7 @@ function obtenir_carte(carte_id) {
                         degats(cible, 2);
                     }
                     deplacer(carte, carte.camp, "defausse");
-                    effet_pose(carte);
+                    effet_pose_carte(carte);
                     actualiser_zone();
                     return true;
                 }
@@ -11857,7 +11857,7 @@ function obtenir_carte(carte_id) {
                         degats(array[n], 1 + parseInt(sorcellerie(carte.camp) / 10));
                     }
                     deplacer(carte, carte.camp, "defausse");
-                    effet_pose(carte);
+                    effet_pose_carte(carte);
                     actualiser_zone();
                     return true;
                 }
@@ -11886,7 +11886,7 @@ function obtenir_carte(carte_id) {
                     ajouter(nouvelle_carte, carte.camp, "terrain");
                 }
                 deplacer(carte, carte.camp, "defausse");
-                effet_pose(carte);
+                effet_pose_carte(carte);
                 actualiser_zone();
                 return true;
             }
@@ -11946,7 +11946,7 @@ function obtenir_carte(carte_id) {
                             Jeu.joueur.defausse[cible].vie = Jeu.joueur.defausse[cible].vie_max;
                             deplacer(Jeu.joueur.defausse[cible], "joueur", "terrain");
                             deplacer(carte, "joueur", "defausse");
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             actualiser_zone();
                             break;
                     }
@@ -11971,7 +11971,7 @@ function obtenir_carte(carte_id) {
                         Jeu.adverse.defausse[best].vie = Jeu.adverse.defausse[best].vie_max;
                         deplacer(Jeu.adverse.defausse[best], "adverse", "terrain");
                         deplacer(carte, "adverse", "defausse");
-                        effet_pose(carte);
+                        effet_pose_carte(carte);
                         return true;
                     }
                     return false;
@@ -12030,7 +12030,7 @@ function obtenir_carte(carte_id) {
                         case 2:
                             Jeu.adverse.terrain[cible].etourdissement = true;
                             deplacer(carte, "joueur", "defausse");
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             actualiser_zone();
                             break;
                     }
@@ -12048,7 +12048,7 @@ function obtenir_carte(carte_id) {
                         }
                         Jeu.joueur.terrain[best].etourdissement = true;
                         deplacer(carte, "adverse", "defausse");
-                        effet_pose(carte);
+                        effet_pose_carte(carte);
                         return true;
                     }
                     return false;
@@ -12109,7 +12109,7 @@ function obtenir_carte(carte_id) {
                             Jeu.joueur.terrain[cible].etourdissement = false;
                             Jeu.joueur.terrain[cible].silence = false;
                             deplacer(carte, "joueur", "defausse");
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             actualiser_zone();
                             break;
                     }
@@ -12133,7 +12133,7 @@ function obtenir_carte(carte_id) {
                         Jeu.adverse.terrain[best].etourdissement = false;
                         Jeu.adverse.terrain[best].silence = false;
                         deplacer(carte, "adverse", "defausse");
-                        effet_pose(carte);
+                        effet_pose_carte(carte);
                         return true;
                     }
                     return false;
@@ -12192,7 +12192,7 @@ function obtenir_carte(carte_id) {
                         case 2:
                             Jeu.joueur.terrain[cible].camouflage = true;
                             deplacer(carte, "joueur", "defausse");
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             actualiser_zone();
                             break;
                     }
@@ -12211,7 +12211,7 @@ function obtenir_carte(carte_id) {
                         }
                         Jeu.adverse.terrain[best].camouflage = true;
                         deplacer(carte, "adverse", "defausse");
-                        effet_pose(carte);
+                        effet_pose_carte(carte);
                         return true;
                     }
                     return false;
@@ -12264,7 +12264,7 @@ function obtenir_carte(carte_id) {
                             Jeu.joueur.terrain[cible].attaque += 2;
                             Jeu.joueur.terrain[cible].vol_de_vie += 2;
                             deplacer(carte, "joueur", "defausse");
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             actualiser_zone();
                             break;
                     }
@@ -12278,7 +12278,7 @@ function obtenir_carte(carte_id) {
                         Jeu.adverse.terrain[best].attaque += 2;
                         Jeu.adverse.terrain[best].vol_de_vie += 2;
                         deplacer(carte, "adverse", "defausse");
-                        effet_pose(carte);
+                        effet_pose_carte(carte);
                         return true;
                     }
                     return false;
@@ -12375,7 +12375,7 @@ function obtenir_carte(carte_id) {
                                 }
                             }
                             deplacer(carte, "joueur", "defausse");
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             actualiser_zone();
                             break;
                     }
@@ -12425,7 +12425,7 @@ function obtenir_carte(carte_id) {
                             }
                         }
                         deplacer(carte, "adverse", "defausse");
-                        effet_pose(carte);
+                        effet_pose_carte(carte);
                         return true;
                     }
                     return false;
@@ -12496,7 +12496,7 @@ function obtenir_carte(carte_id) {
                                 degats(Jeu.adverse.terrain[cible], 5);
                             }
                             deplacer(carte, "joueur", "defausse");
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             actualiser_zone();
                             break;
                     }
@@ -12525,7 +12525,7 @@ function obtenir_carte(carte_id) {
                             degats(Jeu.joueur.terrain[best], 5);
                         }
                         deplacer(carte, "adverse", "defausse");
-                        effet_pose(carte);
+                        effet_pose_carte(carte);
                         return true;
                     }
                     return false;
@@ -12577,7 +12577,7 @@ function obtenir_carte(carte_id) {
                         case 2:
                             soin(Jeu.joueur.terrain[cible], 5);
                             deplacer(carte, "joueur", "defausse");
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             actualiser_zone();
                             break;
                     }
@@ -12595,7 +12595,7 @@ function obtenir_carte(carte_id) {
                         }
                         soin(Jeu.adverse.terrain[best], 5);
                         deplacer(carte, "adverse", "defausse");
-                        effet_pose(carte);
+                        effet_pose_carte(carte);
                         return true;
                     }
                     return false;
@@ -12648,7 +12648,7 @@ function obtenir_carte(carte_id) {
                             break;
                         case 2:
                             equiper(Jeu.joueur.terrain[cible], carte);
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             enlever(carte);
                             actualiser_zone();
                             break;
@@ -12661,7 +12661,7 @@ function obtenir_carte(carte_id) {
                             best++;
                         }
                         equiper(Jeu.adverse.terrain[best], carte);
-                        effet_pose(carte);
+                        effet_pose_carte(carte);
                         enlever(carte);
                         return true;
                     }
@@ -12696,7 +12696,7 @@ function obtenir_carte(carte_id) {
                         }
                     }
                     deplacer(carte, carte.camp, "defausse");
-                    effet_pose(carte);
+                    effet_pose_carte(carte);
                     actualiser_zone();
                     return true;
                 }
@@ -12725,7 +12725,7 @@ function obtenir_carte(carte_id) {
                         }
                     }
                     deplacer(carte, carte.camp, "defausse");
-                    effet_pose(carte);
+                    effet_pose_carte(carte);
                     actualiser_zone();
                     return true;
                 }
@@ -12827,7 +12827,7 @@ function obtenir_carte(carte_id) {
                             break;
                         case 3:
                             mort(Jeu.adverse.terrain[cible2]);
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             deplacer(carte, "joueur", "defausse");
                             actualiser_zone();
                             break;
@@ -12860,7 +12860,7 @@ function obtenir_carte(carte_id) {
                             }
                         }
                         mort(Jeu.joueur.terrain[best2]);
-                        effet_pose(carte);
+                        effet_pose_carte(carte);
                         enlever(carte);
                         return true;
                     }
@@ -12913,7 +12913,7 @@ function obtenir_carte(carte_id) {
                         case 2:
                             soin(Jeu.joueur.terrain[cible], 5);
                             deplacer(carte, "joueur", "defausse");
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             actualiser_zone();
                             break;
                     }
@@ -12931,7 +12931,7 @@ function obtenir_carte(carte_id) {
                         }
                         soin(Jeu.adverse.terrain[best], 5);
                         deplacer(carte, "adverse", "defausse");
-                        effet_pose(carte);
+                        effet_pose_carte(carte);
                         return true;
                     }
                     return false;
@@ -12970,12 +12970,12 @@ function obtenir_carte(carte_id) {
                         }
                     }
                     deplacer(carte, "joueur", "terrain");
-                    effet_pose(carte);
+                    effet_pose_carte(carte);
                     actualiser_zone();
                 }
                 else {
                     deplacer(carte, "adverse", "terrain");
-                    effet_pose(carte);
+                    effet_pose_carte(carte);
                     return true;
                 }
             }
@@ -13068,7 +13068,7 @@ function obtenir_carte(carte_id) {
                     carte.vie += array.length;
                 }
                 deplacer(carte, carte.camp, "terrain");
-                effet_pose(carte);
+                effet_pose_carte(carte);
                 actualiser_zone();
                 return true;
             }
@@ -13126,7 +13126,7 @@ function obtenir_carte(carte_id) {
                             break;
                         case 2:
                             equiper(Jeu.joueur.terrain[cible], carte);
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             enlever(carte);
                             actualiser_zone();
                             break;
@@ -13139,7 +13139,7 @@ function obtenir_carte(carte_id) {
                             best++;
                         }
                         equiper(Jeu.adverse.terrain[best], carte);
-                        effet_pose(carte);
+                        effet_pose_carte(carte);
                         enlever(carte);
                         return true;
                     }
@@ -13198,7 +13198,7 @@ function obtenir_carte(carte_id) {
                             break;
                         case 2:
                             equiper(Jeu.joueur.terrain[cible], carte);
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             enlever(carte);
                             actualiser_zone();
                             break;
@@ -13211,7 +13211,7 @@ function obtenir_carte(carte_id) {
                             best++;
                         }
                         equiper(Jeu.adverse.terrain[best], carte);
-                        effet_pose(carte);
+                        effet_pose_carte(carte);
                         enlever(carte);
                         return true;
                     }
@@ -13282,7 +13282,7 @@ function obtenir_carte(carte_id) {
                             break;
                         case 2:
                             equiper(Jeu.joueur.terrain[cible], carte);
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             enlever(carte);
                             actualiser_zone();
                             break;
@@ -13295,7 +13295,7 @@ function obtenir_carte(carte_id) {
                             best++;
                         }
                         equiper(Jeu.adverse.terrain[best], carte);
-                        effet_pose(carte);
+                        effet_pose_carte(carte);
                         enlever(carte);
                         return true;
                     }
@@ -13352,7 +13352,7 @@ function obtenir_carte(carte_id) {
                             break;
                         case 2:
                             equiper(Jeu.joueur.terrain[cible], carte);
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             enlever(carte);
                             actualiser_zone();
                             break;
@@ -13365,7 +13365,7 @@ function obtenir_carte(carte_id) {
                             best++;
                         }
                         equiper(Jeu.adverse.terrain[best], carte);
-                        effet_pose(carte);
+                        effet_pose_carte(carte);
                         enlever(carte);
                         return true;
                     }
@@ -13422,7 +13422,7 @@ function obtenir_carte(carte_id) {
                             break;
                         case 2:
                             equiper(Jeu.joueur.terrain[cible], carte);
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             enlever(carte);
                             actualiser_zone();
                             break;
@@ -13435,7 +13435,7 @@ function obtenir_carte(carte_id) {
                             best++;
                         }
                         equiper(Jeu.adverse.terrain[best], carte);
-                        effet_pose(carte);
+                        effet_pose_carte(carte);
                         enlever(carte);
                         return true;
                     }
@@ -13493,7 +13493,7 @@ function obtenir_carte(carte_id) {
                             break;
                         case 2:
                             equiper(Jeu.joueur.terrain[cible], carte);
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             enlever(carte);
                             actualiser_zone();
                             break;
@@ -13506,7 +13506,7 @@ function obtenir_carte(carte_id) {
                             best++;
                         }
                         equiper(Jeu.adverse.terrain[best], carte);
-                        effet_pose(carte);
+                        effet_pose_carte(carte);
                         enlever(carte);
                         return true;
                     }
@@ -13578,7 +13578,7 @@ function obtenir_carte(carte_id) {
                             break;
                         case 2:
                             equiper(Jeu.joueur.terrain[cible], carte);
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             enlever(carte);
                             actualiser_zone();
                             break;
@@ -13591,7 +13591,7 @@ function obtenir_carte(carte_id) {
                             best++;
                         }
                         equiper(Jeu.adverse.terrain[best], carte);
-                        effet_pose(carte);
+                        effet_pose_carte(carte);
                         enlever(carte);
                         return true;
                     }
@@ -13647,7 +13647,7 @@ function obtenir_carte(carte_id) {
                             break;
                         case 2:
                             equiper(Jeu.joueur.terrain[cible], carte);
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             enlever(carte);
                             actualiser_zone();
                             break;
@@ -13660,7 +13660,7 @@ function obtenir_carte(carte_id) {
                             best++;
                         }
                         equiper(Jeu.adverse.terrain[best], carte);
-                        effet_pose(carte);
+                        effet_pose_carte(carte);
                         enlever(carte);
                         return true;
                     }
@@ -13718,7 +13718,7 @@ function obtenir_carte(carte_id) {
                             break;
                         case 2:
                             equiper(Jeu.joueur.terrain[cible], carte);
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             enlever(carte);
                             actualiser_zone();
                             break;
@@ -13731,7 +13731,7 @@ function obtenir_carte(carte_id) {
                             best++;
                         }
                         equiper(Jeu.adverse.terrain[best], carte);
-                        effet_pose(carte);
+                        effet_pose_carte(carte);
                         enlever(carte);
                         return true;
                     }
@@ -13815,7 +13815,7 @@ function obtenir_carte(carte_id) {
                             break;
                         case 3:
                             equiper(Jeu.joueur.terrain[cible1], carte);
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             enlever(carte);
                             actualiser_zone();
                             break;
@@ -13857,7 +13857,7 @@ function obtenir_carte(carte_id) {
                         case 5:
                             degats(Jeu.adverse.terrain[cible2], 3);
                             deplacer(carte, "joueur", "defausse");
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             actualiser_zone();
                             break;
                     }
@@ -13869,7 +13869,7 @@ function obtenir_carte(carte_id) {
                             best++;
                         }
                         equiper(Jeu.adverse.terrain[best], carte);
-                        effet_pose(carte);
+                        effet_pose_carte(carte);
                         enlever(carte);
                         return true;
                     }
@@ -13885,7 +13885,7 @@ function obtenir_carte(carte_id) {
                         }
                         degats(Jeu.joueur.terrain[n], 3);
                         deplacer(carte, "adverse", "defausse");
-                        effet_pose(carte);
+                        effet_pose_carte(carte);
                         return true;
                     }
                     return false;
@@ -13941,7 +13941,7 @@ function obtenir_carte(carte_id) {
                             break;
                         case 2:
                             equiper(Jeu.joueur.terrain[cible], carte);
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             enlever(carte);
                             actualiser_zone();
                             break;
@@ -13954,7 +13954,7 @@ function obtenir_carte(carte_id) {
                             best++;
                         }
                         equiper(Jeu.adverse.terrain[best], carte);
-                        effet_pose(carte);
+                        effet_pose_carte(carte);
                         enlever(carte);
                         return true;
                     }
@@ -14008,7 +14008,7 @@ function obtenir_carte(carte_id) {
                             break;
                         case 2:
                             equiper(Jeu.joueur.terrain[cible], carte);
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             enlever(carte);
                             actualiser_zone();
                             break;
@@ -14021,7 +14021,7 @@ function obtenir_carte(carte_id) {
                             best++;
                         }
                         equiper(Jeu.adverse.terrain[best], carte);
-                        effet_pose(carte);
+                        effet_pose_carte(carte);
                         enlever(carte);
                         return true;
                     }
@@ -14075,7 +14075,7 @@ function obtenir_carte(carte_id) {
                             break;
                         case 2:
                             equiper(Jeu.joueur.terrain[cible], carte);
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             enlever(carte);
                             actualiser_zone();
                             break;
@@ -14088,7 +14088,7 @@ function obtenir_carte(carte_id) {
                             best++;
                         }
                         equiper(Jeu.adverse.terrain[best], carte);
-                        effet_pose(carte);
+                        effet_pose_carte(carte);
                         enlever(carte);
                         return true;
                     }
@@ -14142,7 +14142,7 @@ function obtenir_carte(carte_id) {
                             break;
                         case 2:
                             equiper(Jeu.joueur.terrain[cible], carte);
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             enlever(carte);
                             actualiser_zone();
                             break;
@@ -14155,7 +14155,7 @@ function obtenir_carte(carte_id) {
                             best++;
                         }
                         equiper(Jeu.adverse.terrain[best], carte);
-                        effet_pose(carte);
+                        effet_pose_carte(carte);
                         enlever(carte);
                         return true;
                     }
@@ -14210,7 +14210,7 @@ function obtenir_carte(carte_id) {
                         case 2:
                             Jeu.joueur.terrain[cible].vie += 5;
                             equiper(Jeu.joueur.terrain[cible], carte);
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             enlever(carte);
                             actualiser_zone();
                             break;
@@ -14224,7 +14224,7 @@ function obtenir_carte(carte_id) {
                         }
                         Jeu.adverse.terrain[best].vie += 5;
                         equiper(Jeu.adverse.terrain[best], carte);
-                        effet_pose(carte);
+                        effet_pose_carte(carte);
                         enlever(carte);
                         return true;
                     }
@@ -14292,7 +14292,7 @@ function obtenir_carte(carte_id) {
                             best++;
                         }
                         equiper(Jeu.adverse.terrain[best], carte);
-                        effet_pose(carte);
+                        effet_pose_carte(carte);
                         enlever(carte);
                         return true;
                     }
@@ -14348,7 +14348,7 @@ function obtenir_carte(carte_id) {
                             break;
                         case 2:
                             equiper(Jeu.joueur.terrain[cible], carte);
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             enlever(carte);
                             actualiser_zone();
                             break;
@@ -14361,7 +14361,7 @@ function obtenir_carte(carte_id) {
                             best++;
                         }
                         equiper(Jeu.adverse.terrain[best], carte);
-                        effet_pose(carte);
+                        effet_pose_carte(carte);
                         enlever(carte);
                         return true;
                     }
@@ -14417,7 +14417,7 @@ function obtenir_carte(carte_id) {
                             break;
                         case 2:
                             equiper(Jeu.joueur.terrain[cible], carte);
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             enlever(carte);
                             actualiser_zone();
                             break;
@@ -14430,7 +14430,7 @@ function obtenir_carte(carte_id) {
                             best++;
                         }
                         equiper(Jeu.adverse.terrain[best], carte);
-                        effet_pose(carte);
+                        effet_pose_carte(carte);
                         enlever(carte);
                         return true;
                     }
@@ -14486,7 +14486,7 @@ function obtenir_carte(carte_id) {
                             break;
                         case 2:
                             equiper(Jeu.joueur.terrain[cible], carte);
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             enlever(carte);
                             actualiser_zone();
                             break;
@@ -14499,7 +14499,7 @@ function obtenir_carte(carte_id) {
                             best++;
                         }
                         equiper(Jeu.adverse.terrain[best], carte);
-                        effet_pose(carte);
+                        effet_pose_carte(carte);
                         enlever(carte);
                         return true;
                     }
@@ -14556,7 +14556,7 @@ function obtenir_carte(carte_id) {
                         case 2:
                             Jeu.joueur.terrain[cible].vie += 10;
                             equiper(Jeu.joueur.terrain[cible], carte);
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             enlever(carte);
                             actualiser_zone();
                             break;
@@ -14570,7 +14570,7 @@ function obtenir_carte(carte_id) {
                         }
                         Jeu.adverse.terrain[best].vie += 10;
                         equiper(Jeu.adverse.terrain[best], carte);
-                        effet_pose(carte);
+                        effet_pose_carte(carte);
                         enlever(carte);
                         return true;
                     }
@@ -14640,7 +14640,7 @@ function obtenir_carte(carte_id) {
                             best++;
                         }
                         equiper(Jeu.adverse.terrain[best], carte);
-                        effet_pose(carte);
+                        effet_pose_carte(carte);
                         enlever(carte);
                         return true;
                     }
@@ -14698,7 +14698,7 @@ function obtenir_carte(carte_id) {
                             break;
                         case 2:
                             equiper(Jeu.joueur.terrain[cible], carte);
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             enlever(carte);
                             actualiser_zone();
                             break;
@@ -14711,7 +14711,7 @@ function obtenir_carte(carte_id) {
                             best++;
                         }
                         equiper(Jeu.adverse.terrain[best], carte);
-                        effet_pose(carte);
+                        effet_pose_carte(carte);
                         enlever(carte);
                         return true;
                     }
@@ -14761,7 +14761,7 @@ function obtenir_carte(carte_id) {
                     }
                 }
                 deplacer(carte, carte.camp, "terrain");
-                effet_pose(carte);
+                effet_pose_carte(carte);
                 actualiser_zone();
                 return true;
             }
@@ -14840,14 +14840,14 @@ function obtenir_carte(carte_id) {
                             }
                             else {
                                 deplacer(carte, "joueur", "terrain");
-                                effet_pose(carte);
+                                effet_pose_carte(carte);
                                 actualiser_zone();
                             }
                             break;
                         case 2:
                             Jeu.adverse.terrain[cible].etourdissement = true;
                             deplacer(carte, "joueur", "terrain");
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             actualiser_zone();
                             break;
                     }
@@ -14866,7 +14866,7 @@ function obtenir_carte(carte_id) {
                         Jeu.joueur.terrain[best].etourdissement = true;
                     }
                     deplacer(carte, "adverse", "terrain");
-                    effet_pose(carte);
+                    effet_pose_carte(carte);
                     return true;
                 }
             }
@@ -14931,7 +14931,7 @@ function obtenir_carte(carte_id) {
                     ajouter(nouvelle_carte, carte.camp, "terrain");
                 }
                 deplacer(carte, carte.camp, "terrain");
-                effet_pose(carte);
+                effet_pose_carte(carte);
                 actualiser_zone();
                 return true;
             }
@@ -15029,14 +15029,14 @@ function obtenir_carte(carte_id) {
                             }
                             else {
                                 deplacer(carte, "joueur", "terrain");
-                                effet_pose(carte);
+                                effet_pose_carte(carte);
                                 actualiser_zone();
                             }
                             break;
                         case 2:
                             Jeu.joueur.terrain[cible].camouflage = true;
                             deplacer(carte, "joueur", "terrain");
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             actualiser_zone();
                             break;
                     }
@@ -15056,7 +15056,7 @@ function obtenir_carte(carte_id) {
                         Jeu.adverse.terrain[best].camouflage = true;
                     }
                     deplacer(carte, "adverse", "terrain");
-                    effet_pose(carte);
+                    effet_pose_carte(carte);
                     return true;
                 }
             }
@@ -15112,7 +15112,7 @@ function obtenir_carte(carte_id) {
                             }
                             else {
                                 deplacer(carte, "joueur", "terrain");
-                                effet_pose(carte);
+                                effet_pose_carte(carte);
                                 actualiser_zone();
                             }
                             break;
@@ -15121,7 +15121,7 @@ function obtenir_carte(carte_id) {
                                 Jeu.adverse.terrain[cible].gel = 1;
                             }
                             deplacer(carte, "joueur", "terrain");
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             actualiser_zone();
                             break;
                     }
@@ -15142,7 +15142,7 @@ function obtenir_carte(carte_id) {
                         }
                     }
                     deplacer(carte, "adverse", "terrain");
-                    effet_pose(carte);
+                    effet_pose_carte(carte);
                     return true;
                 }
             }
@@ -15198,7 +15198,7 @@ function obtenir_carte(carte_id) {
                         case 2:
                             Jeu.joueur.terrain[cible].stat_etage.attaque += 12;
                             deplacer(carte, "joueur", "defausse");
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             actualiser_zone();
                             break;
                     }
@@ -15217,7 +15217,7 @@ function obtenir_carte(carte_id) {
                         }
                         Jeu.adverse.terrain[best].stat_etage.attaque += 12;
                         deplacer(carte, "adverse", "defausse");
-                        effet_pose(carte);
+                        effet_pose_carte(carte);
                         return true;
                     }
                     return false;
@@ -15269,7 +15269,7 @@ function obtenir_carte(carte_id) {
                         case 2:
                             Jeu.joueur.terrain[cible].vie_sup = 10;
                             deplacer(carte, "joueur", "defausse");
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             actualiser_zone();
                             break;
                     }
@@ -15282,7 +15282,7 @@ function obtenir_carte(carte_id) {
                         }
                         Jeu.adverse.terrain[best].vie_sup = 10;
                         deplacer(carte, "adverse", "defausse");
-                        effet_pose(carte);
+                        effet_pose_carte(carte);
                         return true;
                     }
                     return false;
@@ -15336,7 +15336,7 @@ function obtenir_carte(carte_id) {
                             break;
                         case 2:
                             equiper(Jeu.joueur.terrain[cible], carte);
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             enlever(carte);
                             actualiser_zone();
                             break;
@@ -15349,7 +15349,7 @@ function obtenir_carte(carte_id) {
                             best++;
                         }
                         equiper(Jeu.adverse.terrain[best], carte);
-                        effet_pose(carte);
+                        effet_pose_carte(carte);
                         enlever(carte);
                         return true;
                     }
@@ -15415,7 +15415,7 @@ function obtenir_carte(carte_id) {
                         case 2:
                             mort(Jeu.adverse.terrain[cible]);
                             deplacer(carte, "joueur", "defausse");
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             actualiser_zone();
                             break;
                     }
@@ -15440,7 +15440,7 @@ function obtenir_carte(carte_id) {
                         mort(Jeu.joueur.terrain[best]);
                     }
                     deplacer(carte, "adverse", "defausse");
-                    effet_pose(carte);
+                    effet_pose_carte(carte);
                     return true;
                 }
             }
@@ -15503,7 +15503,7 @@ function obtenir_carte(carte_id) {
                         case 2:
                             Jeu.adverse.terrain[cible].etourdissement = true;
                             deplacer(carte, "joueur", "defausse");
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             actualiser_zone();
                             break;
                     }
@@ -15527,7 +15527,7 @@ function obtenir_carte(carte_id) {
                         }
                         Jeu.joueur.terrain[best].brulure = 3;
                         deplacer(carte, "adverse", "defausse");
-                        effet_pose(carte);
+                        effet_pose_carte(carte);
                         return true;
                     }
                     return false;
@@ -15604,7 +15604,7 @@ function obtenir_carte(carte_id) {
                                 degats(cible_3, 3);
                             }
                             deplacer(carte, "joueur", "defausse");
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             actualiser_zone();
                             break;
                     }
@@ -15635,7 +15635,7 @@ function obtenir_carte(carte_id) {
                             degats(cible_3, 3);
                         }
                         deplacer(carte, "adverse", "defausse");
-                        effet_pose(carte);
+                        effet_pose_carte(carte);
                         return true;
                     }
                     return false;
@@ -15694,7 +15694,7 @@ function obtenir_carte(carte_id) {
                         case 2:
                             Jeu.joueur.terrain[cible].esquive = true;
                             deplacer(carte, "joueur", "defausse");
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             actualiser_zone();
                             break;
                     }
@@ -15713,7 +15713,7 @@ function obtenir_carte(carte_id) {
                         }
                         Jeu.adverse.terrain[best].esquive = true;
                         deplacer(carte, "adverse", "defausse");
-                        effet_pose(carte);
+                        effet_pose_carte(carte);
                         return true;
                     }
                     return false;
@@ -15786,7 +15786,7 @@ function obtenir_carte(carte_id) {
                                 }
                             }
                             deplacer(carte, "joueur", "defausse");
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             actualiser_zone();
                             break;
                     }
@@ -15821,7 +15821,7 @@ function obtenir_carte(carte_id) {
                             }
                         }
                         deplacer(carte, "adverse", "defausse");
-                        effet_pose(carte);
+                        effet_pose_carte(carte);
                         return true;
                     }
                     return false;
@@ -15880,7 +15880,7 @@ function obtenir_carte(carte_id) {
                         case 2:
                             Jeu.adverse.terrain[cible].etourdissement = true;
                             deplacer(carte, "joueur", "defausse");
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             actualiser_zone();
                             break;
                     }
@@ -15898,7 +15898,7 @@ function obtenir_carte(carte_id) {
                         }
                         Jeu.joueur.terrain[best].etourdissement = true;
                         deplacer(carte, "adverse", "defausse");
-                        effet_pose(carte);
+                        effet_pose_carte(carte);
                         return true;
                     }
                     return false;
@@ -15962,12 +15962,12 @@ function obtenir_carte(carte_id) {
                         }
                     }
                     deplacer(carte, "joueur", "terrain");
-                    effet_pose(carte);
+                    effet_pose_carte(carte);
                     actualiser_zone();
                 }
                 else {
                     deplacer(carte, "adverse", "terrain");
-                    effet_pose(carte);
+                    effet_pose_carte(carte);
                     return true;
                 }
             }
@@ -15990,7 +15990,7 @@ function obtenir_carte(carte_id) {
                     pioche("joueur");
                 }
                 deplacer(carte, carte.camp, "terrain");
-                effet_pose(carte);
+                effet_pose_carte(carte);
                 actualiser_zone();
                 return true;
             }
@@ -16026,12 +16026,12 @@ function obtenir_carte(carte_id) {
                         }
                     }
                     deplacer(carte, "joueur", "terrain");
-                    effet_pose(carte);
+                    effet_pose_carte(carte);
                     actualiser_zone();
                 }
                 else {
                     deplacer(carte, "adverse", "terrain");
-                    effet_pose(carte);
+                    effet_pose_carte(carte);
                     return true;
                 }
             }
@@ -16089,7 +16089,7 @@ function obtenir_carte(carte_id) {
                         case 2:
                             degats(Jeu.adverse.terrain[cible], sorcellerie("joueur"));
                             deplacer(carte, "joueur", "defausse");
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             actualiser_zone();
                             break;
                     }
@@ -16107,7 +16107,7 @@ function obtenir_carte(carte_id) {
                         }
                         degats(Jeu.joueur.terrain[best], sorcellerie("adverse"));
                         deplacer(carte, "adverse", "defausse");
-                        effet_pose(carte);
+                        effet_pose_carte(carte);
                         return true;
                     }
                     return false;
@@ -16167,14 +16167,14 @@ function obtenir_carte(carte_id) {
                             }
                             else {
                                 deplacer(carte, "joueur", "terrain");
-                                effet_pose(carte);
+                                effet_pose_carte(carte);
                                 actualiser_zone();
                             }
                             break;
                         case 2:
                             mort(Jeu.adverse.terrain[cible]);
                             deplacer(carte, "joueur", "terrain");
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             actualiser_zone();
                             break;
                     }
@@ -16193,7 +16193,7 @@ function obtenir_carte(carte_id) {
                         mort(Jeu.joueur.terrain[best]);
                     }
                     deplacer(carte, "adverse", "terrain");
-                    effet_pose(carte);
+                    effet_pose_carte(carte);
                     return true;
                 }
             }
@@ -16254,7 +16254,7 @@ function obtenir_carte(carte_id) {
                         case 2:
                             Jeu.adverse.terrain[cible].vie_sup = 0;
                             deplacer(carte, "joueur", "defausse");
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             actualiser_zone();
                             break;
                     }
@@ -16278,7 +16278,7 @@ function obtenir_carte(carte_id) {
                         }
                         Jeu.joueur.terrain[best].vie_sup = 0;
                         deplacer(carte, "adverse", "defausse");
-                        effet_pose(carte);
+                        effet_pose_carte(carte);
                         return true;
                     }
                     return false;
@@ -16330,7 +16330,7 @@ function obtenir_carte(carte_id) {
                         case 2:
                             soin(Jeu.joueur.terrain[cible], Jeu.joueur.terrain[cible].vie_max - Jeu.joueur.terrain[cible].vie);
                             deplacer(carte, "joueur", "defausse");
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             actualiser_zone();
                             break;
                     }
@@ -16348,7 +16348,7 @@ function obtenir_carte(carte_id) {
                         }
                         soin(Jeu.adverse.terrain[best], Jeu.adverse.terrain[best].vie_max - Jeu.adverse.terrain[best].vie);
                         deplacer(carte, "adverse", "defausse");
-                        effet_pose(carte);
+                        effet_pose_carte(carte);
                         return true;
                     }
                     return false;
@@ -16373,7 +16373,7 @@ function obtenir_carte(carte_id) {
                         soin(array[n], 3);
                     }
                     deplacer(carte, carte.camp, "defausse");
-                    effet_pose(carte);
+                    effet_pose_carte(carte);
                     actualiser_zone();
                     return true;
                 }
@@ -16399,7 +16399,7 @@ function obtenir_carte(carte_id) {
                         }
                     }
                     deplacer(carte, "joueur", "defausse");
-                    effet_pose(carte);
+                    effet_pose_carte(carte);
                     actualiser_zone();
                     return true;
                 }
@@ -16485,7 +16485,7 @@ function obtenir_carte(carte_id) {
                         case 2:
                             Jeu.joueur.terrain[cible].attaque += 5;
                             deplacer(carte, "joueur", "defausse");
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             actualiser_zone();
                             break;
                     }
@@ -16523,7 +16523,7 @@ function obtenir_carte(carte_id) {
                         }
                         Jeu.adverse.terrain[best].attaque += 5;
                         deplacer(carte, "adverse", "defausse");
-                        effet_pose(carte);
+                        effet_pose_carte(carte);
                         return true;
                     }
                     return false;
@@ -16600,7 +16600,7 @@ function obtenir_carte(carte_id) {
                                 }
                             }
                             deplacer(carte, "joueur", "defausse");
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             actualiser_zone();
                             break;
                     }
@@ -16637,7 +16637,7 @@ function obtenir_carte(carte_id) {
                             }
                         }
                         deplacer(carte, "adverse", "defausse");
-                        effet_pose(carte);
+                        effet_pose_carte(carte);
                         return true;
                     }
                     return false;
@@ -16714,7 +16714,7 @@ function obtenir_carte(carte_id) {
                                 }
                             }
                             deplacer(carte, "joueur", "defausse");
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             actualiser_zone();
                             break;
                     }
@@ -16751,7 +16751,7 @@ function obtenir_carte(carte_id) {
                             }
                         }
                         deplacer(carte, "adverse", "defausse");
-                        effet_pose(carte);
+                        effet_pose_carte(carte);
                         return true;
                     }
                     return false;
@@ -16787,12 +16787,12 @@ function obtenir_carte(carte_id) {
                         }
                     }
                     deplacer(carte, "joueur", "terrain");
-                    effet_pose(carte);
+                    effet_pose_carte(carte);
                     actualiser_zone();
                 }
                 else {
                     deplacer(carte, "adverse", "terrain");
-                    effet_pose(carte);
+                    effet_pose_carte(carte);
                     return true;
                 }
             }
@@ -16889,7 +16889,7 @@ function obtenir_carte(carte_id) {
                             Jeu.joueur.defausse[cible].vie = Jeu.joueur.defausse[cible].vie_max;
                             deplacer(Jeu.joueur.defausse[cible], "joueur", "main");
                             deplacer(carte, "joueur", "defausse");
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             actualiser_zone();
                             break;
                     }
@@ -16908,7 +16908,7 @@ function obtenir_carte(carte_id) {
                         Jeu.adverse.defausse[best].vie = Jeu.adverse.defausse[best].vie_max;
                         deplacer(Jeu.adverse.defausse[best], "adverse", "main");
                         deplacer(carte, "adverse", "defausse");
-                        effet_pose(carte);
+                        effet_pose_carte(carte);
                         return true;
                     }
                     return false;
@@ -17003,12 +17003,12 @@ function obtenir_carte(carte_id) {
                         }
                     }
                     deplacer(carte, "joueur", "terrain");
-                    effet_pose(carte);
+                    effet_pose_carte(carte);
                     actualiser_zone();
                 }
                 else {
                     deplacer(carte, "adverse", "terrain");
-                    effet_pose(carte);
+                    effet_pose_carte(carte);
                     return true;
                 }
             }
@@ -17042,7 +17042,7 @@ function obtenir_carte(carte_id) {
                     pioche("joueur");
                 }
                 deplacer(carte, carte.camp, "terrain");
-                effet_pose(carte);
+                effet_pose_carte(carte);
                 actualiser_zone();
                 return true;
             }
@@ -17063,7 +17063,7 @@ function obtenir_carte(carte_id) {
                     ajouter(obtenir_carte(124), carte.camp, "boutique");
                 }
                 deplacer(carte, carte.camp, "defausse");
-                effet_pose(carte);
+                effet_pose_carte(carte);
                 actualiser_zone();
                 return true;
             }
@@ -17131,7 +17131,7 @@ function obtenir_carte(carte_id) {
                     }
                 }
                 deplacer(carte, carte.camp, "terrain");
-                effet_pose(carte);
+                effet_pose_carte(carte);
                 actualiser_zone();
                 return true;
             }
@@ -17236,7 +17236,7 @@ function obtenir_carte(carte_id) {
                         case 2:
                             Jeu.joueur.terrain[cible].protection = true;
                             deplacer(carte, "joueur", "defausse");
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             actualiser_zone();
                             break;
                     }
@@ -17255,7 +17255,7 @@ function obtenir_carte(carte_id) {
                         }
                         Jeu.adverse.terrain[best].protection = true;
                         deplacer(carte, "adverse", "defausse");
-                        effet_pose(carte);
+                        effet_pose_carte(carte);
                         return true;
                     }
                     return false;
@@ -17322,7 +17322,7 @@ function obtenir_carte(carte_id) {
                             Jeu.joueur.terrain[cible].vie += 6;
                             Jeu.joueur.terrain[cible].vie_max += 6;
                             deplacer(carte, "joueur", "defausse");
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             actualiser_zone();
                             break;
                     }
@@ -17342,7 +17342,7 @@ function obtenir_carte(carte_id) {
                         Jeu.adverse.terrain[best].vie += 6;
                         Jeu.adverse.terrain[best].vie_max += 6;
                         deplacer(carte, "adverse", "defausse");
-                        effet_pose(carte);
+                        effet_pose_carte(carte);
                         return true;
                     }
                     return false;
@@ -17460,14 +17460,14 @@ function obtenir_carte(carte_id) {
                             }
                             else {
                                 deplacer(carte, "joueur", "terrain");
-                                effet_pose(carte);
+                                effet_pose_carte(carte);
                                 actualiser_zone();
                             }
                             break;
                         case 2:
                             Jeu.joueur.terrain[cible].stat_etage.attaque += 6;
                             deplacer(carte, "joueur", "terrain");
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             actualiser_zone();
                             break;
                     }
@@ -17481,7 +17481,7 @@ function obtenir_carte(carte_id) {
                         Jeu.adverse.terrain[best].stat_etage.attaque += 6;
                     }
                     deplacer(carte, "adverse", "terrain");
-                    effet_pose(carte);
+                    effet_pose_carte(carte);
                     return true;
                 }
             }
@@ -17520,7 +17520,7 @@ function obtenir_carte(carte_id) {
                         }
                     }
                     deplacer(carte, "joueur", "defausse");
-                    effet_pose(carte);
+                    effet_pose_carte(carte);
                     actualiser_zone();
                     return true;
                 }
@@ -17644,7 +17644,7 @@ function obtenir_carte(carte_id) {
                             break;
                         case 2:
                             equiper(Jeu.joueur.terrain[cible], carte);
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             enlever(carte);
                             actualiser_zone();
                             break;
@@ -17657,7 +17657,7 @@ function obtenir_carte(carte_id) {
                             best++;
                         }
                         equiper(Jeu.adverse.terrain[best], carte);
-                        effet_pose(carte);
+                        effet_pose_carte(carte);
                         enlever(carte);
                         return true;
                     }
@@ -17683,7 +17683,7 @@ function obtenir_carte(carte_id) {
                     ajouter(nouvelle_carte, carte.camp, "terrain");
                 }
                 deplacer(carte, carte.camp, "terrain");
-                effet_pose(carte);
+                effet_pose_carte(carte);
                 actualiser_zone();
                 return true;
             }
@@ -17745,7 +17745,7 @@ function obtenir_carte(carte_id) {
                             }
                             else {
                                 deplacer(carte, "joueur", "terrain");
-                                effet_pose(carte);
+                                effet_pose_carte(carte);
                                 actualiser_zone();
                             }
                             break;
@@ -17755,14 +17755,14 @@ function obtenir_carte(carte_id) {
                                 carte.elements.push(Jeu.ressources[choix].nom);
                             }
                             deplacer(carte, "joueur", "terrain");
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             actualiser_zone();
                             break;
                     }
                 }
                 else {
                     deplacer(carte, "adverse", "terrain");
-                    effet_pose(carte);
+                    effet_pose_carte(carte);
                     return true;
                 }
             }
@@ -17790,7 +17790,7 @@ function obtenir_carte(carte_id) {
                     }
                 }
                 deplacer(carte, carte.camp, "terrain");
-                effet_pose(carte);
+                effet_pose_carte(carte);
                 actualiser_zone();
                 return true;
             }
@@ -17864,7 +17864,7 @@ function obtenir_carte(carte_id) {
                     }
                 }
                 deplacer(carte, carte.camp, "terrain");
-                effet_pose(carte);
+                effet_pose_carte(carte);
                 actualiser_zone();
                 return true;
             }
@@ -17894,7 +17894,7 @@ function obtenir_carte(carte_id) {
                     }
                 }
                 deplacer(carte, carte.camp, "terrain");
-                effet_pose(carte);
+                effet_pose_carte(carte);
                 actualiser_zone();
                 return true;
             }
@@ -17969,12 +17969,12 @@ function obtenir_carte(carte_id) {
                         }
                     }
                     deplacer(carte, "joueur", "terrain");
-                    effet_pose(carte);
+                    effet_pose_carte(carte);
                     actualiser_zone();
                 }
                 else {
                     deplacer(carte, "adverse", "terrain");
-                    effet_pose(carte);
+                    effet_pose_carte(carte);
                     return true;
                 }
             }
@@ -18049,14 +18049,14 @@ function obtenir_carte(carte_id) {
                             }
                             else {
                                 deplacer(carte, "joueur", "terrain");
-                                effet_pose(carte);
+                                effet_pose_carte(carte);
                                 actualiser_zone();
                             }
                             break;
                         case 2:
                             Jeu.adverse.terrain[cible].contamination += 2;
                             deplacer(carte, "joueur", "terrain");
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             actualiser_zone();
                             break;
                     }
@@ -18075,7 +18075,7 @@ function obtenir_carte(carte_id) {
                         Jeu.joueur.terrain[best].contamination += 2;
                     }
                     deplacer(carte, "adverse", "terrain");
-                    effet_pose(carte);
+                    effet_pose_carte(carte);
                     return true;
                 }
             }
@@ -18159,7 +18159,7 @@ function obtenir_carte(carte_id) {
                                 }
                             }
                             deplacer(carte, "joueur", "defausse");
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             actualiser_zone();
                             break;
                     }
@@ -18186,7 +18186,7 @@ function obtenir_carte(carte_id) {
                             }
                         }
                         deplacer(carte, "adverse", "defausse");
-                        effet_pose(carte);
+                        effet_pose_carte(carte);
                         return true;
                     }
                     return false;
@@ -18249,14 +18249,14 @@ function obtenir_carte(carte_id) {
                             }
                             else {
                                 deplacer(carte, "joueur", "terrain");
-                                effet_pose(carte);
+                                effet_pose_carte(carte);
                                 actualiser_zone();
                             }
                             break;
                         case 2:
                             deplacer(Jeu.joueur.main[cible], "joueur", "terrain");
                             deplacer(carte, "joueur", "terrain");
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             actualiser_zone();
                             break;
                     }
@@ -18276,7 +18276,7 @@ function obtenir_carte(carte_id) {
                         deplacer(Jeu.joueur.main[best], "adverse", "main");
                     }
                     deplacer(carte, "adverse", "terrain");
-                    effet_pose(carte);
+                    effet_pose_carte(carte);
                     return true;
                 }
             }
@@ -18302,12 +18302,12 @@ function obtenir_carte(carte_id) {
                         ajouter(nouvelle_carte, "joueur", "boutique");
                     }
                     deplacer(carte, "joueur", "terrain");
-                    effet_pose(carte);
+                    effet_pose_carte(carte);
                     actualiser_zone();
                 }
                 else {
                     deplacer(carte, "adverse", "terrain");
-                    effet_pose(carte);
+                    effet_pose_carte(carte);
                     return true;
                 }
             }
@@ -18363,7 +18363,7 @@ function obtenir_carte(carte_id) {
                             break;
                         case 2:
                             equiper(Jeu.joueur.terrain[cible], carte);
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             enlever(carte);
                             actualiser_zone();
                             break;
@@ -18376,7 +18376,7 @@ function obtenir_carte(carte_id) {
                             best++;
                         }
                         equiper(Jeu.adverse.terrain[best], carte);
-                        effet_pose(carte);
+                        effet_pose_carte(carte);
                         enlever(carte);
                         return true;
                     }
@@ -18405,12 +18405,12 @@ function obtenir_carte(carte_id) {
                         ajouter(nouvelle_carte, "joueur", "boutique");
                     }
                     deplacer(carte, "joueur", "terrain");
-                    effet_pose(carte);
+                    effet_pose_carte(carte);
                     actualiser_zone();
                 }
                 else {
                     deplacer(carte, "adverse", "terrain");
-                    effet_pose(carte);
+                    effet_pose_carte(carte);
                     return true;
                 }
             }
@@ -18466,7 +18466,7 @@ function obtenir_carte(carte_id) {
                             break;
                         case 2:
                             equiper(Jeu.joueur.terrain[cible], carte);
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             enlever(carte);
                             actualiser_zone();
                             break;
@@ -18479,7 +18479,7 @@ function obtenir_carte(carte_id) {
                             best++;
                         }
                         equiper(Jeu.adverse.terrain[best], carte);
-                        effet_pose(carte);
+                        effet_pose_carte(carte);
                         enlever(carte);
                         return true;
                     }
@@ -18508,12 +18508,12 @@ function obtenir_carte(carte_id) {
                         ajouter(nouvelle_carte, "joueur", "boutique");
                     }
                     deplacer(carte, "joueur", "terrain");
-                    effet_pose(carte);
+                    effet_pose_carte(carte);
                     actualiser_zone();
                 }
                 else {
                     deplacer(carte, "adverse", "terrain");
-                    effet_pose(carte);
+                    effet_pose_carte(carte);
                     return true;
                 }
             }
@@ -18527,7 +18527,7 @@ function obtenir_carte(carte_id) {
             carte.vente[0] = 10;
             carte.vente[6] = 10;
             carte.stat_equipement.sorcellerie = 10;
-            carte.stat_equipement.effet_pose_carte = function (creature, carte_posee) {
+            carte.stat_equipement.effet_vente_autre = function (creature, carte_posee) {
                 if (carte_posee.camp == creature.camp && carte_posee.familles.includes("Sort")) {
                     creature.attaque++;
                     creature.vie++;
@@ -18591,7 +18591,7 @@ function obtenir_carte(carte_id) {
                             break;
                         case 2:
                             equiper(Jeu.joueur.terrain[cible], carte);
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             enlever(carte);
                             actualiser_zone();
                             break;
@@ -18604,7 +18604,7 @@ function obtenir_carte(carte_id) {
                             best++;
                         }
                         equiper(Jeu.adverse.terrain[best], carte);
-                        effet_pose(carte);
+                        effet_pose_carte(carte);
                         enlever(carte);
                         return true;
                     }
@@ -18634,7 +18634,7 @@ function obtenir_carte(carte_id) {
                     }
                 }
                 deplacer(carte, carte.camp, "terrain");
-                effet_pose(carte);
+                effet_pose_carte(carte);
                 actualiser_zone();
                 return true;
             }
@@ -18716,7 +18716,7 @@ function obtenir_carte(carte_id) {
                             best++;
                         }
                         equiper(Jeu.adverse.terrain[best], carte);
-                        effet_pose(carte);
+                        effet_pose_carte(carte);
                         enlever(carte);
                         return true;
                     }
@@ -18864,7 +18864,7 @@ function obtenir_carte(carte_id) {
                     }
                 }
                 deplacer(carte, carte.camp, "terrain");
-                effet_pose(carte);
+                effet_pose_carte(carte);
                 actualiser_zone();
                 return true;
             }
@@ -18931,7 +18931,7 @@ function obtenir_carte(carte_id) {
                             }
                             degats(Jeu.adverse.terrain[cible], damage);
                             deplacer(carte, "joueur", "defausse");
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             actualiser_zone();
                             break;
                     }
@@ -18961,7 +18961,7 @@ function obtenir_carte(carte_id) {
                         }
                         degats(Jeu.joueur.terrain[best], damage);
                         deplacer(carte, "adverse", "defausse");
-                        effet_pose(carte);
+                        effet_pose_carte(carte);
                         return true;
                     }
                     return false;
@@ -19049,7 +19049,7 @@ function obtenir_carte(carte_id) {
                             Jeu[cible_camp].terrain[cible].attaque += 2;
                             degats(Jeu[cible_camp].terrain[cible], 2);
                             deplacer(carte, "joueur", "defausse");
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             actualiser_zone();
                             break;
                     }
@@ -19075,7 +19075,7 @@ function obtenir_carte(carte_id) {
                         Jeu.adverse.terrain[best].attaque += 2;
                         degats(Jeu.adverse.terrain[best], 2);
                         deplacer(carte, "adverse", "defausse");
-                        effet_pose(carte);
+                        effet_pose_carte(carte);
                         return true;
                     }
                     else if (verifier2) {
@@ -19091,7 +19091,7 @@ function obtenir_carte(carte_id) {
                         Jeu.joueur.terrain[best].attaque += 2;
                         degats(Jeu.joueur.terrain[best], 2);
                         deplacer(carte, "adverse", "defausse");
-                        effet_pose(carte);
+                        effet_pose_carte(carte);
                         return true;
                     }
                     return false;
@@ -19125,7 +19125,7 @@ function obtenir_carte(carte_id) {
                         Jeu[camp_oppose(carte.camp)].ressources[0].courant = 0;
                     }
                     deplacer(carte, carte.camp, "defausse");
-                    effet_pose(carte);
+                    effet_pose_carte(carte);
                     actualiser_zone();
                     return true;
                 }
@@ -19149,7 +19149,7 @@ function obtenir_carte(carte_id) {
                         }
                     }
                     deplacer(carte, carte.camp, "defausse");
-                    effet_pose(carte);
+                    effet_pose_carte(carte);
                     actualiser_zone();
                     return true;
                 }
@@ -19210,14 +19210,14 @@ function obtenir_carte(carte_id) {
                             }
                             else {
                                 deplacer(carte, "joueur", "terrain");
-                                effet_pose(carte);
+                                effet_pose_carte(carte);
                                 actualiser_zone();
                             }
                             break;
                         case 2:
                             degats(Jeu.adverse.terrain[cible], 1);
                             deplacer(carte, "joueur", "terrain");
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             actualiser_zone();
                             break;
                     }
@@ -19236,7 +19236,7 @@ function obtenir_carte(carte_id) {
                         degats(Jeu.joueur.terrain[best], 1);
                     }
                     deplacer(carte, "adverse", "terrain");
-                    effet_pose(carte);
+                    effet_pose_carte(carte);
                     return true;
                 }
             }
@@ -19295,14 +19295,14 @@ function obtenir_carte(carte_id) {
                             }
                             else {
                                 deplacer(carte, "joueur", "terrain");
-                                effet_pose(carte);
+                                effet_pose_carte(carte);
                                 actualiser_zone();
                             }
                             break;
                         case 2:
                             degats(Jeu.adverse.terrain[cible], 1);
                             deplacer(carte, "joueur", "terrain");
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             actualiser_zone();
                             break;
                     }
@@ -19321,7 +19321,7 @@ function obtenir_carte(carte_id) {
                         degats(Jeu.joueur.terrain[best], 1);
                     }
                     deplacer(carte, "adverse", "terrain");
-                    effet_pose(carte);
+                    effet_pose_carte(carte);
                     return true;
                 }
             }
@@ -19348,7 +19348,7 @@ function obtenir_carte(carte_id) {
                     }
                 }
                 deplacer(carte, carte.camp, "terrain");
-                effet_pose(carte);
+                effet_pose_carte(carte);
                 actualiser_zone();
                 return true;
             }
@@ -19388,7 +19388,7 @@ function obtenir_carte(carte_id) {
                     }
                 }
                 deplacer(carte, carte.camp, "terrain");
-                effet_pose(carte);
+                effet_pose_carte(carte);
                 actualiser_zone();
                 return true;
             }
@@ -19452,7 +19452,7 @@ function obtenir_carte(carte_id) {
                     }
                 }
                 deplacer(carte, carte.camp, "terrain");
-                effet_pose(carte);
+                effet_pose_carte(carte);
                 actualiser_zone();
                 return true;
             }
@@ -19483,7 +19483,7 @@ function obtenir_carte(carte_id) {
                     }
                 }
                 deplacer(carte, carte.camp, "terrain");
-                effet_pose(carte);
+                effet_pose_carte(carte);
                 actualiser_zone();
                 return true;
             }
@@ -19512,7 +19512,7 @@ function obtenir_carte(carte_id) {
                     }
                 }
                 deplacer(carte, carte.camp, "terrain");
-                effet_pose(carte);
+                effet_pose_carte(carte);
                 actualiser_zone();
                 return true;
             }
@@ -19539,7 +19539,7 @@ function obtenir_carte(carte_id) {
                     }
                 }
                 deplacer(carte, carte.camp, "terrain");
-                effet_pose(carte);
+                effet_pose_carte(carte);
                 actualiser_zone();
                 return true;
             }
@@ -19569,7 +19569,7 @@ function obtenir_carte(carte_id) {
                     }
                 }
                 deplacer(carte, carte.camp, "terrain");
-                effet_pose(carte);
+                effet_pose_carte(carte);
                 actualiser_zone();
                 return true;
             }
@@ -19599,7 +19599,7 @@ function obtenir_carte(carte_id) {
                     }
                 }
                 deplacer(carte, carte.camp, "terrain");
-                effet_pose(carte);
+                effet_pose_carte(carte);
                 actualiser_zone();
                 return true;
             }
@@ -19652,14 +19652,14 @@ function obtenir_carte(carte_id) {
                             }
                             else {
                                 deplacer(carte, "joueur", "terrain");
-                                effet_pose(carte);
+                                effet_pose_carte(carte);
                                 actualiser_zone();
                             }
                             break;
                         case 2:
                             soin(Jeu.joueur.terrain[cible], 3);
                             deplacer(carte, "joueur", "terrain");
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             actualiser_zone();
                             break;
                     }
@@ -19678,7 +19678,7 @@ function obtenir_carte(carte_id) {
                         soin(Jeu.adverse.terrain[best], 3);
                     }
                     deplacer(carte, "adverse", "terrain");
-                    effet_pose(carte);
+                    effet_pose_carte(carte);
                     return true;
                 }
             }
@@ -19714,7 +19714,7 @@ function obtenir_carte(carte_id) {
                     }
                 }
                 deplacer(carte, carte.camp, "terrain");
-                effet_pose(carte);
+                effet_pose_carte(carte);
                 actualiser_zone();
                 return true;
             }
@@ -19750,7 +19750,7 @@ function obtenir_carte(carte_id) {
                     }
                 }
                 deplacer(carte, carte.camp, "terrain");
-                effet_pose(carte);
+                effet_pose_carte(carte);
                 actualiser_zone();
                 return true;
             }
@@ -19785,7 +19785,7 @@ function obtenir_carte(carte_id) {
                     }
                 }
                 deplacer(carte, carte.camp, "terrain");
-                effet_pose(carte);
+                effet_pose_carte(carte);
                 actualiser_zone();
                 return true;
             }
@@ -19827,7 +19827,7 @@ function obtenir_carte(carte_id) {
                             }
                             else {
                                 deplacer(carte, "joueur", "terrain");
-                                effet_pose(carte);
+                                effet_pose_carte(carte);
                                 actualiser_zone();
                             }
                             break;
@@ -19848,7 +19848,7 @@ function obtenir_carte(carte_id) {
                                 }
                             }
                             deplacer(carte, "joueur", "terrain");
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             actualiser_zone();
                             break;
                     }
@@ -19879,7 +19879,7 @@ function obtenir_carte(carte_id) {
                         }
                     }
                     deplacer(carte, "adverse", "terrain");
-                    effet_pose(carte);
+                    effet_pose_carte(carte);
                     return true;
                 }
             }
@@ -19904,7 +19904,7 @@ function obtenir_carte(carte_id) {
                     ajouter(nouvelle_carte, carte.camp, "terrain");
                 }
                 deplacer(carte, carte.camp, "terrain");
-                effet_pose(carte);
+                effet_pose_carte(carte);
                 actualiser_zone();
                 return true;
             }
@@ -19944,7 +19944,7 @@ function obtenir_carte(carte_id) {
                     ajouter(nouvelle_carte, carte.camp, "terrain");
                 }
                 deplacer(carte, carte.camp, "terrain");
-                effet_pose(carte);
+                effet_pose_carte(carte);
                 actualiser_zone();
                 return true;
             }
@@ -19998,7 +19998,7 @@ function obtenir_carte(carte_id) {
                             break;
                         case 2:
                             equiper(Jeu.joueur.terrain[cible], carte);
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             enlever(carte);
                             actualiser_zone();
                             break;
@@ -20011,7 +20011,7 @@ function obtenir_carte(carte_id) {
                             best++;
                         }
                         equiper(Jeu.adverse.terrain[best], carte);
-                        effet_pose(carte);
+                        effet_pose_carte(carte);
                         enlever(carte);
                         return true;
                     }
@@ -20065,7 +20065,7 @@ function obtenir_carte(carte_id) {
                             break;
                         case 2:
                             equiper(Jeu.joueur.terrain[cible], carte);
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             enlever(carte);
                             actualiser_zone();
                             break;
@@ -20078,7 +20078,7 @@ function obtenir_carte(carte_id) {
                             best++;
                         }
                         equiper(Jeu.adverse.terrain[best], carte);
-                        effet_pose(carte);
+                        effet_pose_carte(carte);
                         enlever(carte);
                         return true;
                     }
@@ -20132,7 +20132,7 @@ function obtenir_carte(carte_id) {
                             break;
                         case 2:
                             equiper(Jeu.joueur.terrain[cible], carte);
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             enlever(carte);
                             actualiser_zone();
                             break;
@@ -20145,7 +20145,7 @@ function obtenir_carte(carte_id) {
                             best++;
                         }
                         equiper(Jeu.adverse.terrain[best], carte);
-                        effet_pose(carte);
+                        effet_pose_carte(carte);
                         enlever(carte);
                         return true;
                     }
@@ -20250,7 +20250,7 @@ function obtenir_carte(carte_id) {
                         }
                     }
                     deplacer(carte, carte.camp, "defausse");
-                    effet_pose(carte);
+                    effet_pose_carte(carte);
                     actualiser_zone();
                     return true;
                 }
@@ -20309,7 +20309,7 @@ function obtenir_carte(carte_id) {
                         case 2:
                             Jeu.adverse.terrain[cible].poison += 10;
                             deplacer(carte, "joueur", "defausse");
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             actualiser_zone();
                             break;
                     }
@@ -20322,7 +20322,7 @@ function obtenir_carte(carte_id) {
                         }
                         Jeu.joueur.terrain[best].poison += 10;
                         deplacer(carte, "adverse", "defausse");
-                        effet_pose(carte);
+                        effet_pose_carte(carte);
                         return true;
                     }
                     return false;
@@ -20388,7 +20388,7 @@ function obtenir_carte(carte_id) {
                                 Jeu.adverse.terrain[cible].defense = 0;
                             }
                             deplacer(carte, "joueur", "defausse");
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             actualiser_zone();
                             break;
                     }
@@ -20415,7 +20415,7 @@ function obtenir_carte(carte_id) {
                             Jeu.joueur.terrain[cible].defense = 0;
                         }
                         deplacer(carte, "adverse", "defausse");
-                        effet_pose(carte);
+                        effet_pose_carte(carte);
                         return true;
                     }
                     return false;
@@ -20500,7 +20500,7 @@ function obtenir_carte(carte_id) {
                             Jeu.adverse.terrain[cible - 1].saignement = Jeu.adverse.terrain[cible - 1].contamination;
                             Jeu.adverse.terrain[cible - 1].contamination = 0;
                             deplacer(carte, "joueur", "defausse");
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             actualiser_zone();
                             break;
                     }
@@ -20519,7 +20519,7 @@ function obtenir_carte(carte_id) {
                         Jeu.joueur.terrain[best - 1].saignement = Jeu.joueur.terrain[best - 1].contamination;
                         Jeu.joueur.terrain[best - 1].contamination = 0;
                         deplacer(carte, "adverse", "defausse");
-                        effet_pose(carte);
+                        effet_pose_carte(carte);
                         return true;
                     }
                     return false;
@@ -20544,7 +20544,7 @@ function obtenir_carte(carte_id) {
                     pioche("joueur");
                 }
                 deplacer(carte, carte.camp, "terrain");
-                effet_pose(carte);
+                effet_pose_carte(carte);
                 actualiser_zone();
                 return true;
             }
@@ -20570,7 +20570,7 @@ function obtenir_carte(carte_id) {
                     }
                 }
                 deplacer(carte, carte.camp, "terrain");
-                effet_pose(carte);
+                effet_pose_carte(carte);
                 actualiser_zone();
                 return true;
             }
@@ -20628,14 +20628,14 @@ function obtenir_carte(carte_id) {
                             }
                             else {
                                 deplacer(carte, "joueur", "terrain");
-                                effet_pose(carte);
+                                effet_pose_carte(carte);
                                 actualiser_zone();
                             }
                             break;
                         case 2:
                             Jeu.joueur.terrain[cible].sorcellerie++;
                             deplacer(carte, "joueur", "terrain");
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             actualiser_zone();
                             break;
                     }
@@ -20655,7 +20655,7 @@ function obtenir_carte(carte_id) {
                         Jeu.adverse.terrain[best].sorcellerie++;
                     }
                     deplacer(carte, "adverse", "terrain");
-                    effet_pose(carte);
+                    effet_pose_carte(carte);
                     return true;
                 }
             }
@@ -20723,7 +20723,7 @@ function obtenir_carte(carte_id) {
                             pioche("joueur", nouvelle_carte);
                         }
                         deplacer(carte, "joueur", "defausse");
-                        effet_pose(carte);
+                        effet_pose_carte(carte);
                         actualiser_zone();
                     }
                 }
@@ -20774,12 +20774,12 @@ function obtenir_carte(carte_id) {
                         }
                     }
                     deplacer(carte, "joueur", "terrain");
-                    effet_pose(carte);
+                    effet_pose_carte(carte);
                     actualiser_zone();
                 }
                 else {
                     deplacer(carte, "adverse", "terrain");
-                    effet_pose(carte);
+                    effet_pose_carte(carte);
                     return true;
                 }
             }
@@ -20807,7 +20807,7 @@ function obtenir_carte(carte_id) {
                         }
                         pioche("joueur", nouvelle_carte);
                         deplacer(carte, "joueur", "defausse");
-                        effet_pose(carte);
+                        effet_pose_carte(carte);
                         actualiser_zone();
                     }
                 }
@@ -20842,7 +20842,7 @@ function obtenir_carte(carte_id) {
                             pioche("joueur", nouvelle_carte);
                         }
                         deplacer(carte, "joueur", "defausse");
-                        effet_pose(carte);
+                        effet_pose_carte(carte);
                         actualiser_zone();
                     }
                 }
@@ -20921,12 +20921,12 @@ function obtenir_carte(carte_id) {
                         }
                     }
                     deplacer(carte, "joueur", "terrain");
-                    effet_pose(carte);
+                    effet_pose_carte(carte);
                     actualiser_zone();
                 }
                 else {
                     deplacer(carte, "adverse", "terrain");
-                    effet_pose(carte);
+                    effet_pose_carte(carte);
                     return true;
                 }
             }
@@ -20947,7 +20947,7 @@ function obtenir_carte(carte_id) {
                     soin_direct(carte.camp, 3);
                 }
                 deplacer(carte, "adverse", "terrain");
-                effet_pose(carte);
+                effet_pose_carte(carte);
                 actualiser_zone();
                 return true;
             }
@@ -21018,7 +21018,7 @@ function obtenir_carte(carte_id) {
                     }
                     pioche("joueur");
                     deplacer(carte, carte.camp, "terrain");
-                    effet_pose(carte);
+                    effet_pose_carte(carte);
                     if (Jeu.joueur.vie > 0) {
                         actualiser_zone();
                     }
@@ -21032,7 +21032,7 @@ function obtenir_carte(carte_id) {
                             degats_direct("adverse", 1);
                         }
                         deplacer(carte, carte.camp, "terrain");
-                        effet_pose(carte);
+                        effet_pose_carte(carte);
                         return true;
                     }
                     return false;
@@ -21125,7 +21125,7 @@ function obtenir_carte(carte_id) {
                                 degats(Jeu.adverse.terrain[cible], 3);
                             }
                             deplacer(carte, "joueur", "defausse");
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             actualiser_zone();
                             break;
                     }
@@ -21160,7 +21160,7 @@ function obtenir_carte(carte_id) {
                             degats(Jeu.joueur.terrain[best], 3);
                         }
                         deplacer(carte, "adverse", "defausse");
-                        effet_pose(carte);
+                        effet_pose_carte(carte);
                         return true;
                     }
                     return false;
@@ -21192,7 +21192,7 @@ function obtenir_carte(carte_id) {
                     carte.vie_max++;
                 }
                 deplacer(carte, carte.camp, "terrain");
-                effet_pose(carte);
+                effet_pose_carte(carte);
                 actualiser_zone();
                 return true;
             }
@@ -21216,7 +21216,7 @@ function obtenir_carte(carte_id) {
                     carte.vie_max++;
                 }
                 deplacer(carte, carte.camp, "terrain");
-                effet_pose(carte);
+                effet_pose_carte(carte);
                 actualiser_zone();
                 return true;
             }
@@ -21245,7 +21245,7 @@ function obtenir_carte(carte_id) {
                     carte.portee = true;
                 }
                 deplacer(carte, carte.camp, "terrain");
-                effet_pose(carte);
+                effet_pose_carte(carte);
                 actualiser_zone();
                 return true;
             }
@@ -21273,7 +21273,7 @@ function obtenir_carte(carte_id) {
                     carte.rapidite = true;
                 }
                 deplacer(carte, carte.camp, "terrain");
-                effet_pose(carte);
+                effet_pose_carte(carte);
                 actualiser_zone();
                 return true;
             }
@@ -21370,13 +21370,13 @@ function obtenir_carte(carte_id) {
                         case 3:
                             soin(Jeu.joueur.terrain[cible], 3);
                             deplacer(carte, "joueur", "defausse");
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             actualiser_zone();
                             break;
                         case 4:
                             Jeu.joueur.ressources[10].max++;
                             deplacer(carte, "joueur", "defausse");
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             actualiser_zone();
                             break;
                     }
@@ -21389,7 +21389,7 @@ function obtenir_carte(carte_id) {
                         }
                         soin(Jeu.adverse.terrain[best], 3);
                         deplacer(carte, "adverse", "defausse");
-                        effet_pose(carte);
+                        effet_pose_carte(carte);
                         return true;
                     }
                     return false;
@@ -21466,13 +21466,13 @@ function obtenir_carte(carte_id) {
                         case 3:
                             degats(Jeu.adverse.terrain[cible], 3);
                             deplacer(carte, "joueur", "defausse");
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             actualiser_zone();
                             break;
                         case 4:
                             Jeu.joueur.ressources[1].max++;
                             deplacer(carte, "joueur", "defausse");
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             actualiser_zone();
                             break;
                     }
@@ -21490,7 +21490,7 @@ function obtenir_carte(carte_id) {
                         }
                         degats(Jeu.joueur.terrain[best], 3);
                         deplacer(carte, "adverse", "defausse");
-                        effet_pose(carte);
+                        effet_pose_carte(carte);
                         return true;
                     }
                     return false;
@@ -21512,7 +21512,7 @@ function obtenir_carte(carte_id) {
                     Jeu[carte.camp].ressources[2].max += 3;
                 }
                 deplacer(carte, carte.camp, "defausse");
-                effet_pose(carte);
+                effet_pose_carte(carte);
                 actualiser_zone();
                 return true;
             }
@@ -21533,7 +21533,7 @@ function obtenir_carte(carte_id) {
                 nouvelle_carte.vente = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
                 ajouter(nouvelle_carte, carte.camp, "terrain");
                 deplacer(carte, carte.camp, "terrain");
-                effet_pose(carte);
+                effet_pose_carte(carte);
                 actualiser_zone();
                 return true;
             }
@@ -21556,7 +21556,7 @@ function obtenir_carte(carte_id) {
                     ajouter(nouvelle_carte, carte.camp, "terrain");
                 }
                 deplacer(carte, carte.camp, "terrain");
-                effet_pose(carte);
+                effet_pose_carte(carte);
                 actualiser_zone();
                 return true;
             }
@@ -21583,7 +21583,7 @@ function obtenir_carte(carte_id) {
                     }
                 }
                 deplacer(carte, carte.camp, "terrain");
-                effet_pose(carte);
+                effet_pose_carte(carte);
                 actualiser_zone();
                 return true;
             }
@@ -21642,7 +21642,7 @@ function obtenir_carte(carte_id) {
                             Jeu.joueur.terrain[cible].vie += 5;
                             Jeu.joueur.terrain[cible].vie_max += 5;
                             deplacer(carte, "joueur", "defausse");
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             actualiser_zone();
                             break;
                     }
@@ -21663,7 +21663,7 @@ function obtenir_carte(carte_id) {
                         Jeu.adverse.terrain[cible].vie += 5;
                         Jeu.adverse.terrain[cible].vie_max += 5;
                         deplacer(carte, "adverse", "defausse");
-                        effet_pose(carte);
+                        effet_pose_carte(carte);
                         return true;
                     }
                     return false;
@@ -21748,7 +21748,7 @@ function obtenir_carte(carte_id) {
                             break;
                         case 2:
                             equiper(Jeu.joueur.terrain[cible], carte);
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             enlever(carte);
                             actualiser_zone();
                             break;
@@ -21761,7 +21761,7 @@ function obtenir_carte(carte_id) {
                             best++;
                         }
                         equiper(Jeu.adverse.terrain[best], carte);
-                        effet_pose(carte);
+                        effet_pose_carte(carte);
                         enlever(carte);
                         return true;
                     }
@@ -21803,7 +21803,7 @@ function obtenir_carte(carte_id) {
             carte.texte = function () {
                 return "Quand une Créature adverse est posée : Lui inflige 10 dégâts et se détruit.";
             }
-            carte.effet_pose_carte = function (carte_pose) {
+            carte.effet_vente_autre = function (carte_pose) {
                 if (carte_pose.zone == "terrain" && carte_pose.camp != carte.camp && carte_pose.type == "Créature") {
                     degats(carte_pose, 10);
                     mort(carte);
@@ -21820,7 +21820,7 @@ function obtenir_carte(carte_id) {
             carte.texte = function () {
                 return "Quand une Créature adverse est posée : La détruit et se détruit.";
             }
-            carte.effet_pose_carte = function (carte_pose) {
+            carte.effet_vente_autre = function (carte_pose) {
                 if (carte_pose.zone == "terrain" && carte_pose.camp != carte.camp && carte_pose.type == "Créature") {
                     mort(carte_pose);
                     mort(carte);
@@ -21838,7 +21838,7 @@ function obtenir_carte(carte_id) {
             carte.texte = function () {
                 return "Quand une Créature adverse est posée : Lui inflige 1 dégât.";
             }
-            carte.effet_pose_carte = function (carte_pose) {
+            carte.effet_vente_autre = function (carte_pose) {
                 if (carte_pose.camp != carte.camp && carte_pose.type == "Créature") {
                     degats(carte_pose, 1);
                 }
@@ -21856,7 +21856,7 @@ function obtenir_carte(carte_id) {
             carte.texte = function () {
                 return "Quand une Créature adverse est posée : Lui inflige 10 dégâts et se détruit.";
             }
-            carte.effet_pose_carte = function (carte_pose) {
+            carte.effet_vente_autre = function (carte_pose) {
                 if (carte_pose.zone == "terrain" && carte_pose.camp != carte.camp && carte_pose.type == "Créature") {
                     degats(carte_pose, 10);
                     mort(carte);
@@ -21892,12 +21892,12 @@ function obtenir_carte(carte_id) {
                         }
                     }
                     deplacer(carte, "joueur", "terrain");
-                    effet_pose(carte);
+                    effet_pose_carte(carte);
                     actualiser_zone();
                 }
                 else {
                     deplacer(carte, "adverse", "terrain");
-                    effet_pose(carte);
+                    effet_pose_carte(carte);
                     return true;
                 }
             }
@@ -21911,7 +21911,7 @@ function obtenir_carte(carte_id) {
             carte.texte = function () {
                 return "Applique l'effet suivant à la Créature équipée : Quand une Créature alliée est posée : Lui donne 2 attaque et 2 vie.";
             }
-            carte.stat_equipement.effet_pose_carte = function (carte_equipe, carte_pose) {
+            carte.stat_equipement.effet_vente_autre = function (carte_equipe, carte_pose) {
                 if (carte_pose.type == "Créature" && carte_pose.camp == carte_equipe.camp) {
                     carte_pose.attaque += 2;
                     carte_pose.vie += 2;
@@ -21954,7 +21954,7 @@ function obtenir_carte(carte_id) {
                             break;
                         case 2:
                             equiper(Jeu.joueur.terrain[cible], carte);
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             enlever(carte);
                             actualiser_zone();
                             break;
@@ -21967,7 +21967,7 @@ function obtenir_carte(carte_id) {
                             best++;
                         }
                         equiper(Jeu.adverse.terrain[best], carte);
-                        effet_pose(carte);
+                        effet_pose_carte(carte);
                         enlever(carte);
                         return true;
                     }
@@ -22059,7 +22059,7 @@ function obtenir_carte(carte_id) {
                             Jeu.joueur.terrain[cible].camouflage = true;
                             Jeu.joueur.terrain[cible].stat_etage.rapidite = true;
                             deplacer(carte, "joueur", "defausse");
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             actualiser_zone();
                             break;
                     }
@@ -22079,7 +22079,7 @@ function obtenir_carte(carte_id) {
                         Jeu.adverse.terrain[best].camouflage = true;
                         Jeu.adverse.terrain[best].stat_etage_rapidite = true;
                         deplacer(carte, "adverse", "defausse");
-                        effet_pose(carte);
+                        effet_pose_carte(carte);
                         return true;
                     }
                     return false;
@@ -22182,7 +22182,7 @@ function obtenir_carte(carte_id) {
                             Jeu[cible_camp].terrain[cible].familles.push("Fantôme");
                             Jeu[cible_camp].terrain[cible].ephemere = true;
                             deplacer(carte, "joueur", "defausse");
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             actualiser_zone();
                             break;
                     }
@@ -22202,7 +22202,7 @@ function obtenir_carte(carte_id) {
                         Jeu.joueur.terrain[best].familles.push("Fantôme");
                         Jeu.joueur.terrain[best].ephemere = true;
                         deplacer(carte, "adverse", "defausse");
-                        effet_pose(carte);
+                        effet_pose_carte(carte);
                         return true;
                     }
                     return false;
@@ -22419,7 +22419,7 @@ function obtenir_carte(carte_id) {
                             }
                             else {
                                 deplacer(carte, "joueur", "terrain");
-                                effet_pose(carte);
+                                effet_pose_carte(carte);
                                 actualiser_zone();
                             }
                             break;
@@ -22429,14 +22429,14 @@ function obtenir_carte(carte_id) {
                             carte.vie_max += Jeu.joueur.boutique[cible].vie_max;
                             enlever(Jeu.joueur.boutique[cible]);
                             deplacer(carte, "joueur", "terrain");
-                            effet_pose(carte);
+                            effet_pose_carte(carte);
                             actualiser_zone();
                             break;
                     }
                 }
                 else {
                     deplacer(carte, "adverse", "terrain");
-                    effet_pose(carte);
+                    effet_pose_carte(carte);
                     return true;
                 }
             }
@@ -22471,13 +22471,13 @@ function obtenir_carte(carte_id) {
                         }
                     }
                     deplacer(carte, "joueur", "terrain");
-                    effet_pose(carte);
+                    effet_pose_carte(carte);
                     actualiser_zone();
                     return true;
                 }
                 else {
                     deplacer(carte, "adverse", "terrain");
-                    effet_pose(carte);
+                    effet_pose_carte(carte);
                     return true;
                 }
             }
@@ -22611,9 +22611,82 @@ function obtenir_carte(carte_id) {
                     }
                 }
                 deplacer(carte, carte.camp, "terrain");
-                effet_pose(carte);
+                effet_pose_carte(carte);
                 actualiser_zone();
                 return true;
+            }
+            break;
+        case 547:
+            carte.nom = "Téléportation";
+            carte.type = "Action";
+            carte.familles.push("Sort");
+            carte.cout[0] = 10;
+            carte.cout[8] = 10;
+            carte.vente[0] = 5;
+            carte.vente[8] = 5;
+            carte.texte = function () {
+                return "Diminue le coût d'une Créature alliée dans la boutique d'autant que votre sorcellerie.";
+            }
+            carte.effet_pose = function (step, cible) {
+                if (carte.camp == "joueur") {
+                    switch (step) {
+                        case 1:
+                            let verifier = false;
+                            for (let n = 0; n < Jeu.joueur.boutique.length; n++) {
+                                if (Jeu.joueur.boutique[n].type == "Créature" && cout_total(Jeu.joueur.boutique[n]) > 0) {
+                                    verifier = true;
+                                }
+                            }
+                            if (verifier && sorcellerie("joueur") > 0) {
+                                let texte = "";
+                                texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une Créature alliée dans la boutique : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Boutique :</u>";
+                                texte += "<br/>";
+                                for (let n = 0; n < Jeu.joueur.boutique.length; n++) {
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
+                                    texte += afficher_carte("joueur", "boutique", n, "carte_side");
+                                    texte += "</div>";
+                                    if (Jeu.joueur.boutique[n].type == "Créature" && cout_total(Jeu.joueur.boutique[n]) > 0) {
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
+                                    }
+                                    texte += "</div>";
+                                }
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
+                            }
+                            break;
+                        case 2:
+                            let reduc = sorcellerie("joueur");
+                            let ressource = 0;
+                            while (cout_total(Jeu.joueur.boutique[cible]) > 0 && reduc > 0) {
+                                if (Jeu.joueur.boutique[cible].cout[ressource] > 0) {
+                                    Jeu.joueur.boutique[cible].cout[ressource]--;
+                                    reduc--;
+                                }
+                                ressource++;
+                                if (ressource > 12) {
+                                    ressource = 0;
+                                }
+                            }
+                            deplacer(carte, "joueur", "defausse");
+                            effet_pose_carte(carte);
+                            actualiser_zone();
+                            break;
+                    }
+                }
+                return false;
             }
             break;
     }
