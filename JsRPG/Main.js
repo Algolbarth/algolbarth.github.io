@@ -17,7 +17,7 @@ function demarrage() {
         ],
         types: ["Créature", "Bâtiment", "Objet", "Action", "Région"],
         familles: [],
-        NOMBRE_CARTE: 547,
+        NOMBRE_CARTE: 551,
         NOMBRE_HISTOIRE: 4,
         NOMBRE_MUSIQUE: 4,
         combat: {
@@ -1238,7 +1238,7 @@ function soin(carte, montant) {
         }
         for (let n = 0; n < Jeu[carte.camp].terrain.length; n++) {
             if (!statistique(Jeu[carte.camp].terrain[n], "silence")) {
-                Jeu[carte.camp].terrain[n].effet_soin_carte(carte);
+                Jeu[carte.camp].terrain[n].effet_soin_autre(carte);
             }
         }
     }
@@ -1612,7 +1612,7 @@ function talent_voir(talent, div, stack = false) {
     texte += "<br/>";
     switch (talent) {
         case "Éternité":
-            texte += "Ne disparais pas de votre défausse.";
+            texte += "Ne disparais pas de votre défausse à la fin de la phase de combat.";
             break;
         case "Temporaire":
             texte += "Est banni à la fin de la phase de combat.";
