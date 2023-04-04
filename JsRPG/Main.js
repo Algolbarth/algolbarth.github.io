@@ -17,7 +17,7 @@ function demarrage() {
         ],
         types: ["Créature", "Bâtiment", "Objet", "Action", "Région"],
         familles: [],
-        NOMBRE_CARTE: 551,
+        NOMBRE_CARTE: 552,
         NOMBRE_HISTOIRE: 4,
         NOMBRE_MUSIQUE: 4,
         combat: {
@@ -1017,9 +1017,10 @@ function etage_debut() {
 function adversaire_generer(etage) {
     Jeu.adverse.boutique = [];
     for (let n = 0; n < Jeu.ressources.length; n++) {
-        Jeu.adverse.ressources[n].courant = Jeu.adverse.ressources[n].max = Jeu.adverse.ressources[n].reserve = 0;
+        Jeu.adverse.ressources[n].courant = Jeu.adverse.ressources[n].max = 0;
     }
     /*
+    Jeu.adverse.liste_regions.push([78]);
     if (etage == 1) {
         for (let n = 1; n <= Jeu.NOMBRE_CARTE; n++) {
             ajouter(obtenir_carte(n), "adverse", "boutique");
@@ -1600,7 +1601,6 @@ function effet_talent_voir(talent, carte, stack = false) {
 }
 
 function talent_voir(talent, div, stack = false) {
-    console.log(div);
     let texte = "";
     texte += "<div style='display: flex;justify-content: space-between;'><div>" + talent;
     if (stack !== false) {
@@ -1708,6 +1708,7 @@ function talent_voir(talent, div, stack = false) {
             break;
     }
     div_actualiser(div, texte);
+    document.getElementById(div).setAttribute("style", "display : block");
     son_carte();
 }
 
