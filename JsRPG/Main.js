@@ -17,7 +17,7 @@ function demarrage() {
         ],
         types: ["Créature", "Bâtiment", "Objet", "Action", "Région"],
         familles: [],
-        NOMBRE_CARTE: 559,
+        NOMBRE_CARTE: 560,
         NOMBRE_HISTOIRE: 4,
         NOMBRE_MUSIQUE: 4,
         combat: {
@@ -153,8 +153,6 @@ function nouvelle_partie() {
     ajouter(obtenir_carte(113), "joueur", "regions");
     ajouter(obtenir_carte(78), "joueur", "regions");
     ajouter(obtenir_carte(31), "joueur", "main");
-    ajouter(obtenir_carte(208), "joueur", "main");
-    ajouter(obtenir_carte(557), "joueur", "main");
     ajouter(obtenir_carte(1), "joueur", "terrain");
     for (let n = 0; n < Jeu.joueur.main.length; n++) {
         Jeu.joueur.main[n].cache = true;

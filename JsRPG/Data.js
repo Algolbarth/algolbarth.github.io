@@ -23363,7 +23363,7 @@ function obtenir_carte(carte_id) {
             carte.attaque = 20;
             carte.vie_max = carte.vie = 20;
             carte.texte = function () {
-                return "Quand tue une Créature : Crée " + effet_carte_voir_id(558, carte)  + " dans la main.";
+                return "Quand tue une Créature : Crée " + effet_carte_voir_id(558, carte) + " dans la main.";
             }
             carte.effet_tuer = function (defenseur) {
                 if (defenseur.type == "Créature") {
@@ -23371,6 +23371,95 @@ function obtenir_carte(carte_id) {
                     nouvelle_carte.vente = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
                     ajouter(nouvelle_carte, carte.camp, "main");
                     carte.vie = 0;
+                }
+            }
+            break;
+        case 560:
+            carte.nom = "Contact mortel";
+            carte.type = "Action";
+            carte.familles.push("Faucheuse");
+            carte.cout[0] = 8;
+            carte.cout[9] = 7;
+            carte.vente[0] = 4;
+            carte.vente[9] = 3;
+            carte.texte = function () {
+                return "Détruit une Créature adverse sur le terrain s'il y a une Créature alliée avec " + effet_talent_voir("Létalité", carte) + " sur le terrain.";
+            }
+            carte.effet_pose = function (step, cible) {
+                if (carte.camp == "joueur") {
+                    switch (step) {
+                        case 1:
+                            let verifier = false;
+                            for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
+                                if (Jeu.joueur.terrain[n].type == "Créature" && statistique(Jeu.joueur.terrain[n], "letalite")) {
+                                    verifier = true;
+                                }
+                            }
+                            if (verifier && verifier_cible_creature("adverse", "terrain")) {
+                                let texte = "";
+                                texte += "<button onclick='javascript:fermer_choix()'>Annuler</button>";
+                                texte += "<br/><br/>";
+                                texte += carte.nom;
+                                texte += "<br/>";
+                                texte += carte.texte();
+                                texte += "<br/><br/>";
+                                texte += "Choisissez une Créature adverse sur le terrain : ";
+                                texte += "<br/><br/>";
+                                texte += "<div class='zone' style='width:48%;'>";
+                                texte += "<u>Terrain adverse :</u>";
+                                texte += "<br/>";
+                                for (let n = 0; n < Jeu.adverse.terrain.length; n++) {
+                                    texte += "<div class='carte'>";
+                                    texte += "<div>";
+                                    if (!Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence) {
+                                        texte += afficher_carte("adverse", "terrain", n, "carte_side");
+                                    }
+                                    else {
+                                        texte += "???";
+                                    }
+                                    texte += "</div>";
+                                    if (Jeu.adverse.terrain[n].type == "Créature" && (!Jeu.adverse.terrain[n].camouflage || Jeu.adverse.terrain[n].silence)) {
+                                        texte += "<div>";
+                                        texte += "<button onclick='javascript:Jeu.joueur.main[" + carte.slot + "].effet_pose(2," + n + ")'>Cibler</button>";
+                                        texte += "</div>";
+                                    }
+                                    texte += "</div>";
+                                }
+                                texte += "</div>";
+                                texte += "</div>";
+                                afficher_choix(texte);
+                            }
+                            break;
+                        case 2:
+                            mort(Jeu.adverse.terrain[cible]);
+                            deplacer(carte, "joueur", "defausse");
+                            effet_pose_carte(carte);
+                            actualiser_zone();
+                            break;
+                    }
+                }
+                else {
+                    let verifier = false;
+                    for (let n = 0; n < Jeu.adverse.terrain.length; n++) {
+                        if (Jeu.adverse.terrain[n].type == "Créature" && statistique(Jeu.adverse.terrain[n], "letalite")) {
+                            verifier = true;
+                        }
+                    }
+                    if (verifier && verifier_cible_creature("joueur", "terrain")) {
+                        let best = 0;
+                        while (Jeu.joueur.terrain[best].type != "Créature" || (Jeu.joueur.terrain[best].camouflage && !Jeu.joueur.terrain[best].silence)) {
+                            best++;
+                        }
+                        for (let n = 0; n < Jeu.joueur.terrain.length; n++) {
+                            if (Jeu.joueur.terrain[n].vie > Jeu.joueur.terrain[best].vie && Jeu.joueur.terrain[best].type == "Créature" && (!Jeu.joueur.terrain[n].camouflage || Jeu.joueur.terrain[n].silence)) {
+                                best = n;
+                            }
+                        }
+                        mort(Jeu.joueur.terrain[best]);
+                    }
+                    deplacer(carte, "adverse", "defausse");
+                    effet_pose_carte(carte);
+                    return true;
                 }
             }
             break;
