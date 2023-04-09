@@ -17,7 +17,7 @@ function demarrage() {
         ],
         types: ["Créature", "Bâtiment", "Objet", "Action", "Région"],
         familles: [],
-        NOMBRE_CARTE: 560,
+        NOMBRE_CARTE: 570,
         NOMBRE_HISTOIRE: 4,
         NOMBRE_MUSIQUE: 4,
         combat: {
@@ -661,7 +661,7 @@ function fermer_choix() {
 
 function ressource_choisir() {
     initialiser();
-    fonction("Retour", "menu()");
+    fonction("Retour", "son_bouton();menu()");
     saut(2);
     for (let n = 1; n < Jeu.ressources.length; n++) {
         fonction(Jeu.ressources[n].nom, "ressource_ajouter(" + n + ")");
@@ -675,6 +675,7 @@ function ressource_ajouter(ressource_slot) {
     Jeu.ressource_sup--;
     Jeu.joueur.ressources[ressource_slot].courant++;
     Jeu.joueur.ressources[ressource_slot].max++;
+    son_bouton();
     menu();
 }
 
@@ -1196,7 +1197,7 @@ function game_over() {
     initialiser();
     afficher("Vous avez dû abandonner à l'étage " + Jeu.etage);
     saut(2);
-    fonction("Abandonner", "accueil()");
+    fonction("Abandonner", "son_bouton();accueil()");
     actualiser();
 }
 
@@ -1204,7 +1205,7 @@ function victoire() {
     initialiser();
     afficher("Victoire");
     saut(2);
-    fonction("Ecran titre", "accueil()()");
+    fonction("Ecran titre", "son_bouton();accueil()");
     actualiser();
 }
 
@@ -1390,6 +1391,9 @@ function effet_pose_carte(carte) {
                 adverse_terrain[n].equipements[i].effet_pose_autre(adverse_terrain[n], carte);
             }
         }
+    }
+    if (carte.camp == "joueur") {
+        son_bouton();
     }
 }
 

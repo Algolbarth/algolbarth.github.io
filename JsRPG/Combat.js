@@ -245,14 +245,14 @@ function trouver_defenseur() {
 function combat_afficher() {
     initialiser();
     if (Jeu.combat.auto) {
-        fonction("Désactiver mode auto", "combat_auto_off()");
+        fonction("Désactiver mode auto", "son_bouton();combat_auto_off()");
     }
     else {
         fonction("Options", "son_bouton();option_combat()");
         afficher(" - ");
-        fonction("Activer mode auto", "combat_auto_on()");
+        fonction("Activer mode auto", "son_bouton();combat_auto_on()");
         afficher(" - ");
-        fonction("Action suivante", "combat_continuer()");
+        fonction("Action suivante", "son_bouton();combat_continuer()");
     }
     afficher("<center>Tour " + Jeu.combat.tour + "</center>");
     div("main");
@@ -334,7 +334,7 @@ function combat_victoire() {
     initialiser();
     afficher("Victoire");
     saut(2);
-    fonction("Étage suivant", "etage_suivant()");
+    fonction("Étage suivant", "son_bouton();etage_suivant()");
     actualiser();
 }
 
@@ -351,12 +351,12 @@ function combat_defaite() {
         saut();
         afficher("Il vous reste " + Jeu.joueur.vie + " vie");
         saut(2);
-        fonction("Continuer", "etage_fin();etage_debut()");
+        fonction("Continuer", "son_bouton();etage_fin();etage_debut()");
     }
     else {
         afficher("Vous n'avez plus de vie");
         saut(2);
-        fonction("Abandonner", "game_over()");
+        fonction("Abandonner", "son_bouton();game_over()");
     }
     actualiser();
 }

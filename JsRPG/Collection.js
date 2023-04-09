@@ -2,7 +2,7 @@ function collection() {
     initialiser();
     fonction("Retour", "son_bouton();accueil()");
     afficher("<center>");
-    fonction("Filtrer", "collection_filtre()");
+    fonction("Filtrer", "son_bouton();collection_filtre()");
     afficher(" Trier par <select id='tri' onchange='collection_tri_appliquer()'>")
     afficher("<option value='nom'");
     if (Jeu.collection_tri == "nom") {
@@ -21,10 +21,10 @@ function collection() {
     afficher(">Coût total</option>");
     afficher("</select> ");
     if (Jeu.collection_ordre == "croissant") {
-        fonction("Croissant", "Jeu.collection_ordre=" + '"decroissant"' + ";collection()");
+        fonction("Croissant", "son_bouton();Jeu.collection_ordre=" + '"decroissant"' + ";collection()");
     }
     else {
-        fonction("Décroissant", "Jeu.collection_ordre=" + '"croissant"' + ";collection()");
+        fonction("Décroissant", "son_bouton();Jeu.collection_ordre=" + '"croissant"' + ";collection()");
     }
     afficher(" - " + Jeu.collection.length + " résultats");
     afficher("</center>");
@@ -116,7 +116,7 @@ function collection_tri() {
 
 function collection_filtre() {
     initialiser();
-    fonction("Retour", "collection()");
+    fonction("Retour", "son_bouton();collection()");
     saut(2);
     afficher("Type de carte : <select id='filtre_type'>")
     afficher("<option value=" + '"Tous"' + ">Tous</option>");
@@ -169,7 +169,7 @@ function collection_filtre() {
     }
     afficher("</select>");
     saut(2);
-    fonction("Filtrer", "collection_filtre_appliquer()");
+    fonction("Filtrer", "son_bouton();collection_filtre_appliquer()");
     actualiser();
 }
 

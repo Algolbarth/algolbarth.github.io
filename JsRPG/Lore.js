@@ -5,7 +5,7 @@ function lore() {
     div("main");
     for (let n = 1; n <= Jeu.NOMBRE_HISTOIRE; n++) {
         div("", "carte");
-        fonction(obtenir_histoire(n).nom, "histoire_voir(" + n + ")");
+        fonction(obtenir_histoire(n).nom, "son_carte();histoire_voir(" + n + ")");
         div_fin();
     }
     div_fin();
@@ -146,14 +146,14 @@ function histoire_voir(id) {
     texte += "<center><br/>";
     texte += obtenir_histoire(id).nom + "<br/><br/>";
     texte += obtenir_histoire(id).resume + "<br/><br/>";
-    texte += "<button onclick='javascript:histoire_lire(" + id + ")'>Lire</button>";
+    texte += "<button onclick='javascript:son_carte();histoire_lire(" + id + ")'>Lire</button>";
     texte += "</center>";
     div_actualiser("side", texte);
 }
 
 function histoire_lire(id) {
     let texte = "";
-    texte += "<button onclick='javascript:fermer_choix()'>Fermer</button> <br/><br/>";
+    texte += "<button onclick='javascript:son_carte();fermer_choix()'>Fermer</button> <br/><br/>";
     texte += "<div class='lore'>";
     texte += obtenir_histoire(id).texte;
     texte += "</div>";

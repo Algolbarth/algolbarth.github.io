@@ -3,10 +3,10 @@ function option(option_afficher) {
         afficher("<u>Combat automatique :</u> ");
         if (Jeu.combat.auto) {
             afficher("Activé ");
-            fonction("Désactivé", "Jeu.combat.auto=false;" + option_afficher);
+            fonction("Désactivé", "son_bouton();Jeu.combat.auto=false;" + option_afficher);
         }
         else {
-            fonction("Activé", "Jeu.combat.auto=true;" + option_afficher);
+            fonction("Activé", "son_bouton();Jeu.combat.auto=true;" + option_afficher);
             afficher(" Désactivé");
         }
         saut();
@@ -23,7 +23,7 @@ function option(option_afficher) {
     saut();
     afficher("<div class='slidecontainer'><input id='slider_bruitage' type='range' min='0' max='100' value=" + Jeu.musique.bruitage_volume*100 + " class='slider'></div>");
     div("volume_bruitage");
-    afficher("Bruitage : " + parseInt(Jeu.musique.bruitage_volume*100) + "% (BETA)");
+    afficher("Bruitage : " + parseInt(Jeu.musique.bruitage_volume*100) + "%");
     div_fin();
 }
 
@@ -32,7 +32,7 @@ function option_vitesse(nom, vitesse, option_afficher) {
         afficher(nom + " ");
     }
     else {
-        fonction(nom, "Jeu.combat.vitesse=" + vitesse + ";" + option_afficher);
+        fonction(nom, "son_bouton();Jeu.combat.vitesse=" + vitesse + ";" + option_afficher);
         afficher(" ");
     }
 }
@@ -43,7 +43,7 @@ function option_jeu() {
     saut(2);
     option("option_jeu()");
     saut();
-    fonction("Retour à l'écran titre", "Jeu.en_jeu = false;accueil()");
+    fonction("Retour à l'écran titre", "Jeu.en_jeu = false;son_bouton();accueil()");
     actualiser();
     slider();
 }
@@ -54,7 +54,7 @@ function option_combat() {
     saut(2);
     option("option_combat()");
     saut();
-    fonction("Retour à l'écran titre", "Jeu.en_jeu = false;accueil()");
+    fonction("Retour à l'écran titre", "Jeu.en_jeu = false;son_bouton();accueil()");
     actualiser();
     slider();
 }
@@ -75,7 +75,7 @@ function slider () {
     }
     document.getElementById("slider_bruitage").oninput = function() {
         Jeu.musique.bruitage_volume = document.getElementById("slider_bruitage").value/100;
-        div_actualiser("volume_bruitage", "Bruitage : " + parseInt(Jeu.musique.bruitage_volume*100) + "% (BETA)");
+        div_actualiser("volume_bruitage", "Bruitage : " + parseInt(Jeu.musique.bruitage_volume*100) + "%");
         son_bouton();
     }
 }
