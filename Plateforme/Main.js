@@ -21,9 +21,14 @@ function demarrage() {
         objects: []
     }
     newObject("plateform", 0, canvas.height / 2, canvas.width, canvas.height / 2);
-    newObject("plateform", canvas.width / 4, canvas.height / 4, canvas.width / 4, canvas.height / 10);
+    newObject("plateform", canvas.width / 4, canvas.height / 4, canvas.width / 4 + 1, canvas.height / 10);
     newObject("plateform", canvas.width / 2, canvas.height / 4, canvas.width / 4, canvas.height / 4);
-    newObject("coin", canvas.width / 2, canvas.height / 8, 50, 50);
+    for (let n = 0; n < 3; n++) {
+        newObject("coin", canvas.width / 2 + 100 * n, canvas.height / 8, 50, 50);
+    }
+    for (let n = 0; n < 5; n++) {
+        newObject("coin", canvas.width / 4 + 100 * n, canvas.height / 2.5, 50, 50);
+    }
     draw();
     setInterval(draw, 1);
     document.addEventListener("keyup", keyUpHandler, false);
@@ -59,11 +64,46 @@ function drawCharacter() {
 
 function newObject(type, x, y, width, height) {
     let object = {
+        place: System.objects.length,
         type: type,
         x: x,
         y: y,
         height: height,
-        width: width
+        width: width,
+        collision: function () { },
+        collision_x: function (move_x) { },
+        collision_y: function () { }
+    }
+    switch (object.type) {
+        case "coin":
+            object.collision = function () {
+                System.objects.splice(object.place, 1);
+                for (let n = object.place; n < System.objects.length; n++) {
+                    System.objects[n].place--;
+                }
+            }
+            break;
+        case "plateform":
+            object.collision_x = function (move_x) {
+                if (move_x > 0) {
+                    System.character.x = object.x - System.character.width;
+                }
+                else if (move_x < 0) {
+                    System.character.x = object.x + object.width;
+                }
+            }
+            object.collision_y = function () {
+                if (System.character.move_y > 0) {
+                    System.character.y = object.y - System.character.height;
+                    System.character.can_jump = true;
+                    System.character.move_y = 0;
+                }
+                else if (System.character.move_y < 0) {
+                    System.character.y = object.y + object.height;
+                    System.character.move_y = 0;
+                }
+            }
+            break;
     }
     System.objects.push(object);
 }
@@ -87,6 +127,11 @@ function drawObject(object) {
 }
 
 function moveCharacter() {
+    let listObject = [];
+    for (let n = 0; n < System.objects.length; n++) {
+        listObject.push(System.objects[n]);
+    }
+
     let move_x = 0;
     if (System.character.left) {
         move_x -= 2;
@@ -95,14 +140,9 @@ function moveCharacter() {
         move_x += 2;
     }
     System.character.x += move_x;
-    for (let n = 0; n < System.objects.length; n++) {
-        if (System.objects[n].type == "plateform" && collision(System.character, System.objects[n])) {
-            if (move_x > 0) {
-                System.character.x = System.objects[n].x - System.character.width;
-            }
-            else if (move_x < 0) {
-                System.character.x = System.objects[n].x + System.objects[n].width;
-            }
+    for (let n = 0; n < listObject.length; n++) {
+        if (checkCollision(System.character, listObject[n])) {
+            listObject[n].collision_x(move_x);
         }
     }
     if (System.character.x < 0) {
@@ -118,17 +158,15 @@ function moveCharacter() {
     }
     System.character.move_y += System.gravity;
     System.character.y += System.character.move_y;
-    for (let n = 0; n < System.objects.length; n++) {
-        if (System.objects[n].type == "plateform" && collision(System.character, System.objects[n])) {
-            if (System.character.move_y > 0) {
-                System.character.y = System.objects[n].y - System.character.height;
-                System.character.can_jump = true;
-                System.character.move_y = 0;
-            }
-            else if (System.character.move_y < 0) {
-                System.character.y = System.objects[n].y + System.objects[n].height;
-                System.character.move_y = 0;
-            }
+    for (let n = 0; n < listObject.length; n++) {
+        if (checkCollision(System.character, listObject[n])) {
+            listObject[n].collision_y();
+        }
+    }
+
+    for (let n = 0; n < listObject.length; n++) {
+        if (checkCollision(System.character, listObject[n])) {
+            listObject[n].collision();
         }
     }
 }
@@ -157,7 +195,7 @@ function keyDownHandler(e) {
     }
 }
 
-function collision(object1, object2) {
+function checkCollision(object1, object2) {
     if (object1.x + object1.width > object2.x && object1.x < object2.x + object2.width && object1.y + object1.height > object2.y && object1.y < object2.y + object2.height) {
         return true;
     }
