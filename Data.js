@@ -92,16 +92,10 @@ function ajouter_sites() {
     ajouter_site("Courrier International", "https://www.courrierinternational.com/", [6]);
     ajouter_site("MTG Art", "https://www.artofmtg.com/");
 
-    ajouter_site("New Monaco", "New Monaco/index.html", [0]);
-    ajouter_site("JsTA", "JsTA/index.html", [0]);
     ajouter_site("Dimension", "Dimension/index.html", [0]);
     ajouter_site("JsRPG", "JsRPG/index.html", [0]);
     ajouter_site("Cryptage", "Cryptage/index.html", [0]);
     ajouter_site("Plateforme", "Plateforme/index.html", [0]);
-
-    ajouter_site("Jellyfin", "https://jelly.lacave.stream/web/index.html", [1]);
-    ajouter_site("Photos Meet-Up Dimension 2022", "https://photos.google.com/share/AF1QipMgO525dQxGhR_Yjk9575LrGxKH_m4LBx6dHpFAXlVrtuOI-7vDzCBnNl8c7qQ_wg?pli=1&key=cDFjNkstZG4wOHJBYW9nTW4zTW9RbnVQNllIQ1FB", [1]);
-    ajouter_site("Bug Yuzu clavier MHGU", "https://github.com/yuzu-emu/yuzu/pull/8041", [3]);
 
     ajouter_dossier("Local");//0
     ajouter_dossier("Favoris");//1
