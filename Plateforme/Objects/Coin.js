@@ -1,11 +1,10 @@
 function newCoin(x, y) {
     let coin = newObject("coin", x, y, 50, 50);
-    coin.collision = function () {
-        System.objects.splice(coin.place, 1);
-        for (let n = coin.place; n < System.objects.length; n++) {
-            System.objects[n].place--;
+    coin.collision = function (object) {
+        if (object == System.character) {
+            removeObject(coin);
+            System.score++;
         }
-        System.score++;
     }
     coin.draw = function (ctx) {
         ctx.fillStyle = "#FFD700";

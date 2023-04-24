@@ -1,5 +1,6 @@
 function newObject(type, x, y, width, height) {
     let object = {
+        nature: "object",
         place: System.objects.length,
         type: type,
         x: x,
@@ -26,5 +27,12 @@ function drawObject(object) {
 function checkCollision(object1, object2) {
     if (object1.x + object1.width > object2.x && object1.x < object2.x + object2.width && object1.y + object1.height > object2.y && object1.y < object2.y + object2.height) {
         return true;
+    }
+}
+
+function removeObject (object) {
+    System.objects.splice(object.place, 1);
+    for (let n = object.place; n < System.objects.length; n++) {
+        System.objects[n].place--;
     }
 }

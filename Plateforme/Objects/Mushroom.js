@@ -1,13 +1,12 @@
 function newMushroom(x, y) {
     let mushroom = newObject("mushroom", x, y, 60, 60);
-    mushroom.collision = function () {
-        System.objects.splice(mushroom.place, 1);
-        for (let n = mushroom.place; n < System.objects.length; n++) {
-            System.objects[n].place--;
-        }
-        if (System.character.height == 70) {
-            System.character.height = 100;
-            System.character.y -= 30;
+    mushroom.collision = function (object) {
+        if (object == System.character) {
+            removeObject(mushroom);
+            if (object.height == 70) {
+                object.height = 100;
+                object.y -= 30;
+            }
         }
     }
     mushroom.draw = function (ctx) {
