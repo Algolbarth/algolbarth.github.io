@@ -1,7 +1,5 @@
 function demarrage() {
-    initialiser();
-    afficher("<canvas id='canvas'></canvas>");
-    actualiser();
+    drawCanvas();
     const canvas = document.getElementById('canvas');
     canvas.width = document.body.clientWidth;
     canvas.height = document.body.clientHeight;
@@ -16,7 +14,8 @@ function demarrage() {
         },
         objects: [],
         ennemies: [],
-        score: 0,
+        coins: 0,
+        max_coins: 0,
         level_width: 0,
         level_height: 0,
         background_color: "#000000"
@@ -26,6 +25,15 @@ function demarrage() {
     System.animation = setInterval(draw, 10);
     document.addEventListener("keyup", keyUpHandler, false);
     document.addEventListener("keydown", keyDownHandler, false);
+}
+
+function drawCanvas () {
+    initialiser();
+    afficher("<canvas id='canvas'></canvas>");
+    actualiser();
+    const canvas = document.getElementById('canvas');
+    canvas.width = document.body.clientWidth;
+    canvas.height = document.body.clientHeight;
 }
 
 function draw() {
@@ -60,7 +68,7 @@ function emptyCanvas() {
     if (canvas.getContext) {
         const ctx = canvas.getContext('2d');
 
-        ctx.clearRect(0, 0, System.max_width, System.max_height);
+        ctx.clearRect(0, 0, System.level_width, System.level_height);
         ctx.fillStyle = System.background_color;
         ctx.fillRect(System.camera.x, System.camera.y, System.camera.width, System.camera.height);
     }
@@ -72,12 +80,36 @@ function drawScore() {
         const ctx = canvas.getContext('2d');
 
         ctx.fillStyle = "#FFD700";
-        ctx.fillRect(System.camera.x + 10, System.camera.y + 10, 50, 50);
+        ctx.fillRect(System.camera.x + 5, System.camera.y + 5, 25, 25);
         ctx.fillStyle = "#DAA520";
-        ctx.fillRect(System.camera.x + 30, System.camera.y + 20, 10, 30);
+        ctx.fillRect(System.camera.x + 15, System.camera.y + 10, 5, 15);
+
+        ctx.fillStyle = "#000000";
+        ctx.font = "25px serif";
+        ctx.fillText(" x " + System.coins, System.camera.x + 30, System.camera.y + 25);
+    }
+}
+
+async function finishLevel () {
+    clearInterval(System.animation);
+    await sleep(100);
+    console.log("test");
+    const canvas = document.getElementById('canvas');
+    if (canvas.getContext) {
+        const ctx = canvas.getContext('2d');
+
+        ctx.reset();
+        
+        ctx.fillStyle = System.background_color;
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        ctx.fillStyle = "#FFD700";
+        ctx.fillRect(canvas.width/2-50, canvas.height/2-40, 50, 50);
+        ctx.fillStyle = "#DAA520";
+        ctx.fillRect(canvas.width/2-30, canvas.height/2-30, 10, 30);
 
         ctx.fillStyle = "#000000";
         ctx.font = "50px serif";
-        ctx.fillText(" x " + System.score, System.camera.x + 60, System.camera.y + 50);
+        ctx.fillText(" x " + System.coins + " / " + System.max_coins, canvas.width/2, canvas.height/2);
     }
 }

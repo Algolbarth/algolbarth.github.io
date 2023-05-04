@@ -1,6 +1,6 @@
 function newGoumba (x, y) {
-    let goumba = newEnnemy("goumba", x, y, 80, 80);
-    goumba.move_x = -1;
+    let goumba = newEnnemy("goumba", x, y, 40, 40);
+    goumba.move_x = -0.5;
     goumba.collision_x = function (object) {
         if (object.nature == "character") {
             damage();
@@ -23,13 +23,13 @@ function newGoumba (x, y) {
     }
     goumba.draw = function (ctx) {
         ctx.fillStyle = "#A0522D";
-        ctx.fillRect(goumba.x, goumba.y, 80, 60);
+        ctx.fillRect(goumba.x, goumba.y, 40, 30);
         ctx.fillStyle = "#FFE4B5";
-        ctx.fillRect(goumba.x + 20, goumba.y + 60, 40, 20);
+        ctx.fillRect(goumba.x + 10, goumba.y + 30, 20, 10);
         ctx.fillStyle = "#000000";
-        ctx.fillRect(goumba.x, goumba.y + 65, 30, 15);
+        ctx.fillRect(goumba.x, goumba.y + 32.5, 15, 7.5);
         ctx.fillStyle = "#000000";
-        ctx.fillRect(goumba.x + 50, goumba.y + 65, 30, 15);
+        ctx.fillRect(goumba.x + 25, goumba.y + 32.5, 15, 7.5);
     }
     System.ennemies.push(goumba);
 }

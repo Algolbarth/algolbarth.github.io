@@ -3,8 +3,8 @@ function newCharacter() {
         nature: "character",
         x: 0,
         y: 0,
-        height: 70,
-        width: 50,
+        height: 35,
+        width: 25,
         jumping: false,
         left: false,
         right: false,
@@ -37,10 +37,10 @@ function moveCharacter() {
 
     let move_x = 0;
     if (System.character.left) {
-        move_x -= 4;
+        move_x -= 2;
     }
     if (System.character.right) {
-        move_x += 4;
+        move_x += 2;
     }
     System.character.x += move_x;
     for (let n = 0; n < listObject.length; n++) {
@@ -62,7 +62,7 @@ function moveCharacter() {
 
     if (System.character.jumping && System.character.can_jump) {
         System.character.can_jump = false;
-        System.character.move_y = -10.5;
+        System.character.move_y = -8.5;
     }
     System.character.move_y += System.gravity;
     System.character.y += System.character.move_y;
@@ -89,9 +89,9 @@ function moveCharacter() {
 
 function damage() {
     if (System.character.immune == 0) {
-        if (System.character.height == 100) {
-            System.character.height = 70;
-            System.character.y += 30;
+        if (System.character.height == 50) {
+            System.character.height = 35;
+            System.character.y += 15;
             System.character.immune = 200;
         }
         else {
@@ -133,6 +133,13 @@ function keyDownHandler(e) {
     if (e.keyCode == 40) {
         System.character.fall = true;
     }
+}
+
+function initCamera(y) {
+    System.camera.y = y;
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+    ctx.translate(0, -y);
 }
 
 function fixCamera() {

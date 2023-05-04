@@ -1,19 +1,17 @@
 function newMushroom(x, y) {
-    let mushroom = newObject("mushroom", x, y, 60, 60);
+    let mushroom = newObject("mushroom", x, y, 30, 30);
     mushroom.collision = function (object) {
-        if (object == System.character) {
+        if (object == System.character && object.height == 35) {
             removeObject(mushroom);
-            if (object.height == 70) {
-                object.height = 100;
-                object.y -= 30;
-            }
+            object.height = 50;
+            object.y -= 15;
         }
     }
     mushroom.draw = function (ctx) {
         ctx.fillStyle = "#FF0000";
-        ctx.fillRect(mushroom.x, mushroom.y, 60, 40);
+        ctx.fillRect(mushroom.x, mushroom.y, 30, 20);
         ctx.fillStyle = "#EEE8AA";
-        ctx.fillRect(mushroom.x + 10, mushroom.y + 40, 40, 20);
+        ctx.fillRect(mushroom.x + 5, mushroom.y + 20, 20, 10);
     }
     System.objects.push(mushroom);
 }
