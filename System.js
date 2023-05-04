@@ -53,3 +53,7 @@ function telecharger(nom, texte) {
     element.click()
     document.body.removeChild(element)
 }
+
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
