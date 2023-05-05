@@ -4,7 +4,7 @@ function demarrage() {
     canvas.width = document.body.clientWidth;
     canvas.height = document.body.clientHeight;
     System = {
-        gravity: 0.2,
+        gravity: 0.4,
         character: newCharacter(),
         camera: {
             x: 0,
@@ -22,7 +22,6 @@ function demarrage() {
     }
     level_1();
     draw();
-    System.animation = setInterval(draw, 10);
     document.addEventListener("keyup", keyUpHandler, false);
     document.addEventListener("keydown", keyDownHandler, false);
 }
@@ -37,6 +36,8 @@ function drawCanvas () {
 }
 
 function draw() {
+    System.animation = window.requestAnimationFrame(draw);
+
     moveCharacter();
     for (let n = 0; n < System.entities.length; n++) {
         moveEntity(System.entities[n]);
@@ -52,7 +53,7 @@ function draw() {
     }
     
     if (System.character.immune > 0) {
-        if (System.character.immune%2 == 0) {
+        if (Math.floor(Date.now() / System.character.immune) % 2) {
             drawCharacter();
         }
         System.character.immune--;
@@ -91,15 +92,15 @@ function drawScore() {
 }
 
 async function finishLevel () {
-    clearInterval(System.animation);
+    cancelAnimationFrame(System.animation);
     await sleep(100);
-    console.log("test");
     const canvas = document.getElementById('canvas');
     if (canvas.getContext) {
         const ctx = canvas.getContext('2d');
 
-        ctx.reset();
-        
+        ctx.clearRect(0, 0, System.level_width, System.level_height);
+        ctx.translate(System.camera.x, System.camera.y);
+
         ctx.fillStyle = System.background_color;
         ctx.fillRect(0, 0, canvas.width, canvas.height);
 

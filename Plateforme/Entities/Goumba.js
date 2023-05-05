@@ -1,6 +1,6 @@
 function newGoumba (x, y) {
     let goumba = newEntity("goumba", x, y, 35, 35);
-    goumba.move_x = -0.5;
+    goumba.move_x = -1;
     goumba.collision_x = function (object) {
         if (object.nature == "character") {
             damage();

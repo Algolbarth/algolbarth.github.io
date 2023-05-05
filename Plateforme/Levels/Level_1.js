@@ -6,6 +6,8 @@ function level_1() {
     System.character.y = 1150;
     initCamera(1000);
 
+    newFlag(0, 850);
+
     newGround(0, 1350, 2000, 250);
     newCoinBrick(250, 1200);
     newBrick(350, 1200);

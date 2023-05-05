@@ -62,10 +62,10 @@ function moveCharacter() {
 
     let move_x = 0;
     if (System.character.left) {
-        move_x -= 2;
+        move_x -= 3;
     }
     if (System.character.right) {
-        move_x += 2;
+        move_x += 3;
     }
     System.character.x += move_x;
     for (let n = 0; n < listObject.length; n++) {
@@ -87,7 +87,7 @@ function moveCharacter() {
 
     if (System.character.jumping && System.character.can_jump) {
         System.character.can_jump = false;
-        System.character.move_y = -8.5;
+        System.character.move_y = -12;
     }
     System.character.move_y += System.gravity;
     System.character.y += System.character.move_y;
@@ -123,7 +123,7 @@ function damage() {
             System.character.height = 35;
             System.character.y += 15;
             System.character.type = "little";
-            System.character.immune = 200;
+            System.character.immune = 150;
         }
         else {
             death();
@@ -132,7 +132,7 @@ function damage() {
 }
 
 function death() {
-    clearInterval(System.animation);
+    cancelAnimationFrame(System.animation);
     demarrage();
 }
 
@@ -178,10 +178,10 @@ function fixCamera() {
     const ctx = canvas.getContext('2d');
     let move_x = 0;
     if (System.character.left) {
-        move_x -= 4;
+        move_x -= 3;
     }
     if (System.character.right) {
-        move_x += 4;
+        move_x += 3;
     }
     if ((move_x > 0 && System.character.x + System.character.width / 2 + canvas.width / 2 > System.camera.x + System.camera.width) || (move_x < 0 && System.character.x - System.character.width / 2 - canvas.width / 2 < System.camera.x)) {
         System.camera.x += move_x;
