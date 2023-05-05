@@ -6,8 +6,6 @@ function level_1() {
     System.character.y = 1150;
     initCamera(1000);
 
-    newFlag(0, 850);
-
     newGround(0, 1350, 2000, 250);
     newCoinBrick(250, 1200);
     newBrick(350, 1200);
@@ -141,6 +139,4 @@ function level_1() {
     newCoinBrick(8280, 1200);
     newGoumba(8500, 1260);
     newFlag(8800, 850);
-
-    console.log(System.objects.length + System.entities.length)
 }

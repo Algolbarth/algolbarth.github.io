@@ -26,7 +26,7 @@ function demarrage() {
     document.addEventListener("keydown", keyDownHandler, false);
 }
 
-function drawCanvas () {
+function drawCanvas() {
     initialiser();
     afficher("<canvas id='canvas'></canvas>");
     actualiser();
@@ -51,7 +51,7 @@ function draw() {
     for (let n = 0; n < System.entities.length; n++) {
         drawEntity(System.entities[n]);
     }
-    
+
     if (System.character.immune > 0) {
         if (Math.floor(Date.now() / System.character.immune) % 2) {
             drawCharacter();
@@ -91,7 +91,7 @@ function drawScore() {
     }
 }
 
-async function finishLevel () {
+async function finishLevel() {
     cancelAnimationFrame(System.animation);
     await sleep(100);
     const canvas = document.getElementById('canvas');
@@ -105,12 +105,12 @@ async function finishLevel () {
         ctx.fillRect(0, 0, canvas.width, canvas.height);
 
         ctx.fillStyle = "#FFD700";
-        ctx.fillRect(canvas.width/2-50, canvas.height/2-40, 50, 50);
+        ctx.fillRect(canvas.width / 2 - 50, canvas.height / 2 - 40, 50, 50);
         ctx.fillStyle = "#DAA520";
-        ctx.fillRect(canvas.width/2-30, canvas.height/2-30, 10, 30);
+        ctx.fillRect(canvas.width / 2 - 30, canvas.height / 2 - 30, 10, 30);
 
         ctx.fillStyle = "#000000";
         ctx.font = "50px serif";
-        ctx.fillText(" x " + System.coins + " / " + System.max_coins, canvas.width/2, canvas.height/2);
+        ctx.fillText(" x " + System.coins + " / " + System.max_coins, canvas.width / 2, canvas.height / 2);
     }
 }
