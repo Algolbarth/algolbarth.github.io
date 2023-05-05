@@ -8,13 +8,13 @@ function baseFlag(x, y) {
     baseflag.collision_x = function (object, move_x) {
         if (move_x > 0) {
             object.x = baseflag.x - object.width;
-            if (object.nature == "ennemy") {
+            if (object.nature == "entity") {
                 object.move_x = -move_x;
             }
         }
         else if (move_x < 0) {
             object.x = baseflag.x + baseflag.width;
-            if (object.nature == "ennemy") {
+            if (object.nature == "entity") {
                 object.move_x = -move_x;
             }
         }
