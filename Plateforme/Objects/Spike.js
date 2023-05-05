@@ -3,13 +3,13 @@ function newSpike(x, y) {
     spike.collision_x = function (object, move_x) {
         if (move_x > 0) {
             object.x = spike.x - object.width;
-            if (object.nature == "ennemy") {
+            if (object.nature == "entity") {
                 object.move_x = -move_x;
             }
         }
         else if (move_x < 0) {
             object.x = spike.x + spike.width;
-            if (object.nature == "ennemy") {
+            if (object.nature == "entity") {
                 object.move_x = -move_x;
             }
         }

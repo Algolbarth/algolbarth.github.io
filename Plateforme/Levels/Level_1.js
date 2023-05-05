@@ -36,7 +36,7 @@ function level_1() {
     }
     newGoumba(1450, 1260);
 
-    newGround(1650, 1225, 100, 155);
+    newPipe(1650, 1225, 400);
     newSpike(1850, 1325);
     newSpike(1875, 1325);
     for (let n=0;n<2;n++) {
@@ -62,7 +62,7 @@ function level_1() {
     }
 
     newGround(3150, 1350, 2000, 250);
-    newGround(3300, 1225, 100, 155);
+    newPipe(3300, 1225, 400);
     for (let n=0;n<3;n++) {
         newCoin(3400 + 35*n, 1080 - 20*n);
     }
@@ -86,7 +86,7 @@ function level_1() {
     }
     newGoumba(3400, 1260);
     newGoumba(4360, 1260);
-    newGround(4400, 1225, 100, 155);
+    newPipe(4400, 1225, 400);
     newSpike(4550, 1325);
     newSpike(4575, 1325);
     for (let n=0;n<3;n++) {
@@ -117,7 +117,7 @@ function level_1() {
     newGround(6850, 1350, 1000, 250);
     newSpike(6950, 1325);
     newSpike(6975, 1325);
-    newGround(7150, 1225, 100, 155);
+    newPipe(7150, 1225, 400);
     for (let n=0;n<4;n++) {
         newBrick(7350 + 40*n, 1125);
     }
@@ -140,5 +140,5 @@ function level_1() {
     newGoumba(8500, 1260);
     newFlag(8800, 850);
 
-    console.log(System.objects.length + System.ennemies.length)
+    console.log(System.objects.length + System.entities.length)
 }

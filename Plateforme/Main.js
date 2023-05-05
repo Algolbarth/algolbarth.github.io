@@ -13,7 +13,7 @@ function demarrage() {
             height: canvas.height
         },
         objects: [],
-        ennemies: [],
+        entities: [],
         coins: 0,
         max_coins: 0,
         level_width: 0,
@@ -38,8 +38,8 @@ function drawCanvas () {
 
 function draw() {
     moveCharacter();
-    for (let n = 0; n < System.ennemies.length; n++) {
-        moveEnnemy(System.ennemies[n]);
+    for (let n = 0; n < System.entities.length; n++) {
+        moveEntity(System.entities[n]);
     }
 
     emptyCanvas();
@@ -47,8 +47,8 @@ function draw() {
     for (let n = 0; n < System.objects.length; n++) {
         drawObject(System.objects[n]);
     }
-    for (let n = 0; n < System.ennemies.length; n++) {
-        drawEnnemy(System.ennemies[n]);
+    for (let n = 0; n < System.entities.length; n++) {
+        drawEntity(System.entities[n]);
     }
     
     if (System.character.immune > 0) {
