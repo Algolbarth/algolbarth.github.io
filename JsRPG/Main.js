@@ -17,7 +17,7 @@ function demarrage() {
         ],
         types: ["Créature", "Bâtiment", "Objet", "Action", "Région"],
         familles: [],
-        NOMBRE_CARTE: 570,
+        NOMBRE_CARTE: 571,
         NOMBRE_HISTOIRE: 4,
         NOMBRE_MUSIQUE: 4,
         combat: {
@@ -1230,7 +1230,7 @@ function descendre(camp, zone, slot) {
 }
 
 function soin(carte, montant) {
-    if (carte.vie < carte.vie_max) {
+    if (carte.vie < statistique(carte, "vie_max")) {
         carte.vie += montant;
         if (carte.vie > statistique(carte, "vie_max")) {
             carte.vie = statistique(carte, "vie_max");

@@ -23814,7 +23814,7 @@ function obtenir_carte(carte_id) {
             }
             break;
         case 569:
-            carte.nom = "Minotaure chargeant";
+            carte.nom = "Minotaure de front";
             define_creature(carte);
             carte.familles.push("Minotaure");
             carte.cout[0] = 14;
@@ -23827,7 +23827,7 @@ function obtenir_carte(carte_id) {
             carte.rapidite = true;
             break;
         case 570:
-            carte.nom = "Eventreur de muraille";
+            carte.nom = "Éventreur de muraille";
             define_creature(carte);
             carte.familles.push("Minotaure");
             carte.cout[0] = 22;
@@ -23842,6 +23842,27 @@ function obtenir_carte(carte_id) {
             carte.effet_attaque = function (defenseur) {
                 if (defenseur.type == "Bâtiment" && defenseur.familles.includes("Mur")) {
                     mort(defenseur);
+                }
+            }
+            break;
+        case 571:
+            carte.nom = "Vainqueur de siège";
+            define_creature(carte);
+            carte.familles.push("Minotaure");
+            carte.cout[0] = 22;
+            carte.cout[4] = 21;
+            carte.vente[0] = 11;
+            carte.vente[4] = 10;
+            carte.attaque = 10;
+            carte.vie_max = carte.vie = 10;
+            carte.texte = function () {
+                return "Quand un Bâtiment meurt : Se donne 1 attaque et 1 vie.";
+            }
+            carte.effet_mort_autre = function (carte_mort) {
+                if (carte_mort.type == "Bâtiment") {
+                    carte.attaque++;
+                    carte.vie++;
+                    carte.vie_max++;
                 }
             }
             break;
