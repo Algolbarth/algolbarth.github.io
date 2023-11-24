@@ -1,4 +1,4 @@
-# algolbarth.github.io
+# Algolbarth website
 
 My personnal website for visualise some personnal projects.
 
