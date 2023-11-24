@@ -1,0 +1,19 @@
+.main.svelte-1k6v0ui{width:100%;height:25vh;border:solid;padding:1%;box-shadow:10px 10px rgb(0 0 0 / 0.7);transform:translate(0, 0);transition:box-shadow transform 0.2s;background:#6CB4EE}.main.svelte-1k6v0ui:hover{box-shadow:none;transform:translate(10px, 10px);transition:box-shadow transform 0.2s;box-shadow:0 0 black}a.svelte-1k6v0ui{color:black;text-decoration:none;transform:translate(0, 0);transition:transform 0.2s}.content.svelte-1k6v0ui{width:100%;height:100%}.title.svelte-1k6v0ui{font-size:large}hr.svelte-1k6v0ui{color:#002D62}
+#html.svelte-17rw23v{width:100%;height:100%;overflow:auto;position:fixed;top:0;left:0;font-family:Verdana, Geneva, Tahoma, sans-serif;font-weight:bold;--sz:10px;--c0:#7CBFE8;--c1:#7CB9E8;--c2:#7CB9E8;--c3:#7CB9E8;--ts:50%/ calc(var(--sz) * 12.8) calc(var(--sz) * 22);background:conic-gradient(from 120deg at 50% 86.5%, var(--c1) 0 120deg, #fff0 0 360deg) var(--ts),
+        conic-gradient(from 120deg at 50% 86.5%, var(--c1) 0 120deg, #fff0 0 360deg) var(--ts),
+        /*bottom dark*/
+        conic-gradient(from 120deg at 50% 74%, var(--c0) 0 120deg, #fff0 0 360deg) var(--ts),
+        /*right*/
+        conic-gradient(from 60deg at 60% 50%, var(--c1) 0 60deg, var(--c2) 0 120deg, #fff0 0 360deg) var(--ts),
+        /*left*/
+        conic-gradient(from 180deg at 40% 50%, var(--c3) 0 60deg, var(--c1) 0 120deg, #fff0 0 360deg) var(--ts),
+        /*top dark*/
+        conic-gradient(from 0deg at 90% 35%, var(--c0) 0 90deg, #fff0 0 360deg) var(--ts),
+        conic-gradient(from -90deg at 10% 35%, var(--c0) 0 90deg, #fff0 0 360deg) var(--ts),
+        conic-gradient(from 0deg at 90% 35%, var(--c0) 0 90deg, #fff0 0 360deg) var(--ts),
+        conic-gradient(from -90deg at 10% 35%, var(--c0) 0 90deg, #fff0 0 360deg) var(--ts),
+        /*top*/
+        conic-gradient(from -60deg at 50% 13.5%, var(--c1) 0 120deg, #fff0 0 360deg) var(--ts),
+        conic-gradient(from -60deg at 50% 13.5%, var(--c1) 0 120deg, #fff0 0 360deg) var(--ts),
+		conic-gradient(from -60deg at 50% 41%, var(--c2) 0 60deg, var(--c3) 0 120deg, #fff0 0 360deg) var(--ts),
+		var(--c0)}#body.svelte-17rw23v{padding:1%}.container.svelte-17rw23v{display:grid;grid-template-columns:1fr 1fr;width:98%;column-gap:5vw;row-gap:5vh}
