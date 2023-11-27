@@ -1,0 +1,212 @@
+html {
+    height: 99%;
+    width: 100%;
+    overflow: hidden;
+    word-wrap: break-word;
+}
+
+body {
+    height: 99%;
+    width: 100%;
+    overflow: auto;
+    padding-right: 15px;
+    font-size: 120%;
+    color: white;
+    background: rgb(0, 0, 34);
+}
+
+button {
+    font-family: inherit;
+    text-decoration: none;
+    color: rgb(255, 255, 255);
+    background: none;
+    border: none;
+    font-size: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+input {
+    font-size: 100%;
+}
+
+.flex {
+    display: flex;
+}
+
+.progress {
+    display: flex;
+    background: grey;
+    width: 10%;
+    border: solid;
+    border-color: rgb(15, 15, 15);
+    border-width: 2px;
+}
+
+.bar {
+    background: rgb(21, 255, 0);
+}
+
+.result {
+    width: 50em;
+    height: 10em;
+    border: solid;
+    border-color: white;
+    border-radius: 5px;
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.bouton {
+    width: 25em;
+    height: 3em;
+    border: solid;
+    border-color: white;
+    border-radius: 5px;
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.bouton:hover {
+    width: 27em;
+    background: rgb(8, 8, 112);
+    border-color: grey;
+}
+
+.ecran_titre {
+    font-family: sans-serif;
+    color: red;
+    text-shadow: white 2px 2px, white -2px 2px, white -2px -2px, white 2px -2px;
+    font-size: 400%;
+    position: absolute;
+    right: 50%;
+    top: 50%;
+    transform: translate(50%, -50%);
+}
+
+.ecran_titre:hover {
+    font-size: 500%;
+}
+
+.image {
+    max-height: 15em;
+}
+
+.carte {
+    width: 15em;
+}
+
+.new_carte {
+    width: 20em;
+}
+
+.new_carte:hover {
+    width: 23em;
+}
+
+.titre {
+    font-family: Magneto;
+    font-size: 5em;
+}
+
+@media (max-width: 640px) {
+    * {
+        box-sizing: border-box;
+    }
+
+    /* passer body (et tous les éléments de largeur fixe) en largeur automatique */
+
+    body {
+        width: auto;
+        margin: 0;
+        padding: 0;
+    }
+
+
+
+    /* fixer une largeur maximale de 100% aux éléments potentiellement problématiques */
+
+    img,
+    table,
+    td,
+    blockquote,
+    code,
+    pre,
+    textarea,
+    input,
+    iframe,
+    object,
+    embed,
+    video {
+        max-width: 100%;
+    }
+
+    /* conserver le ratio des images */
+
+    img {
+        height: auto;
+    }
+
+    /* gestion des mots longs */
+
+    textarea,
+    table,
+    td,
+    th,
+    code,
+    pre,
+    samp {
+        -webkit-hyphens: auto;
+        /* césure propre */
+        -moz-hyphens: auto;
+        hyphens: auto;
+        word-wrap: break-word;
+        /* passage à la ligne forcé */
+    }
+
+    code,
+    pre,
+    samp {
+        white-space: pre-wrap;
+        /* passage à la ligne spécifique pour les éléments à châsse fixe */
+    }
+
+    /* Passer à une seule colonne (à appliquer aux éléments multi-colonnes) */
+
+    .element1,
+    .element2 {
+        float: none;
+        width: auto;
+    }
+
+    /* masquer/afficher les éléments  */
+
+    .u-mobile {
+        display: block;
+        display: revert !important;
+        /* affichage des éléments */
+    }
+
+    .u-no-mobile {
+        display: none !important;
+        /* masquage des éléments */
+    }
+}
+
+@media (max-device-width:1000px) and (orientation: landscape) {
+    html {
+        -webkit-text-size-adjust: 100%;
+        -ms-text-size-adjust: 100%;
+    }
+
+    .ecran_titre:hover {
+        font-size: 400%;
+    }
+
+    .bouton:hover {
+        background: none;
+        width: 25em;
+        border-color: white;
+    }
+}
