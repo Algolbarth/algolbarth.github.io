@@ -8,6 +8,7 @@ function level_1() {
 
     newGround(0, 1350, 2000, 250);
     newCoinBrick(250, 1200);
+    newThunder(255, 1170);
     newBrick(350, 1200);
     newMushroom(355, 1170);
     newCoinBrick(390, 1200);

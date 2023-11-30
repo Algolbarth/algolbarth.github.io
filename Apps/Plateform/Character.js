@@ -5,6 +5,7 @@ function newCharacter() {
         y: 0,
         height: 35,
         width: 25,
+        speed: 3,
         jumping: false,
         left: false,
         right: false,
@@ -46,6 +47,18 @@ function drawCharacter() {
                 ctx.fillRect(System.character.x, System.character.y + 45, 10, 5);
                 ctx.fillRect(System.character.x + 15, System.character.y + 45, 10, 5);
                 break;
+            case "speed":
+                ctx.fillStyle = "#DDDD00";
+                ctx.fillRect(System.character.x + 3, System.character.y, 20, 5);
+                ctx.fillRect(System.character.x, System.character.y + 15, 25, 30);
+                ctx.fillStyle = "#FFE4B5";
+                ctx.fillRect(System.character.x + 3, System.character.y + 5, 20, 10);
+                ctx.fillStyle = "#1E90FF";
+                ctx.fillRect(System.character.x + 5, System.character.y + 15, 15, 8);
+                ctx.fillStyle = "#A0522D";
+                ctx.fillRect(System.character.x, System.character.y + 45, 10, 5);
+                ctx.fillRect(System.character.x + 15, System.character.y + 45, 10, 5);
+                break;
         }
     }
 }
@@ -62,10 +75,10 @@ function moveCharacter() {
 
     let move_x = 0;
     if (System.character.left) {
-        move_x -= 3;
+        move_x -= System.character.speed;
     }
     if (System.character.right) {
-        move_x += 3;
+        move_x += System.character.speed;
     }
     System.character.x += move_x;
     for (let n = 0; n < listObject.length; n++) {
@@ -119,9 +132,10 @@ function moveCharacter() {
 
 function damage() {
     if (System.character.immune == 0) {
-        if (System.character.type == "tall") {
+        if (System.character.type != "little") {
             System.character.height = 35;
             System.character.y += 15;
+            System.character.speed = 3;
             System.character.type = "little";
             System.character.immune = 150;
         }
@@ -178,10 +192,10 @@ function fixCamera() {
     const ctx = canvas.getContext('2d');
     let move_x = 0;
     if (System.character.left) {
-        move_x -= 3;
+        move_x -= System.character.speed;
     }
     if (System.character.right) {
-        move_x += 3;
+        move_x += System.character.speed;
     }
     if ((move_x > 0 && System.character.x + System.character.width / 2 + canvas.width / 2 > System.camera.x + System.camera.width) || (move_x < 0 && System.character.x - System.character.width / 2 - canvas.width / 2 < System.camera.x)) {
         System.camera.x += move_x;

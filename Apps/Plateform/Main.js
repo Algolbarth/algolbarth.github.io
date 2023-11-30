@@ -21,7 +21,7 @@ function demarrage() {
         background_color: "#000000"
     }
     level_1();
-    draw();
+    startAnimating(60);
     document.addEventListener("keyup", keyUpHandler, false);
     document.addEventListener("keydown", keyDownHandler, false);
 }
@@ -35,33 +35,45 @@ function drawCanvas() {
     canvas.height = document.body.clientHeight;
 }
 
-function draw() {
-    System.animation = window.requestAnimationFrame(draw);
+function startAnimating(fps) {
+    fpsInterval = 1000 / fps;
+    then = Date.now();
+    startTime = then;
+    animate();
+}
 
-    moveCharacter();
-    for (let n = 0; n < System.entities.length; n++) {
-        moveEntity(System.entities[n]);
-    }
+function animate() {
+    System.animation = requestAnimationFrame(animate);
+    now = Date.now();
+    elapsed = now - then;
 
-    emptyCanvas();
-    drawScore();
-    for (let n = 0; n < System.objects.length; n++) {
-        drawObject(System.objects[n]);
-    }
-    for (let n = 0; n < System.entities.length; n++) {
-        drawEntity(System.entities[n]);
-    }
+    if (elapsed > fpsInterval) {
+        then = now - (elapsed % fpsInterval);
+        moveCharacter();
+        for (let n = 0; n < System.entities.length; n++) {
+            moveEntity(System.entities[n]);
+        }
 
-    if (System.character.immune > 0) {
-        if (Math.floor(Date.now() / System.character.immune) % 2) {
+        emptyCanvas();
+        drawScore();
+        for (let n = 0; n < System.objects.length; n++) {
+            drawObject(System.objects[n]);
+        }
+        for (let n = 0; n < System.entities.length; n++) {
+            drawEntity(System.entities[n]);
+        }
+
+        if (System.character.immune > 0) {
+            if (Math.floor(Date.now() / System.character.immune) % 2) {
+                drawCharacter();
+            }
+            System.character.immune--;
+        }
+        else {
             drawCharacter();
         }
-        System.character.immune--;
+        fixCamera();
     }
-    else {
-        drawCharacter();
-    }
-    fixCamera();
 }
 
 function emptyCanvas() {
