@@ -1,19 +1,87 @@
-.main.svelte-1k6v0ui{width:100%;height:25vh;border:solid;padding:1%;box-shadow:10px 10px rgb(0 0 0 / 0.7);transform:translate(0, 0);transition:box-shadow transform 0.2s;background:#6CB4EE}.main.svelte-1k6v0ui:hover{box-shadow:none;transform:translate(10px, 10px);transition:box-shadow transform 0.2s;box-shadow:0 0 black}a.svelte-1k6v0ui{color:black;text-decoration:none;transform:translate(0, 0);transition:transform 0.2s}.content.svelte-1k6v0ui{width:100%;height:100%}.title.svelte-1k6v0ui{font-size:large}hr.svelte-1k6v0ui{color:#002D62}
-#html.svelte-17rw23v{width:100%;height:100%;overflow:auto;position:fixed;top:0;left:0;font-family:Verdana, Geneva, Tahoma, sans-serif;font-weight:bold;--sz:10px;--c0:#7CBFE8;--c1:#7CB9E8;--c2:#7CB9E8;--c3:#7CB9E8;--ts:50%/ calc(var(--sz) * 12.8) calc(var(--sz) * 22);background:conic-gradient(from 120deg at 50% 86.5%, var(--c1) 0 120deg, #fff0 0 360deg) var(--ts),
-        conic-gradient(from 120deg at 50% 86.5%, var(--c1) 0 120deg, #fff0 0 360deg) var(--ts),
-        /*bottom dark*/
-        conic-gradient(from 120deg at 50% 74%, var(--c0) 0 120deg, #fff0 0 360deg) var(--ts),
-        /*right*/
-        conic-gradient(from 60deg at 60% 50%, var(--c1) 0 60deg, var(--c2) 0 120deg, #fff0 0 360deg) var(--ts),
-        /*left*/
-        conic-gradient(from 180deg at 40% 50%, var(--c3) 0 60deg, var(--c1) 0 120deg, #fff0 0 360deg) var(--ts),
-        /*top dark*/
-        conic-gradient(from 0deg at 90% 35%, var(--c0) 0 90deg, #fff0 0 360deg) var(--ts),
-        conic-gradient(from -90deg at 10% 35%, var(--c0) 0 90deg, #fff0 0 360deg) var(--ts),
-        conic-gradient(from 0deg at 90% 35%, var(--c0) 0 90deg, #fff0 0 360deg) var(--ts),
-        conic-gradient(from -90deg at 10% 35%, var(--c0) 0 90deg, #fff0 0 360deg) var(--ts),
-        /*top*/
-        conic-gradient(from -60deg at 50% 13.5%, var(--c1) 0 120deg, #fff0 0 360deg) var(--ts),
-        conic-gradient(from -60deg at 50% 13.5%, var(--c1) 0 120deg, #fff0 0 360deg) var(--ts),
-		conic-gradient(from -60deg at 50% 41%, var(--c2) 0 60deg, var(--c3) 0 120deg, #fff0 0 360deg) var(--ts),
-		var(--c0)}#body.svelte-17rw23v{padding:1%}.container.svelte-17rw23v{display:grid;grid-template-columns:1fr 1fr;width:98%;column-gap:5vw;row-gap:5vh}
+#body.svelte-1rjdabl{position:relative;width:100%;height:100%}.container.svelte-1rjdabl{display:grid;grid-template-columns:repeat(2, 1fr)}button.close.svelte-1rjdabl{border:solid;color:white;background:red;width:3vw;height:3vw}button.close.svelte-1rjdabl:hover{background:darkred}#footer.svelte-1rjdabl{width:100%;position:absolute;bottom:0px}img.svelte-1rjdabl{width:5vw;padding-left:1vw;padding-right:1vw;cursor:pointer;filter:drop-shadow(0px 5px 10px rgba(0, 0, 0, 0.3));transition:all 0.3s ease-in-out}img.svelte-1rjdabl:hover{transform:translateY(-5px);filter:drop-shadow(0px 10px 20px rgba(0, 0, 0, 0.3));transition:all 0.3s ease-in-out}button.github.svelte-1rjdabl{border:solid;padding:0.2em;color:white;border-color:black;background:black}button.github.svelte-1rjdabl:focus{background:black}button.web.svelte-1rjdabl{border:solid;padding:0.2em}
+button.main.svelte-g52a64{border:solid;width:100%}.list.svelte-g52a64{position:relative;border:solid;background:rgba(0, 0, 100, 0.8);padding:0}button.svelte-g52a64{text-align:center;margin:-1px;padding:3%;border:none;background:transparent;color:white;width:100%}button.svelte-g52a64:hover{background:transparent}button.svelte-g52a64:focus{background:transparent}
+.main.svelte-1003fko{width:100%;height:25vh;color:black;border:solid;padding:1%;box-shadow:10px 10px rgb(0 0 0 / 0.7);transform:translate(0, 0);transition:all 0.5s ease-in-out;background:#6cb4ee;overflow:hidden}.main.svelte-1003fko:hover{box-shadow:none;transform:translate(10px, 10px);transition:all 0.5s ease-in-out;box-shadow:0 0 black}button.svelte-1003fko{text-align:left;width:100%;height:100%;padding:1%;color:black}.content.svelte-1003fko{width:100%;height:100%}#container.svelte-1003fko{display:grid;grid-template-columns:repeat(2, 1fr)}.name.svelte-1003fko{font-size:large}.version.svelte-1003fko{text-align:right}hr.svelte-1003fko{color:#002d62}.text.svelte-1003fko{width:100%;text-justify:auto}
+#body.svelte-9b9tm2{overflow-y:scroll;scrollbar-color:transparent transparent;height:100%;padding-bottom:10px}#header.svelte-9b9tm2{text-align:center;position:fixed;left:0;top:10vh;width:100%;height:5vh;z-index:1;padding:1%;color:white;background:rgba(0, 0, 100, 0.8);display:grid;grid-template-columns:repeat(4, 1fr)}#drop.svelte-9b9tm2{display:flex}.label.svelte-9b9tm2{transform:translate(0, 25%);padding-right:1vw}#container.svelte-9b9tm2{display:grid;grid-template-columns:1fr 1fr;width:98%;column-gap:5vw;row-gap:5vh}#view.svelte-9b9tm2{border:solid;background:#6cb4ee;height:75vh;padding:1%}
+button.account.svelte-1umu64v{color:white;width:10em;padding:1%;transition:all 1s ease-in-out}button.account.svelte-1umu64v:hover{width:20em;transition:all 0.5s ease-in-out}button.github.svelte-1umu64v{background:black}button.github.svelte-1umu64v:focus{background:black}button.linkedin.svelte-1umu64v{background:#0a66c2}button.linkedin.svelte-1umu64v:focus{background:#0a66c2}.container.svelte-1umu64v{position:relative;display:flex;width:min-content;align-items:center}.container.svelte-1umu64v::before{content:"";position:absolute;left:0;bottom:0;width:0;height:2px;background-color:black;transition:0.5s ease}.container.svelte-1umu64v:hover::before{width:100%}img.icon.svelte-1umu64v{height:4vh}a.svelte-1umu64v{color:black;text-decoration:none}
+.header.svelte-17l0p4d{width:100%;height:10vh}#taskbar.svelte-17l0p4d{background-color:rgba(0, 0, 150);position:fixed;z-index:1;color:white;display:grid;text-align:center;grid-template-columns:repeat(4, 1fr)}button.menu.svelte-17l0p4d{color:white;border:none;position:relative;top:50%;padding:3%;transform:translate(0, -50%)}button.menu.svelte-17l0p4d::before{content:"";position:absolute;left:0;bottom:0;width:0;height:2px;background-color:white;transition:0.5s ease}button.menu.svelte-17l0p4d:hover::before{width:100%}button.menu.svelte-17l0p4d::after{content:"";position:absolute;right:0;top:0;width:0;height:2px;background-color:white;transition:0.5s ease}button.menu.svelte-17l0p4d:hover::after{width:100%}
+#html.svelte-1bre7g6{width:100vw;height:100vh;position:fixed;top:0;left:0;font-family:Verdana, Geneva, Tahoma, sans-serif;color:black;font-weight:bold;--sz:10px;--c0:#7cbfe8;--c1:#7cb9e8;--c2:#7cb9e8;--c3:#7cb9e8;--ts:50% / calc(var(--sz) * 12.8) calc(var(--sz) * 22);background:conic-gradient(
+                    from 120deg at 50% 86.5%,
+                    var(--c1) 0 120deg,
+                    #fff0 0 360deg
+                )
+                var(--ts),
+            conic-gradient(
+                    from 120deg at 50% 86.5%,
+                    var(--c1) 0 120deg,
+                    #fff0 0 360deg
+                )
+                var(--ts),
+            /*bottom dark*/
+                conic-gradient(
+                    from 120deg at 50% 74%,
+                    var(--c0) 0 120deg,
+                    #fff0 0 360deg
+                )
+                var(--ts),
+            /*right*/
+                conic-gradient(
+                    from 60deg at 60% 50%,
+                    var(--c1) 0 60deg,
+                    var(--c2) 0 120deg,
+                    #fff0 0 360deg
+                )
+                var(--ts),
+            /*left*/
+                conic-gradient(
+                    from 180deg at 40% 50%,
+                    var(--c3) 0 60deg,
+                    var(--c1) 0 120deg,
+                    #fff0 0 360deg
+                )
+                var(--ts),
+            /*top dark*/
+                conic-gradient(
+                    from 0deg at 90% 35%,
+                    var(--c0) 0 90deg,
+                    #fff0 0 360deg
+                )
+                var(--ts),
+            conic-gradient(
+                    from -90deg at 10% 35%,
+                    var(--c0) 0 90deg,
+                    #fff0 0 360deg
+                )
+                var(--ts),
+            conic-gradient(
+                    from 0deg at 90% 35%,
+                    var(--c0) 0 90deg,
+                    #fff0 0 360deg
+                )
+                var(--ts),
+            conic-gradient(
+                    from -90deg at 10% 35%,
+                    var(--c0) 0 90deg,
+                    #fff0 0 360deg
+                )
+                var(--ts),
+            /*top*/
+                conic-gradient(
+                    from -60deg at 50% 13.5%,
+                    var(--c1) 0 120deg,
+                    #fff0 0 360deg
+                )
+                var(--ts),
+            conic-gradient(
+                    from -60deg at 50% 13.5%,
+                    var(--c1) 0 120deg,
+                    #fff0 0 360deg
+                )
+                var(--ts),
+            conic-gradient(
+                    from -60deg at 50% 41%,
+                    var(--c2) 0 60deg,
+                    var(--c3) 0 120deg,
+                    #fff0 0 360deg
+                )
+                var(--ts),
+            var(--c0)}#body.svelte-1bre7g6{height:90vh;margin:1%}button{background-color:transparent;border:none;font-weight:bold;cursor:pointer;color:black;padding:0;margin:0}button.transparent:focus{background:transparent}
