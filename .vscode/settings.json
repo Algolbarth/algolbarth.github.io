@@ -1,7 +1,0 @@
-{
-  "svelte.plugin.svelte.format.config.printWidth": 800,
-  "typescript.format.semicolons": "insert",
-  "javascript.format.semicolons": "insert",
-  "editor.formatOnSave": true,
-  "svelte.enable-ts-plugin": true
-}
